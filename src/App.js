@@ -1,24 +1,35 @@
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
 import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// Helpes
+import history from './helpers/history';
+//components
+import Main from './components/main/main';
+import Home from './components/home/home';
+import NoPage from './components/404/nopage';
+
+function ScrollToTop() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  return null;
+}
 
 function App() {
+  window.scrollTo(0, 0)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ScrollToTop />
+      <Router history={history}>
+        <Routes>
+          <Route path='/' element={<Main />}>
+            <Route index element={<Home />} />
+            <Route exact path='/home' element={<Home />} />
+            <Route path="*" element={<NoPage />} />
+          </Route>
+        </Routes>
+      </Router>
+    </>
   );
 }
 
