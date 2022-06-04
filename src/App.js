@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
+import './App.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // Helpes
 import history from './helpers/history';
 //components
-import Main from './Components/Layout/Main/Main';
-import Home from './Components/Views/Home/Home';
-import PageNotFound from './Components/Layout/Errors/404/PageNotFound';
+import Main from './Components/Layout/Main';
+import Home from './Components/Views/Home';
+import PageNotFound from './Components/Layout/Errors/404';
 
 function ScrollToTop() {
   useEffect(() => {

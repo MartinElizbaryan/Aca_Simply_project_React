@@ -1,8 +1,8 @@
 import {Outlet} from "react-router-dom";
 // Helpers
 // Components
-import Header from '../Header/Header'
-import Footer from '../Footer/Footer'
+import Header from '../Header'
+import Footer from '../Footer'
 
 export default function Main({
     component: Component,
@@ -11,9 +11,9 @@ export default function Main({
     return (
         <>
             <Header/>
-            <div className={`content-wrapper`}>
+            <main className={`content-wrapper`}>
                 <Outlet/>
-            </div>
+            </main>
             <Footer/>
         </>
     );
