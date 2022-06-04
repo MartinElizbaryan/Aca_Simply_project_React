@@ -1,9 +1,8 @@
-import React from 'react';
 import {Outlet} from "react-router-dom";
 // Helpers
 // Components
-import Header from '../header/header'
-import Footer from '../footer/footer'
+import Header from '../Header/Header'
+import Footer from '../Footer/Footer'
 
 export default function Main({
     component: Component,
