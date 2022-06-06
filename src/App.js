@@ -7,6 +7,8 @@ import history from './helpers/history';
 import Main from './Components/Layout/Main';
 import Home from './Components/Views/Home';
 import PageNotFound from './Components/Layout/Errors/404';
+import SignUp from './Components/Views/SignUp';
+import Profile from './Components/Views/Profile';
 
 function ScrollToTop() {
   useEffect(() => {
@@ -25,6 +27,8 @@ function App() {
           <Route path='/' element={<Main />}>
             <Route index element={<Home />} />
             <Route exact path='/home' element={<Home />} />
+            <Route exact path='/sign-up' element={<SignUp />} />
+            <Route exact path='/profile' element={<Profile />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
