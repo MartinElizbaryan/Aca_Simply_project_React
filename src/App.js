@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // Helpes
 import history from './helpers/history';
 //components
-import Main from './Components/Layout/Main';
-import Home from './Components/Views/Home';
-import PageNotFound from './Components/Layout/Errors/404';
+import Main from './Components/Main/Main';
+import Home from './Components/Home/Home';
+import PageNotFound from './Components/Errors/PageNotFound';
 
 function ScrollToTop() {
   useEffect(() => {
