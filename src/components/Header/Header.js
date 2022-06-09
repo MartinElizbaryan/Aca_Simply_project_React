@@ -1,114 +1,69 @@
 import React, { useState } from "react";
-import { Button, Box, Typography } from "@mui/material";
-import logo from "../../Assets/logo.png";
-import avatar from "../../Assets/avatar.jpeg";
-import styles from "./styles.js";
-import AppColors from "../../Constants/ConstantColors/AppColors.js";
-import { Link } from "react-router-dom";
-
+// import { Button, Box, Typography } from "@mui/material";
+import { NavToolbar, Logo, NavLink } from './utilits'
+import { AppBar, Stack, Menu, MenuItem, IconButton, Typography, ListItemIcon } from '@mui/material'
+import { Link as RouterLink } from 'react-router-dom'
+import { AccountCircle, Settings, Logout } from '@mui/icons-material';
+import { navlist } from './constants'
 export default function Header() {
-  const [logedIn, setLogedIn] = useState(true);
-
-  function refreshPage() {
-    window.location.reload(false);
-  }
+  const [auth, setAuth] = useState(true);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
   return (
-    <Box style={styles.center2}>
-      <Button
-        onClick={refreshPage}
-        component={Link}
-        to=""
-        style={{ padding: 0 }}>
-        <img
-          variant="rounded"
-          src={logo}
-          alt="Lost and Found"
-          style={{ width: 90 }}
-        />
-      </Button>
-      <Box>
-        <Button component={Link} to="/home" style={{ color: AppColors.white }}>
-          Home
-        </Button>
-        <Button component={Link} to="/lost" style={styles.whiteColor}>
-          Lost
-        </Button>
-        <Button component={Link} to="/found" style={styles.whiteColor}>
-          Found
-        </Button>
-        <Button component={Link} to="/support" style={styles.whiteColor}>
-          Support
-        </Button>
-      </Box>
+    <AppBar position="stick">
+      <NavToolbar>
+        <Logo />
+        <Stack direction="row" spacing={2}>
+          {navlist?.map((item, index) => {
+            return (
+              <NavLink to={item.route} component={RouterLink} underline="none" color="" key={index}>{item.name}</NavLink>
+            )
+          })}
+        </Stack>
+        {auth && (
+          <>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit"
+            >
+              <AccountCircle />
+              <Typography ml={2}>Ashot</Typography>
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem>
+                <ListItemIcon>
+                  <Settings fontSize="small" />
+                </ListItemIcon>
+                Settings
+              </MenuItem>
+              <MenuItem>
+                <ListItemIcon>
+                  <Logout fontSize="small" />
+                </ListItemIcon>
+                Logout
+              </MenuItem>
+            </Menu>
+          </>
+        )}
 
-      {logedIn ? (
-        <Box style = {{display: "flex", justifyContent: "center", flexDirection: "row"}}>
-          <Button
-            component={Link}
-            to="/signup"
-            style={{
-              color: AppColors.white,
-              height: 36,
-              textTransform: "none",
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              marginRight: 10,
-              border: '1px solid'
-            }}>
-              <Typography style = {{fontSize: 23, marginRight: 10, lineHeight: "36px", marginBottom: 2}}>+</Typography>
-              <Typography>Add Post</Typography>
-              
-            </Button>
-
-          <Button
-            component={Link}
-            to="/signup"
-            style={{
-              color: AppColors.white,
-              backgroundColor: AppColors.blue,
-              height: 36,
-              textTransform: "none",
-            }}>
-            <Box
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-              }}>
-              <Typography>Ani A</Typography>
-              <Box
-                style={{
-                  marginLeft: 10,
-                  display: "flex",
-                  justifyContent: "center",
-                }}>
-                <img
-                  variant="rounded"
-                  src={avatar}
-                  alt="Avatar"
-                  style={styles.avatar}
-                />
-              </Box>
-            </Box>
-          </Button>
-        </Box>
-      ) : (
-        <Button
-          component={Link}
-          to="/signup"
-          style={{
-            color: AppColors.white,
-            backgroundColor: AppColors.blue,
-            textTransform: "none",
-          }}>
-          Sign Up
-        </Button>
-      )}
-    </Box>
+      </NavToolbar>
+    </AppBar>
   );
 }
 

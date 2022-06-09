@@ -1,6 +1,6 @@
 import { Button, Box, Typography, TextField } from "@mui/material";
 import darkerBackground from "../../../Assets/darkerBackground.jpg";
-import styles from "../styles.js";
+import styles from "../../Header/utilits.js";
 import AppColors from "../../../Constants/ConstantColors/AppColors.js";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,7 +9,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 export default function InfoFindPost() {
   return (
     <Box>
-      <Box
+      {/* <Box
         style={{
           backgroundImage: `url(${darkerBackground})`,
           backgroundSize: "cover",
@@ -65,7 +65,7 @@ export default function InfoFindPost() {
             </Box>
           </Box>
         </Box>
-      </Box>
+      </Box> */}
     </Box>
   );
 }
