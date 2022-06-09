@@ -7,6 +7,7 @@ import history from './helpers/history';
 import Main from './components/Main/Main';
 import Home from './components/Home/Home';
 import Posts from './components/Posts/Posts';
+import PostsCreate from './components/PostsCreate/PostsCreate';
 import PageNotFound from './components/Errors/PageNotFound/PageNotFound';
 
 function ScrollToTop() {
@@ -27,6 +28,7 @@ function App() {
             <Route index element={<Home />} />
             <Route exact path='/home' element={<Home />} />
             <Route exact path='/posts' element={<Posts />} />
+            <Route exact path='/posts/create' element={<PostsCreate />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
