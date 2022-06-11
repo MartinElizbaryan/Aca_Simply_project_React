@@ -14,7 +14,7 @@ export default function Main({
             <main className={`content-wrapper`}>
                 <Outlet/>
             </main>
-            <Footer/>
+            {/*<Footer/>*/}
         </>
     );
 }
