@@ -6,7 +6,7 @@ export default function SignUp() {
   const [password, setPassword] = useState("")
   const [emailReg, setEmailReg] = useState("")
   const [passwordReg, setPasswordReg] = useState("")
-  const [confirmedPassword, setConfirmedPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
   const [name, setName] = useState("")
   const [surname, setSurname] = useState("")
 
@@ -14,7 +14,7 @@ export default function SignUp() {
     const res = await axios.post("http://localhost:5000/api/v1/auth/sign-up", {
       email: emailReg,
       password: passwordReg,
-      confirmedPassword,
+      confirmPassword,
       name,
       surname,
     })
@@ -40,10 +40,10 @@ export default function SignUp() {
         <input type="text" onChange={(e) => setEmailReg(e.target.value)} />
         <label>Password</label>
         <input type="text" onChange={(e) => setPasswordReg(e.target.value)} />
-        <label>Cofirm Password</label>
+        <label>Confirm Password</label>
         <input
           type="text"
-          onChange={(e) => setConfirmedPassword(e.target.value)}
+          onChange={(e) => setConfirmPassword(e.target.value)}
         />
         <button onClick={signUp}>Sign up</button>
       </div>
