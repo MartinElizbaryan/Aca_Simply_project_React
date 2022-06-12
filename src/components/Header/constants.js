@@ -1,6 +1,6 @@
 export const navlist = [
     { name: 'Home', route: '/' },
-    { name: 'Posts', route: '/posts' },
-    { name: 'Policy', route: '/policy' },
-    { name: 'Page', route: '/page' },
+    { name: 'Lost', route: '/lost' },
+    { name: 'Found', route: '/found' },
+    { name: 'Concact', route: '/contact' },
 ]

@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-// import { Button, Box, Typography } from "@mui/material";
-import { NavToolbar, Logo, NavLink } from './utilits'
+import { NavToolbar } from '../Shared/NavToolBar/NavToolBar'
+import { Logo } from '../Shared/Logo/Logo'
 import { AppBar, Stack, Menu, MenuItem, IconButton, Typography, ListItemIcon } from '@mui/material'
-import { Link as RouterLink } from 'react-router-dom'
-import { AccountCircle, Settings, Logout } from '@mui/icons-material';
+import LogoutIcon from '@mui/icons-material/Logout';
+import PersonIcon from '@mui/icons-material/Person';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 import { navlist } from './constants'
+import AppColors from "../../Constants/AppColors.js";
+import { CustomLink as Link } from '../Shared/CustomLink/CustomLink'
 export default function Header() {
+  // eslint-disable-next-line
   const [auth, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClose = () => {
@@ -16,13 +20,18 @@ export default function Header() {
   };
 
   return (
-    <AppBar position="stick">
+    <AppBar position="sticky" >
       <NavToolbar>
         <Logo />
-        <Stack direction="row" spacing={2}>
+        <Stack direction="row" spacing={2} sx={{
+          display: {
+            xs: 'none', sm: 'block'
+          }
+        }
+        }>
           {navlist?.map((item, index) => {
             return (
-              <NavLink to={item.route} component={RouterLink} underline="none" color="" key={index}>{item.name}</NavLink>
+              <Link url={item.route} color={AppColors.white} key={index} title={item.name} />
             )
           })}
         </Stack>
@@ -48,13 +57,13 @@ export default function Header() {
             >
               <MenuItem>
                 <ListItemIcon>
-                  <Settings fontSize="small" />
+                  <PersonIcon fontSize="small" />
                 </ListItemIcon>
-                Settings
+                My Profile
               </MenuItem>
               <MenuItem>
                 <ListItemIcon>
-                  <Logout fontSize="small" />
+                  <LogoutIcon fontSize="small" />
                 </ListItemIcon>
                 Logout
               </MenuItem>
@@ -63,7 +72,7 @@ export default function Header() {
         )}
 
       </NavToolbar>
-    </AppBar>
+    </AppBar >
   );
 }
 

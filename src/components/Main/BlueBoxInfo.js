@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import AppColors from "../../Constants/ConstantColors/AppColors.js";
-import deskBackground from "../../Assets/deskBackground.jpeg"
+import AppColors from "../../Constants/AppColors.js";
+import deskBackground from "../../assets/deskBackground.jpeg"
 
 export default function BlueBoxInfo() {
 

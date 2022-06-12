@@ -1,5 +1,9 @@
 body{
-  margin: 0
+  margin: 0;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+html {
+  font-size: calc(0.75rem + 0.5vw);
 }
 html,body,#root{
   height: 100%;

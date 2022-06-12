@@ -1,11 +1,8 @@
-import InfoFindPost from "./InfoFindPost/InfoFindPost";
-import BlueBoxInfo from "../Main/BlueBoxInfo";
-
+import FindPost from './FindPost/FindPost'
 export default function Home() {
     return (
         <>
-            {/* <InfoFindPost />
-        <BlueBoxInfo /> */}
+            <FindPost />
         </>
     )
 }
