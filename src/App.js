@@ -8,6 +8,7 @@ import Main from './components/Main/Main';
 import Home from './components/Home/Home';
 import Posts from './components/Posts/Posts';
 import PageNotFound from './components/Errors/PageNotFound/PageNotFound';
+import SignIn from './components/SignIn/SignIn';
 
 function ScrollToTop() {
   useEffect(() => {
@@ -27,6 +28,7 @@ function App() {
             <Route index element={<Home />} />
             <Route exact path='/home' element={<Home />} />
             <Route exact path='/posts' element={<Posts />} />
+            <Route exact path='/signin' element={<SignIn />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>

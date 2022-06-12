@@ -6,6 +6,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { navlist } from './constants'
+import { loginNavlist } from './constants'
 import AppColors from "../../Constants/AppColors.js";
 import { CustomLink as Link } from '../Shared/CustomLink/CustomLink'
 export default function Header() {
@@ -59,7 +60,7 @@ export default function Header() {
                 <ListItemIcon>
                   <PersonIcon fontSize="small" />
                 </ListItemIcon>
-                My Profile
+                <Link url={loginNavlist[0].route} color={AppColors.black} key={0} title={"My Profile"} />
               </MenuItem>
               <MenuItem>
                 <ListItemIcon>

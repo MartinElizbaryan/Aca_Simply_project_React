@@ -4,3 +4,8 @@ export const navlist = [
     { name: 'Found', route: '/found' },
     { name: 'Concact', route: '/contact' },
 ]
+
+export const loginNavlist = [
+    { name: 'SignIn', route: '/signin' },
+    { name: 'SingUp', route: '/signup' },
+]
