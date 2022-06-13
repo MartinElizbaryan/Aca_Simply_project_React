@@ -1,4 +1,5 @@
-import FindPost from './FindPost/FindPost'
+import FindPost from '../FindPost/FindPost'
+
 export default function Home() {
     return (
         <>

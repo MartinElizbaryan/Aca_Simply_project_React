@@ -4,4 +4,4 @@ const useStyles = makeStyles({
         maxWidth: '120px'
     }
 });
-export default useStyles  
+export default useStyles

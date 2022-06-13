@@ -6,7 +6,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { navlist } from './constants'
-import AppColors from "../../Constants/AppColors.js";
+import { colors } from "../../constants/styles.js";
 import { CustomLink as Link } from '../Shared/CustomLink/CustomLink'
 export default function Header() {
   // eslint-disable-next-line
@@ -31,7 +31,7 @@ export default function Header() {
         }>
           {navlist?.map((item, index) => {
             return (
-              <Link url={item.route} color={AppColors.white} key={index} title={item.name} />
+              <Link url={item.route} color={colors.white} key={index} title={item.name} />
             )
           })}
         </Stack>

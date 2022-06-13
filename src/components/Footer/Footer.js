@@ -9,23 +9,23 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 
-//Styleing
-import AppColors from '../../Constants/AppColors'
+//Styleings
+import { colors } from '../../constants/styles'
 export default function Footer() {
     return (
         <footer>
             <Container maxWidth={'xl'} sx={{
-                backgroundColor: AppColors.blue,
+                backgroundColor: colors.blue,
                 padding: '10px 0'
             }}>
                 <Stack direction="row" spacing={1} justifyContent="center">
-                    <CustomLink url="/" color={AppColors.green} title={<FacebookIcon fontSize="large" color="inherit" />} />
-                    <CustomLink url="/" color={AppColors.green} title={<LinkedInIcon fontSize="large" color="inherit" />} />
-                    <CustomLink url="/" color={AppColors.green} title={<InstagramIcon fontSize="large" color="inherit" />} />
-                    <CustomLink url="/" color={AppColors.green} title={<TwitterIcon fontSize="large" color="inherit" />} />
+                    <CustomLink url="/" color={colors.green} title={<FacebookIcon fontSize="large" color="inherit" />} />
+                    <CustomLink url="/" color={colors.green} title={<LinkedInIcon fontSize="large" color="inherit" />} />
+                    <CustomLink url="/" color={colors.green} title={<InstagramIcon fontSize="large" color="inherit" />} />
+                    <CustomLink url="/" color={colors.green} title={<TwitterIcon fontSize="large" color="inherit" />} />
                 </Stack>
                 <Stack direction="row" spacing={1} justifyContent="center">
-                    <Typography variant="p" color={AppColors.white}>Designed and Developed by Kargin Team</Typography>
+                    <Typography variant="p" color={colors.white}>Designed and Developed by Kargin Team</Typography>
                 </Stack>
             </Container>
         </footer >
