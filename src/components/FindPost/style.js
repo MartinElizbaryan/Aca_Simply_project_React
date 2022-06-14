@@ -1,5 +1,5 @@
-import { makeStyles } from '@mui/styles';
-const useStyles = makeStyles({
+import { createUseStyles } from 'react-jss'
+const useStyles = createUseStyles({
     homeContainer:
     {
         display: "flex",
