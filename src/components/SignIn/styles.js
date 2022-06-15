@@ -35,14 +35,15 @@ const useStyles = createUseStyles({
     spacing: {
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        alignItems: "center",
     },
     button: {
-        textAlign: "center",
-        color: "#0e141e",
         width: "50%",
         height: 50,
-        textTransform: "none"
+        display: "flex",
+        alignItems: "center",
+        textAlign: "center"
     },
     centeral: {
         display: "flex",

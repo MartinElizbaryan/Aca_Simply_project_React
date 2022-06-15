@@ -3,7 +3,8 @@ import { Typography, Box, Checkbox, FormControlLabel, Button, Link } from '@mui/
 import { Logo } from '../../components/Shared/Logo/Logo';
 import { colors } from "../../constants/styles";
 import { InputField } from "../Shared/InputField/InputField";
-import useStyles from './styles'
+import useStyles from './styles';
+import { CustomLink } from "../Shared/CustomLink/CustomLink";
 
 
 export default function SignIn() {
@@ -18,8 +19,12 @@ export default function SignIn() {
             <Typography className={classes.text1}>Post what you've lost and find it. </Typography>
             <Box className={classes.totalBox}>
                 <Box className={classes.spacing}>
-                    <Button className={classes.button}>Sign up</Button>
-                    <Button className={classes.button}>Log in</Button>
+                    <Box className={classes.button}>
+                    <CustomLink url="/signup" title="Sign Up" color="black" />
+                    </Box>
+                    <Box className={classes.button}>
+                    <CustomLink url="/signin" title="Sign In" color="black"/>
+                    </Box>
                 </Box>
                 <Box className={classes.centeral}>
                     <InputField account={true} placeholder={"Your email"} />
