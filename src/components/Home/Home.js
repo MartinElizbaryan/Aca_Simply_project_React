@@ -1,5 +1,5 @@
 import FindPost from '../FindPost/FindPost'
-import PostsList from '../Posts/PostsList'
+import PostsList from '../Posts/PostsList/PostsList'
 import postImg from '../../assets/deskBackground.jpeg'
 import Box from '@mui/material/Box'
 import Counter from '../Counter/Counter'

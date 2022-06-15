@@ -3,14 +3,14 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import { CustomLink } from '../Shared/CustomLink/CustomLink';
+import { CustomLink } from '../../Shared/CustomLink/CustomLink';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { GreenButton } from '../../Shared/Buttons/GreenButton/GreenButton'
 
-import { GreenButton } from '../Shared/Buttons/GreenButton/GreenButton'
 export default function Posts({ authorName, authorSurname, date, image, description }) {
     const avatarInitials = authorName.slice(0, 1) + authorSurname.slice(0, 1);
     return (
@@ -45,7 +45,7 @@ export default function Posts({ authorName, authorSurname, date, image, descript
                 <GreenButton sx={{
                     width: 'auto'
                 }}>
-                    <CustomLink url="/posts" title="See Details" component="button" variant="outlined" color="#fff" />
+                    <CustomLink url="/lost/1" title="See Details" component="button" variant="outlined" color="#fff" />
                 </GreenButton>
             </CardActions>
         </Card>

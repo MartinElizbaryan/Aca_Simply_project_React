@@ -1,4 +1,4 @@
-import PostsList from '../Posts/PostsList'
+import PostsList from '../Posts/PostsList/PostsList'
 import Sidebar from '../Shared/Sidebars/Sidebar/Sidebar'
 import SidebarMobile from '../Shared/Sidebars/SidebarMobile/SidebarMobile'
 import Grid from '@mui/material/Grid'
