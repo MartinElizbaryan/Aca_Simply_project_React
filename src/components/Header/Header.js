@@ -48,6 +48,9 @@ export default function Header() {
               }}>
                 <NavigationMobile />
               </Box>
+              <MenuItem>
+                <Link url="/signin" title="Sign in" color="white" />
+              </MenuItem>
               <IconButton
                 size="large"
                 aria-label="account of current user"
