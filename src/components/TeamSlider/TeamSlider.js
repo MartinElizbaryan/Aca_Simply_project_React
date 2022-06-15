@@ -63,7 +63,7 @@ export default function TeamSlider() {
                                 },
                                 color: '#7d7d7d'
                             }}>
-                                “I Don't like anymore Front-end , but i also like Backend, actualy Node js”
+                                “I hate Front-end , but I also like Back-end, particularly Node JS”
                             </Typography>
                             <Typography variant="h6" component="p" sx={{
                                 textAlign: {

@@ -34,7 +34,7 @@ export default function Footer() {
                     </Grid>
                 </Grid>
                 <Stack direction="row" spacing={1} justifyContent="center">
-                    <Typography variant="p" color={colors.white}>Designed and Developed by Kargin Team</Typography>
+                    <Typography variant="p" color={colors.white}>Designed and Developed by JE & JE</Typography>
                 </Stack>
             </Container>
         </footer >
