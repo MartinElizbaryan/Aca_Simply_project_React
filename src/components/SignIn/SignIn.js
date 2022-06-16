@@ -1,13 +1,17 @@
-import React from "react";
+import {useState} from "react";
 import { Typography, Box, Checkbox, FormControlLabel, Button, Link } from '@mui/material';
-import { Logo } from '../../components/Shared/Logo/Logo';
-import { colors } from "../../constants/styles";
+import { Logo } from '../Shared/Logo/Logo';
 import { InputField } from "../Shared/InputField/InputField";
-import useStyles from './styles';
 import { CustomLink } from "../Shared/CustomLink/CustomLink";
+import { signIn } from "./utils";
+import { colors } from "../../constants/styles";
+import useStyles from './styles';
 
 
 export default function SignIn() {
+
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
     const classes = useStyles();
 
@@ -27,8 +31,8 @@ export default function SignIn() {
                     </Box>
                 </Box>
                 <Box className={classes.centeral}>
-                    <InputField account={true} placeholder={"Your email"} />
-                    <InputField password={true} placeholder={"Your password"} />
+                    <InputField account={true} placeholder={"Your email"} value={email} onChange={(e)=>setEmail(e.target.value)} />
+                    <InputField password={true} placeholder={"Your password"} value={password} onChange={(e)=>setPassword(e.target.value)}/>
                 </Box>
                 <Box className={classes.finalBox}>
                     <FormControlLabel control={<Checkbox />} label="Remember me" style={{ color: colors.dark }} />
@@ -37,7 +41,7 @@ export default function SignIn() {
                     </Link>
                 </Box>
                 <Box className={classes.centeral2}>
-                    <Button variant="contained" color="success">
+                    <Button variant="contained" color="success" onClick={()=>signIn(email, password)}>
                         Log in
                     </Button>
                 </Box>

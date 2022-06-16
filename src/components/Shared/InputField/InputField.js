@@ -4,10 +4,10 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { TextField } from '@mui/material';
 import {colors} from '../../../constants/styles';
 
-export function InputField({ account, password, placeholder }) {
+export function InputField({ account, password, ...props }) {
 
     return (
-        <TextField  id="input-with-icon-textfield" variant="standard" required placeholder={placeholder} fullWidth inputProps={{ style: { fontSize: 16, fontWeight: "200", }, maxLength: 30, }}
+        <TextField {...props} id="input-with-icon-textfield" variant="standard" required fullWidth inputProps={{ style: { fontSize: 16, fontWeight: "200", }, maxLength: 30, }}
             InputProps={{
                 /* disableUnderline: true, */
                 startAdornment: (

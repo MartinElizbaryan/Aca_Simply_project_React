@@ -13,7 +13,7 @@ import Cabinet from './components/Cabinet/Cabinet'
 import ActivePosts from './components/ActivePosts/ActivePosts'
 import Settings from './components/Profile/Profile'
 import CreatePost from './components/CreatePosts/CreatePost'
-import ChatWindow from './components/Chat/ChatWindow/ChatWindow'
+import Chat from './components/Chat/Chat'
 import PostSingle from './components/Posts/PostSingle/PostSingle'
 import SignIn from './components/SignIn/SignIn'
 
@@ -39,7 +39,7 @@ function App() {
             <Route exact path='/found' element={<Found />} />
             <Route exact path='/found/:id' element={<PostSingle />} />
             <Route exact path='/cabinet' element={<Cabinet />} />
-            <Route exact path='/chat' element={<ChatWindow />} />
+            <Route exact path='/chat/:id' element={<Chat />} />
             <Route exact path='/cabinet/activePosts' element={<ActivePosts />} />
             <Route exact path='/cabinet/profile' element={<Settings />} />
             <Route exact path='/cabinet/createPost' element={<CreatePost />} />
