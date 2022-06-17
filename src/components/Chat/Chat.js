@@ -16,6 +16,10 @@ import DirectionsIcon from "@mui/icons-material/Directions";
 import { colors } from "../../constants/styles";
 import Message from "./Message";
 import api from "../../helpers/api";
+import io from "socket.io-client";
+
+const socket = io.connect("http://localhost:5000")
+
 
 const ChatWindow = () => {
   const [messages, setMessages] = useState([]);
