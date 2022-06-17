@@ -12,8 +12,9 @@ export default function SignIn() {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-
+    
     const classes = useStyles();
+    console.log(process.env.URL)
 
     return (
         <Box className={classes.flexible} >
