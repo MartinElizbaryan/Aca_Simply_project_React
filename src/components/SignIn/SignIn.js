@@ -26,7 +26,7 @@ export default function SignIn() {
                     </Link>
                 </Box>
                 <Box className={classes.centeral2}>
-                    <Button variant="contained" color="success" onClick={()=>signIn(email, password)}>
+                    <Button variant="contained" color="success" onClick={()=>signIn({email, password})}>
                         Log in
                     </Button>
                 </Box>
