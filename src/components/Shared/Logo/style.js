@@ -5,7 +5,7 @@ const useStyles = createUseStyles({
         '& a': {
             display: 'block',
             '& img': {
-                maxWidth: '100%'
+                maxWidth: 120
             }
         }
     }

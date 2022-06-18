@@ -37,9 +37,8 @@ function App() {
             <Route index element={<Home />} />
             <Route exact path='/home' element={<Home />} />
             <Route exact path='/lost' element={<Lost />} />
-            <Route exact path='/lost/:id' element={<PostSingle />} />
+            <Route exact path='/post/:id' element={<PostSingle />} />
             <Route exact path='/found' element={<Found />} />
-            <Route exact path='/found/:id' element={<PostSingle />} />
             <Route exact path='/cabinet' element={<Cabinet />} />
             <Route exact path='/chat/:id' element={<Chat />} />
             <Route exact path='/cabinet/activePosts' element={<ActivePosts />} />
