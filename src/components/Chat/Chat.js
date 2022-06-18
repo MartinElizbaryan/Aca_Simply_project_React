@@ -14,7 +14,7 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import DirectionsIcon from "@mui/icons-material/Directions";
 import { colors } from "../../constants/styles";
-import Message from "./Message";
+import Message from "../Message/Message";
 import api from "../../helpers/api";
 import io from "socket.io-client";
 
