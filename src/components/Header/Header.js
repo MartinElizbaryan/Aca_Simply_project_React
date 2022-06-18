@@ -10,6 +10,7 @@ import { colors } from "../../constants/styles.js";
 import { CustomLink as Link } from '../Shared/CustomLink/CustomLink'
 import NavigationMobile from "../Shared/Navigation/NavigationMobile";
 import useStyles from "./styles"
+import { signOut } from "./utils";
 export default function Header() {
   // eslint-disable-next-line
   const classes = useStyles()
@@ -76,7 +77,7 @@ export default function Header() {
                 </ListItemIcon>
                 <Link url="/cabinet/profile" title="My Profile" color="#212121" />
               </MenuItem>
-              <MenuItem>
+              <MenuItem onClick={signOut}>
                 <ListItemIcon>
                   <LogoutIcon fontSize="small" />
                 </ListItemIcon>

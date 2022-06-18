@@ -15,8 +15,6 @@ import Settings from './components/Profile/Profile'
 import CreatePost from './components/CreatePosts/CreatePost'
 import Chat from './components/Chat/Chat'
 import PostSingle from './components/Posts/PostSingle/PostSingle'
-import SignIn from './components/SignIn/SignIn'
-import SignUp from './components/SignUp/SignUp'
 import RegistrationLogin from './components/RegistrationLogin/RegistrationLogin';
 
 function ScrollToTop() {
