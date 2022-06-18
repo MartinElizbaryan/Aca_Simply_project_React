@@ -1,23 +1,19 @@
 import {useState, useEffect, useRef} from "react";
 import { useParams } from "react-router-dom";
-import useStyles from "./style";
+import io from "socket.io-client";
+import jwt_decode from "jwt-decode";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Avatar from "@mui/material/Avatar";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SendIcon from '@mui/icons-material/Send';
-import { colors } from "../../constants/styles";
 import Message from "../Message/Message";
 import api from "../../helpers/api";
-import io from "socket.io-client";
-import jwt_decode from "jwt-decode"
+import useStyles from "./style";
+import ChatUserInfoBlock from "../ChatUserInfoBlock/ChatUserInfoBlock";
 
 const socket = io.connect("http://localhost:5000")
 
@@ -25,6 +21,7 @@ const ChatWindow = () => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("")
   const [error, setError] = useState("")
+  const [onlineUsers, setOnlineUsers] = useState([])
   const [room, setRoom] = useState("")
   const list = useRef(null)
   const classes = useStyles();
@@ -38,24 +35,33 @@ const ChatWindow = () => {
   },[])
 
   useEffect(() => {
-    const room = createRoom()
-    setRoom(room)
-    socket.emit('join', room)
-    return () => {
-      socket.emit("leave", room)
-    }
-  },[])
-
-  useEffect(() => {
     socket.on("receive", (data) => {
       setMessages((messages) => [...messages, data])
     })
+  },[])
+
+  useEffect(() => {
+    socket.on("onlineUsers", (users) => {
+      setOnlineUsers(users)
+    })
+  },[])
+
+  useEffect(() => {
+    const room = createRoom()
+    setRoom(room)
+    const {id: authId} = jwt_decode(localStorage.getItem("accessToken"))
+    socket.emit('join', {room, authId})
+    return () => {
+      socket.emit("leave", room)
+    }
   },[])
   
   useEffect(() => {
     const el = list.current
     el.scrollTop = el.scrollHeight
   },[messages])
+
+  console.log(onlineUsers)
 
   const sendMessage = async () => {
     try {
@@ -85,30 +91,7 @@ const ChatWindow = () => {
     <Box mt={10}>
       <Grid container component={Paper} className={classes.chatSection}>
         <Grid item xs={12} md={3} className={classes.borderRight500}>
-          <List>
-            <ListItem button key="RemySharp">
-              <ListItemIcon>
-                <Avatar sx={{ bgcolor: colors.blue }} aria-label="recipe">
-                  AK
-                </Avatar>
-              </ListItemIcon>
-              <ListItemText primary="Artur Karapetyan">
-                Artur Karapetyan
-              </ListItemText>
-              <ListItemText secondary="online" align="right"></ListItemText>
-            </ListItem>
-            <ListItem button key="Alice">
-              <ListItemIcon>
-                <Avatar sx={{ bgcolor: colors.green }} aria-label="recipe">
-                  VX
-                </Avatar>
-              </ListItemIcon>
-              <ListItemText primary="Vaxinak Xachatryan">
-                Vaxinak Xachatryan
-              </ListItemText>
-              <ListItemText secondary="online" align="right"></ListItemText>
-            </ListItem>
-          </List>
+          <ChatUserInfoBlock onlineUsers={onlineUsers} id={id} />
         </Grid>
         <Grid item xs={12} md={9}>
           <List className={classes.messageArea} ref={list}>
