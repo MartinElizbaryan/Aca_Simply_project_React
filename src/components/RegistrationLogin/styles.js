@@ -19,12 +19,14 @@ const useStyles = createUseStyles({
         marginBottom: [[10], "!important"]
     },
     bgColor: {
-        backgroundColor: colors.grey,
+        marginTop: 80
     },
     totalBox: {
         backgroundColor: colors.white,
-        width: "100%",
+        width: "50%",
         borderRadius: 12,
+        padding: "0px 16px",
+        boxShadow: "0 6px 16px 0 rgb(0 0 0 / 20%)",
         ['@media (min-width:780px)']: { // eslint-disable-line no-useless-computed-key
             width: 400
         },
@@ -62,6 +64,7 @@ const useStyles = createUseStyles({
     },
     policyText: {
         marginTop: [[20], "!important"],
+        marginBottom: [[20], "!important"],
     }
 }
 );
