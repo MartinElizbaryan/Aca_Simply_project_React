@@ -7,8 +7,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ArticleIcon from '@mui/icons-material/Article';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
-import { CustomLink as Link } from '../../CustomLink/CustomLink'
+import useStyles from './style';
+import { Link } from 'react-router-dom'
 export default function SidebarCabinet() {
+    const classes = useStyles();
     return (
         <List
             sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
@@ -21,28 +23,36 @@ export default function SidebarCabinet() {
             }
         >
             <ListItemButton>
-                <ListItemIcon>
-                    <ArticleIcon />
-                </ListItemIcon>
-                <Link url='/cabinet' title={<ListItemText primary="Posts" />} color='#212121' />
+                <Link to='/cabinet/profile' className={classes.link}>
+                    <ListItemIcon>
+                        <AccountCircleIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Profile" />
+                </Link>
             </ListItemButton>
             <ListItemButton>
-                <ListItemIcon>
-                    <AccountCircleIcon />
-                </ListItemIcon>
-                <Link url='/cabinet/profile' title={<ListItemText primary="Profile" />} color='#212121' />
+                <Link to='/cabinet/createPost' className={classes.link}>
+                    <ListItemIcon>
+                        <AddCircleOutlineIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Create post" />
+                </Link>
             </ListItemButton>
             <ListItemButton>
-                <ListItemIcon>
-                    <AddCircleOutlineIcon />
-                </ListItemIcon>
-                <Link url='/cabinet/createPost' title={<ListItemText primary="Add new post" />} color='#212121' />
+                <Link to='/cabinet' className={classes.link}>
+                    <ListItemIcon>
+                        <ArticleIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Posts" />
+                </Link>
             </ListItemButton>
             <ListItemButton>
-                <ListItemIcon>
-                    <FactCheckIcon />
-                </ListItemIcon>
-                <Link url='/cabinet/activePosts' title={<ListItemText primary="Active Posts" />} color='#212121' />
+                <Link to='/cabinet/activePosts' className={classes.link}>
+                    <ListItemIcon>
+                        <FactCheckIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Active Posts" />
+                </Link>
             </ListItemButton>
         </List>
     )

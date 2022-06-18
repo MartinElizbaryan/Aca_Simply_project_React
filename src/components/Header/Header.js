@@ -5,6 +5,7 @@ import { AppBar, Stack, Menu, MenuItem, IconButton, Typography, ListItemIcon, Bo
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import LoginIcon from '@mui/icons-material/Login';
 import { navlist } from './constants'
 import { colors } from "../../constants/styles.js";
 import { CustomLink as Link } from '../Shared/CustomLink/CustomLink'
@@ -12,8 +13,8 @@ import NavigationMobile from "../Shared/Navigation/NavigationMobile";
 import useStyles from "./styles"
 import { signOut } from "./utils";
 export default function Header() {
-  // eslint-disable-next-line
   const classes = useStyles()
+  // eslint-disable-next-line
   const [auth, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClose = () => {
@@ -49,9 +50,19 @@ export default function Header() {
               }}>
                 <NavigationMobile />
               </Box>
-              <MenuItem>
-                <Link url="/signin" title="Sign in" color="white" />
-              </MenuItem>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                color="inherit"
+                sx={{
+                  borderRadius: 0
+                }}
+              >
+                <LoginIcon />
+                <Typography ml={2}><Link url="/signin" title="Sign in" color="white" /></Typography>
+              </IconButton>
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -59,6 +70,9 @@ export default function Header() {
                 aria-haspopup="true"
                 onClick={handleMenu}
                 color="inherit"
+                sx={{
+                  borderRadius: 0
+                }}
               >
                 <AccountCircle />
                 <Typography ml={2}>Ashot</Typography>
