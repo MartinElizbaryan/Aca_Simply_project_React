@@ -12,7 +12,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { GreenButton } from '../../Shared/Buttons/GreenButton/GreenButton'
 
 export default function Posts({ authorName, authorSurname, date, image, description }) {
-    const avatarInitials = authorName.slice(0, 1) + authorSurname.slice(0, 1);
+    const avatarInitials = authorName[0] + authorSurname[0]
     return (
         <Card>
             <CardHeader
