@@ -16,6 +16,8 @@ import CreatePost from './components/CreatePosts/CreatePost'
 import Chat from './components/Chat/Chat'
 import PostSingle from './components/Posts/PostSingle/PostSingle'
 import SignIn from './components/SignIn/SignIn'
+import SignUp from './components/SignUp/SignUp'
+import RegistrationLogin from './components/RegistrationLogin/RegistrationLogin';
 
 function ScrollToTop() {
   useEffect(() => {
@@ -43,7 +45,8 @@ function App() {
             <Route exact path='/cabinet/activePosts' element={<ActivePosts />} />
             <Route exact path='/cabinet/profile' element={<Settings />} />
             <Route exact path='/cabinet/createPost' element={<CreatePost />} />
-            <Route exact path='/signin' element={<SignIn />} />
+            <Route exact path='/signin' element={<RegistrationLogin />} />
+            <Route exact path='/signup' element={<RegistrationLogin />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
