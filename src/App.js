@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import './App.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// Helpes
+import './App.css'
+// Helpers
 import history from './helpers/history';
 //components
 import Main from './components/Main/Main';
@@ -17,18 +17,9 @@ import Chat from './components/Chat/Chat'
 import PostSingle from './components/Posts/PostSingle/PostSingle'
 import RegistrationLogin from './components/RegistrationLogin/RegistrationLogin';
 
-function ScrollToTop() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-  return null;
-}
-
 function App() {
-  window.scrollTo(0, 0)
   return (
     <>
-      <ScrollToTop />
       <Router history={history}>
         <Routes>
           <Route path='/' element={<Main />}>

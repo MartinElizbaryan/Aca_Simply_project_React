@@ -14,7 +14,7 @@ import useStyles from "./styles"
 import { signOut } from "./utils";
 export default function Header() {
   const classes = useStyles()
-  // eslint-disable-next-line
+  
   const [auth, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClose = () => {

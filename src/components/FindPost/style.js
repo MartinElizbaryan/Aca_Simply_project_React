@@ -1,4 +1,6 @@
 import { createUseStyles } from 'react-jss'
+import { bgImage } from './constants'
+
 const useStyles = createUseStyles({
     homeContainer:
     {
@@ -9,6 +11,7 @@ const useStyles = createUseStyles({
         padding: 2
     },
     BgImage: {
+        backgroundImage: `url(${bgImage})`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover'
     }
