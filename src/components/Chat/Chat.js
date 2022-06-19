@@ -11,8 +11,10 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SendIcon from '@mui/icons-material/Send';
 import { colors } from "../../constants/styles";
-import Message from "./Message";
+import Message from "../Message/Message";
+import ChatUserInfoBlock from "../ChatUserInfoBlock/ChatUserInfoBlock";
 import api from "../../api/api";
+import useStyles from "./style";
 
 const socket = io.connect("http://localhost:5000")
 
@@ -20,6 +22,7 @@ const ChatWindow = () => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("")
   const [error, setError] = useState("")
+  const [onlineUsers, setOnlineUsers] = useState([])
   const [room, setRoom] = useState("")
   const list = useRef(null)
   const classes = useStyles();
@@ -35,10 +38,17 @@ const ChatWindow = () => {
   useEffect(() => {
     const room = createRoom()
     setRoom(room)
-    socket.emit('join', room)
+    const {id: authId} = jwt_decode(localStorage.getItem("accessToken"))
+    socket.emit('join', {room, authId})
     return () => {
       socket.emit("leave", room)
     }
+  },[])
+
+  useEffect(() => {
+    socket.on("onlineUsers", (users) => {
+      setOnlineUsers(users)
+    })
   },[])
 
   useEffect(() => {

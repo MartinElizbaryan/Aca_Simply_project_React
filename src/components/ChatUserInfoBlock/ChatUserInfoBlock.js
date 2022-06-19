@@ -1,7 +1,7 @@
 import List from "@mui/material/List";
 import {useEffect, useState} from "react";
 import ChatUserInfo from "../ChatUserInfo/ChatUserInfo";
-import api from "../../helpers/api";
+import api from "../../api/api";
 
 
 function ChatUserInfoBlock({id, onlineUsers}) {
