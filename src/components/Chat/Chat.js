@@ -10,10 +10,9 @@ import List from "@mui/material/List";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SendIcon from '@mui/icons-material/Send';
-import Message from "../Message/Message";
-import api from "../../helpers/api";
-import useStyles from "./style";
-import ChatUserInfoBlock from "../ChatUserInfoBlock/ChatUserInfoBlock";
+import { colors } from "../../constants/styles";
+import Message from "./Message";
+import api from "../../api/api";
 
 const socket = io.connect("http://localhost:5000")
 
@@ -21,7 +20,6 @@ const ChatWindow = () => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("")
   const [error, setError] = useState("")
-  const [onlineUsers, setOnlineUsers] = useState([])
   const [room, setRoom] = useState("")
   const list = useRef(null)
   const classes = useStyles();
@@ -35,33 +33,24 @@ const ChatWindow = () => {
   },[])
 
   useEffect(() => {
+    const room = createRoom()
+    setRoom(room)
+    socket.emit('join', room)
+    return () => {
+      socket.emit("leave", room)
+    }
+  },[])
+
+  useEffect(() => {
     socket.on("receive", (data) => {
       setMessages((messages) => [...messages, data])
     })
   },[])
 
   useEffect(() => {
-    socket.on("onlineUsers", (users) => {
-      setOnlineUsers(users)
-    })
-  },[])
-
-  useEffect(() => {
-    const room = createRoom()
-    setRoom(room)
-    const {id: authId} = jwt_decode(localStorage.getItem("accessToken"))
-    socket.emit('join', {room, authId})
-    return () => {
-      socket.emit("leave", room)
-    }
-  },[])
-  
-  useEffect(() => {
     const el = list.current
     el.scrollTop = el.scrollHeight
   },[messages])
-
-  console.log(onlineUsers)
 
   const sendMessage = async () => {
     try {

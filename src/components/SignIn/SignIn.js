@@ -12,7 +12,6 @@ export default function SignIn() {
     const [password, setPassword] = useState("")
     
     const classes = useStyles();
-    console.log(process.env.URL)
 
     return (
             <Box className={classes.totalBox}>

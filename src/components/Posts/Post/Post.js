@@ -12,7 +12,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { GreenButton } from '../../Shared/Buttons/GreenButton/GreenButton'
 
 export default function Posts({ authorName, authorSurname, date, image, description }) {
-    const avatarInitials = authorName.slice(0, 1) + authorSurname.slice(0, 1);
+    const avatarInitials = authorName[0] + authorSurname[0]
     return (
         <Card>
             <CardHeader
@@ -42,12 +42,12 @@ export default function Posts({ authorName, authorSurname, date, image, descript
                 <IconButton aria-label="add to favorites">
                     <FavoriteIcon />
                 </IconButton>
-                <GreenButton sx={{
+                <CustomLink url="/post/1" title={<GreenButton sx={{
                     width: 'auto'
                 }}>
-                    <CustomLink url="/lost/1" title="See Details" component="button" variant="outlined" color="#fff" />
-                </GreenButton>
+                    See details
+                </GreenButton>} />
             </CardActions>
-        </Card>
+        </Card >
     )
 }
