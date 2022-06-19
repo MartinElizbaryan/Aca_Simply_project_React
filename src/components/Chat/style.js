@@ -13,7 +13,7 @@ const useStyles = createUseStyles({
         borderRight: '1px solid #e0e0e0'
     },
     messageArea: {
-        height: '70vh',
+        height: '62vh',
         overflowY: 'auto'
     }
 });

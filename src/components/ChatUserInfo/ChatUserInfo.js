@@ -3,6 +3,7 @@ import Avatar from "@mui/material/Avatar";
 import ListItemText from "@mui/material/ListItemText";
 import ListItem from "@mui/material/ListItem";
 import { colors } from "../../constants/styles";
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 function getFirstLetters ( user ) {
   return user.name[0] + user.surname[0];
@@ -12,15 +13,15 @@ function getUserFullName ( user ) {
 }
 function ChatUserInfo ( { user , id, isActive} ) {
   return (
-    <ListItem sx={ +id === user.id ? { bgcolor: colors.blue } : {}}>
+    <ListItem sx={ +id === user.id ? { bgcolor: colors.green } : {}}>
       <ListItemIcon>
         {/*<Avatar sx={{ bgcolor: colors.blue }} aria-label="recipe">*/}
-        <Avatar>
+        <Avatar sx={{ bgcolor: colors.blue }}>
           {getFirstLetters(user)}
         </Avatar>
       </ListItemIcon>
       <ListItemText primary={getUserFullName(user)} />
-      <ListItemText secondary={isActive ? "online" : "offline"} align="right"></ListItemText>
+      <FiberManualRecordIcon color={isActive ? "success" : "error"}/>
     </ListItem>
   )
 }
