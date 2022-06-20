@@ -8,8 +8,6 @@ import api from "../../api/api";
 import PostsSceleton from "../Posts/PostsSceleton/PostsSceleton";
 import Typography from "@mui/material/Typography";
 export default function Home() {
-<<<<<<< HEAD
-=======
     const [posts, setPosts] = useState([]);
     const [isBusy, setIsBusy] = useState(true);
     useEffect(() => {
@@ -19,19 +17,15 @@ export default function Home() {
             setIsBusy(false)
         })()
     }, [isBusy])
->>>>>>> 39fc867f8c3378a74716183db8d767784f95f6ba
     return (
         <>
             <FindPost />
             <Box mt={5} mb={5}>
-<<<<<<< HEAD
                 {/* <PostsList title="Popular Posts" data={data} /> */}
-=======
                 {posts ?
                     isBusy ? <PostsSceleton /> : <PostsList title="Foud Items" data={posts} />
                     : <Typography variant="h5" textAlign="center">No Content found</Typography>
                 }
->>>>>>> 39fc867f8c3378a74716183db8d767784f95f6ba
             </Box>
             <Box mt={5} mb={5}>
                 <Counter />
