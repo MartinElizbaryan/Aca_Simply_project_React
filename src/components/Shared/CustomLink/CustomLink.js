@@ -4,9 +4,6 @@ import { Link } from '@mui/material'
 
 export function CustomLink({ title, color, url, onClick }) {
     return (
-        <Link to={url} color={color} underline="none" component={RouterLink} onClick={onClick} sx={{
-            display: 'block',
-            width: '100%',
-        }}>{title}</Link>
+        <Link to={url} color={color} underline="none" component={RouterLink} onClick={onClick} >{title}</Link>
     )
 }

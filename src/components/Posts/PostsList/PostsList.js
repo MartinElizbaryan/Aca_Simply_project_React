@@ -11,11 +11,7 @@ export default function PostsList({ data, title, ColsCount = 4 }) {
                     return (
                         <Grid item xs={12} sm={6} lg={ColsCount} key={index}>
                             < Post
-                                authorName={post.authorName}
-                                authorSurname={post.authorSurname}
-                                image={post.image}
-                                date={post.date}
-                                description={post.description}
+                                post={post}
                             />
                         </Grid>
                     )

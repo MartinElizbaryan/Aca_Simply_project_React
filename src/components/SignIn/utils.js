@@ -1,4 +1,4 @@
-import api from "../../helpers/api"
+import api from "../../api/api"
 
 export const signIn = async (body) => {
   const res = await api.post("/auth/sign-in", body)

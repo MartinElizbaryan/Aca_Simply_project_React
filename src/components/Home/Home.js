@@ -1,38 +1,31 @@
 import FindPost from '../FindPost/FindPost'
 import PostsList from '../Posts/PostsList/PostsList'
-import postImg from '../../assets/deskBackground.jpeg'
 import Box from '@mui/material/Box'
 import Counter from '../Counter/Counter'
 import TeamSlider from '../TeamSlider/TeamSlider'
+import {useEffect, useState} from "react";
+import api from "../../api/api";
+import PostsSceleton from "../Posts/PostsSceleton/PostsSceleton";
+import Typography from "@mui/material/Typography";
 export default function Home() {
-    const data = [
-        {
-            authorName: "Ruben",
-            authorSurname: "Karapetyan",
-            image: postImg,
-            date: "22.08.2022",
-            description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests.Add 1 cup of frozen peas along with the mussels, if you like."
-        },
-        {
-            authorName: "Vanush",
-            authorSurname: "Xanamiryan",
-            image: postImg,
-            date: "12.10.2022",
-            description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests.Add 1 cup of frozen peas along with the mussels, if you like."
-        },
-        {
-            authorName: "Artavazd",
-            authorSurname: "Gabrielyan",
-            image: postImg,
-            date: "30.12.2022",
-            description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests.Add 1 cup of frozen peas along with the mussels, if you like."
-        }
-    ]
+    const [posts, setPosts] = useState([]);
+    const [isBusy, setIsBusy] = useState(true);
+    useEffect(() => {
+        (async function () {
+            const response = await api.get('/posts?type=FIND')
+            setPosts(response.data.posts)
+            setIsBusy(false)
+        })()
+    }, [isBusy])
     return (
         <>
             <FindPost />
             <Box mt={5} mb={5}>
-                <PostsList title="Popular Posts" data={data} />
+                {/* <PostsList title="Popular Posts" data={data} /> */}
+                {posts ?
+                    isBusy ? <PostsSceleton /> : <PostsList title="Foud Items" data={posts} />
+                    : <Typography variant="h5" textAlign="center">No Content found</Typography>
+                }
             </Box>
             <Box mt={5} mb={5}>
                 <Counter />
