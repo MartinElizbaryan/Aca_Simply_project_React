@@ -14,7 +14,6 @@ export default function Found() {
     useEffect(() => {
         (async function () {
             const response = await api.get('/posts?type=LOST')
-            console.log(response.data.posts);
             setPosts(response.data.posts)
             setIsBusy(false)
         })()
