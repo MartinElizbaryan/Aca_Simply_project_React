@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import { colors } from "../../constants/styles";
-import useStyles from "./styleM.js";
+import useStyles from "./style.js";
 export default function Message({ type, message, time }) {
   
   const classes = useStyles();
