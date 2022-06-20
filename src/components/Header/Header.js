@@ -17,7 +17,7 @@ import EmailIcon from '@mui/icons-material/Email';
 
 export default function Header() {
   const classes = useStyles()
-  // eslint-disable-next-line
+  
   const [auth, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClose = () => {

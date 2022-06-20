@@ -11,8 +11,8 @@ import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { GreenButton } from '../../Shared/Buttons/GreenButton/GreenButton'
 
-export default function Posts({ authorName, authorSurname, date, image, description }) {
-    const avatarInitials = authorName[0] + authorSurname[0]
+export default function Posts({ post }) {
+    const avatarInitials = post.user.name[0] + post.user.surname[0]
     return (
         <Card>
             <CardHeader
@@ -21,18 +21,18 @@ export default function Posts({ authorName, authorSurname, date, image, descript
                         {avatarInitials}
                     </Avatar>
                 }
-                title={`${authorName} ${authorSurname}`}
-                subheader={date}
+                title={`${post.user.name} ${post.user.surname}`}
+                subheader={post.user.date}
             />
             <CardMedia
                 component="img"
                 height="194"
-                image={image}
-                alt={image}
+                image={post.user.name}
+                alt={post.user.name}
             />
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
-                    {description}
+                    {post.user.description}
                 </Typography>
             </CardContent>
             <CardActions disableSpacing sx={{
