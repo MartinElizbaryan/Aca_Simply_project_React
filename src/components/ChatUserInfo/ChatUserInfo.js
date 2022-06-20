@@ -21,7 +21,7 @@ function ChatUserInfo ( { user , id, isActive} ) {
         </Avatar>
       </ListItemIcon>
       <ListItemText primary={getUserFullName(user)} />
-      <FiberManualRecordIcon color={isActive ? "success" : "error"}/>
+      <FiberManualRecordIcon color={isActive ? "success" : "disabled" }/>
     </ListItem>
   )
 }

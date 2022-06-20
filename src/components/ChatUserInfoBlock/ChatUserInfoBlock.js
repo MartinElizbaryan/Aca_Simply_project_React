@@ -1,7 +1,8 @@
 import List from "@mui/material/List";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import ChatUserInfo from "../ChatUserInfo/ChatUserInfo";
 import api from "../../api/api";
+import { Link } from 'react-router-dom'
 
 
 function ChatUserInfoBlock({id, onlineUsers}) {
@@ -11,23 +12,19 @@ function ChatUserInfoBlock({id, onlineUsers}) {
   useEffect(() => {
     (async ()=>{
       const res = await api.get(`users/chat`)
-      console.log(res)
       setUsers(res.data.users)
     })()
   },[])
 
-
-
-
-
   return (
     <List>
-      {/* eslint-disable-next-line array-callback-return */}
-      {
-
-        users.map(user => {
+      {users.map(user => {
           const isActive = onlineUsers.includes(user.id);
-          return <ChatUserInfo isActive={isActive} key={user.id} user={user} id={id}/>
+          return (
+            <Link to={`/chat/${user.id}`} key={user.id}>
+              <ChatUserInfo isActive={isActive} user={user} id={id}/>
+            </Link>
+          )
       })}
     </List>
   )

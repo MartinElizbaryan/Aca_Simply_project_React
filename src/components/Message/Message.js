@@ -5,7 +5,6 @@ import ListItemText from "@mui/material/ListItemText";
 import { colors } from "../../constants/styles";
 import useStyles from "./style.js";
 export default function Message({ type, message, time }) {
-  
   const classes = useStyles();
 
 
@@ -41,6 +40,7 @@ export default function Message({ type, message, time }) {
         <Grid item xs={12}>
           <ListItemText
             className={styleType.textAlign}
+            // primary={`User ${message.from.name} ${message.text}`}
             primary={message}
           ></ListItemText>
         </Grid>

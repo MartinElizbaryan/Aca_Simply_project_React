@@ -12,6 +12,9 @@ import { CustomLink as Link } from '../Shared/CustomLink/CustomLink'
 import NavigationMobile from "../Shared/Navigation/NavigationMobile";
 import useStyles from "./styles"
 import { signOut } from "./utils";
+import { Link as RouterLink } from 'react-router-dom'
+import EmailIcon from '@mui/icons-material/Email';
+
 export default function Header() {
   const classes = useStyles()
   // eslint-disable-next-line
@@ -61,8 +64,15 @@ export default function Header() {
                 }}
               >
                 <LoginIcon />
-                <Typography ml={2}><Link url="/signin" title="Sign in" color="white" /></Typography>
+                <Typography ml={2}>
+                  <Link url="/signin" title="Sign in" color="white" />
+                </Typography>
               </IconButton>
+
+              <RouterLink to={"chat"} color="white">
+                <EmailIcon />
+              </RouterLink>
+
               <IconButton
                 size="large"
                 aria-label="account of current user"
