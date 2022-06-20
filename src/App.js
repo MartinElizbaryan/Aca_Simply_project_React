@@ -16,6 +16,7 @@ import CreatePost from './components/CreatePosts/CreatePost'
 import Chat from './components/Chat/Chat'
 import PostSingle from './components/Posts/PostSingle/PostSingle'
 import RegistrationLogin from './components/RegistrationLogin/RegistrationLogin';
+import Contact from './components/Contact/Contact';
 
 function App() {
   return (
@@ -32,7 +33,8 @@ function App() {
             <Route exact path='/chat/:id' element={<Chat />} />
             <Route exact path='/cabinet/activePosts' element={<ActivePosts />} />
             <Route exact path='/cabinet/profile' element={<Settings />} />
-            <Route exact path='/cabinet/createPost' element={<CreatePost />} />
+            <Route exact path='/cabinet' element={<Cabinet />} />
+            <Route exact path='/contact' element={<Contact />} />
             <Route exact path='/signin' element={<RegistrationLogin />} />
             <Route exact path='/signup' element={<RegistrationLogin />} />
             <Route path="*" element={<PageNotFound />} />
