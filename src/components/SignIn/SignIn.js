@@ -4,6 +4,7 @@ import { InputField } from "../Shared/InputField/InputField";
 import { signIn } from "./utils";
 import { colors } from "../../constants/styles";
 import useStyles from './styles';
+import { useNavigate } from "react-router-dom";
 
 
 export default function SignIn() {
@@ -12,6 +13,8 @@ export default function SignIn() {
     const [password, setPassword] = useState("");
     const [auth, setAuth] = useState(false);
     const [errMessage, setErrMessage] = useState("");
+
+    const navigate = useNavigate();
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -40,16 +43,19 @@ export default function SignIn() {
                     try {
                         const data = await signIn({ email, password })
                         console.log(data.auth)
-                        //setAuth(true);
+                        setAuth(true);
+                        navigate("/cabinet/profile")
                         setOpen(false)
                     } catch (e) {
-                        //setAuth(false)
+                        setAuth(false)
                         setOpen(true)
                         setErrMessage(e.response.data.details)
                         console.log(e)
                     }
                 }
-                }>
+                }
+                //href={auth ? "/cabinet/profile" : ""}
+                >
                     Log in
                 </Button>
             </Box>
