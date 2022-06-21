@@ -9,12 +9,13 @@ import PostsSceleton from "../Posts/PostsSceleton/PostsSceleton";
 import Typography from "@mui/material/Typography";
 import useFetch from "../../hooks/useFetch";
 export default function Home() {
-    const {data,error,loading} = useFetch('/posts?type=LOST');
+    const {data,error,loading} = useFetch('/posts?take=3');
     const [posts,setPosts] = useState([])
     useEffect(() => {
         (async function () {
             setPosts(data)
         })()
+        console.log(data)
     }, [data])
     return (
         <>
@@ -22,7 +23,7 @@ export default function Home() {
             <Box mt={5} mb={5}>
                 {/* <PostsList title="Popular Posts" data={data} /> */}
                 {posts ?
-                    loading ? <PostsSceleton /> : <PostsList title="Foud Items" data={posts} />
+                    loading ? <PostsSceleton /> : <PostsList title="Top find Items" data={posts} />
                     : <Typography variant="h5" textAlign="center">No Content found</Typography>
                 }
             </Box>
