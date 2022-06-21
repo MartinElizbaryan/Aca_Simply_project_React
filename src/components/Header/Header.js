@@ -82,11 +82,18 @@ export default function Header() {
                   <Link url="/signin" title="Sign in" color="white" />
                 </Typography>
               </IconButton>
-
-              <RouterLink to={"chat"} color="white">
-                <EmailIcon />
-              </RouterLink>
-
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                color="inherit"
+                sx={{
+                  borderRadius: 0
+                }}
+              >
+                  <Link url="/chat" title={<EmailIcon />} color="white" />
+              </IconButton>
               <IconButton
                 size="large"
                 aria-label="account of current user"
