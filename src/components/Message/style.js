@@ -1,7 +1,7 @@
 import { createUseStyles } from "react-jss";
 const useStyles = createUseStyles({
   from: {
-    justifyContent: "flex-end"
+    justifyContent: "flex-end !important"
   },
   textRight: {
     textAlign: "right"

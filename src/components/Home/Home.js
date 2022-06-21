@@ -7,23 +7,22 @@ import {useEffect, useState} from "react";
 import api from "../../api/api";
 import PostsSceleton from "../Posts/PostsSceleton/PostsSceleton";
 import Typography from "@mui/material/Typography";
+import useFetch from "../../hooks/useFetch";
 export default function Home() {
-    const [posts, setPosts] = useState([]);
-    const [isBusy, setIsBusy] = useState(true);
+    const {data,error,loading} = useFetch('/posts?type=LOST');
+    const [posts,setPosts] = useState([])
     useEffect(() => {
         (async function () {
-            const response = await api.get('/posts?type=FIND')
-            setPosts(response.data.posts)
-            setIsBusy(false)
+            setPosts(data)
         })()
-    }, [isBusy])
+    }, [data])
     return (
         <>
             <FindPost />
             <Box mt={5} mb={5}>
                 {/* <PostsList title="Popular Posts" data={data} /> */}
                 {posts ?
-                    isBusy ? <PostsSceleton /> : <PostsList title="Foud Items" data={posts} />
+                    loading ? <PostsSceleton /> : <PostsList title="Foud Items" data={posts} />
                     : <Typography variant="h5" textAlign="center">No Content found</Typography>
                 }
             </Box>

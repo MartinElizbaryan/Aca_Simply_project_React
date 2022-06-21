@@ -34,6 +34,7 @@ function App() {
             <Route exact path='/chat' element={<Chat />} />
             <Route exact path='/cabinet/activePosts' element={<ActivePosts />} />
             <Route exact path='/cabinet/profile' element={<Settings />} />
+            <Route exact path='/cabinet/createPost' element={<CreatePost />} />
             <Route exact path='/cabinet' element={<Cabinet />} />
             <Route exact path='/contact' element={<Contact />} />
             <Route exact path='/signin' element={<RegistrationLogin />} />

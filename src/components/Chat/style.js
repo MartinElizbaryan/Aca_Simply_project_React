@@ -5,6 +5,7 @@ const useStyles = createUseStyles({
     },
     chatSection: {
         width: '100%',
+        height: '100%'
     },
     headBG: {
         backgroundColor: '#e0e0e0'
@@ -14,7 +15,8 @@ const useStyles = createUseStyles({
     },
     messageArea: {
         height: '62vh',
-        overflowY: 'auto'
+        overflowY: 'auto',
+        flex: '1 1 auto'
     }
 });
 export default useStyles  

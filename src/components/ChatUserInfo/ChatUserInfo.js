@@ -13,7 +13,7 @@ function getUserFullName ( user ) {
 }
 function ChatUserInfo ( { user , id, isActive} ) {
   return (
-    <ListItem sx={ +id === user.id ? { bgcolor: colors.green } : {}}>
+    <ListItem sx={ +id === user.id ? { bgcolor: colors.grey } : {}}>
       <ListItemIcon>
         {/*<Avatar sx={{ bgcolor: colors.blue }} aria-label="recipe">*/}
         <Avatar sx={{ bgcolor: colors.blue }}>

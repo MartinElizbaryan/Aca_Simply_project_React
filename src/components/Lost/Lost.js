@@ -5,19 +5,16 @@ import SidebarMobile from '../Shared/Sidebars/SidebarMobile/SidebarMobile'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper';
-import postImg from '../../assets/deskBackground.jpeg'
-import api from '../../api/api'
 import { useEffect, useState } from 'react'
+import useFetch from '../../hooks/useFetch'
 export default function Lost() {
-    const [posts, setPosts] = useState([]);
-    const [isBusy, setIsBusy] = useState(true);
+    const {data,error,loading} = useFetch('/posts?type=LOST');
+    const [posts,setPosts] = useState([])
     useEffect(() => {
         (async function () {
-            const response = await api.get('/posts?type=FIND')
-            setPosts(response.data.posts)
-            setIsBusy(false)
+            setPosts(data)
         })()
-    }, [isBusy])
+    }, [data])
     return (
         <Grid container spacing={0} mt={10}>
             <Grid item xs={12} md={3} mt={11} sx={{
@@ -42,7 +39,7 @@ export default function Lost() {
             </Grid>
             <Grid item xs={12} md={9}>
                 <Box mt={5} mb={5}>
-                    {isBusy ? <PostsSceleton /> : <PostsList title="Lost Items" data={posts} />}
+                    {loading ? <PostsSceleton /> : <PostsList title="Lost Items" data={posts} />}
                 </Box>
             </Grid>
         </Grid>

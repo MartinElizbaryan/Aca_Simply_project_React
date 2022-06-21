@@ -11,7 +11,7 @@ import api from "../../api/api";
 import useStyles from "./style";
 import socket from "../../helpers/socket"
 
-const ChatWindow = () => {
+const Chat = () => {
   const [onlineUsers, setOnlineUsers] = useState([])
   const classes = useStyles();
   const { id } = useParams();
@@ -23,7 +23,9 @@ const ChatWindow = () => {
   },[])
 
   return (
-    <Box mt={10}>
+    <Box mt={10} sx={{
+      height: 'calc(100% - 80px)',
+    }}>
       <Grid container component={Paper} className={classes.chatSection}>
         <Grid item xs={12} md={3} className={classes.borderRight500}>
           <ChatUserInfoBlock onlineUsers={onlineUsers} id={id} />
@@ -34,4 +36,4 @@ const ChatWindow = () => {
   );
 };
 
-export default ChatWindow;
+export default Chat;

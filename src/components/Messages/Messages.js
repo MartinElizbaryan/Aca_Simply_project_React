@@ -10,6 +10,7 @@ import useStyles from "../Chat/style";
 import api from "../../api/api";
 import jwt_decode from "jwt-decode";
 import socket from "../../helpers/socket"
+import Box from "@mui/material/Box";
 
 
 function Messages ({id}) {
@@ -75,7 +76,7 @@ function Messages ({id}) {
 
 
   return (
-    <Grid item xs={12} md={9}>
+    <Grid item xs={12} md={9} display="flex" flexDirection="column">
 
       <List className={classes.messageArea} ref={list}>
         {
@@ -91,7 +92,7 @@ function Messages ({id}) {
             component="form"
             sx={{ display: "flex", alignItems: "center", width: "100%" }}
           > */}
-      <div>
+      <Box display="flex" alignItems="center">
         <InputBase
           sx={{ ml: 1, flex: 1 }}
           placeholder="Type..."
@@ -112,7 +113,7 @@ function Messages ({id}) {
         >
           <SendIcon />
         </IconButton>
-      </div>
+      </Box>
       {/* </Paper> */}
       {error && <p>{error}</p>}
     </Grid>

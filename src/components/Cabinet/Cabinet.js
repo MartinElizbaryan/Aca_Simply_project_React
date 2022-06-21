@@ -5,31 +5,18 @@ import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper';
 import postImg from '../../assets/deskBackground.jpeg'
+import useFetch from "../../hooks/useFetch";
+import {useEffect, useState} from "react";
+import PostsSceleton from "../Posts/PostsSceleton/PostsSceleton";
 export default function Lost() {
 
-    const data = [
-        {
-            authorName: "Ruben",
-            authorSurname: "Karapetyan",
-            image: postImg,
-            date: "22.08.2022",
-            description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests.Add 1 cup of frozen peas along with the mussels, if you like."
-        },
-        {
-            authorName: "Vanush",
-            authorSurname: "Xanamiryan",
-            image: postImg,
-            date: "12.10.2022",
-            description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests.Add 1 cup of frozen peas along with the mussels, if you like."
-        },
-        {
-            authorName: "Artavazd",
-            authorSurname: "Gabrielyan",
-            image: postImg,
-            date: "30.12.2022",
-            description: "This impressive paella is a perfect party dish and a fun meal to cook together with your guests.Add 1 cup of frozen peas along with the mussels, if you like."
-        },
-    ]
+    const {data,error,loading} = useFetch('/posts?type=LOST');
+    const [posts,setPosts] = useState([])
+    useEffect(() => {
+        (async function () {
+            setPosts(data)
+        })()
+    }, [data])
     return (
         <Grid container spacing={0} mt={10}>
             <Grid item xs={12} md={3} mt={11} sx={{
@@ -54,7 +41,7 @@ export default function Lost() {
             </Grid>
             <Grid item xs={12} md={9}>
                 <Box mt={5} mb={5}>
-                    <PostsList title="My Posts" data={data} />
+                    {loading ? <PostsSceleton /> : <PostsList title="My posts" data={posts} />}
                 </Box>
             </Grid>
         </Grid>
