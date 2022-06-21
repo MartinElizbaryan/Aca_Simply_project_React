@@ -1,17 +1,21 @@
-body{
-  margin: 0;
-  font-family: 'Roboto Condensed', sans-serif;
+body {
+    margin: 0;
+    font-family: 'Roboto Condensed', sans-serif;
 }
+
 html {
-  font-size: calc(0.75rem + 0.5vw);
+    font-size: calc(0.75rem + 0.5vw);
 }
-html,body,#root{
-  height: 100%;
+
+html, body, #root {
+    height: 100%;
 }
-#root{
-  display: flex;
-  flex-direction: column;
+
+#root {
+    display: flex;
+    flex-direction: column;
 }
-main{
-  flex: 1 1 auto;
+
+main {
+    flex: 1 1 auto;
 }

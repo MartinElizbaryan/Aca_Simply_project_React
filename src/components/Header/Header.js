@@ -1,56 +1,70 @@
-import React, { useState } from "react";
-import { Toolbar } from '@mui/material'
-import { Logo } from '../Shared/Logo/Logo'
-import { AppBar, Stack, Menu, MenuItem, IconButton, Typography, ListItemIcon, Box } from '@mui/material'
-import LogoutIcon from '@mui/icons-material/Logout';
-import PersonIcon from '@mui/icons-material/Person';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import LoginIcon from '@mui/icons-material/Login';
-import { navlist } from './constants'
-import { colors } from "../../constants/styles.js";
-import { CustomLink as Link } from '../Shared/CustomLink/CustomLink'
-import NavigationMobile from "../Shared/Navigation/NavigationMobile";
+import React, { useState } from "react"
+import {
+  AppBar,
+  Box,
+  IconButton,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  Stack,
+  Toolbar,
+  Typography,
+} from "@mui/material"
+import { Logo } from "../Shared/Logo/Logo"
+import LogoutIcon from "@mui/icons-material/Logout"
+import PersonIcon from "@mui/icons-material/Person"
+import AccountCircle from "@mui/icons-material/AccountCircle"
+import LoginIcon from "@mui/icons-material/Login"
+import { navlist } from "./constants"
+import { colors } from "../../constants/styles.js"
+import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
+import NavigationMobile from "../Shared/Navigation/NavigationMobile"
 import useStyles from "./styles"
-import { signOut } from "./utils";
-import { Link as RouterLink } from 'react-router-dom'
-import EmailIcon from '@mui/icons-material/Email';
+import { signOut } from "./utils"
+import { Link as RouterLink } from "react-router-dom"
+import EmailIcon from "@mui/icons-material/Email"
 
 export default function Header() {
   const classes = useStyles()
-  
-  const [auth, setAuth] = useState(true);
-  const [anchorEl, setAnchorEl] = useState(null);
+
+  const [auth, setAuth] = useState(true)
+  const [anchorEl, setAnchorEl] = useState(null)
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
   const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar className={classes.toolBar}>
         <Logo />
-        <Stack direction="row" spacing={2} sx={{
-          display: {
-            xs: 'none', sm: 'flex'
-          }
-        }
-        }>
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{
+            display: {
+              xs: "none",
+              sm: "flex",
+            },
+          }}
+        >
           {navlist?.map((item, index) => {
-            return (
-              <Link url={item.route} color={colors.white} key={index} title={item.name} />
-            )
+            return <Link url={item.route} color={colors.white} key={index} title={item.name} />
           })}
         </Stack>
         {auth && (
           <>
             <Box display="flex" alignItems="center">
-              <Box sx={{
-                display: {
-                  xs: 'block', sm: 'none'
-                }
-              }}>
+              <Box
+                sx={{
+                  display: {
+                    xs: "block",
+                    sm: "none",
+                  },
+                }}
+              >
                 <NavigationMobile />
               </Box>
               <IconButton
@@ -60,7 +74,7 @@ export default function Header() {
                 aria-haspopup="true"
                 color="inherit"
                 sx={{
-                  borderRadius: 0
+                  borderRadius: 0,
                 }}
               >
                 <LoginIcon />
@@ -81,7 +95,7 @@ export default function Header() {
                 onClick={handleMenu}
                 color="inherit"
                 sx={{
-                  borderRadius: 0
+                  borderRadius: 0,
                 }}
               >
                 <AccountCircle />
@@ -110,9 +124,7 @@ export default function Header() {
             </Menu>
           </>
         )}
-
       </Toolbar>
-    </AppBar >
-  );
+    </AppBar>
+  )
 }
-

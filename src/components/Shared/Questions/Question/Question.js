@@ -1,17 +1,18 @@
-import React from "react";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import { IconButton, TextField } from "@mui/material";
-import RadioGroup from "@mui/material/RadioGroup";
-import Variant from "../Variant/Variant";
-import useStyles from "./style";
-import DeleteIcon from '@mui/icons-material/Delete';
+import React from "react"
+import Grid from "@mui/material/Grid"
+import Box from "@mui/material/Box"
+import { IconButton, TextField } from "@mui/material"
+import RadioGroup from "@mui/material/RadioGroup"
+import Variant from "../Variant/Variant"
+import useStyles from "./style"
+import DeleteIcon from "@mui/icons-material/Delete"
+
 export default function Quetion() {
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <Box>
       <Grid container spacing={2} p={2}>
-        <Grid item xs={12} display='flex' alignItems="center">
+        <Grid item xs={12} display="flex" alignItems="center">
           <TextField
             className={classes.input}
             fullWidth
@@ -32,5 +33,5 @@ export default function Quetion() {
         <Variant />
       </RadioGroup>
     </Box>
-  );
+  )
 }
