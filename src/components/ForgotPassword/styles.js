@@ -41,11 +41,13 @@ const useStyles = createUseStyles({
     display: "flex",
     alignItems: "center",
     textAlign: "center",
+    justifyContent: "center",
   },
   centeral: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    marginBottom: 15,
   },
   finalBox: {
     display: "flex",
@@ -58,10 +60,27 @@ const useStyles = createUseStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 10,
-    marginTop: 10,
+    gap: 10,
+    flexDirection: "column",
+  },
+  margin: {
+    margin: 10,
+  },
+  centeral3: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  centeral4: {
+    marginTop: 20,
   },
   policyText: {
+    marginTop: [[20], "!important"],
+  },
+  bigText: {
+    fontSize: [[22], "!important"],
+    fontWeight: [["700"], "!important"],
     marginTop: [[20], "!important"],
   },
 })

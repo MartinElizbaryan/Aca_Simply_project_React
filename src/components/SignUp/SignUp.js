@@ -48,16 +48,6 @@ export default function SignUp() {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
       </Box>
-      <Box className={classes.finalBox}>
-        <FormControlLabel
-          control={<Checkbox />}
-          label="Remember me"
-          style={{ color: colors.dark }}
-        />
-        <Link href="#" underline="none">
-          {"Forgot your password?"}
-        </Link>
-      </Box>
       <Box className={classes.centeral2}>
         <Button
           variant="contained"

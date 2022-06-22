@@ -12,12 +12,16 @@ import {
   Link,
 } from "@mui/material"
 import { InputField } from "../Shared/InputField/InputField"
-import { signIn } from "./utils"
+import { signInPost } from "./utils"
 import { colors } from "../../constants/styles"
 import useStyles from "./styles"
 import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { signIn } from "../../helpers/userSlice"
 
 export default function SignIn() {
+  const dispatch = useDispatch()
+
   const [open, setOpen] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -57,7 +61,7 @@ export default function SignIn() {
           label="Remember me"
           style={{ color: colors.dark }}
         />
-        <Link href="#" underline="none">
+        <Link href="forgot_password" underline="none">
           {"Forgot your password?"}
         </Link>
       </Box>
@@ -67,19 +71,15 @@ export default function SignIn() {
           color="success"
           onClick={async () => {
             try {
-              const data = await signIn({ email, password })
-              localStorage.setItem("auth", data.auth)
-              setAuth(true)
+              const data = await signInPost({ email, password })
+              console.log(data, "aaaa")
+              dispatch(signIn(data.user))
               navigate("/cabinet/profile")
               setOpen(false)
-              // someFunction(auth)
             } catch (e) {
-              localStorage.setItem("auth", false)
-              setAuth(false)
               setOpen(true)
               setErrMessage(e.response.data.details)
               console.log(e)
-              // someFunction(false)
             }
           }}
         >
