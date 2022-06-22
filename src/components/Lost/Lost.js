@@ -7,13 +7,18 @@ import Box from "@mui/material/Box"
 import Paper from "@mui/material/Paper"
 import { useEffect, useState } from "react"
 import useFetch from "../../hooks/useFetch"
+import { useSearchParams } from "react-router-dom"
 
 export default function Lost() {
-  const { data, error, loading } = useFetch("/posts?type=LOST")
+  const [searchParams] = useSearchParams()
+  const name = searchParams.get("name")
+  console.log(name)
+  const { data, error, loading } = useFetch(`/posts?type=LOST&name=${name}`)
   const [posts, setPosts] = useState([])
   useEffect(() => {
     setPosts(data.posts)
   }, [data])
+
   return (
     <Grid container spacing={0} mt={10}>
       <Grid
