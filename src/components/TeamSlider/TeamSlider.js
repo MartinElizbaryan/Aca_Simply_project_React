@@ -32,8 +32,8 @@ export default function TeamSlider() {
                   color: "#7d7d7d",
                 }}
               >
-                “What's difference between croasan and React ? Both of them is sweet, but croasan
-                make me abdominal pain whene I use it a lot”
+                {`“What's difference between croasan and React ? Both of them is sweet, but croasan
+                make me abdominal pain whene I use it a lot”`}
               </Typography>
               <Typography
                 variant="h6"

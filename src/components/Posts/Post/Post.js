@@ -7,27 +7,34 @@ import { CustomLink } from "../../Shared/CustomLink/CustomLink"
 import Avatar from "@mui/material/Avatar"
 import IconButton from "@mui/material/IconButton"
 import Typography from "@mui/material/Typography"
-import { red } from "@mui/material/colors"
 import FavoriteIcon from "@mui/icons-material/Favorite"
-import { GreenButton } from "../../Shared/Buttons/GreenButton/GreenButton"
+import emptyImage from "../../../assets/adspy_loading_animation.gif"
+import { BlueButton } from "../../Shared/Buttons/BlueButton/BlueButton"
+import useStyles from "./style"
 
 export default function Posts({ post }) {
+  const classes = useStyles()
+  console.log(post)
+  const img = post.images.length ? post.images[0] : emptyImage
   const avatarInitials = post.user.name[0] + post.user.surname[0]
   return (
     <Card>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+          <Avatar aria-label="recipe" className={classes.avatar}>
             {avatarInitials}
           </Avatar>
         }
         title={`${post.user.name} ${post.user.surname}`}
         subheader={post.user.date}
       />
-      <CardMedia component="img" height="194" image={post.user.name} alt={post.user.name} />
+      <CardMedia component="img" height="250" image={img} alt={img} />
       <CardContent>
+        <Typography variant="h6" color="text.dark" mb={3}>
+          {post.name}
+        </Typography>
         <Typography variant="body2" color="text.secondary">
-          {post.user.description}
+          {post.description.slice(0, 120) + "..."}
         </Typography>
       </CardContent>
       <CardActions
@@ -41,15 +48,15 @@ export default function Posts({ post }) {
           <FavoriteIcon />
         </IconButton>
         <CustomLink
-          url="/post/1"
+          url={`/post/${post.id}`}
           title={
-            <GreenButton
+            <BlueButton
               sx={{
                 width: "auto",
               }}
             >
               See details
-            </GreenButton>
+            </BlueButton>
           }
         />
       </CardActions>

@@ -1,6 +1,5 @@
 import Container from "@mui/material/Container"
 import Box from "@mui/material/Box"
-import postImg from "../../../assets/deskBackground.jpeg"
 import Card from "@mui/material/Card"
 import CardHeader from "@mui/material/CardHeader"
 import CardMedia from "@mui/material/CardMedia"
@@ -10,80 +9,103 @@ import { CustomLink } from "../../Shared/CustomLink/CustomLink"
 import Avatar from "@mui/material/Avatar"
 import IconButton from "@mui/material/IconButton"
 import Typography from "@mui/material/Typography"
-import { red } from "@mui/material/colors"
 import FavoriteIcon from "@mui/icons-material/Favorite"
-import { GreenButton } from "../../Shared/Buttons/GreenButton/GreenButton"
+import { useParams } from "react-router-dom"
+import useFetch from "../../../hooks/useFetch"
+import { useEffect, useState } from "react"
+import emptyImage from "../../../assets/adspy_loading_animation.gif"
+import moment from "moment"
+import useStyles from "./style"
+import { BlueButton } from "../../Shared/Buttons/BlueButton/BlueButton"
+
+import PostsSceletonSingle from "../PostsSceletonSingle/PostsSceletonSingle"
 
 export default function PostSingle() {
-  const data = [
-    {
-      authorName: "Ruben",
-      authorSurname: "Karapetyan",
-      image: postImg,
-      date: "22.08.2022",
-      description:
-        "This impressive paella is a perfect party dish and a fun meal to cook together with your guests.Add 1 cup of frozen peas along with the mussels, if you like.",
-    },
-  ]
-  const avatarInitials = data[0].authorName.slice(0, 1) + data[0].authorSurname.slice(0, 1)
-  return (
-    <Container size="md">
-      <Box
-        sx={{
-          marginTop: 10,
-          marginBottom: 10,
-        }}
-      >
-        <Card>
-          <CardHeader
-            avatar={
-              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                {avatarInitials}
-              </Avatar>
-            }
-            title={`${data[0].authorName} ${data[0].authorSurname}`}
-            subheader={data[0].date}
-          />
-          <CardMedia
-            component="img"
-            sx={{
-              maxHeight: 500,
-              minHeight: 250,
-            }}
-            image={data[0].image}
-            alt={data[0].image}
-          />
-          <CardContent>
-            <Typography variant="body2" color="text.secondary">
-              {data[0].description}
-            </Typography>
-          </CardContent>
-          <CardActions
-            disableSpacing
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-            <GreenButton
+  const classes = useStyles()
+  const { id } = useParams()
+  const [post, setPost] = useState({})
+  const { data, error, loading } = useFetch(`/posts/${id}`)
+  const date = moment(post?.created_at).format("LLLL")
+  const avatarInitials = `${post?.user?.name[0]}${post?.user?.surname[0]}`
+  useEffect(() => {
+    setPost(data.post)
+  }, [data])
+  if (loading)
+    return (
+      <Container size="md">
+        <Box
+          sx={{
+            marginTop: 10,
+            marginBottom: 10,
+          }}
+        >
+          <PostsSceletonSingle />
+        </Box>
+      </Container>
+    )
+  else
+    return (
+      <Container size="md">
+        <Box
+          sx={{
+            marginTop: 10,
+            marginBottom: 10,
+          }}
+        >
+          <Card>
+            <CardHeader
+              avatar={
+                <Avatar className={classes.avatar} aria-label="recipe">
+                  {avatarInitials}
+                </Avatar>
+              }
+              title={`${post?.user?.name} ${post?.user?.surname}`}
+              subheader={date}
+            />
+            <CardMedia
+              component="img"
               sx={{
-                width: "auto",
+                maxHeight: 500,
+                minHeight: 250,
+                objectFit: "contain",
+              }}
+              image={post?.images ? post.images[0] : emptyImage}
+              alt={post?.created_at}
+            />
+            <CardContent>
+              <Typography variant="h5" color="text.dark" mb={3}>
+                {post?.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {post?.description}
+              </Typography>
+            </CardContent>
+            <CardActions
+              disableSpacing
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
               }}
             >
-              <CustomLink
-                url="/chat/1"
-                title="Start chat"
-                component="button"
-                variant="outlined"
-                color="#fff"
-              />
-            </GreenButton>
-          </CardActions>
-        </Card>
-      </Box>
-    </Container>
-  )
+              <IconButton aria-label="add to favorites">
+                <FavoriteIcon />
+              </IconButton>
+              <BlueButton
+                sx={{
+                  width: "auto",
+                }}
+              >
+                <CustomLink
+                  url="/chat/1"
+                  title="Start chat"
+                  component="button"
+                  variant="outlined"
+                  color="#fff"
+                />
+              </BlueButton>
+            </CardActions>
+          </Card>
+        </Box>
+      </Container>
+    )
 }

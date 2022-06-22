@@ -6,6 +6,7 @@ const useStyles = createUseStyles({
       fontSize: 14,
     },
   },
+  avatar: {},
   button: {
     justifyContent: "center !important",
   },

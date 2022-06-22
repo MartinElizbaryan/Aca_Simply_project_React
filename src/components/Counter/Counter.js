@@ -1,6 +1,6 @@
 import useStyles from "./style"
 import CountUp from "react-countup"
-import { Box, Container, Grid, Typography } from "@mui/material"
+import { Box, Grid, Typography, Container } from "@mui/material"
 
 export default function Counter() {
   const classes = useStyles()

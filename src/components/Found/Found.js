@@ -12,9 +12,7 @@ export default function Found() {
   const { data, error, loading } = useFetch("/posts?type=FIND")
   const [posts, setPosts] = useState([])
   useEffect(() => {
-    ;(async function () {
-      setPosts(data)
-    })()
+    setPosts(data.posts)
   }, [data])
   return (
     <Grid container spacing={0} mt={10}>

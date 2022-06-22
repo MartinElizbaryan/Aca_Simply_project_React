@@ -12,9 +12,7 @@ export default function Home() {
   const { data, error, loading } = useFetch("/posts?take=3")
   const [posts, setPosts] = useState([])
   useEffect(() => {
-    ;(async function () {
-      setPosts(data.posts)
-    })()
+    setPosts(data.posts)
   }, [data])
   return (
     <>
@@ -24,7 +22,7 @@ export default function Home() {
           loading ? (
             <PostsSceleton />
           ) : (
-            <PostsList title="Last posts" data={posts} />
+            <PostsList title="Top find Items" data={posts} />
           )
         ) : (
           <Typography variant="h5" textAlign="center">

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import "./App.css"
 // Helpers
 import history from "./helpers/history"
@@ -28,7 +28,6 @@ function App() {
       try {
         const res = await api.get("/users/me")
         dispatch(signIn(res.data.user))
-        console.log("sgxfgasfdf")
       } catch (e) {
         console.clear()
         console.log(e)

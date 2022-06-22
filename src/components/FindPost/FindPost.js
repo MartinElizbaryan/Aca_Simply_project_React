@@ -20,12 +20,12 @@ export default function FindPost() {
             <Typography variant="p" color={colors.white}>
               Find your lost item!
             </Typography>
-            <Grid container item spacing={2} mt={2} alignItems="center">
-              <Grid item xs={12} sm={6} md={6}>
+            <Grid container spacing={2} mt={2} alignItems="center">
+              <Grid item xs={12} sm={6} md={4}>
                 <WhiteInput label="Name" variant="filled" size="small" />
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
-                <WhiteInput select label="Type" variant="filled" size="small" defaultValue="">
+              <Grid item xs={12} sm={6} md={4}>
+                <WhiteInput select label="Type" variant="filled" size="small">
                   <MenuItem value={10}>Type 1</MenuItem>
                   <MenuItem value={20}>Type 2</MenuItem>
                 </WhiteInput>
@@ -34,7 +34,7 @@ export default function FindPost() {
                 item
                 xs={12}
                 sm={12}
-                md={3}
+                md={4}
                 sx={{
                   flex: 1,
                 }}
