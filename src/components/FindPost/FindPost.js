@@ -25,7 +25,7 @@ export default function FindPost() {
                 <WhiteInput label="Name" variant="filled" size="small" />
               </Grid>
               <Grid item xs={12} sm={6} md={4}>
-                <WhiteInput select label="Type" variant="filled" size="small">
+                <WhiteInput select label="Type" variant="filled" size="small" defaultValue="">
                   <MenuItem value={10}>Type 1</MenuItem>
                   <MenuItem value={20}>Type 2</MenuItem>
                 </WhiteInput>
