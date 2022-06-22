@@ -1,16 +1,40 @@
 import { useState } from "react"
-import { Box, Button, Checkbox, FormControlLabel, Link } from "@mui/material"
+import {
+  Box,
+  Button,
+  Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  FormControlLabel,
+  Link,
+} from "@mui/material"
 import { InputField } from "../Shared/InputField/InputField"
 import { signIn } from "./utils"
 import { colors } from "../../constants/styles"
 import useStyles from "./styles"
+import { useNavigate } from "react-router-dom"
 
 export default function SignIn() {
+  const [open, setOpen] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [auth, setAuth] = useState(false)
+  const [errMessage, setErrMessage] = useState("")
+
+  const navigate = useNavigate()
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   const classes = useStyles()
-
   return (
     <Box className={classes.totalBox}>
       <Box className={classes.centeral}>
@@ -38,10 +62,53 @@ export default function SignIn() {
         </Link>
       </Box>
       <Box className={classes.centeral2}>
-        <Button variant="contained" color="success" onClick={() => signIn({ email, password })}>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={async () => {
+            try {
+              const data = await signIn({ email, password })
+              console.log(data.auth)
+              setAuth(true)
+              navigate("/cabinet/profile")
+              setOpen(false)
+            } catch (e) {
+              setAuth(false)
+              setOpen(true)
+              setErrMessage(e.response.data.details)
+              console.log(e)
+            }
+          }}
+          //href={auth ? "/cabinet/profile" : ""}
+        >
           Log in
         </Button>
       </Box>
+      {open && (
+        <Box>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title" style={{ textAlign: "center" }}>
+              {"Incorrect email or password"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description" style={{ textAlign: "center" }}>
+                Your {errMessage}. <br />
+                Please try again.
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions style={{ display: "flex", justifyContent: "center" }}>
+              <Button onClick={handleClose} autoFocus>
+                Okay
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </Box>
+      )}
     </Box>
   )
 }
