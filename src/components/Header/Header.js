@@ -89,10 +89,10 @@ export default function Header() {
                 aria-haspopup="true"
                 color="inherit"
                 sx={{
-                  borderRadius: 0
+                  borderRadius: 0,
                 }}
               >
-                  <Link url="/chat" title={<EmailIcon />} color="white" />
+                <Link url="/chat" title={<EmailIcon />} color="white" />
               </IconButton>
               <IconButton
                 size="large"

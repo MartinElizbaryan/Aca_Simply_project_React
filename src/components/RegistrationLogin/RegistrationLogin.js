@@ -23,7 +23,7 @@ export default function RegistrationLogin() {
       <Box className={classes.bgColor}>
         <Logo black={true} />
       </Box>
-      <Typography className={classes.text1}>Post what you've lost and find it. </Typography>
+      <Typography className={classes.text1}>{"Post what you've lost and find it. "}</Typography>
 
       <Box className={classes.totalBox}>
         <Box className={classes.spacing}>

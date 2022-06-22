@@ -16,8 +16,7 @@ export default function CreatePost() {
   const [question, setQuestion] = useState([])
   const classes = useStyles()
   const addQuestion = () => {
-    let newQuestion
-    newQuestion = [...question, <Question key={question.length + 2 - 1} />]
+    const newQuestion = [...question, <Question key={question.length + 2 - 1} />]
     setQuestion(newQuestion)
   }
   return (

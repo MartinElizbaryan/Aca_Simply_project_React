@@ -1,1 +1,1 @@
-export const bgImage = require('../../assets/darkerBackground.jpg')
+export const bgImage = require("../../assets/darkerBackground.jpg")
