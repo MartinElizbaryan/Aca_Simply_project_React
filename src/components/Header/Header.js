@@ -21,7 +21,6 @@ import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import NavigationMobile from "../Shared/Navigation/NavigationMobile"
 import useStyles from "./styles"
 import { signOut } from "./utils"
-import { Link as RouterLink } from "react-router-dom"
 import EmailIcon from "@mui/icons-material/Email"
 
 export default function Header() {
@@ -89,10 +88,10 @@ export default function Header() {
                 aria-haspopup="true"
                 color="inherit"
                 sx={{
-                  borderRadius: 0
+                  borderRadius: 0,
                 }}
               >
-                  <Link url="/chat" title={<EmailIcon />} color="white" />
+                <Link url="/chat" title={<EmailIcon />} color="white" />
               </IconButton>
               <IconButton
                 size="large"
