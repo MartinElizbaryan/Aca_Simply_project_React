@@ -1,5 +1,5 @@
 import { createUseStyles } from "react-jss"
-import { bgImage } from "./constants"
+import bgImage from "../../assets/darkerBackground.jpg"
 import { colors } from "../../constants/styles"
 
 const $quoteSym = "'"
