@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { Box, Checkbox, FormControlLabel, Button, Link, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { InputField } from "../Shared/InputField/InputField";
 import { signIn } from "./utils";
@@ -6,6 +6,10 @@ import { colors } from "../../constants/styles";
 import useStyles from './styles';
 import { useNavigate } from "react-router-dom";
 
+/* export const someFunction = (auth) => {
+    console.log(auth, "aaa")
+    return auth;
+} */
 
 export default function SignIn() {
     const [open, setOpen] = useState(false);
@@ -42,20 +46,21 @@ export default function SignIn() {
                 <Button variant="contained" color="success" onClick={async () => {
                     try {
                         const data = await signIn({ email, password })
-                        console.log(data.auth)
+                        localStorage.setItem("auth", data.auth)
                         setAuth(true);
                         navigate("/cabinet/profile")
                         setOpen(false)
+                        // someFunction(auth)
                     } catch (e) {
+                        localStorage.setItem("auth", false)
                         setAuth(false)
                         setOpen(true)
                         setErrMessage(e.response.data.details)
                         console.log(e)
+                        // someFunction(false)
                     }
                 }
-                }
-                //href={auth ? "/cabinet/profile" : ""}
-                >
+                }>
                     Log in
                 </Button>
             </Box>

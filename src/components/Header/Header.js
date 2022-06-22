@@ -15,10 +15,12 @@ import { signOut } from "./utils";
 import { Link as RouterLink } from 'react-router-dom'
 import EmailIcon from '@mui/icons-material/Email';
 
-export default function Header() {
+export default function Header({setAuth}) {
   const classes = useStyles()
-  
-  const [auth, setAuth] = useState(true);
+
+  let auth = localStorage.getItem("auth");
+  setAuth(auth)
+
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClose = () => {
     setAnchorEl(null);
@@ -43,73 +45,76 @@ export default function Header() {
             )
           })}
         </Stack>
-        {auth && (
-          <>
-            <Box display="flex" alignItems="center">
-              <Box sx={{
-                display: {
-                  xs: 'block', sm: 'none'
-                }
-              }}>
-                <NavigationMobile />
-              </Box>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                color="inherit"
-                sx={{
-                  borderRadius: 0
-                }}
-              >
-                <LoginIcon />
-                <Typography ml={2}>
-                  <Link url="/signin" title="Sign in" color="white" />
-                </Typography>
-              </IconButton>
 
-              <RouterLink to={"chat"} color="white">
-                <EmailIcon />
-              </RouterLink>
-
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-                sx={{
-                  borderRadius: 0
-                }}
-              >
-                <AccountCircle />
-                <Typography ml={2}>Ashot</Typography>
-              </IconButton>
+        <>
+          <Box display="flex" alignItems="center">
+            <Box sx={{
+              display: {
+                xs: 'block', sm: 'none'
+              }
+            }}>
+              <NavigationMobile />
             </Box>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              color="inherit"
+              sx={{
+                borderRadius: 0
+              }}
             >
-              <MenuItem>
-                <ListItemIcon>
-                  <PersonIcon fontSize="small" />
-                </ListItemIcon>
-                <Link url="/cabinet/profile" title="My Profile" color="#212121" />
-              </MenuItem>
-              <MenuItem onClick={signOut}>
-                <ListItemIcon>
-                  <LogoutIcon fontSize="small" />
-                </ListItemIcon>
-                Logout
-              </MenuItem>
-            </Menu>
-          </>
-        )}
+              <LoginIcon />
+              <Typography ml={2}>
+                <Link url="/signin" title="Sign in" color="white" />
+              </Typography>
+            </IconButton>
+            {!auth ?
+              <Box>
+                <RouterLink to={"chat"} color="white">
+                  <EmailIcon />
+                </RouterLink>
+
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                  sx={{
+                    borderRadius: 0
+                  }}
+                >
+                  <AccountCircle />
+                  <Typography ml={2}>Ashot</Typography>
+                </IconButton>
+              </Box> : null
+            }
+          </Box>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem>
+              <ListItemIcon>
+                <PersonIcon fontSize="small" />
+              </ListItemIcon>
+              <Link url="/cabinet/profile" title="My Profile" color="#212121" />
+            </MenuItem>
+            <MenuItem onClick={signOut}>
+              <ListItemIcon>
+                <LogoutIcon fontSize="small" />
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          </Menu>
+        </>
+
 
       </Toolbar>
     </AppBar >

@@ -40,7 +40,7 @@ const useStyles = createUseStyles({
         height: 50,
         display: "flex",
         alignItems: "center",
-        textAlign: "center"
+        textAlign: "center",
     },
     centeral: {
         display: "flex",
