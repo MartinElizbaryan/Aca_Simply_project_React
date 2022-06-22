@@ -68,18 +68,20 @@ export default function SignIn() {
           onClick={async () => {
             try {
               const data = await signIn({ email, password })
-              console.log(data.auth)
+              localStorage.setItem("auth", data.auth)
               setAuth(true)
               navigate("/cabinet/profile")
               setOpen(false)
+              // someFunction(auth)
             } catch (e) {
+              localStorage.setItem("auth", false)
               setAuth(false)
               setOpen(true)
               setErrMessage(e.response.data.details)
               console.log(e)
+              // someFunction(false)
             }
           }}
-          //href={auth ? "/cabinet/profile" : ""}
         >
           Log in
         </Button>

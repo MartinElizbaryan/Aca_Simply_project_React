@@ -43,6 +43,7 @@ const useStyles = createUseStyles({
     display: "flex",
     alignItems: "center",
     textAlign: "center",
+    justifyContent: "center",
   },
   centeral: {
     display: "flex",
