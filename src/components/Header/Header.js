@@ -23,8 +23,8 @@ import useStyles from "./styles"
 import { signOut } from "./utils"
 import EmailIcon from "@mui/icons-material/Email"
 import api from "../../api/api"
-import jwt_decode from "jwt-decode"
 import socket from "../../helpers/socket"
+import jwt_decode from "jwt-decode"
 
 export default function Header() {
   const classes = useStyles()
