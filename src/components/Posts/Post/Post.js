@@ -14,7 +14,6 @@ import useStyles from "./style"
 
 export default function Posts({ post }) {
   const classes = useStyles()
-  console.log(post)
   const img = post.images.length ? post.images[0] : emptyImage
   const avatarInitials = post.user.name[0] + post.user.surname[0]
   return (
@@ -31,7 +30,10 @@ export default function Posts({ post }) {
       <CardMedia component="img" height="250" image={img} alt={img} />
       <CardContent>
         <Typography variant="h6" color="text.dark" mb={3}>
-          {post.name}
+          Name: {post.name}
+        </Typography>
+        <Typography variant="h6" color="text.dark" mb={3}>
+          Category: {post.category.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {post.description.slice(0, 120) + "..."}

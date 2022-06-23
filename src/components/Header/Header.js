@@ -49,7 +49,8 @@ export default function Header() {
       const res = await api.get("users/chat")
       setUsers(res.data.users)
     })()
-  }, [])
+  }, [isReceived])
+
   const handleClose = () => {
     setAnchorEl(null)
   }
@@ -58,16 +59,10 @@ export default function Header() {
   }
 
   useEffect(() => {
-    const idTerminal = setInterval(() => {
-      ;(async () => {
-        const messagesInfo = await api.get("/messages/unread")
-        setMessageCount(messagesInfo.data._count.id)
-      })()
-    }, 1000)
-
-    return () => {
-      clearInterval(idTerminal)
-    }
+    ;(async () => {
+      const messagesInfo = await api.get("/messages/unread")
+      setMessageCount(messagesInfo.data._count.id)
+    })()
   }, [])
 
   // useEffect(() => {

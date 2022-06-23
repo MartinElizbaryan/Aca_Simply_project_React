@@ -16,7 +16,7 @@ export default function FindPost() {
 
   const findPost = () => {
     console.log(name, type)
-    history(`/${type}?name=${name}`)
+    history(`/${type.toLowerCase()}?name=${name}`)
   }
 
   const classes = useStyles()

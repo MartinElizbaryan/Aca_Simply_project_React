@@ -22,7 +22,7 @@ function ChatUserInfoBlock({ id, onlineUsers }) {
         console.log(res.data.users)
         setUsers(res.data.users)
       })()
-    }, 1000)
+    }, 100_000)
 
     return () => {
       clearInterval(idTerminal)
