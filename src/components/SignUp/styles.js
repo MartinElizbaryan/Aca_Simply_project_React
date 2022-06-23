@@ -59,6 +59,7 @@ const useStyles = createUseStyles({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 10,
+    marginTop: 10,
   },
   policyText: {
     marginTop: [[20], "!important"],

@@ -32,7 +32,7 @@ export default function FindPost() {
               Find your lost item!
             </Typography>
             <Grid container spacing={2} mt={2} alignItems="center">
-              <Grid item xs={12} sm={6} md={4}>
+              <Grid item xs={12} sm={6} md={6}>
                 <WhiteInput
                   label="Name"
                   variant="filled"
@@ -41,7 +41,7 @@ export default function FindPost() {
                   onChange={(e) => setName(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} md={4}>
+              <Grid item xs={12} sm={6} md={3}>
                 <WhiteInput
                   select
                   label="Type"
@@ -58,7 +58,7 @@ export default function FindPost() {
                 item
                 xs={12}
                 sm={12}
-                md={4}
+                md={3}
                 sx={{
                   flex: 1,
                 }}

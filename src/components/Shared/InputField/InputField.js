@@ -1,10 +1,17 @@
 import React from "react"
-import { AccountCircle, Lock, LockClock, Mail } from "@mui/icons-material"
+import { AccountCircle, Lock, LockClock, Mail, Password } from "@mui/icons-material"
 import InputAdornment from "@mui/material/InputAdornment"
 import { TextField } from "@mui/material"
 import useStyles from "./style"
 
-export function InputField({ account, password, email, confirmedPassword, ...props }) {
+export function InputField({
+  account,
+  password,
+  email,
+  sixDigitIcon,
+  confirmedPassword,
+  ...props
+}) {
   const classes = useStyles()
   return (
     <TextField
@@ -21,6 +28,7 @@ export function InputField({ account, password, email, confirmedPassword, ...pro
             {password && <Lock />}
             {email && <Mail />}
             {confirmedPassword && <LockClock />}
+            {sixDigitIcon && <Password />}
           </InputAdornment>
         ),
       }}

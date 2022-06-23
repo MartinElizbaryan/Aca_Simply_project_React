@@ -5,16 +5,11 @@ import { CustomLink } from "../Shared/CustomLink/CustomLink"
 import useStyles from "./styles"
 import SignIn from "../SignIn/SignIn"
 import SignUp from "../SignUp/SignUp"
+import { useLocation } from "react-router-dom"
+import ForgotPassword from "../ForgotPassword/ForgotPassword"
 
 export default function RegistrationLogin() {
-  const [route, setRoute] = useState("signIn")
-
-  const handleSignUpClick = () => {
-    setRoute("signUp")
-  }
-  const handleSignInClick = () => {
-    setRoute("signIn")
-  }
+  const { pathname } = useLocation()
 
   const classes = useStyles()
 
@@ -26,17 +21,20 @@ export default function RegistrationLogin() {
       <Typography className={classes.text1}>{"Post what you've lost and find it. "}</Typography>
 
       <Box className={classes.totalBox}>
-        <Box className={classes.spacing}>
-          <Box className={classes.button}>
-            <CustomLink url="/signup" title="Sign Up" color="black" onClick={handleSignUpClick} />
+        {!(pathname === "/forgot_password") && (
+          <Box className={classes.spacing}>
+            <Box className={classes.button}>
+              <CustomLink url="/signup" title="Sign Up" color="black" />
+            </Box>
+            <Box className={classes.button}>
+              <CustomLink url="/signin" title="Sign In" color="black" />
+            </Box>
           </Box>
-          <Box className={classes.button}>
-            <CustomLink url="/signin" title="Sign In" color="black" onClick={handleSignInClick} />
-          </Box>
-        </Box>
+        )}
         <Box>
-          {route === "signIn" && <SignIn />}
-          {route === "signUp" && <SignUp />}
+          {pathname === "/signin" && <SignIn />}
+          {pathname === "/signup" && <SignUp />}
+          {pathname === "/forgot_password" && <ForgotPassword />}
         </Box>
       </Box>
 

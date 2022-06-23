@@ -14,6 +14,7 @@ import useStyles from "./style"
 
 export default function Posts({ post }) {
   const classes = useStyles()
+
   const img = post.images.length ? post.images[0] : emptyImage
   const avatarInitials = post.user.name[0] + post.user.surname[0]
   return (

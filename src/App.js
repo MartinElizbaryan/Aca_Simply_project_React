@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import "./App.css"
 // Helpers
 import history from "./helpers/history"
@@ -19,7 +19,7 @@ import RegistrationLogin from "./components/RegistrationLogin/RegistrationLogin"
 import Contact from "./components/Contact/Contact"
 import { useDispatch } from "react-redux"
 import api from "./api/api"
-import { signIn } from "./helpers/userSlice"
+import { signIn } from "./store/userSlice"
 
 function App() {
   const dispatch = useDispatch()
@@ -29,7 +29,7 @@ function App() {
         const res = await api.get("/users/me")
         dispatch(signIn(res.data.user))
       } catch (e) {
-        console.clear()
+        // console.clear()
         console.log(e)
       }
     }
@@ -55,6 +55,7 @@ function App() {
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/signin" element={<RegistrationLogin />} />
             <Route exact path="/signup" element={<RegistrationLogin />} />
+            <Route exact path="/forgot_password" element={<RegistrationLogin />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
