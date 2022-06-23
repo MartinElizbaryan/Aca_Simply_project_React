@@ -26,6 +26,7 @@ function Messages({ id }) {
     })()
 
     socket.on("receive", (data) => {
+      console.log(data)
       setMessages((messages) => [...messages, data])
     })
 
