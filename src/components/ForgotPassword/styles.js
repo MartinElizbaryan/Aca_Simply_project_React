@@ -18,14 +18,12 @@ const useStyles = createUseStyles({
     marginBottom: [[10], "!important"],
   },
   bgColor: {
-    marginTop: 80,
+    backgroundColor: colors.grey,
   },
   totalBox: {
     backgroundColor: colors.white,
-    width: "50%",
+    width: "100%",
     borderRadius: 12,
-    padding: "0px 16px",
-    boxShadow: "0 6px 16px 0 rgb(0 0 0 / 20%)",
     ["@media (min-width:780px)"]: {
       // eslint-disable-line no-useless-computed-key
       width: 400,
@@ -49,6 +47,7 @@ const useStyles = createUseStyles({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    marginBottom: 15,
   },
   finalBox: {
     display: "flex",
@@ -61,11 +60,28 @@ const useStyles = createUseStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 10,
+    gap: 10,
+    flexDirection: "column",
+  },
+  margin: {
+    margin: 10,
+  },
+  centeral3: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  centeral4: {
+    marginTop: 20,
   },
   policyText: {
     marginTop: [[20], "!important"],
-    marginBottom: [[20], "!important"],
+  },
+  bigText: {
+    fontSize: [[22], "!important"],
+    fontWeight: [["700"], "!important"],
+    marginTop: [[20], "!important"],
   },
 })
 export default useStyles

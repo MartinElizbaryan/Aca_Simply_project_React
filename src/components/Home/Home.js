@@ -18,7 +18,6 @@ export default function Home() {
     <>
       <FindPost />
       <Box mt={5} mb={5}>
-        {/* <PostsList title="Popular Posts" data={data} /> */}
         {posts ? (
           loading ? (
             <PostsSceleton />
