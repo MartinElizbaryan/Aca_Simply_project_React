@@ -6,8 +6,19 @@ import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import useStyles from "./style"
 import { colors } from "../../constants/styles"
 import SearchIcon from "@mui/icons-material/Search"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function FindPost() {
+  const [name, setName] = useState("")
+  const [type, setType] = useState("LOST")
+  const history = useNavigate()
+
+  const findPost = () => {
+    console.log(name, type)
+    history(`/${type.toLowerCase()}?name=${name}`)
+  }
+
   const classes = useStyles()
   return (
     <Box className={classes.BgImage}>
@@ -22,12 +33,25 @@ export default function FindPost() {
             </Typography>
             <Grid container spacing={2} mt={2} alignItems="center">
               <Grid item xs={12} sm={6} md={6}>
-                <WhiteInput label="Name" variant="filled" size="small" />
+                <WhiteInput
+                  label="Name"
+                  variant="filled"
+                  size="small"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <WhiteInput select label="Type" variant="filled" size="small" defaultValue="">
-                  <MenuItem value={10}>Type 1</MenuItem>
-                  <MenuItem value={20}>Type 2</MenuItem>
+                <WhiteInput
+                  select
+                  label="Type"
+                  variant="filled"
+                  size="small"
+                  value={type}
+                  onChange={(e) => setType(e.target.value)}
+                >
+                  <MenuItem value={"LOST"}>LOST</MenuItem>
+                  <MenuItem value={"FOUND"}>FOUND</MenuItem>
                 </WhiteInput>
               </Grid>
               <Grid
@@ -39,7 +63,7 @@ export default function FindPost() {
                   flex: 1,
                 }}
               >
-                <GreenButton variant="contained" size="large">
+                <GreenButton variant="contained" size="large" onClick={findPost}>
                   <SearchIcon ml={2} />
                   Find post
                 </GreenButton>

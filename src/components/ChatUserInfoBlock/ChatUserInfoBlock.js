@@ -7,9 +7,18 @@ import { Link } from "react-router-dom"
 function ChatUserInfoBlock({ id, onlineUsers }) {
   const [users, setUsers] = useState([])
 
+  // useEffect(() => {
+  //   ;(async () => {
+  //     const res = await api.get("users/chat")
+  //     console.log(res.data.users)
+  //     setUsers(res.data.users)
+  //   })()
+  // }, [])
+
   useEffect(() => {
     ;(async () => {
       const res = await api.get("users/chat")
+      console.log(res.data.users)
       setUsers(res.data.users)
     })()
   }, [])

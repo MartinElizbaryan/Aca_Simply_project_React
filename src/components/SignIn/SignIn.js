@@ -25,7 +25,6 @@ export default function SignIn() {
   const [open, setOpen] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [auth, setAuth] = useState(false)
   const [errMessage, setErrMessage] = useState("")
 
   const navigate = useNavigate()
@@ -72,7 +71,6 @@ export default function SignIn() {
           onClick={async () => {
             try {
               const data = await signInPost({ email, password })
-              console.log(data, "aaaa")
               dispatch(signIn(data.user))
               navigate("/cabinet/profile")
               setOpen(false)

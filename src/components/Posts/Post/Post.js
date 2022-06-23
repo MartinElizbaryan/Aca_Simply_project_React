@@ -31,7 +31,10 @@ export default function Posts({ post }) {
       <CardMedia component="img" height="250" image={img} alt={img} />
       <CardContent>
         <Typography variant="h6" color="text.dark" mb={3}>
-          {post.name}
+          Name: {post.name}
+        </Typography>
+        <Typography variant="h6" color="text.dark" mb={3}>
+          Category: {post.category.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {post.description.slice(0, 120) + "..."}
