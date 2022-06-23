@@ -16,17 +16,11 @@ function ChatUserInfoBlock({ id, onlineUsers }) {
   // }, [])
 
   useEffect(() => {
-    const idTerminal = setInterval(() => {
-      ;(async () => {
-        const res = await api.get("users/chat")
-        console.log(res.data.users)
-        setUsers(res.data.users)
-      })()
-    }, 100_000)
-
-    return () => {
-      clearInterval(idTerminal)
-    }
+    ;(async () => {
+      const res = await api.get("users/chat")
+      console.log(res.data.users)
+      setUsers(res.data.users)
+    })()
   }, [])
 
   return (
