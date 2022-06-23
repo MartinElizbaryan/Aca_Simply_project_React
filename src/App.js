@@ -19,8 +19,7 @@ import RegistrationLogin from "./components/RegistrationLogin/RegistrationLogin"
 import Contact from "./components/Contact/Contact"
 import { useDispatch } from "react-redux"
 import api from "./api/api"
-import { signIn } from "./helpers/userSlice"
-import SignIn from "./components/SignIn/SignIn"
+import { signIn } from "./store/userSlice"
 
 function App() {
   const dispatch = useDispatch()

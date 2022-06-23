@@ -22,9 +22,8 @@ import NavigationMobile from "../Shared/Navigation/NavigationMobile"
 import useStyles from "./styles"
 import { signOutFunction } from "./utils"
 import EmailIcon from "@mui/icons-material/Email"
-import { useSelector } from "react-redux"
-import { useDispatch } from "react-redux"
-import { signOut } from "../../helpers/userSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { signOut } from "../../store/userSlice"
 
 export default function Header() {
   const dispatch = useDispatch()

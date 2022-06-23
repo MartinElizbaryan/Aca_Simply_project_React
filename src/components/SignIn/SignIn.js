@@ -17,7 +17,7 @@ import { colors } from "../../constants/styles"
 import useStyles from "./styles"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { signIn } from "../../helpers/userSlice"
+import { signIn } from "../../store/userSlice"
 
 export default function SignIn() {
   const dispatch = useDispatch()
