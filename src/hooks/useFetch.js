@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react"
 import api from "../api/api"
+import { useSearchParams } from "react-router-dom"
 
 export default function useFetch(url) {
+  const [searchParams, setSearchParams] = useSearchParams()
+  console.log(Object.fromEntries([...searchParams]))
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState([])
