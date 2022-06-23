@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import {
   AppBar,
   Box,
@@ -22,18 +22,61 @@ import NavigationMobile from "../Shared/Navigation/NavigationMobile"
 import useStyles from "./styles"
 import { signOut } from "./utils"
 import EmailIcon from "@mui/icons-material/Email"
+import api from "../../api/api"
+import jwt_decode from "jwt-decode"
+import socket from "../../helpers/socket"
 
 export default function Header() {
   const classes = useStyles()
-
   const [auth, setAuth] = useState(true)
+  const [isReceived, setIsReceived] = useState(true)
+  const [messageCount, setMessageCount] = useState([])
   const [anchorEl, setAnchorEl] = useState(null)
+  const [users, setUsers] = useState([])
+
+  const { id: authId } = jwt_decode(localStorage.getItem("accessToken"))
+
+  useEffect(() => {
+    users.forEach((user) => {
+      const id = user.id
+      const room = id > authId ? `${authId}_${id}` : `${id}_${authId}`
+      socket.emit("join", { room, authId })
+    })
+  })
+
+  useEffect(() => {
+    ;(async () => {
+      const res = await api.get("users/chat")
+      setUsers(res.data.users)
+    })()
+  }, [isReceived])
+
   const handleClose = () => {
     setAnchorEl(null)
   }
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget)
   }
+
+  useEffect(() => {
+    ;(async () => {
+      const messagesInfo = await api.get("/messages/unread")
+      setMessageCount(messagesInfo.data._count.id)
+    })()
+  }, [])
+
+  // useEffect(() => {
+  //   const idTerminal = setInterval(() => {
+  //     ;(async () => {
+  //       const messagesInfo = await api.get("/messages/unread")
+  //       setMessageCount(messagesInfo.data._count.id)
+  //     })()
+  //   }, 5000)
+  //
+  //   return () => {
+  //     clearInterval(idTerminal)
+  //   }
+  // }, [])
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
@@ -92,6 +135,7 @@ export default function Header() {
                 }}
               >
                 <Link url="/chat" title={<EmailIcon />} color="white" />
+                {messageCount}
               </IconButton>
               <IconButton
                 size="large"

@@ -9,10 +9,12 @@ import { useEffect, useState } from "react"
 import useFetch from "../../hooks/useFetch"
 
 export default function Found() {
-  const { data, error, loading } = useFetch("/posts?type=FIND")
+  const { data, error, loading } = useFetch("/posts")
+
   const [posts, setPosts] = useState([])
   useEffect(() => {
     setPosts(data.posts)
+    console.log(data.posts)
   }, [data])
   return (
     <Grid container spacing={0} mt={10}>

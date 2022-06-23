@@ -18,6 +18,7 @@ const Chat = () => {
 
   useEffect(() => {
     socket.on("onlineUsers", (users) => {
+      console.log("onlineUsers socket Chat.js")
       setOnlineUsers(users)
     })
   }, [])

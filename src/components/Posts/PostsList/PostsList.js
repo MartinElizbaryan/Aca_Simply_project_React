@@ -12,7 +12,7 @@ export default function PostsList({ data, title, ColsCount = 4 }) {
       <Grid container spacing={2}>
         {data?.map((post, index) => {
           return (
-            <Grid item xs={12} sm={6} lg={ColsCount} key={index}>
+            <Grid item xs={12} sm={6} lg={ColsCount} key={post.id}>
               <Post post={post} />
             </Grid>
           )

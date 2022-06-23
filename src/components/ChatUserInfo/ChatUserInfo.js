@@ -21,6 +21,7 @@ function ChatUserInfo({ user, id, isActive }) {
         <Avatar sx={{ bgcolor: colors.blue }}>{getFirstLetters(user)}</Avatar>
       </ListItemIcon>
       <ListItemText primary={getUserFullName(user)} />
+      {!!user.messages_from.length && <FiberManualRecordIcon color={"error"} />}
       <FiberManualRecordIcon color={isActive ? "success" : "disabled"} />
     </ListItem>
   )
