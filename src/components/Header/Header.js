@@ -20,14 +20,17 @@ import { colors } from "../../constants/styles.js"
 import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import NavigationMobile from "../Shared/Navigation/NavigationMobile"
 import useStyles from "./styles"
-import { signOut } from "./utils"
+import { signOutFunction } from "./utils"
 import EmailIcon from "@mui/icons-material/Email"
 import { useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
+import { signOut } from "../../helpers/userSlice"
 
 export default function Header() {
+  const dispatch = useDispatch()
   const classes = useStyles()
 
-  const auth = useSelector((state) => state.user.auth)
+  const { auth, info } = useSelector((state) => state.user)
   const [anchorEl, setAnchorEl] = useState(null)
   const handleClose = () => {
     setAnchorEl(null)
@@ -107,7 +110,7 @@ export default function Header() {
                 }}
               >
                 <AccountCircle />
-                <Typography ml={2}>Ashot</Typography>
+                <Typography ml={2}>{info.name}</Typography>
               </IconButton>
             </>
           )}
@@ -125,11 +128,19 @@ export default function Header() {
             </ListItemIcon>
             <Link url="/cabinet/profile" title="My Profile" color="#212121" />
           </MenuItem>
-          <MenuItem onClick={signOut}>
+          <MenuItem
+            onClick={async () => {
+              const status = await signOutFunction()
+              if (status === 204) {
+                dispatch(signOut())
+                setAnchorEl(null)
+              }
+            }}
+          >
             <ListItemIcon>
               <LogoutIcon fontSize="small" />
             </ListItemIcon>
-            Logout
+            Sign Out
           </MenuItem>
         </Menu>
       </Toolbar>

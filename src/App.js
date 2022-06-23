@@ -20,6 +20,7 @@ import Contact from "./components/Contact/Contact"
 import { useDispatch } from "react-redux"
 import api from "./api/api"
 import { signIn } from "./helpers/userSlice"
+import SignIn from "./components/SignIn/SignIn"
 
 function App() {
   const dispatch = useDispatch()
@@ -55,6 +56,7 @@ function App() {
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/signin" element={<RegistrationLogin />} />
             <Route exact path="/signup" element={<RegistrationLogin />} />
+            <Route exact path="/forgot_password" element={<RegistrationLogin />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
