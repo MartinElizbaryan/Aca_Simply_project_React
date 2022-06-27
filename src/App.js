@@ -1,9 +1,6 @@
 import React, { useEffect } from "react"
+import { useDispatch } from "react-redux"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
-import "./App.css"
-// Helpers
-import history from "./helpers/history"
-//components
 import Main from "./components/Main/Main"
 import Home from "./components/Home/Home"
 import PageNotFound from "./components/Errors/PageNotFound/PageNotFound"
@@ -15,10 +12,11 @@ import Posts from "./components/Posts/Posts"
 import RegistrationLogin from "./components/RegistrationLogin/RegistrationLogin"
 import FAQ from "./components/FAQ/FAQ"
 import Contact from "./components/Contact/Contact"
-import { useDispatch } from "react-redux"
-import api from "./api/api"
-import { signIn } from "./redux/userSlice"
 import Settings from "./components/Settings/Settings"
+import api from "./api/api"
+import history from "./helpers/history"
+import { signIn } from "./redux/userSlice"
+import "./App.css"
 
 function App() {
   const dispatch = useDispatch()
@@ -48,9 +46,9 @@ function App() {
             <Route exact path="/chat/:id" element={<Chat />} />
             <Route exact path="/profile" element={<Profile />} />
             <Route exact path="/profile/create-post" element={<CreatePost />} />
-            <Route exact path="/profile/my-posts" element={<MyPosts />} />
-            <Route exact path="/profile/confirmed-posts" element={<ConfirmedPosts />} />
-            <Route exact path="/profile/favorite-posts" element={<FavoritePosts />} />
+            {/*<Route exact path="/profile/my-posts" element={<MyPosts />} />*/}
+            {/*<Route exact path="/profile/confirmed-posts" element={<ConfirmedPosts />} />*/}
+            {/*<Route exact path="/profile/favorite-posts" element={<FavoritePosts />} />*/}
             <Route exact path="/profile/settings" element={<Settings />} />
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/signin" element={<RegistrationLogin />} />

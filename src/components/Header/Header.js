@@ -172,7 +172,7 @@ export default function Header() {
             <ListItemIcon>
               <PersonIcon fontSize="small" />
             </ListItemIcon>
-            <Link url="/cabinet/profile" title="My Profile" color="#212121" />
+            <Link url="/profile" title="My Profile" color="#212121" />
           </MenuItem>
           <MenuItem
             onClick={async () => {

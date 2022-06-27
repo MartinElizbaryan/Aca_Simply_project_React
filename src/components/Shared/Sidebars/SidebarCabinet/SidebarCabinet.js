@@ -1,15 +1,12 @@
-import ListSubheader from "@mui/material/ListSubheader"
-import List from "@mui/material/List"
-import ListItemButton from "@mui/material/ListItemButton"
-import SettingsIcon from "@mui/icons-material/Settings"
-import ListItemText from "@mui/material/ListItemText"
-import AccountCircleIcon from "@mui/icons-material/AccountCircle"
-import ListItemIcon from "@mui/material/ListItemIcon"
-import ArticleIcon from "@mui/icons-material/Article"
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
-import FactCheckIcon from "@mui/icons-material/FactCheck"
-import useStyles from "./style"
 import { Link } from "react-router-dom"
+import { List, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from "@mui/material"
+import FavoriteIcon from "@mui/icons-material/Favorite"
+import SettingsIcon from "@mui/icons-material/Settings"
+import ArticleIcon from "@mui/icons-material/Article"
+import FactCheckIcon from "@mui/icons-material/FactCheck"
+import AccountCircleIcon from "@mui/icons-material/AccountCircle"
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
+import useStyles from "./style"
 
 export default function SidebarCabinet() {
   const classes = useStyles()
@@ -25,7 +22,7 @@ export default function SidebarCabinet() {
       }
     >
       <ListItemButton>
-        <Link to="/cabinet/profile" className={classes.link}>
+        <Link to="/profile" className={classes.link}>
           <ListItemIcon>
             <AccountCircleIcon />
           </ListItemIcon>
@@ -33,7 +30,7 @@ export default function SidebarCabinet() {
         </Link>
       </ListItemButton>
       <ListItemButton>
-        <Link to="/cabinet/create-post" className={classes.link}>
+        <Link to="/profile/create-post" className={classes.link}>
           <ListItemIcon>
             <AddCircleOutlineIcon />
           </ListItemIcon>
@@ -41,15 +38,15 @@ export default function SidebarCabinet() {
         </Link>
       </ListItemButton>
       <ListItemButton>
-        <Link to="/cabinet/posts" className={classes.link}>
+        <Link to="/profile/my-posts" className={classes.link}>
           <ListItemIcon>
             <ArticleIcon />
           </ListItemIcon>
-          <ListItemText primary="Posts" />
+          <ListItemText primary="My Posts" />
         </Link>
       </ListItemButton>
       <ListItemButton>
-        <Link to="/cabinet/confirmed-posts" className={classes.link}>
+        <Link to="/profile/confirmed-posts" className={classes.link}>
           <ListItemIcon>
             <FactCheckIcon />
           </ListItemIcon>
@@ -57,7 +54,15 @@ export default function SidebarCabinet() {
         </Link>
       </ListItemButton>
       <ListItemButton>
-        <Link to="/cabinet/settings" className={classes.link}>
+        <Link to="/profile/favorite-posts" className={classes.link}>
+          <ListItemIcon>
+            <FavoriteIcon />
+          </ListItemIcon>
+          <ListItemText primary="Favorite Posts" />
+        </Link>
+      </ListItemButton>
+      <ListItemButton>
+        <Link to="/profile/settings" className={classes.link}>
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>

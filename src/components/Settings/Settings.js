@@ -51,10 +51,10 @@ export default function Settings() {
       <Stack p={2} spacing={2}>
         <Typography variant="h6">Change password</Typography>
         <Stack spacing={2}>
-          <Grid item xs={12}>
+          <Box item xs={12}>
             <Typography variant="caption">Old Password</Typography>
             <OutlinedInput label="Old Password" value={oldPassword} size="small" />
-          </Grid>
+          </Box>
           <Grid item xs={12}>
             <OutlinedInput label="New Password" value={newPassword} size="small" />
           </Grid>
