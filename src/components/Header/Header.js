@@ -32,8 +32,8 @@ export default function Header() {
   const classes = useStyles()
   const navigate = useNavigate()
   const { auth, info } = useSelector((state) => state.user)
-  const [isReceived, setIsReceived] = useState(true)
-  const [messageCount, setMessageCount] = useState([])
+  // const [isReceived, setIsReceived] = useState(true)
+  // const [messageCount, setMessageCount] = useState([])
   const [anchorEl, setAnchorEl] = useState(null)
   const [users, setUsers] = useState([])
 
@@ -43,14 +43,34 @@ export default function Header() {
   //     const room = id > info.id ? `${info.id}_${id}` : `${id}_${info.id}`
   //     socket.emit("join", { room, authId: info.id })
   //   })
-  // })
   //
+  //   // return () => {
+  //   //   users.forEach((user) => {
+  //   //     const id = user.id
+  //   //     const room = id > info.id ? `${info.id}_${id}` : `${id}_${info.id}`
+  //   //     socket.emit("leave", { room, authId: info.id })
+  //   //   })
+  //   // }
+  // }, [])
+
+  useEffect(
+    () => {
+      ;(async () => {
+        const res = await api.get("users/chat")
+        setUsers(res.data.users)
+      })()
+    },
+    [
+      /*isReceived*/
+    ]
+  )
+
   // useEffect(() => {
-  //   ;(async () => {
-  //     const res = await api.get("users/chat")
-  //     setUsers(res.data.users)
-  //   })()
-  // }, [isReceived])
+  //   socket.on("messageAdded", () => {
+  //     console.log("receive in header")
+  //     setIsReceived(!isReceived)
+  //   })
+  // }, [])
 
   const handleClose = () => {
     setAnchorEl(null)
@@ -59,25 +79,12 @@ export default function Header() {
     setAnchorEl(event.currentTarget)
   }
 
-  useEffect(() => {
-    ;(async () => {
-      const messagesInfo = await api.get("/messages/unread")
-      setMessageCount(messagesInfo.data._count.id)
-    })()
-  }, [])
-
   // useEffect(() => {
-  //   const idTerminal = setInterval(() => {
-  //     ;(async () => {
-  //       const messagesInfo = await api.get("/messages/unread")
-  //       setMessageCount(messagesInfo.data._count.id)
-  //     })()
-  //   }, 5000)
-  //
-  //   return () => {
-  //     clearInterval(idTerminal)
-  //   }
-  // }, [])
+  //   ;(async () => {
+  //     const messagesInfo = await api.get("/messages/unread")
+  //     setMessageCount(messagesInfo.data._count.id)
+  //   })()
+  // }, [isReceived])
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
@@ -137,7 +144,7 @@ export default function Header() {
                 }}
               >
                 <Link url="/chat" title={<EmailIcon />} color="white" />
-                {messageCount}
+                {/*{messageCount}*/}
               </IconButton>
               <IconButton
                 size="large"

@@ -7,14 +7,15 @@ import FormControlLabel from "@mui/material/FormControlLabel"
 import FormControl from "@mui/material/FormControl"
 import useFetch from "../../../../hooks/useFetch"
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
-export default function Sidebar() {
+export default function Sidebar({ onOff, isChecked }) {
   const { data, error, loading } = useFetch("/categories")
-
   const [categories, setCategories] = useState([])
+  const navigate = useNavigate()
+
   useEffect(() => {
     setCategories(data.categories)
-    console.log(data.categories)
   }, [data])
 
   return (
@@ -28,10 +29,10 @@ export default function Sidebar() {
         </ListSubheader>
       }
     >
-      {categories?.map((item) => {
+      {categories?.map((category) => {
         return (
           // eslint-disable-next-line react/jsx-key
-          <ListItemButton>
+          <ListItemButton key={category.id}>
             <FormControl
               component="fieldset"
               sx={{
@@ -49,8 +50,8 @@ export default function Sidebar() {
               >
                 <FormControlLabel
                   value="end"
-                  control={<Checkbox />}
-                  label={item.name}
+                  control={<Checkbox onChange={(e) => onOff(e, category.id)} />}
+                  label={category.name}
                   labelPlacement="end"
                   sx={{
                     display: "block",

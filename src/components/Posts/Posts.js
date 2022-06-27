@@ -7,15 +7,28 @@ import Box from "@mui/material/Box"
 import Paper from "@mui/material/Paper"
 import { useEffect, useState } from "react"
 import useFetch from "../../hooks/useFetch"
+import { useSearchParams } from "react-router-dom"
+import { getParamsCustomVersion, getParamsFromFiltering } from "./utils"
 
-export default function Found() {
-  const { data, error, loading } = useFetch("/posts")
-
+export default function Posts() {
+  const [searchParams] = useSearchParams()
+  const [isChecked, setIsChecked] = useState({})
+  const filterParams = getParamsFromFiltering(isChecked)
+  const params = getParamsCustomVersion([...searchParams, ...filterParams], "category")
+  const { data, error, loading } = useFetch("/posts", { params })
   const [posts, setPosts] = useState([])
+
+  const onOff = (e, id) => {
+    setIsChecked({
+      ...isChecked,
+      [id]: e.target.checked,
+    })
+  }
+
   useEffect(() => {
     setPosts(data.posts)
-    console.log(data.posts)
   }, [data])
+
   return (
     <Grid container spacing={0} mt={10}>
       <Grid
@@ -36,7 +49,7 @@ export default function Found() {
               },
             }}
           >
-            <Sidebar />
+            <Sidebar isChecked={isChecked} onOff={onOff} />
           </Box>
           <Box
             sx={{
@@ -52,7 +65,7 @@ export default function Found() {
       </Grid>
       <Grid item xs={12} md={9}>
         <Box mt={5} mb={5}>
-          {loading ? <PostsSceleton /> : <PostsList title="Find Items" data={posts} />}
+          {loading ? <PostsSceleton /> : <PostsList title="Posts" data={posts} />}
         </Box>
       </Grid>
     </Grid>

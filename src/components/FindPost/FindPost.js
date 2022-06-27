@@ -12,11 +12,10 @@ import { useNavigate } from "react-router-dom"
 export default function FindPost() {
   const [name, setName] = useState("")
   const [type, setType] = useState("LOST")
-  const history = useNavigate()
+  const navigate = useNavigate()
 
   const findPost = () => {
-    console.log(name, type)
-    history(`/${type.toLowerCase()}?name=${name}`)
+    navigate(`/posts?type=${type.toLowerCase()}&name=${name}`)
   }
 
   const classes = useStyles()
@@ -51,7 +50,7 @@ export default function FindPost() {
                   onChange={(e) => setType(e.target.value)}
                 >
                   <MenuItem value={"LOST"}>LOST</MenuItem>
-                  <MenuItem value={"FOUND"}>FOUND</MenuItem>
+                  <MenuItem value={"FIND"}>FIND</MenuItem>
                 </WhiteInput>
               </Grid>
               <Grid
