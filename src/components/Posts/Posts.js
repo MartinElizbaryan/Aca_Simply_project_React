@@ -8,36 +8,28 @@ import Paper from "@mui/material/Paper"
 import { useEffect, useState } from "react"
 import useFetch from "../../hooks/useFetch"
 import { useSearchParams } from "react-router-dom"
-
-const getParamsCustomVersion = (params, ...toBeArray) => {
-  const data = {}
-  params.forEach((param) => {
-    const key = param[0]
-    const value = param[1]
-    if (toBeArray.includes(param[0])) {
-      if (key in data) {
-        data[key].push(value)
-      } else {
-        data[key] = [value]
-      }
-    } else {
-      data[key] = value
-    }
-  })
-
-  return data
-}
+import { getParamsCustomVersion, getParamsFromFiltering } from "./utils"
 
 export default function Posts() {
   const [searchParams] = useSearchParams()
+  const [isChecked, setIsChecked] = useState({})
   // const params = Object.fromEntries([...searchParams])
   // console.log(params)
-
-  const params = getParamsCustomVersion([...searchParams], "category")
-  console.log(params)
+  // console.log([...searchParams])
+  const filterParams = getParamsFromFiltering(isChecked)
+  const params = getParamsCustomVersion([...searchParams, ...filterParams], "category")
+  // console.log(params)
   const { data, error, loading } = useFetch("/posts", { params })
-  console.log(loading)
+  // console.log(loading)
   const [posts, setPosts] = useState([])
+
+  const onOff = (e, id) => {
+    setIsChecked({
+      ...isChecked,
+      [id]: e.target.checked,
+    })
+  }
+
   useEffect(() => {
     // console.log("effect")
     setPosts(data.posts)
@@ -63,7 +55,7 @@ export default function Posts() {
               },
             }}
           >
-            <Sidebar />
+            <Sidebar isChecked={isChecked} onOff={onOff} />
           </Box>
           <Box
             sx={{

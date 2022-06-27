@@ -9,31 +9,14 @@ import useFetch from "../../../../hooks/useFetch"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-export default function Sidebar() {
+export default function Sidebar({ onOff, isChecked }) {
   const { data, error, loading } = useFetch("/categories")
-
-  const [isChecked, setIsChecked] = useState({})
-
   const [categories, setCategories] = useState([])
-
   const navigate = useNavigate()
 
   useEffect(() => {
     setCategories(data.categories)
   }, [data])
-
-  const onOff = (e, id) => {
-    setIsChecked({
-      ...isChecked,
-      [id]: e.target.checked,
-    })
-    //
-    // navigate({
-    //   search: createSearchParams({
-    //     foo: "bar" + id,
-    //   }).toString(),
-    // })
-  }
 
   return (
     <List
