@@ -47,7 +47,7 @@ export default function Post({ post }) {
           justifyContent: "space-between",
         }}
       >
-        <HeartButton favoriteLength={post?.favorites.length} id={post?.id} />
+        <HeartButton favoriteLength={post?.favorites?.length} id={post?.id} />
         <CustomLink
           url={`/post/${post.id}`}
           title={
