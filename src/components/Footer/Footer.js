@@ -1,18 +1,12 @@
-// Components
-import Container from "@mui/material/Container"
-import Stack from "@mui/material/Stack"
-import Grid from "@mui/material/Grid"
-import { CustomLink } from "../Shared/CustomLink/CustomLink"
-import Typography from "@mui/material/Typography"
-// Icons
+import logo from "../../assets/logo-white.svg"
+import { Container, Divider, Grid, IconButton, Stack, Typography } from "@mui/material"
 import FacebookIcon from "@mui/icons-material/Facebook"
 import LinkedInIcon from "@mui/icons-material/LinkedIn"
 import InstagramIcon from "@mui/icons-material/Instagram"
 import TwitterIcon from "@mui/icons-material/Twitter"
-import logo from "../../assets/logo-white.svg"
-//Styleings
-import useStyles from "./style"
+import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import { colors } from "../../constants/styles"
+import useStyles from "./styles"
 
 export default function Footer() {
   const classes = useStyles()
@@ -20,41 +14,48 @@ export default function Footer() {
   return (
     <footer>
       <Container maxWidth={false} className={classes.container}>
-        <Grid container spacing={3} justifyContent="center" mb={1}>
-          <Grid item>
-            <CustomLink
-              url="/"
-              color={colors.green}
-              title={<FacebookIcon fontSize="large" color="inherit" />}
-            />
-          </Grid>
-          <Grid item>
-            <CustomLink
-              url="/"
-              color={colors.green}
-              title={<LinkedInIcon fontSize="large" color="inherit" />}
-            />
-          </Grid>
-          <Grid item>
-            <CustomLink
-              url="/"
-              color={colors.green}
-              title={<InstagramIcon fontSize="large" color="inherit" />}
-            />
-          </Grid>
-          <Grid item>
-            <CustomLink
-              url="/"
-              color={colors.green}
-              title={<TwitterIcon fontSize="large" color="inherit" />}
-            />
-          </Grid>
+        <Grid container justifyContent="space-around" p={2}>
+          <Stack spacing={1} justifyContent="center" alignItems="center" textAlign="center">
+            <img src={logo} alt="logo" width={150} />
+            <Typography variant="caption" color={colors.white}>
+              &copy; 2022 JE&JE, Inc. All rights reserved.
+            </Typography>
+          </Stack>
+          <Stack spacing={1} m={1} alignItems="center">
+            <Typography variant="body2" color={colors.white}>
+              Follow us
+            </Typography>
+            <Divider flexItem sx={{ bgcolor: "white" }} />
+            <Grid container justifyContent="center">
+              <IconButton>
+                <FacebookIcon fontSize="medium" color="inherit" />
+              </IconButton>
+              <IconButton>
+                <LinkedInIcon fontSize="medium" color="inherit" />
+              </IconButton>
+              <IconButton>
+                <InstagramIcon fontSize="medium" color="inherit" />
+              </IconButton>
+              <IconButton>
+                <TwitterIcon fontSize="medium" color="inherit" />
+              </IconButton>
+            </Grid>
+          </Stack>
         </Grid>
-        <Stack direction="row" spacing={1} justifyContent="center" alignItems="center">
-          <Typography variant="p" color={colors.white}>
-            &copy; Designed and Developed by
-          </Typography>
-          <img src={logo} alt="logo" width={150} />
+        <Divider />
+        <Stack
+          direction="row"
+          spacing={4}
+          p={1}
+          justifyContent="center"
+          textAlign="center"
+          alignItems="center"
+        >
+          <Link url="/faq" title="FAQ" color={colors.white} variant="caption" />
+          {/*<Divider orientation="vertical" flexItem />*/}
+          <Link url="/terms" title="Terms and Conditions" color={colors.white} variant="caption" />
+          {/*<Divider orientation="vertical" flexItem />*/}
+          <Link url="/policy" title="Privacy Policy" color={colors.white} variant="caption" />
         </Stack>
       </Container>
     </footer>

@@ -6,7 +6,7 @@ const useStyles = createUseStyles({
     position: "fixed !important",
     zIndex: 5,
     right: 20,
-    bottom: 20,
+    bottom: 50,
     width: 50,
     height: 50,
     borderRadius: "50% !important",

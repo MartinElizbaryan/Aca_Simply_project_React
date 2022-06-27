@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import api from "../api/api"
 import { useSearchParams } from "react-router-dom"
+import api from "../api/api"
 
 export default function useFetch(url) {
   const [searchParams] = useSearchParams()
@@ -15,6 +15,7 @@ export default function useFetch(url) {
         const response = await api.get(url, {
           params,
         })
+        console.log(response.data)
         setData(response.data)
       } catch (err) {
         setError(err)

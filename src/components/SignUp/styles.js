@@ -42,7 +42,7 @@ const useStyles = createUseStyles({
     alignItems: "center",
     textAlign: "center",
   },
-  centeral: {
+  central: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -54,7 +54,7 @@ const useStyles = createUseStyles({
     justifyContent: "space-between",
     marginBottom: 16,
   },
-  centeral2: {
+  central2: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

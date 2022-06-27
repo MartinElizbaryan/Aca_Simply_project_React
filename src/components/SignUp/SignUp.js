@@ -1,8 +1,7 @@
 import { useState } from "react"
-import { Box, Button, Checkbox, FormControlLabel, Link } from "@mui/material"
+import { Box, Button } from "@mui/material"
 import { InputField } from "../Shared/InputField/InputField"
 import { signUp } from "./utils"
-import { colors } from "../../constants/styles"
 import useStyles from "./styles"
 
 export default function SignUp() {
@@ -16,7 +15,7 @@ export default function SignUp() {
 
   return (
     <Box className={classes.totalBox}>
-      <Box className={classes.centeral}>
+      <Box className={classes.central}>
         <InputField
           account
           placeholder={"Name"}
@@ -48,7 +47,7 @@ export default function SignUp() {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
       </Box>
-      <Box className={classes.centeral2}>
+      <Box className={classes.central2}>
         <Button
           variant="contained"
           color="success"

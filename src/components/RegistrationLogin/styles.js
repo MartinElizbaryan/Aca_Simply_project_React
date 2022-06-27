@@ -23,7 +23,6 @@ const useStyles = createUseStyles({
   totalBox: {
     backgroundColor: colors.white,
     width: "50%",
-    borderRadius: 12,
     padding: "0px 16px",
     boxShadow: "0 6px 16px 0 rgb(0 0 0 / 20%)",
     ["@media (min-width:780px)"]: {
@@ -44,8 +43,10 @@ const useStyles = createUseStyles({
     alignItems: "center",
     textAlign: "center",
     justifyContent: "center",
+    boxShadow: "0 6px 16px 0rgba(0,0,0,.2)",
+    backgroundColor: "#F3F7F7",
   },
-  centeral: {
+  central: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -57,7 +58,7 @@ const useStyles = createUseStyles({
     justifyContent: "space-between",
     marginBottom: 16,
   },
-  centeral2: {
+  central2: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

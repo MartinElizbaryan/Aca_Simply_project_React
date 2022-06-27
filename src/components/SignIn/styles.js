@@ -11,6 +11,7 @@ const useStyles = createUseStyles({
     flex: 1,
     paddingTop: 10,
     height: "100%",
+    textAlign: "center",
   },
   text1: {
     textAlign: "center",
@@ -43,7 +44,7 @@ const useStyles = createUseStyles({
     textAlign: "center",
     justifyContent: "center",
   },
-  centeral: {
+  central: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -52,10 +53,11 @@ const useStyles = createUseStyles({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 16,
+    justifyContent: "flex-end",
+    paddingTop: 15,
+    marginBottom: 20,
   },
-  centeral2: {
+  central2: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

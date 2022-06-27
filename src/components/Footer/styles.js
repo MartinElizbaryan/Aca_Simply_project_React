@@ -4,7 +4,7 @@ import { colors } from "../../constants/styles"
 const useStyles = createUseStyles({
   container: {
     backgroundColor: colors.blue,
-    padding: "15px 0",
+    paddingBottom: "2px",
   },
 })
 export default useStyles

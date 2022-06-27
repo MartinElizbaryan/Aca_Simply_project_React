@@ -1,9 +1,13 @@
 import { useState } from "react"
-
-import { Button, Container, Grid, Typography } from "@mui/material"
-import useStyles from "./styles"
+import { Button, Container, Grid, Stack, Typography } from "@mui/material"
+import HomeIcon from "@mui/icons-material/Home"
+import EmailIcon from "@mui/icons-material/Email"
+import CallIcon from "@mui/icons-material/Call"
 import { OutlinedInput } from "../Shared/OutlinedInput/OutlinedInput"
+import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import { sendMessage } from "./utils"
+import { colors } from "../../constants/styles"
+import useStyles from "./styles"
 
 export default function Contact() {
   const [name, setName] = useState("")
@@ -16,17 +20,25 @@ export default function Contact() {
 
   return (
     <Container className={classes.container}>
-      <Grid container item xs={12} spacing={12} direction={{ xs: "column", md: "row" }}>
-        <Grid item xs={6}>
-          <Grid item container spacing={2} p={2}>
-            <Grid item xs={6}>
+      <Typography variant="h4" className={classes.header}>
+        Contact us
+      </Typography>
+      <Stack spacing={{ xs: 3, sm: 10, md: 20 }} direction={{ xs: "column", sm: "row" }}>
+        <Stack>
+          <Typography variant="body1">
+            Do you have any questions or issues? Check the
+            <Link url="/faq" color={colors.blue} title=" FAQs " />
+            or describe your problem in the form below.
+          </Typography>
+          <Grid container spacing={2} p={3}>
+            <Grid item xs={12} sm={6}>
               <OutlinedInput
                 label="First Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               ></OutlinedInput>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <OutlinedInput
                 label="Last Name"
                 value={surname}
@@ -57,7 +69,7 @@ export default function Contact() {
                 maxRows={10}
               ></OutlinedInput>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12}>
               <Button
                 variant="contained"
                 className={classes.button}
@@ -67,26 +79,36 @@ export default function Contact() {
               </Button>
             </Grid>
           </Grid>
-        </Grid>
-        <Grid item xs={6}>
-          <Grid item container spacing={2} p={2}>
+        </Stack>
+        <Stack>
+          <Typography variant="subtitle1">Other ways to contact us:</Typography>
+          <Grid container spacing={4} p={3}>
             <Grid item xs={12}>
-              <Typography variant="subtitle1">Address</Typography>
-              <Typography variant="p">
+              <Stack direction="row" spacing={2} className={classes.info}>
+                <HomeIcon />
+                <Typography variant="body1">Visit us</Typography>
+              </Stack>
+              <Typography variant="caption">
                 203 Fake St. Mountain View, San Francisco, California, USA
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <Typography variant="subtitle1">Phone</Typography>
-              <Typography variant="p">+374-33-613-003</Typography>
+              <Stack direction="row" spacing={2} className={classes.info}>
+                <CallIcon />
+                <Typography variant="body1">Call us</Typography>
+              </Stack>
+              <Typography variant="caption">+374-33-613-003</Typography>
             </Grid>
             <Grid item xs={12}>
-              <Typography variant="subtitle1">Email</Typography>
-              <Typography variant="p">lost.list.found@gmail.com</Typography>
+              <Stack direction="row" spacing={2} className={classes.info}>
+                <EmailIcon />
+                <Typography variant="body1">Email us</Typography>
+              </Stack>
+              <Typography variant="caption">lost.list.found@gmail.com</Typography>
             </Grid>
           </Grid>
-        </Grid>
-      </Grid>
+        </Stack>
+      </Stack>
     </Container>
   )
 }

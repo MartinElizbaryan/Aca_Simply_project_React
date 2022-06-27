@@ -1,6 +1,7 @@
 import ListSubheader from "@mui/material/ListSubheader"
 import List from "@mui/material/List"
 import ListItemButton from "@mui/material/ListItemButton"
+import SettingsIcon from "@mui/icons-material/Settings"
 import ListItemText from "@mui/material/ListItemText"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import ListItemIcon from "@mui/material/ListItemIcon"
@@ -32,7 +33,7 @@ export default function SidebarCabinet() {
         </Link>
       </ListItemButton>
       <ListItemButton>
-        <Link to="/cabinet/createPost" className={classes.link}>
+        <Link to="/cabinet/create-post" className={classes.link}>
           <ListItemIcon>
             <AddCircleOutlineIcon />
           </ListItemIcon>
@@ -40,7 +41,7 @@ export default function SidebarCabinet() {
         </Link>
       </ListItemButton>
       <ListItemButton>
-        <Link to="/cabinet" className={classes.link}>
+        <Link to="/cabinet/posts" className={classes.link}>
           <ListItemIcon>
             <ArticleIcon />
           </ListItemIcon>
@@ -48,11 +49,19 @@ export default function SidebarCabinet() {
         </Link>
       </ListItemButton>
       <ListItemButton>
-        <Link to="/cabinet/activePosts" className={classes.link}>
+        <Link to="/cabinet/confirmed-posts" className={classes.link}>
           <ListItemIcon>
             <FactCheckIcon />
           </ListItemIcon>
-          <ListItemText primary="Active Posts" />
+          <ListItemText primary="Confirmed Posts" />
+        </Link>
+      </ListItemButton>
+      <ListItemButton>
+        <Link to="/cabinet/settings" className={classes.link}>
+          <ListItemIcon>
+            <SettingsIcon />
+          </ListItemIcon>
+          <ListItemText primary="Settings" />
         </Link>
       </ListItemButton>
     </List>

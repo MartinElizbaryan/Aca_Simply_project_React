@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import {
   AppBar,
   Box,
@@ -24,11 +25,12 @@ import { signOutFunction } from "./utils"
 import EmailIcon from "@mui/icons-material/Email"
 import api from "../../api/api"
 import { useDispatch, useSelector } from "react-redux"
-import { signOut } from "../../store/userSlice"
+import { signOut } from "../../redux/userSlice"
 
 export default function Header() {
   const dispatch = useDispatch()
   const classes = useStyles()
+  const navigate = useNavigate()
   const { auth, info } = useSelector((state) => state.user)
   const [isReceived, setIsReceived] = useState(true)
   const [messageCount, setMessageCount] = useState([])
@@ -92,7 +94,7 @@ export default function Header() {
           }}
         >
           {navlist?.map((item, index) => {
-            return <Link url={item.route} color={colors.white} key={index} title={item.name} />
+            return <Link url={item.route} color={colors.white} key={item.name} title={item.name} />
           })}
         </Stack>
         <Box display="flex" alignItems="center">
@@ -107,28 +109,28 @@ export default function Header() {
             <NavigationMobile />
           </Box>
           {!auth ? (
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              color="inherit"
-              sx={{
-                borderRadius: 0,
-              }}
-            >
-              <LoginIcon />
-              <Typography ml={2}>
-                <Link url="/signin" title="Sign in" color="white" />
-              </Typography>
-            </IconButton>
+            <Link
+              url="/signin"
+              title={
+                <IconButton
+                  size="large"
+                  aria-label="sign in"
+                  color="inherit"
+                  sx={{
+                    borderRadius: 0,
+                  }}
+                >
+                  <LoginIcon />
+                  <Typography ml={2}>Sign in</Typography>
+                </IconButton>
+              }
+              color="white"
+            />
           ) : (
             <>
               <IconButton
                 size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
+                aria-label="messages"
                 color="inherit"
                 sx={{
                   borderRadius: 0,
@@ -140,8 +142,6 @@ export default function Header() {
               <IconButton
                 size="large"
                 aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
                 onClick={handleMenu}
                 color="inherit"
                 sx={{
@@ -173,6 +173,7 @@ export default function Header() {
               if (status === 204) {
                 dispatch(signOut())
                 setAnchorEl(null)
+                navigate("/signin")
               }
             }}
           >

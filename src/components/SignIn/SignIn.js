@@ -1,23 +1,20 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
 import {
   Box,
   Button,
-  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  FormControlLabel,
-  Link,
 } from "@mui/material"
 import { InputField } from "../Shared/InputField/InputField"
-import { signInPost } from "./utils"
-import { colors } from "../../constants/styles"
+import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
+import { signInFunction } from "./utils"
+import { signIn } from "../../redux/userSlice"
 import useStyles from "./styles"
-import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
-import { signIn } from "../../store/userSlice"
 
 export default function SignIn() {
   const dispatch = useDispatch()
@@ -29,10 +26,6 @@ export default function SignIn() {
 
   const navigate = useNavigate()
 
-  const handleClickOpen = () => {
-    setOpen(true)
-  }
-
   const handleClose = () => {
     setOpen(false)
   }
@@ -40,7 +33,7 @@ export default function SignIn() {
   const classes = useStyles()
   return (
     <Box className={classes.totalBox}>
-      <Box className={classes.centeral}>
+      <Box className={classes.central}>
         <InputField
           account={true}
           placeholder={"Your email"}
@@ -55,23 +48,17 @@ export default function SignIn() {
         />
       </Box>
       <Box className={classes.finalBox}>
-        <FormControlLabel
-          control={<Checkbox />}
-          label="Remember me"
-          style={{ color: colors.dark }}
-        />
-        <Link href="forgot_password" underline="none">
-          {"Forgot your password?"}
-        </Link>
+        <Link url="/forgot-password" title="Forgot your password?" />
       </Box>
-      <Box className={classes.centeral2}>
+      <Box className={classes.central2}>
         <Button
           variant="contained"
           color="success"
           onClick={async () => {
             try {
-              const data = await signInPost({ email, password })
+              const data = await signInFunction({ email, password })
               dispatch(signIn(data.user))
+
               navigate("/cabinet/profile")
               setOpen(false)
             } catch (e) {

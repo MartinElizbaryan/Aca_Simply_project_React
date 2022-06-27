@@ -16,10 +16,11 @@ import CreatePost from "./components/CreatePosts/CreatePost"
 import Chat from "./components/Chat/Chat"
 import PostSingle from "./components/Posts/PostSingle/PostSingle"
 import RegistrationLogin from "./components/RegistrationLogin/RegistrationLogin"
+import FAQ from "./components/FAQ/FAQ"
 import Contact from "./components/Contact/Contact"
 import { useDispatch } from "react-redux"
 import api from "./api/api"
-import { signIn } from "./store/userSlice"
+import { signIn } from "./redux/userSlice"
 
 function App() {
   const dispatch = useDispatch()
@@ -48,14 +49,15 @@ function App() {
             <Route exact path="/cabinet" element={<Cabinet />} />
             <Route exact path="/chat/:id" element={<Chat />} />
             <Route exact path="/chat" element={<Chat />} />
-            <Route exact path="/cabinet/activePosts" element={<ActivePosts />} />
+            <Route exact path="/cabinet/confirmed-posts" element={<ActivePosts />} />
             <Route exact path="/cabinet/profile" element={<Settings />} />
-            <Route exact path="/cabinet/createPost" element={<CreatePost />} />
+            <Route exact path="/cabinet/create-post" element={<CreatePost />} />
             <Route exact path="/cabinet" element={<Cabinet />} />
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/signin" element={<RegistrationLogin />} />
             <Route exact path="/signup" element={<RegistrationLogin />} />
-            <Route exact path="/forgot_password" element={<RegistrationLogin />} />
+            <Route exact path="/forgot-password" element={<RegistrationLogin />} />
+            <Route exact path="/faq" element={<FAQ />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Routes>
