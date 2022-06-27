@@ -5,7 +5,7 @@ import Box from "@mui/material/Box"
 import Paper from "@mui/material/Paper"
 import { TextField } from "@mui/material"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
-import useStyles from "../Cabinet/style"
+import useStyles from "../MyPosts/style"
 
 export default function Profile() {
   const classes = useStyles()

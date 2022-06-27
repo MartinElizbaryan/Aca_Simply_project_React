@@ -30,6 +30,7 @@ export default function PostSingle() {
   useEffect(() => {
     setPost(data.post)
   }, [data])
+
   if (loading)
     return (
       <Container size="md">
@@ -87,7 +88,7 @@ export default function PostSingle() {
                 justifyContent: "space-between",
               }}
             >
-              <HeartButton favoriteLength={post?.favorites.length} id={post?.id} />
+              <HeartButton favoriteLength={post?.favorites?.length} id={post?.id} />
               <BlueButton
                 sx={{
                   width: "auto",

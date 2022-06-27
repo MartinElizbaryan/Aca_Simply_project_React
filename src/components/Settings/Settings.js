@@ -3,7 +3,7 @@ import SidebarMobileCabinet from "../Shared/Sidebars/SidebarMobileCabinet/Sideba
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
 import Paper from "@mui/material/Paper"
-import useStyles from "../Cabinet/style"
+import useStyles from "../MyPosts/style"
 import { Button, Stack, Typography } from "@mui/material"
 import { OutlinedInput } from "../Shared/Inputs/OutlinedInput/OutlinedInput"
 import { useState } from "react"

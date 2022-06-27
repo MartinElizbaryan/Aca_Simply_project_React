@@ -9,11 +9,15 @@ import { useEffect, useState } from "react"
 import PostsSceleton from "../PostsSceleton/PostsSceleton"
 
 export default function Lost() {
-  const { data, error, loading } = useFetch("/posts?type=LOST")
+  const { data, error, loading } = useFetch("/posts/my-posts")
   const [posts, setPosts] = useState([])
+
+  console.log(posts)
+
   useEffect(() => {
     setPosts(data.posts)
   }, [data])
+
   return (
     <Grid container spacing={0} mt={10}>
       <Grid
@@ -48,9 +52,10 @@ export default function Lost() {
           </Box>
         </Paper>
       </Grid>
+
       <Grid item xs={12} md={9}>
         <Box mt={5} mb={5}>
-          {loading ? <PostsSceleton /> : <PostsList title="My posts" data={posts} />}
+          {loading ? <PostsSceleton /> : <PostsList title="My posts" data={posts} editable />}
         </Box>
       </Grid>
     </Grid>

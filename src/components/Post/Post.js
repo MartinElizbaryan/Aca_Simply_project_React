@@ -11,7 +11,7 @@ import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import useStyles from "./style"
 import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
 
-export default function Post({ post }) {
+export default function Post({ post, editable }) {
   const classes = useStyles()
 
   const img = post.images.length ? post.images[0] : emptyImage
@@ -47,7 +47,23 @@ export default function Post({ post }) {
           justifyContent: "space-between",
         }}
       >
-        <HeartButton favoriteLength={post?.favorites.length} id={post?.id} />
+        <HeartButton favoriteLength={post?.favorites?.length} id={post?.id} />
+
+        {editable && (
+          <CustomLink
+            url={`/profile/my-posts/${post.id}`}
+            title={
+              <BlueButton
+                sx={{
+                  width: "auto",
+                }}
+              >
+                Edit
+              </BlueButton>
+            }
+          />
+        )}
+
         <CustomLink
           url={`/post/${post.id}`}
           title={
