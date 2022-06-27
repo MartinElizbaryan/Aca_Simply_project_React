@@ -7,15 +7,42 @@ import Box from "@mui/material/Box"
 import Paper from "@mui/material/Paper"
 import { useEffect, useState } from "react"
 import useFetch from "../../hooks/useFetch"
+import { useSearchParams } from "react-router-dom"
 
-export default function Found() {
-  const { data, error, loading } = useFetch("/posts")
+const getParamsCustomVersion = (params, ...toBeArray) => {
+  const data = {}
+  params.forEach((param) => {
+    const key = param[0]
+    const value = param[1]
+    if (toBeArray.includes(param[0])) {
+      if (key in data) {
+        data[key].push(value)
+      } else {
+        data[key] = [value]
+      }
+    } else {
+      data[key] = value
+    }
+  })
 
+  return data
+}
+
+export default function Posts() {
+  const [searchParams] = useSearchParams()
+  // const params = Object.fromEntries([...searchParams])
+  // console.log(params)
+
+  const params = getParamsCustomVersion([...searchParams], "category")
+  console.log(params)
+  const { data, error, loading } = useFetch("/posts", { params })
+  console.log(loading)
   const [posts, setPosts] = useState([])
   useEffect(() => {
+    // console.log("effect")
     setPosts(data.posts)
-    console.log(data.posts)
   }, [data])
+
   return (
     <Grid container spacing={0} mt={10}>
       <Grid
@@ -52,7 +79,7 @@ export default function Found() {
       </Grid>
       <Grid item xs={12} md={9}>
         <Box mt={5} mb={5}>
-          {loading ? <PostsSceleton /> : <PostsList title="Find Items" data={posts} />}
+          {loading ? <PostsSceleton /> : <PostsList title="Posts" data={posts} />}
         </Box>
       </Grid>
     </Grid>

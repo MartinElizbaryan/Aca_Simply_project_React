@@ -25,6 +25,7 @@ import EmailIcon from "@mui/icons-material/Email"
 import api from "../../api/api"
 import { useDispatch, useSelector } from "react-redux"
 import { signOut } from "../../store/userSlice"
+import socket from "../../helpers/socket"
 
 export default function Header() {
   const dispatch = useDispatch()
@@ -35,20 +36,35 @@ export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null)
   const [users, setUsers] = useState([])
 
-  // useEffect(() => {
-  //   users.forEach((user) => {
-  //     const id = user.id
-  //     const room = id > info.id ? `${info.id}_${id}` : `${id}_${info.id}`
-  //     socket.emit("join", { room, authId: info.id })
-  //   })
-  // })
-  //
-  // useEffect(() => {
-  //   ;(async () => {
-  //     const res = await api.get("users/chat")
-  //     setUsers(res.data.users)
-  //   })()
-  // }, [isReceived])
+  useEffect(() => {
+    users.forEach((user) => {
+      const id = user.id
+      const room = id > info.id ? `${info.id}_${id}` : `${id}_${info.id}`
+      socket.emit("join", { room, authId: info.id })
+    })
+
+    // return () => {
+    //   users.forEach((user) => {
+    //     const id = user.id
+    //     const room = id > info.id ? `${info.id}_${id}` : `${id}_${info.id}`
+    //     socket.emit("leave", { room, authId: info.id })
+    //   })
+    // }
+  }, [])
+
+  useEffect(() => {
+    ;(async () => {
+      const res = await api.get("users/chat")
+      setUsers(res.data.users)
+    })()
+  }, [isReceived])
+
+  useEffect(() => {
+    socket.on("messageAdded", () => {
+      console.log("receive in header")
+      setIsReceived(!isReceived)
+    })
+  }, [])
 
   const handleClose = () => {
     setAnchorEl(null)
@@ -62,20 +78,7 @@ export default function Header() {
       const messagesInfo = await api.get("/messages/unread")
       setMessageCount(messagesInfo.data._count.id)
     })()
-  }, [])
-
-  // useEffect(() => {
-  //   const idTerminal = setInterval(() => {
-  //     ;(async () => {
-  //       const messagesInfo = await api.get("/messages/unread")
-  //       setMessageCount(messagesInfo.data._count.id)
-  //     })()
-  //   }, 5000)
-  //
-  //   return () => {
-  //     clearInterval(idTerminal)
-  //   }
-  // }, [])
+  }, [isReceived])
 
   return (
     <AppBar position="fixed" className={classes.appBar}>

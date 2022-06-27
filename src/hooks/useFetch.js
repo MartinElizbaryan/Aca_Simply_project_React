@@ -1,20 +1,17 @@
 import { useEffect, useState } from "react"
 import api from "../api/api"
-import { useSearchParams } from "react-router-dom"
 
-export default function useFetch(url) {
-  const [searchParams] = useSearchParams()
-  const params = Object.fromEntries([...searchParams])
+export default function useFetch(url, config = {}) {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState([])
+  const configJson = JSON.stringify(config)
+
   useEffect(() => {
     ;(async function () {
       try {
         setLoading(true)
-        const response = await api.get(url, {
-          params,
-        })
+        const response = await api.get(url, JSON.parse(configJson))
         setData(response.data)
       } catch (err) {
         setError(err)
@@ -22,7 +19,7 @@ export default function useFetch(url) {
         setLoading(false)
       }
     })()
-  }, [url])
+  }, [url, configJson])
 
   return {
     data,

@@ -35,20 +35,18 @@ function Messages({ id }) {
 
     const { id: authId } = jwt_decode(localStorage.getItem("accessToken"))
     socket.emit("join", { room, authId })
-
-    return () => {
-      socket.emit("leave", room)
-    }
   }, [id])
 
   useEffect(() => {
     ;(async () => {
       await api.patch(`/messages/${id}`)
+      console.log("---aaaa----")
+      socket.emit("messageDone", { room: 1 })
     })()
 
     const el = list.current
     el.scrollTop = el.scrollHeight
-  }, [messages])
+  }, [messages, id])
 
   const sendMessage = async () => {
     try {
