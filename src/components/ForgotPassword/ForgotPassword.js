@@ -2,22 +2,19 @@ import { useState } from "react"
 import {
   Box,
   Button,
-  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  FormControlLabel,
   Link,
   Typography,
 } from "@mui/material"
-import { InputField } from "../Shared/InputField/InputField"
 //import { signInPost } from "./utils"
-import { colors } from "../../constants/styles"
 import useStyles from "./styles"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
+import { InputField } from "../Shared/Inputs/InputField/InputField"
 //import { signIn } from "../../helpers/userSlice"
 
 export default function ForgotPassword() {
@@ -38,12 +35,12 @@ export default function ForgotPassword() {
   const classes = useStyles()
   return (
     <Box className={classes.totalBox}>
-      <Box className={classes.centeral}>
+      <Box className={classes.central}>
         <Typography className={classes.bigText}>Forgot Password</Typography>
       </Box>
       {!openCodeInput && (
         <Box>
-          <Box className={classes.centeral}>
+          <Box className={classes.central}>
             <Typography className={classes.text1}>
               No Problem! Enter your email below and we will send you an email with instruction to
               reset your password.
@@ -56,7 +53,7 @@ export default function ForgotPassword() {
             />
           </Box>
 
-          <Box className={classes.centeral2}>
+          <Box className={classes.central2}>
             <Button
               variant="contained"
               color="success"
@@ -66,7 +63,7 @@ export default function ForgotPassword() {
             >
               Send Code
             </Button>
-            <Box className={classes.centeral3}>
+            <Box className={classes.central3}>
               <Typography className={classes.text1}>
                 Back to{" "}
                 <Link href="signin" underline="none">
@@ -103,7 +100,7 @@ export default function ForgotPassword() {
         </Box>
       )}
       {openCodeInput && (
-        <Box className={classes.centeral4}>
+        <Box className={classes.central4}>
           <Typography className={classes.text1}>
             {"Please write the 6 digit number that we've sent to your email"}
           </Typography>
@@ -113,7 +110,7 @@ export default function ForgotPassword() {
             value={sixDigit}
             onChange={(e) => setSixDigit(e.target.value)}
           />
-          <Box className={`${classes.centeral2} ${classes.margin}`}>
+          <Box className={`${classes.central2} ${classes.margin}`}>
             <Button
               variant="contained"
               color="success"
