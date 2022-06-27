@@ -4,7 +4,6 @@ import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
 import SidebarMobileCabinet from "../Shared/Sidebars/SidebarMobileCabinet/SidebarMobileCabinet"
 import useStyles from "./styles"
 import InputAdornment from "@mui/material/InputAdornment"
-import { AccountCircle, Lock, LockClock, Mail, Password } from "@mui/icons-material"
 
 export default function Settings() {
   const [oldPassword, setOldPassword] = useState("")
@@ -59,15 +58,7 @@ export default function Settings() {
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    {account && <AccountCircle />}
-                    {password && <Lock />}
-                    {email && <Mail />}
-                    {confirmedPassword && <LockClock />}
-                    {sixDigitIcon && <Password />}
-                  </InputAdornment>
-                ),
+                startAdornment: <InputAdornment position="start"></InputAdornment>,
               }}
             />
           </Box>
