@@ -18,7 +18,7 @@ const Chat = () => {
       console.log("onlineUsers socket Chat.js")
       setOnlineUsers(users)
     })
-  }, [])
+  })
 
   return (
     <Box
