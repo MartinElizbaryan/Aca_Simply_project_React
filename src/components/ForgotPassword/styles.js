@@ -43,7 +43,7 @@ const useStyles = createUseStyles({
     textAlign: "center",
     justifyContent: "center",
   },
-  centeral: {
+  central: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -56,7 +56,7 @@ const useStyles = createUseStyles({
     justifyContent: "space-between",
     marginBottom: 16,
   },
-  centeral2: {
+  central2: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -66,13 +66,13 @@ const useStyles = createUseStyles({
   margin: {
     margin: 10,
   },
-  centeral3: {
+  central3: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
   },
-  centeral4: {
+  central4: {
     marginTop: 20,
   },
   policyText: {

@@ -10,11 +10,11 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material"
-import { InputField } from "../Shared/InputField/InputField"
 import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import { signInFunction } from "./utils"
 import { signIn } from "../../redux/userSlice"
 import useStyles from "./styles"
+import { InputField } from "../Shared/Inputs/InputField/InputField"
 
 export default function SignIn() {
   const dispatch = useDispatch()

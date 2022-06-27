@@ -3,11 +3,11 @@ import { Button, Container, Grid, Stack, Typography } from "@mui/material"
 import HomeIcon from "@mui/icons-material/Home"
 import EmailIcon from "@mui/icons-material/Email"
 import CallIcon from "@mui/icons-material/Call"
-import { OutlinedInput } from "../Shared/OutlinedInput/OutlinedInput"
 import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import { sendMessage } from "./utils"
 import { colors } from "../../constants/styles"
 import useStyles from "./styles"
+import { OutlinedInput } from "../Shared/Inputs/OutlinedInput/OutlinedInput"
 
 export default function Contact() {
   const [name, setName] = useState("")

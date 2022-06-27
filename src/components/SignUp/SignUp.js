@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { Box, Button } from "@mui/material"
-import { InputField } from "../Shared/InputField/InputField"
 import { signUp } from "./utils"
 import useStyles from "./styles"
+import { InputField } from "../Shared/Inputs/InputField/InputField"
 
 export default function SignUp() {
   const [name, setName] = useState("")
