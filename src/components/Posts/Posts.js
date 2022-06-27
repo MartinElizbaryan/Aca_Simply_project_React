@@ -1,5 +1,5 @@
-import PostsList from "../Posts/PostsList/PostsList"
-import PostsSceleton from "../Posts/PostsSceleton/PostsSceleton"
+import PostsList from "../PostsList/PostsList"
+import PostsSceleton from "../PostsSceleton/PostsSceleton"
 import Sidebar from "../Shared/Sidebars/Sidebar/Sidebar"
 import SidebarMobile from "../Shared/Sidebars/SidebarMobile/SidebarMobile"
 import Grid from "@mui/material/Grid"
@@ -15,7 +15,7 @@ export default function Posts() {
   const [isChecked, setIsChecked] = useState({})
   const filterParams = getParamsFromFiltering(isChecked)
   const params = getParamsCustomVersion([...searchParams, ...filterParams], "category")
-  const { data, error, loading } = useFetch("/posts", { params })
+  const { data, error, loading } = useFetch("/posts", "get", { params })
   const [posts, setPosts] = useState([])
 
   const onOff = (e, id) => {

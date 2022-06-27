@@ -1,10 +1,10 @@
 import FindPost from "../FindPost/FindPost"
-import PostsList from "../Posts/PostsList/PostsList"
+import PostsList from "../PostsList/PostsList"
 import Box from "@mui/material/Box"
 import Counter from "../Counter/Counter"
 import TeamSlider from "../TeamSlider/TeamSlider"
 import { useEffect, useState } from "react"
-import PostsSceleton from "../Posts/PostsSceleton/PostsSceleton"
+import PostsSceleton from "../PostsSceleton/PostsSceleton"
 import Typography from "@mui/material/Typography"
 import useFetch from "../../hooks/useFetch"
 

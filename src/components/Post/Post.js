@@ -3,20 +3,20 @@ import CardHeader from "@mui/material/CardHeader"
 import CardMedia from "@mui/material/CardMedia"
 import CardContent from "@mui/material/CardContent"
 import CardActions from "@mui/material/CardActions"
-import { CustomLink } from "../../Shared/CustomLink/CustomLink"
+import { CustomLink } from "../Shared/CustomLink/CustomLink"
 import Avatar from "@mui/material/Avatar"
-import IconButton from "@mui/material/IconButton"
 import Typography from "@mui/material/Typography"
-import FavoriteIcon from "@mui/icons-material/Favorite"
-import emptyImage from "../../../assets/adspy_loading_animation.gif"
-import { BlueButton } from "../../Shared/Buttons/BlueButton/BlueButton"
+import emptyImage from "../../assets/adspy_loading_animation.gif"
+import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import useStyles from "./style"
+import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
 
-export default function Posts({ post }) {
+export default function Post({ post }) {
   const classes = useStyles()
 
   const img = post.images.length ? post.images[0] : emptyImage
   const avatarInitials = post.user.name[0] + post.user.surname[0]
+
   return (
     <Card>
       <CardHeader
@@ -47,9 +47,7 @@ export default function Posts({ post }) {
           justifyContent: "space-between",
         }}
       >
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
+        <HeartButton favoriteLength={post?.favorites.length} id={post?.id} />
         <CustomLink
           url={`/post/${post.id}`}
           title={
