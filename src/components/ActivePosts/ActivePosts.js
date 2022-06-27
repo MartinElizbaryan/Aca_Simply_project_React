@@ -1,4 +1,4 @@
-import PostsList from "../Posts/PostsList/PostsList"
+import PostsList from "../PostsList/PostsList"
 import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
 import SidebarMobileCabinet from "../Shared/Sidebars/SidebarMobileCabinet/SidebarMobileCabinet"
 import Grid from "@mui/material/Grid"
@@ -6,7 +6,7 @@ import Box from "@mui/material/Box"
 import Paper from "@mui/material/Paper"
 import useFetch from "../../hooks/useFetch"
 import { useEffect, useState } from "react"
-import PostsSceleton from "../Posts/PostsSceleton/PostsSceleton"
+import PostsSceleton from "../PostsSceleton/PostsSceleton"
 
 export default function ActivePosts() {
   const { data, error, loading } = useFetch("/posts?type=FIND")

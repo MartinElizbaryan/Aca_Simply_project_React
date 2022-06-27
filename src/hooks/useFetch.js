@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import api from "../api/api"
 
-export default function useFetch(url, config = {}) {
+export default function useFetch(url, method = "get", config = {}) {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState([])
@@ -11,7 +11,7 @@ export default function useFetch(url, config = {}) {
     ;(async function () {
       try {
         setLoading(true)
-        const response = await api.get(url, JSON.parse(configJson))
+        const response = await api[method](url, JSON.parse(configJson))
         setData(response.data)
       } catch (err) {
         setError(err)

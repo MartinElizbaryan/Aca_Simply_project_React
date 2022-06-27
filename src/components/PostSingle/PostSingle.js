@@ -5,20 +5,19 @@ import CardHeader from "@mui/material/CardHeader"
 import CardMedia from "@mui/material/CardMedia"
 import CardContent from "@mui/material/CardContent"
 import CardActions from "@mui/material/CardActions"
-import { CustomLink } from "../../Shared/CustomLink/CustomLink"
+import { CustomLink } from "../Shared/CustomLink/CustomLink"
 import Avatar from "@mui/material/Avatar"
-import IconButton from "@mui/material/IconButton"
 import Typography from "@mui/material/Typography"
-import FavoriteIcon from "@mui/icons-material/Favorite"
 import { useParams } from "react-router-dom"
-import useFetch from "../../../hooks/useFetch"
+import useFetch from "../../hooks/useFetch"
 import { useEffect, useState } from "react"
-import emptyImage from "../../../assets/adspy_loading_animation.gif"
+import emptyImage from "../../assets/adspy_loading_animation.gif"
 import moment from "moment"
 import useStyles from "./style"
-import { BlueButton } from "../../Shared/Buttons/BlueButton/BlueButton"
+import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 
 import PostsSceletonSingle from "../PostsSceletonSingle/PostsSceletonSingle"
+import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
 
 export default function PostSingle() {
   const classes = useStyles()
@@ -27,6 +26,7 @@ export default function PostSingle() {
   const { data, error, loading } = useFetch(`/posts/${id}`)
   const date = moment(post?.created_at).format("LLLL")
   const avatarInitials = `${post?.user?.name[0]}${post?.user?.surname[0]}`
+
   useEffect(() => {
     setPost(data.post)
   }, [data])
@@ -87,9 +87,7 @@ export default function PostSingle() {
                 justifyContent: "space-between",
               }}
             >
-              <IconButton aria-label="add to favorites">
-                <FavoriteIcon />
-              </IconButton>
+              <HeartButton favoriteLength={post?.favorites.length} id={post?.id} />
               <BlueButton
                 sx={{
                   width: "auto",
