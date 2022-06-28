@@ -3,6 +3,9 @@ import { useDispatch } from "react-redux"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import Main from "./components/Main/Main"
 import Home from "./components/Home/Home"
+import MyPosts from "./components/MyPosts/MyPosts"
+import ConfirmedPosts from "./components/ConfirmedPosts/ConfirmedPosts"
+import FavoritePosts from "./components/FavoritePosts/FavoritePosts"
 import PageNotFound from "./components/Errors/PageNotFound/PageNotFound"
 import Profile from "./components/Profile/Profile"
 import CreatePost from "./components/CreatePosts/CreatePost"
@@ -46,9 +49,9 @@ function App() {
             <Route exact path="/chat/:id" element={<Chat />} />
             <Route exact path="/profile" element={<Profile />} />
             <Route exact path="/profile/create-post" element={<CreatePost />} />
-            {/*<Route exact path="/profile/my-posts" element={<MyPosts />} />*/}
-            {/*<Route exact path="/profile/confirmed-posts" element={<ConfirmedPosts />} />*/}
-            {/*<Route exact path="/profile/favorite-posts" element={<FavoritePosts />} />*/}
+            <Route exact path="/profile/my-posts" element={<MyPosts />} />
+            <Route exact path="/profile/confirmed-posts" element={<ConfirmedPosts />} />
+            <Route exact path="/profile/favorite-posts" element={<FavoritePosts />} />
             <Route exact path="/profile/settings" element={<Settings />} />
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/signin" element={<RegistrationLogin />} />
