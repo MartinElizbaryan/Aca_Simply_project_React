@@ -1,30 +1,22 @@
+import React, { useState } from "react"
+import { Box, Button, Grid, Paper, Stack, TextField, Typography } from "@mui/material"
 import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
 import SidebarMobileCabinet from "../Shared/Sidebars/SidebarMobileCabinet/SidebarMobileCabinet"
-import Grid from "@mui/material/Grid"
-import Box from "@mui/material/Box"
-import Paper from "@mui/material/Paper"
-import useStyles from "../MyPosts/style"
-import { Button, Stack, Typography } from "@mui/material"
-import { OutlinedInput } from "../Shared/Inputs/OutlinedInput/OutlinedInput"
-import { useState } from "react"
+import useStyles from "./styles"
+import InputAdornment from "@mui/material/InputAdornment"
 
 export default function Settings() {
   const [oldPassword, setOldPassword] = useState("")
   const [newPassword, setNewPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
+  const [isVisible1, setIsVisible1] = useState(false)
+  const [isVisible2, setIsVisible2] = useState(false)
+  const [isVisible3, setIsVisible3] = useState(false)
 
   const classes = useStyles()
   return (
     <Grid container spacing={0} mt={10}>
-      <Grid
-        item
-        xs={12}
-        md={3}
-        mt={11}
-        sx={{
-          padding: 2,
-        }}
-      >
+      <Grid item xs={12} md={3} mt={11} p={2}>
         <Paper elevation={2}>
           <Box
             sx={{
@@ -48,20 +40,39 @@ export default function Settings() {
           </Box>
         </Paper>
       </Grid>
-      <Stack p={2} spacing={2}>
+      <Grid item xs={12} md={5} p={2} ml={{ xs: 0, md: 10 }}>
         <Typography variant="h6">Change password</Typography>
-        <Stack spacing={2}>
-          <Box item xs={12}>
+        <Stack spacing={2} mt={5}>
+          <Box className={classes.box}>
             <Typography variant="caption">Old Password</Typography>
-            <OutlinedInput label="Old Password" value={oldPassword} size="small" />
+            <TextField
+              size={"small"}
+              value={oldPassword}
+              onChange={(e) => setOldPassword(e.target.value)}
+            />
           </Box>
-          <Grid item xs={12}>
-            <OutlinedInput label="New Password" value={newPassword} size="small" />
-          </Grid>
-          <Grid item xs={12}>
-            <OutlinedInput label="Confirm Password" value={confirmPassword} size="small" />
-          </Grid>
-          <Grid item xs={12}>
+          <Box className={classes.box}>
+            <Typography variant="caption">New Password</Typography>
+            <TextField
+              size={"small"}
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              InputProps={{
+                startAdornment: <InputAdornment position="start"></InputAdornment>,
+              }}
+            />
+          </Box>
+          <Box className={classes.box}>
+            <Box>
+              <Typography variant="caption">Confirm Password</Typography>
+            </Box>
+            <TextField
+              size={"small"}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </Box>
+          <Box item xs={12}>
             <Button
               variant="contained"
               className={classes.button}
@@ -69,9 +80,9 @@ export default function Settings() {
             >
               Change Password
             </Button>
-          </Grid>
+          </Box>
         </Stack>
-      </Stack>
+      </Grid>
     </Grid>
   )
 }

@@ -23,12 +23,15 @@ const useStyles = createUseStyles({
   totalBox: {
     backgroundColor: colors.white,
     width: "50%",
-    padding: "0px 16px",
     boxShadow: "0 6px 16px 0 rgb(0 0 0 / 20%)",
+    borderRadius: 10,
     ["@media (min-width:780px)"]: {
       // eslint-disable-line no-useless-computed-key
       width: 400,
     },
+  },
+  otherBoxes: {
+    margin: "0px 16px",
   },
   spacing: {
     display: "flex",
@@ -37,14 +40,13 @@ const useStyles = createUseStyles({
     alignItems: "center",
   },
   button: {
-    width: "50%",
+    width: "100%",
     height: 50,
     display: "flex",
     alignItems: "center",
     textAlign: "center",
     justifyContent: "center",
     boxShadow: "0 6px 16px 0rgba(0,0,0,.2)",
-    backgroundColor: "#F3F7F7",
   },
   central: {
     display: "flex",
@@ -57,6 +59,11 @@ const useStyles = createUseStyles({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 16,
+  },
+  linkBox: {
+    width: "50%",
+    color: [["black"], "!important"],
+    borderRadius: 10,
   },
   central2: {
     display: "flex",
