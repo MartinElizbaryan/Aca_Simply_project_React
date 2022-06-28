@@ -15,7 +15,7 @@ export default function FindPost() {
   const navigate = useNavigate()
 
   const findPost = () => {
-    navigate(`/posts?type=${type.toLowerCase()}&name=${name}`)
+    navigate(`/posts?type=${type}&name=${name}`)
   }
 
   const classes = useStyles()
@@ -50,7 +50,7 @@ export default function FindPost() {
                   onChange={(e) => setType(e.target.value)}
                 >
                   <MenuItem value={"LOST"}>LOST</MenuItem>
-                  <MenuItem value={"FIND"}>FIND</MenuItem>
+                  <MenuItem value={"FOUND"}>FOUND</MenuItem>
                 </WhiteInput>
               </Grid>
               <Grid

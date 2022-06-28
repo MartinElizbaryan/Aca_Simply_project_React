@@ -58,8 +58,7 @@ export default function SignIn() {
             try {
               const data = await signInFunction({ email, password })
               dispatch(signIn(data.user))
-
-              navigate("/cabinet/profile")
+              navigate("/profile")
               setOpen(false)
             } catch (e) {
               setOpen(true)
