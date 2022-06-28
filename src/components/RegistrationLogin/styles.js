@@ -63,7 +63,12 @@ const useStyles = createUseStyles({
   linkBox: {
     width: "50%",
     color: [["black"], "!important"],
-    borderRadius: 10,
+  },
+  borderRadiuses1: {
+    borderTopLeftRadius: 10,
+  },
+  borderRadiuses2: {
+    borderTopRightRadius: 10,
   },
   central2: {
     display: "flex",

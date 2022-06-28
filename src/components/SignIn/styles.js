@@ -27,7 +27,6 @@ const useStyles = createUseStyles({
     borderRadius: 12,
     ["@media (min-width:780px)"]: {
       // eslint-disable-line no-useless-computed-key
-      width: 270,
     },
   },
   spacing: {

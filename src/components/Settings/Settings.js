@@ -1,22 +1,19 @@
 import React, { useState } from "react"
-import { Box, Button, Grid, Paper, Stack, TextField, Typography } from "@mui/material"
+import { Box, Button, Grid, Paper, Stack, Typography } from "@mui/material"
 import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
 import SidebarMobileCabinet from "../Shared/Sidebars/SidebarMobileCabinet/SidebarMobileCabinet"
+import PasswordInput from "../Shared/Inputs/PasswordInput/PasswordInput"
 import useStyles from "./styles"
-import InputAdornment from "@mui/material/InputAdornment"
 
 export default function Settings() {
   const [oldPassword, setOldPassword] = useState("")
   const [newPassword, setNewPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
-  const [isVisible1, setIsVisible1] = useState(false)
-  const [isVisible2, setIsVisible2] = useState(false)
-  const [isVisible3, setIsVisible3] = useState(false)
 
   const classes = useStyles()
   return (
     <Grid container spacing={0} mt={10}>
-      <Grid item xs={12} md={3} mt={11} p={2}>
+      <Grid item xs={12} md={3} mt={1} p={2}>
         <Paper elevation={2}>
           <Box
             sx={{
@@ -40,38 +37,48 @@ export default function Settings() {
           </Box>
         </Paper>
       </Grid>
-      <Grid item xs={12} md={5} p={2} ml={{ xs: 0, md: 10 }}>
-        <Typography variant="h6">Change password</Typography>
-        <Stack spacing={2} mt={5}>
-          <Box className={classes.box}>
-            <Typography variant="caption">Old Password</Typography>
-            <TextField
-              size={"small"}
-              value={oldPassword}
-              onChange={(e) => setOldPassword(e.target.value)}
-            />
-          </Box>
-          <Box className={classes.box}>
-            <Typography variant="caption">New Password</Typography>
-            <TextField
-              size={"small"}
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              InputProps={{
-                startAdornment: <InputAdornment position="start"></InputAdornment>,
-              }}
-            />
-          </Box>
-          <Box className={classes.box}>
-            <Box>
-              <Typography variant="caption">Confirm Password</Typography>
-            </Box>
-            <TextField
-              size={"small"}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </Box>
+      <Grid item xs={12} md={7} p={2} ml={{ xs: 0, md: 10 }}>
+        <Typography variant="h6" mb={5}>
+          Change password
+        </Typography>
+        <Typography variant="body2">
+          Enter your current password along with a new one to change it.
+        </Typography>
+        <Stack spacing={5} mt={5}>
+          <Stack direction={{ xs: "column", md: "row" }} alignItems="center">
+            <Grid item xs={6}>
+              <Typography variant="caption">Current Password:</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <PasswordInput value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} />
+            </Grid>
+          </Stack>
+          <Grid item>
+            <Stack direction={{ xs: "column", md: "row" }} alignItems="center">
+              <Grid item xs={6}>
+                <Typography variant="caption">New Password:</Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <PasswordInput
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+              </Grid>
+            </Stack>
+          </Grid>
+          <Grid>
+            <Stack direction={{ xs: "column", md: "row" }} alignItems="center">
+              <Grid item xs={6}>
+                <Typography variant="caption">Confirm New Password:</Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <PasswordInput
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+              </Grid>
+            </Stack>
+          </Grid>
           <Box item xs={12}>
             <Button
               variant="contained"
