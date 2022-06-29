@@ -14,9 +14,9 @@ import Chat from "./components/Chat/Chat"
 import PostSingle from "./components/PostSingle/PostSingle"
 import Posts from "./components/Posts/Posts"
 import RegistrationLogin from "./components/RegistrationLogin/RegistrationLogin"
+import ChangePassword from "./components/ChangePassword/ChangePassword"
 import FAQ from "./components/FAQ/FAQ"
 import Contact from "./components/Contact/Contact"
-import Settings from "./components/Settings/Settings"
 import api from "./api/api"
 import history from "./helpers/history"
 import { signIn } from "./redux/userSlice"
@@ -54,7 +54,7 @@ function App() {
             <Route exact path="/profile/my-posts/:id" element={<MyPostsEdit />} />
             <Route exact path="/profile/confirmed-posts" element={<ConfirmedPosts />} />
             <Route exact path="/profile/favorite-posts" element={<FavoritePosts />} />
-            <Route exact path="/profile/settings" element={<Settings />} />
+            <Route exact path="/profile/change-password" element={<ChangePassword />} />
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/signin" element={<RegistrationLogin />} />
             <Route exact path="/signup" element={<RegistrationLogin />} />

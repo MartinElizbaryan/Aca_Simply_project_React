@@ -90,7 +90,7 @@ export default function SignIn() {
         </Box>
       </form>
       <Box className={classes.finalBox}>
-        <Link url="/forgot-password" title="Forgot your password?" />
+        <Link url="/forgot-password" content="Forgot your password?" />
       </Box>
       <Box className={classes.central2}>
         <Button

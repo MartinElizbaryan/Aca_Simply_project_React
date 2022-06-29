@@ -1,6 +1,6 @@
 import { IconButton } from "@mui/material"
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward"
-import useStyles from "./style"
+import useStyles from "./styles"
 
 export const ScrollTopButton = ({ ...props }) => {
   const classes = useStyles()

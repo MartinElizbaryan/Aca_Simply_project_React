@@ -1,25 +1,20 @@
 import { Link } from "react-router-dom"
 import { List, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from "@mui/material"
 import FavoriteIcon from "@mui/icons-material/Favorite"
-import SettingsIcon from "@mui/icons-material/Settings"
 import ArticleIcon from "@mui/icons-material/Article"
 import FactCheckIcon from "@mui/icons-material/FactCheck"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
-import useStyles from "./style"
+import KeyIcon from "@mui/icons-material/Key"
+import useStyles from "./styles"
 
 export default function SidebarCabinet() {
   const classes = useStyles()
   return (
     <List
-      sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+      sx={{ width: "100%", maxWidth: 300, bgcolor: "background.paper" }}
       component="nav"
-      aria-labelledby="nested-list-subheader"
-      subheader={
-        <ListSubheader component="div" id="nested-list-subheader">
-          Cabinet
-        </ListSubheader>
-      }
+      subheader={<ListSubheader component="div">Cabinet</ListSubheader>}
     >
       <ListItemButton>
         <Link to="/profile" className={classes.link}>
@@ -62,11 +57,11 @@ export default function SidebarCabinet() {
         </Link>
       </ListItemButton>
       <ListItemButton>
-        <Link to="/profile/settings" className={classes.link}>
+        <Link to="/profile/change-password" className={classes.link}>
           <ListItemIcon>
-            <SettingsIcon />
+            <KeyIcon />
           </ListItemIcon>
-          <ListItemText primary="Settings" />
+          <ListItemText primary="Change Password" />
         </Link>
       </ListItemButton>
     </List>

@@ -104,9 +104,7 @@ export default function CreatePost() {
           {question}
           <Grid container spacing={2} p={2}>
             <Grid item xs={8} sm={6} md={4}>
-              <GreenButton className={classes.button} type="button">
-                Save Changes
-              </GreenButton>
+              <GreenButton title="Save Changes" />
             </Grid>
           </Grid>
         </Box>
