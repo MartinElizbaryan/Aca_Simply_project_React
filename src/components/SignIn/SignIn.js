@@ -93,7 +93,24 @@ export default function SignIn() {
         <Link url="/forgot-password" title="Forgot your password?" />
       </Box>
       <Box className={classes.central2}>
-        <Button variant="contained" color="success" type="submit" form="myForm">
+        <Button
+          variant="contained"
+          color="success"
+          type="submit"
+          form="myForm"
+          onClick={async () => {
+            /* try {
+              const data = await signInFunction({ formik.values.email, password })
+              dispatch(signIn(data.user))
+              navigate("/profile")
+              //setOpen(false)
+            } catch (e) {
+              //setOpen(true)
+              //setErrMessage(e.response.data.details)
+              console.log(e)
+            } */
+          }}
+        >
           Log in
         </Button>
       </Box>
