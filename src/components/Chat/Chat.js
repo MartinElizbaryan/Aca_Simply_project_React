@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import Paper from "@mui/material/Paper"
-import Grid from "@mui/material/Grid"
-import Box from "@mui/material/Box"
-import Messages from "../Messages/Messages"
+import { Box, Grid, Paper } from "@mui/material"
 import ChatUserInfoBlock from "../ChatUserInfoBlock/ChatUserInfoBlock"
-import useStyles from "./style"
+import Messages from "../Messages/Messages"
 import socket from "../../helpers/socket"
+import useStyles from "./styles"
 
 const Chat = () => {
   const [onlineUsers, setOnlineUsers] = useState([])
@@ -15,7 +13,6 @@ const Chat = () => {
 
   useEffect(() => {
     socket.on("onlineUsers", (users) => {
-      console.log("onlineUsers socket Chat.js")
       setOnlineUsers(users)
     })
   })

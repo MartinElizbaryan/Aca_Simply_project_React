@@ -1,13 +1,11 @@
-import { Box, Container, Typography } from "@mui/material"
-import Grid from "@mui/material/Grid"
-import { WhiteInput } from "../Shared/Inputs/Input"
-import MenuItem from "@mui/material/MenuItem"
-import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
-import useStyles from "./style"
-import { colors } from "../../constants/styles"
-import SearchIcon from "@mui/icons-material/Search"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { Box, Container, Grid, MenuItem, Typography } from "@mui/material"
+import SearchIcon from "@mui/icons-material/Search"
+import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
+import { WhiteInput } from "../Shared/Inputs/Input"
+import { colors } from "../../constants/styles"
+import useStyles from "./style"
 
 export default function FindPost() {
   const [name, setName] = useState("")
@@ -62,10 +60,12 @@ export default function FindPost() {
                   flex: 1,
                 }}
               >
-                <GreenButton variant="contained" size="large" onClick={findPost}>
-                  <SearchIcon ml={2} />
-                  Find post
-                </GreenButton>
+                <GreenButton
+                  size="large"
+                  onClick={findPost}
+                  icon={<SearchIcon ml={2} />}
+                  title="Find post"
+                />
               </Grid>
             </Grid>
           </Box>

@@ -51,11 +51,16 @@ export default function Footer() {
           textAlign="center"
           alignItems="center"
         >
-          <Link url="/faq" title="FAQ" color={colors.white} variant="caption" />
+          <Link url="/faq" content="FAQ" color={colors.white} variant="caption" />
           {/*<Divider orientation="vertical" flexItem />*/}
-          <Link url="/terms" title="Terms and Conditions" color={colors.white} variant="caption" />
+          <Link
+            url="/terms"
+            content="Terms and Conditions"
+            color={colors.white}
+            variant="caption"
+          />
           {/*<Divider orientation="vertical" flexItem />*/}
-          <Link url="/policy" title="Privacy Policy" color={colors.white} variant="caption" />
+          <Link url="/policy" content="Privacy Policy" color={colors.white} variant="caption" />
         </Stack>
       </Container>
     </footer>

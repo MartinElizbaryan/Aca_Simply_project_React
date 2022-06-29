@@ -2,7 +2,7 @@ import React from "react"
 import { AccountCircle, Lock, LockClock, Mail, Password } from "@mui/icons-material"
 import InputAdornment from "@mui/material/InputAdornment"
 import { TextField } from "@mui/material"
-import useStyles from "./style"
+import useStyles from "./styles"
 
 export function InputField({
   account,
@@ -16,7 +16,6 @@ export function InputField({
   return (
     <TextField
       {...props}
-      id="input-with-icon-textfield"
       variant="standard"
       required
       fullWidth

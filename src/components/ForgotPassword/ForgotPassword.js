@@ -36,6 +36,13 @@ export default function ForgotPassword() {
     setOpen(false)
   }
 
+  const emailValidation = (email) => {
+    if (email === "") {
+      setErrMessage("It should not be able")
+      return false
+    }
+  }
+
   const classes = useStyles()
   return (
     <Box className={classes.totalBox}>
@@ -66,7 +73,6 @@ export default function ForgotPassword() {
                   const status = await forgotPasswordRequest({ email })
                   setOpenCodeInput(true)
                   setOpen(false)
-                  //dispatch(signIn(data.user))
                 } catch (e) {
                   setOpen(true)
                   setOpenCodeInput(false)

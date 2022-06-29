@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import {
   AppBar,
+  Badge,
   Box,
   IconButton,
   ListItemIcon,
@@ -11,31 +13,30 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material"
-import { Logo } from "../Shared/Logo/Logo"
 import LogoutIcon from "@mui/icons-material/Logout"
 import PersonIcon from "@mui/icons-material/Person"
 import AccountCircle from "@mui/icons-material/AccountCircle"
 import LoginIcon from "@mui/icons-material/Login"
-import { navlist } from "./constants"
-import { colors } from "../../constants/styles.js"
+import MailIcon from "@mui/icons-material/Mail"
 import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import NavigationMobile from "../Shared/Navigation/NavigationMobile"
-import useStyles from "./styles"
-import { signOutFunction } from "./utils"
-import EmailIcon from "@mui/icons-material/Email"
-import api from "../../api/api"
-import { useDispatch, useSelector } from "react-redux"
+import { Logo } from "../Shared/Logo/Logo"
 import { signOut } from "../../redux/userSlice"
+import { signOutFunction } from "./utils"
+import { navlist } from "./constants"
+import api from "../../api/api"
+import { colors } from "../../constants/styles.js"
+import useStyles from "./styles"
 
 export default function Header() {
   const dispatch = useDispatch()
-  const classes = useStyles()
   const navigate = useNavigate()
+  const classes = useStyles()
   const { auth, info } = useSelector((state) => state.user)
-  // const [isReceived, setIsReceived] = useState(true)
-  // const [messageCount, setMessageCount] = useState([])
   const [anchorEl, setAnchorEl] = useState(null)
   const [users, setUsers] = useState([])
+  // const [isReceived, setIsReceived] = useState(true)
+  // const [messageCount, setMessageCount] = useState([])
 
   // useEffect(() => {
   //   users.forEach((user) => {
@@ -101,7 +102,9 @@ export default function Header() {
           }}
         >
           {navlist?.map((item, index) => {
-            return <Link url={item.route} color={colors.white} key={item.name} title={item.name} />
+            return (
+              <Link url={item.route} color={colors.white} key={item.name} content={item.name} />
+            )
           })}
         </Stack>
         <Box display="flex" alignItems="center">
@@ -118,7 +121,7 @@ export default function Header() {
           {!auth ? (
             <Link
               url="/signin"
-              title={
+              content={
                 <IconButton
                   size="large"
                   aria-label="sign in"
@@ -143,7 +146,9 @@ export default function Header() {
                   borderRadius: 0,
                 }}
               >
-                <Link url="/chat" title={<EmailIcon />} color="white" />
+                <Badge badgeContent={0} color="primary">
+                  <Link url="/chat" content={<MailIcon />} color="white" />
+                </Badge>
                 {/*{messageCount}*/}
               </IconButton>
               <IconButton
@@ -172,7 +177,7 @@ export default function Header() {
             <ListItemIcon>
               <PersonIcon fontSize="small" />
             </ListItemIcon>
-            <Link url="/profile" title="My Profile" color="#212121" />
+            <Link url="/profile" content="My Profile" color="#212121" />
           </MenuItem>
           <MenuItem
             onClick={async () => {

@@ -1,24 +1,14 @@
-import ListItemIcon from "@mui/material/ListItemIcon"
-import Avatar from "@mui/material/Avatar"
-import ListItemText from "@mui/material/ListItemText"
-import ListItem from "@mui/material/ListItem"
-import { colors } from "../../constants/styles"
+import { Avatar, ListItem, ListItemIcon, ListItemText } from "@mui/material"
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord"
-
-function getFirstLetters(user) {
-  return user.name[0] + user.surname[0]
-}
-
-function getUserFullName(user) {
-  return `${user.name} ${user.surname}`
-}
+import { getFirstLetters, getUserFullName } from "../../helpers/utils"
+import useStyles from "./styles"
 
 function ChatUserInfo({ user, id, isActive }) {
+  const classes = useStyles()
   return (
-    <ListItem sx={+id === user.id ? { bgcolor: colors.grey } : {}}>
+    <ListItem className={+id === user.id ? classes.clickedBlock : classes.block}>
       <ListItemIcon>
-        {/*<Avatar sx={{ bgcolor: colors.blue }} aria-label="recipe">*/}
-        <Avatar sx={{ bgcolor: colors.blue }}>{getFirstLetters(user)}</Avatar>
+        <Avatar className={classes.avatar}>{getFirstLetters(user)}</Avatar>
       </ListItemIcon>
       <ListItemText primary={getUserFullName(user)} />
       {!!user.messages_from.length && <FiberManualRecordIcon color={"error"} />}

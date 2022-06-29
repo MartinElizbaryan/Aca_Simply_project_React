@@ -3,7 +3,7 @@ import CardHeader from "@mui/material/CardHeader"
 import CardMedia from "@mui/material/CardMedia"
 import CardContent from "@mui/material/CardContent"
 import CardActions from "@mui/material/CardActions"
-import { CustomLink } from "../Shared/CustomLink/CustomLink"
+import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import Avatar from "@mui/material/Avatar"
 import Typography from "@mui/material/Typography"
 import emptyImage from "../../assets/adspy_loading_animation.gif"
@@ -60,34 +60,11 @@ export default function Post({ post, changeable, deletePost }) {
         }}
       >
         <HeartButton post={post} />
-
         {changeable && (
-          <CustomLink
-            url={`/profile/my-posts/${post.id}`}
-            title={
-              <BlueButton
-                sx={{
-                  width: "auto",
-                }}
-              >
-                Edit
-              </BlueButton>
-            }
-          />
+          <Link url={`/profile/my-posts/${post.id}`} content={<BlueButton title="Edit" />} />
         )}
 
-        <CustomLink
-          url={`/post/${post.id}`}
-          title={
-            <BlueButton
-              sx={{
-                width: "auto",
-              }}
-            >
-              See details
-            </BlueButton>
-          }
-        />
+        <Link url={`/post/${post.id}`} content={<BlueButton title="See details" />} />
       </CardActions>
     </Card>
   )
