@@ -17,9 +17,18 @@ export const userSlice = createSlice({
       state.auth = false
       state.info = {}
     },
+    addUserFavorite: (state, action) => {
+      action.payload.favorites.push(state.info)
+      state.info.favorites.push(action.payload)
+    },
+    removeUserFavorite: (state, action) => {
+      state.info.favorites = state.info.favorites.filter((favorite) => {
+        return favorite.id !== action.payload
+      })
+    },
   },
 })
 
-export const { signIn, signOut } = userSlice.actions
+export const { signIn, signOut, addUserFavorite, removeUserFavorite } = userSlice.actions
 
 export default userSlice.reducer

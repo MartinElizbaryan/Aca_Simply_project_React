@@ -5,18 +5,20 @@ import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
 import Paper from "@mui/material/Paper"
 import useFetch from "../../hooks/useFetch"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import PostsSceleton from "../PostsSceleton/PostsSceleton"
+import { useSelector } from "react-redux"
 
 export default function FavoritePosts() {
   const { data, error, loading } = useFetch("/posts/favorites")
-  const [posts, setPosts] = useState([])
+  const [changed, setIsChanged] = useState(0)
 
-  console.log(posts)
+  const { favorites: posts } = useSelector((state) => state.user.info)
+  // console.log("FavoritesPosts", setIsChanged)
 
-  useEffect(() => {
-    setPosts(data.posts)
-  }, [data])
+  // useEffect(() => {
+  //   setPosts(data.posts)
+  // }, [data, changed])
 
   return (
     <Grid container spacing={0} mt={10}>
@@ -55,7 +57,11 @@ export default function FavoritePosts() {
 
       <Grid item xs={12} md={9}>
         <Box mt={5} mb={5}>
-          {loading ? <PostsSceleton /> : <PostsList title="My posts" data={posts} />}
+          {loading ? (
+            <PostsSceleton />
+          ) : (
+            <PostsList title="My posts" data={posts} setIsChanged={setIsChanged} />
+          )}
         </Box>
       </Grid>
     </Grid>

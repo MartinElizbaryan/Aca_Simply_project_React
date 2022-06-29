@@ -3,6 +3,8 @@ import { Box, Button } from "@mui/material"
 import { signUp } from "./utils"
 import useStyles from "./styles"
 import { InputField } from "../Shared/Inputs/InputField/InputField"
+import { useFormik } from "formik"
+import * as yup from "yup"
 
 export default function SignUp() {
   const [name, setName] = useState("")
