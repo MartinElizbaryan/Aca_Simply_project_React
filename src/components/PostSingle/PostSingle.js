@@ -70,7 +70,7 @@ export default function PostSingle() {
                 minHeight: 250,
                 objectFit: "contain",
               }}
-              image={post?.images ? post.images[0] : emptyImage}
+              image={post?.images?.length ? post.images[0] : emptyImage}
               alt={post?.created_at}
             />
             <CardContent>
@@ -88,7 +88,7 @@ export default function PostSingle() {
                 justifyContent: "space-between",
               }}
             >
-              <HeartButton favoriteLength={post?.favorites?.length} id={post?.id} />
+              <HeartButton post={post} />
               <BlueButton
                 sx={{
                   width: "auto",

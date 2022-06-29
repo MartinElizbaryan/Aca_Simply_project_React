@@ -2,23 +2,33 @@ import FavoriteIcon from "@mui/icons-material/Favorite"
 import IconButton from "@mui/material/IconButton"
 import { useEffect, useState } from "react"
 import api from "../../../../api/api"
+import { useDispatch } from "react-redux"
+import { addUserFavorite, removeUserFavorite } from "../../../../redux/userSlice"
 
-export default function HeartButton({ favoriteLength, id }) {
-  console.log(favoriteLength)
+export default function HeartButton({ post }) {
   const [isFavorite, setIsFavorite] = useState(false)
 
+  const dispatch = useDispatch()
+
   useEffect(() => {
-    setIsFavorite(favoriteLength ? true : false)
-  }, [favoriteLength])
+    setIsFavorite(post?.favorites.length ? true : false)
+  }, [post])
 
   const fn = () => {
     isFavorite ? removeFavorite() : addFavorite()
+    // if (!setIsChanged) return
+    //
+    // setIsChanged((prevState) => {
+    //   console.log(prevState)
+    //   return Math.random()
+    // })
   }
 
   const addFavorite = async () => {
     try {
-      await api.post(`/favorites/${id}`)
+      await api.post(`/favorites/${post.id}`)
       setIsFavorite(true)
+      dispatch(addUserFavorite(post))
     } catch (error) {
       console.log(error)
     }
@@ -26,8 +36,9 @@ export default function HeartButton({ favoriteLength, id }) {
 
   const removeFavorite = async () => {
     try {
-      await api.delete(`/favorites/${id}`)
+      await api.delete(`/favorites/${post.id}`)
       setIsFavorite(false)
+      dispatch(removeUserFavorite(post.id))
     } catch (error) {
       console.log(error)
     }

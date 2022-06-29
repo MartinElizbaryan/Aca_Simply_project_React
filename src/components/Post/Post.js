@@ -47,7 +47,7 @@ export default function Post({ post, editable }) {
           justifyContent: "space-between",
         }}
       >
-        <HeartButton favoriteLength={post?.favorites?.length} id={post?.id} />
+        <HeartButton post={post} />
 
         {editable && (
           <CustomLink
