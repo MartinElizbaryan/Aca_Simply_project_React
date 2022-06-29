@@ -16,7 +16,6 @@ export function InputField({
   return (
     <TextField
       {...props}
-      id="input-with-icon-textfield"
       variant="standard"
       required
       fullWidth
