@@ -1,13 +1,15 @@
 import { useState } from "react"
-import { Button, Container, Grid, Stack, Typography } from "@mui/material"
+import { Container, Grid, Stack, Typography } from "@mui/material"
 import HomeIcon from "@mui/icons-material/Home"
 import EmailIcon from "@mui/icons-material/Email"
 import CallIcon from "@mui/icons-material/Call"
+import SendIcon from "@mui/icons-material/Send"
+import { OutlinedInput } from "../Shared/Inputs/OutlinedInput/OutlinedInput"
+import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import { sendMessage } from "./utils"
 import { colors } from "../../constants/styles"
 import useStyles from "./styles"
-import { OutlinedInput } from "../Shared/Inputs/OutlinedInput/OutlinedInput"
 
 export default function Contact() {
   const [name, setName] = useState("")
@@ -27,7 +29,7 @@ export default function Contact() {
         <Stack>
           <Typography variant="body1">
             Do you have any questions or issues? Check the
-            <Link url="/faq" color={colors.blue} title=" FAQs " />
+            <Link url="/faq" color={colors.blue} content=" FAQs " />
             or describe your problem in the form below.
           </Typography>
           <Grid container spacing={2} p={3}>
@@ -70,13 +72,12 @@ export default function Contact() {
               ></OutlinedInput>
             </Grid>
             <Grid item xs={12}>
-              <Button
-                variant="contained"
-                className={classes.button}
+              <GreenButton
+                size="large"
+                icon={<SendIcon sx={{ paddingRight: 2 }} />}
+                title="Send"
                 onClick={() => sendMessage({ name, surname, email, subject, message })}
-              >
-                Send Message
-              </Button>
+              />
             </Grid>
           </Grid>
         </Stack>

@@ -1,13 +1,12 @@
 import React from "react"
-import Grid from "@mui/material/Grid"
-import ListItem from "@mui/material/ListItem"
-import ListItemText from "@mui/material/ListItemText"
+import moment from "moment"
+import { Grid, ListItem, ListItemText } from "@mui/material"
 import { colors } from "../../constants/styles"
-import useStyles from "./style.js"
+import useStyles from "./styles"
 
-export default function Message({ type, message, time }) {
+export default function Message({ type, message, date }) {
   const classes = useStyles()
-
+  const time = moment(date).fromNow()
   const styleType =
     type === "from"
       ? {
@@ -38,11 +37,7 @@ export default function Message({ type, message, time }) {
         }}
       >
         <Grid item xs={12}>
-          <ListItemText
-            className={styleType.textAlign}
-            // primary={`User ${message.from.name} ${message.text}`}
-            primary={message}
-          ></ListItemText>
+          <ListItemText className={styleType.textAlign} primary={message}></ListItemText>
         </Grid>
         <Grid item xs={12}>
           <ListItemText className={styleType.textAlign} secondary={time}></ListItemText>

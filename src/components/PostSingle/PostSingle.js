@@ -5,7 +5,7 @@ import CardHeader from "@mui/material/CardHeader"
 import CardMedia from "@mui/material/CardMedia"
 import CardContent from "@mui/material/CardContent"
 import CardActions from "@mui/material/CardActions"
-import { CustomLink } from "../Shared/CustomLink/CustomLink"
+import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import Avatar from "@mui/material/Avatar"
 import Typography from "@mui/material/Typography"
 import { useParams } from "react-router-dom"
@@ -89,19 +89,8 @@ export default function PostSingle() {
               }}
             >
               <HeartButton favoriteLength={post?.favorites?.length} id={post?.id} />
-              <BlueButton
-                sx={{
-                  width: "auto",
-                }}
-              >
-                <CustomLink
-                  url="/chat/1"
-                  title="Start chat"
-                  component="button"
-                  variant="outlined"
-                  color="#fff"
-                />
-              </BlueButton>
+
+              <Link url="/chat/1" content={<BlueButton title={"Start chat"} />} />
             </CardActions>
           </Card>
         </Box>
