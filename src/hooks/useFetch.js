@@ -1,17 +1,24 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import api from "../api/api"
 
 export default function useFetch(url, method = "get", config = {}) {
+  console.log(config.params)
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState([])
-  const configJson = JSON.stringify(config)
+  // const configJson = JSON.stringify(config)
+  const [refresh, setRefresh] = useState({})
+
+  const reCall = useCallback(() => {
+    console.log("useFetch ReCall")
+    setRefresh({})
+  }, [])
 
   useEffect(() => {
     ;(async function () {
       try {
         setLoading(true)
-        const response = await api[method](url, JSON.parse(configJson))
+        const response = await api[method](url, config)
         setData(response.data)
       } catch (err) {
         setError(err)
@@ -19,11 +26,12 @@ export default function useFetch(url, method = "get", config = {}) {
         setLoading(false)
       }
     })()
-  }, [url, configJson])
+  }, [url, /*configJson,*/ refresh])
 
   return {
     data,
     loading,
     error,
+    reCall,
   }
 }

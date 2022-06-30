@@ -15,14 +15,19 @@ export default function Posts() {
   const [isChecked, setIsChecked] = useState({})
   const filterParams = getParamsFromFiltering(isChecked)
   const params = getParamsCustomVersion([...searchParams, ...filterParams], "category")
-  const { data, error, loading } = useFetch("/posts", "get", { params })
+  const { data, error, loading, reCall: reCallPosts } = useFetch("/posts", "get", { params })
   const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+    reCallPosts()
+  }, [searchParams])
 
   const onOff = (e, id) => {
     setIsChecked({
       ...isChecked,
       [id]: e.target.checked,
     })
+    reCallPosts()
   }
 
   useEffect(() => {
