@@ -6,7 +6,7 @@ const useStyles = createUseStyles({
     maxWidth: "120px",
   },
   appBar: {
-    backgroundColor: colors.blueBlur + "!important",
+    backgroundColor: `${colors.blueBlur} !important`,
     backdropFilter: "saturate(180%) blur(5px)",
   },
   toolBar: {

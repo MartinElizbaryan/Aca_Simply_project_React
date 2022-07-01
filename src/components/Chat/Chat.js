@@ -25,7 +25,7 @@ const Chat = () => {
       }}
     >
       <Grid container component={Paper} className={classes.chatSection}>
-        <Grid item xs={12} md={3} className={classes.borderRight500}>
+        <Grid item md={3} className={classes.borderRight}>
           <ChatUserInfoBlock onlineUsers={onlineUsers} id={id} />
         </Grid>
         {!!id && <Messages id={id} />}

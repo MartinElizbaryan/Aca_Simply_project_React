@@ -1,12 +1,9 @@
 import { createUseStyles } from "react-jss"
 
 const useStyles = createUseStyles({
-  link: {
-    display: "flex",
-    flex: "1 1 auto",
-    alignItems: "center",
-    textDecoration: "none",
-    color: "#000",
+  list: {
+    width: "100% !important",
+    backgroundColor: "background.paper",
   },
 })
 export default useStyles

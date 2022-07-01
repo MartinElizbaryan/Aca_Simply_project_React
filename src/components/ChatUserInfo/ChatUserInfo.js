@@ -1,19 +1,20 @@
-import { Avatar, ListItem, ListItemIcon, ListItemText } from "@mui/material"
+import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord"
-import { getFirstLetters, getUserFullName } from "../../helpers/utils"
+import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
+import { getUserFullName } from "../../helpers/utils"
 import useStyles from "./styles"
 
 function ChatUserInfo({ user, id, isActive }) {
   const classes = useStyles()
   return (
-    <ListItem className={+id === user.id ? classes.clickedBlock : classes.block}>
+    <ListItemButton className={+id === user.id ? classes.clickedBlock : ""}>
       <ListItemIcon>
-        <Avatar className={classes.avatar}>{getFirstLetters(user)}</Avatar>
+        <UserAvatar user={user} />
       </ListItemIcon>
       <ListItemText primary={getUserFullName(user)} />
-      {!!user.messages_from.length && <FiberManualRecordIcon color={"error"} />}
-      <FiberManualRecordIcon color={isActive ? "success" : "disabled"} />
-    </ListItem>
+      {/*{!!user.messages_from.length && <FiberManualRecordIcon color={"error"} />}*/}
+      <FiberManualRecordIcon color={isActive ? "success" : "disabled"} fontSize="small" />
+    </ListItemButton>
   )
 }
 

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react"
-import List from "@mui/material/List"
+import { useEffect, useState } from "react"
+import { List } from "@mui/material"
 import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import ChatUserInfo from "../ChatUserInfo/ChatUserInfo"
 import api from "../../api/api"
@@ -24,7 +24,7 @@ function ChatUserInfoBlock({ id, onlineUsers }) {
             url={`/chat/${user.id}`}
             key={user.id}
             content={<ChatUserInfo isActive={isActive} user={user} id={id} />}
-            color={colors.darkGrey}
+            color={colors.fontColor}
           />
         )
       })}

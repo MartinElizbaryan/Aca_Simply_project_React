@@ -1,10 +1,11 @@
 import { createUseStyles } from "react-jss"
+import { colors } from "../../constants/styles"
 
 const useStyles = createUseStyles({
   container: {
     paddingTop: "120px !important",
     paddingBottom: "30px !important",
-    color: "#7f848c",
+    color: colors.fontColor,
   },
   header: {
     borderBottom: "1px solid gray",

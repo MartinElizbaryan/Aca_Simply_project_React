@@ -31,7 +31,7 @@ export default function FAQ() {
         </Stack>
         <Typography variant="caption">
           Still have questions?
-          <Link url="/contact" color={colors.blue} content=" Contact us " />
+          <Link url="/contact" color={colors.darkBlue} content=" Contact us " />
           and let us know how we can help you.
         </Typography>
       </Container>

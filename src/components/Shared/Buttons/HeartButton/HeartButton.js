@@ -11,7 +11,7 @@ export default function HeartButton({ post }) {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    setIsFavorite(post?.favorites.length ? true : false)
+    setIsFavorite(post?.favorites?.length ? true : false)
   }, [post])
 
   const fn = () => {

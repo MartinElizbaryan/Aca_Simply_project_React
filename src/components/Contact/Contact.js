@@ -29,7 +29,7 @@ export default function Contact() {
         <Stack>
           <Typography variant="body1">
             Do you have any questions or issues? Check the
-            <Link url="/faq" color={colors.blue} content=" FAQs " />
+            <Link url="/faq" color={colors.darkBlue} content=" FAQs " />
             or describe your problem in the form below.
           </Typography>
           <Grid container spacing={2} p={3}>

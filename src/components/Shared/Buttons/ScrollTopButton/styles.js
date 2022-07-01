@@ -11,14 +11,14 @@ const useStyles = createUseStyles({
     height: 50,
     borderRadius: "50% !important",
     boxShadow: "0 3px 10px rgb(0 0 0 / 20%) !important",
-    border: `1px solid ${colors.blue} !important`,
+    border: `1px solid ${colors.darkBlue} !important`,
     backgroundColor: "rgb(255, 255, 255) !important",
     "&:hover": {
       backgroundColor: "rgba(255, 255, 255, 0.7) !important",
     },
   },
   icon: {
-    color: colors.blue,
+    color: colors.darkBlue,
   },
 })
 export default useStyles

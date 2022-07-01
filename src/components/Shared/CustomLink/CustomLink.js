@@ -3,7 +3,7 @@ import { Link } from "@mui/material"
 
 export function CustomLink({ content, url, ...props }) {
   return (
-    <Link to={url} underline="none" component={RouterLink} {...props} sx={{ display: "flex" }}>
+    <Link to={url} underline="none" component={RouterLink} {...props}>
       {content}
     </Link>
   )
