@@ -25,13 +25,13 @@ export default function RegistrationLogin() {
             <CustomLink
               url="/signup"
               content={<Box className={classes.button}>Sign Up</Box>}
-              bgcolor={pathname === "/signup" ? "#F3F7F7" : "white"}
+              bgcolor={pathname === "/signup" ? "white" : "#F3F7F7"}
               className={`${classes.linkBox} ${classes.borderRadiuses1}`}
             />
             <CustomLink
               url="/signin"
               content={<Box className={classes.button}>Sign In</Box>}
-              bgcolor={pathname === "/signin" ? "#F3F7F7" : "white"}
+              bgcolor={pathname === "/signin" ? "white" : "#F3F7F7"}
               className={`${classes.linkBox} ${classes.borderRadiuses2}`}
             />
           </Box>
