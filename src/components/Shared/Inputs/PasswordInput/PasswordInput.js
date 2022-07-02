@@ -11,6 +11,7 @@ export default function PasswordInput({ ...props }) {
       type={type}
       {...props}
       size={"small"}
+      sx={{ maxWidth: 260 }}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">

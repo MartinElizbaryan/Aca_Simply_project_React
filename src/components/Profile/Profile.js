@@ -27,10 +27,11 @@ export default function Profile() {
 
   const formik = useFormik({
     initialValues: {
-      name: info.name,
-      surname: info.surname,
+      name: info.name || "",
+      surname: info.surname || "",
       phone: info.phone || "",
     },
+    enableReinitialize: true,
     validationSchema: validationSchema,
     onSubmit: async ({ name, surname, phone }) => {
       console.log(name, surname, phone)
@@ -51,15 +52,13 @@ export default function Profile() {
       {/*>*/}
       {/*  <SidebarMobileCabinet />*/}
       {/*</Box>*/}
-      <Grid item xs={12} sm={7} p={2} mt={1} sx={{ margin: "auto" }}>
+      <Grid item xs={12} md={7} p={2} sx={{ margin: "auto" }}>
         <Paper elevation={4} sx={{ padding: 5 }}>
-          <Grid item container direction="row" xs={12} alignItems="center">
+          <Grid item container direction="row" xs={12} alignItems="center" gap={2}>
             <UserAvatar user={info} />
-            <Typography variant="body1" pl={2}>
-              {getUserFullName(info)}
-            </Typography>
+            <Typography variant="body1">{getUserFullName(info)}</Typography>
           </Grid>
-          <form onSubmit={formik.handleSubmit} id="editForm">
+          <form onSubmit={formik.handleSubmit} id="editForm" className={classes.form}>
             <Stack sx={{ margin: "auto", marginTop: 5 }} spacing={4}>
               <Stack
                 direction={{
@@ -68,9 +67,7 @@ export default function Profile() {
                 }}
               >
                 <Grid item xs={5} className={classes.label}>
-                  <Typography variant="caption" sx={{ fontWeight: "bold" }}>
-                    Name
-                  </Typography>
+                  <Typography variant="caption">Name</Typography>
                 </Grid>
                 <Grid item>
                   <UnlabeledInput
@@ -89,9 +86,7 @@ export default function Profile() {
                 }}
               >
                 <Grid item xs={5} className={classes.label}>
-                  <Typography variant="caption" sx={{ fontWeight: "bold" }}>
-                    Surname
-                  </Typography>
+                  <Typography variant="caption">Surname</Typography>
                 </Grid>
                 <Grid item>
                   <UnlabeledInput
@@ -110,9 +105,7 @@ export default function Profile() {
                 }}
               >
                 <Grid item xs={5} className={classes.label}>
-                  <Typography variant="caption" sx={{ fontWeight: "bold" }}>
-                    Email
-                  </Typography>
+                  <Typography variant="caption">Email</Typography>
                 </Grid>
                 <Grid item>
                   <UnlabeledInput value={info.email || ""} disabled />
@@ -125,9 +118,7 @@ export default function Profile() {
                 }}
               >
                 <Grid item xs={5} className={classes.label}>
-                  <Typography variant="caption" sx={{ fontWeight: "bold" }}>
-                    Phone
-                  </Typography>
+                  <Typography variant="caption">Phone</Typography>
                 </Grid>
                 <Grid item>
                   <UnlabeledInput

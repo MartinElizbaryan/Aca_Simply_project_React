@@ -6,9 +6,9 @@ export const scrollToTop = () => {
 }
 
 export const getFirstLetters = (user) => {
-  if (user.name) return `${user.name[0]}${user.surname[0]}`
+  if (user && user.name) return `${user.name[0]}${user.surname[0]}`
 }
 
 export const getUserFullName = (user) => {
-  if (user.name) return `${user.name} ${user.surname}`
+  if (user && user.name) return `${user.name} ${user.surname}`
 }

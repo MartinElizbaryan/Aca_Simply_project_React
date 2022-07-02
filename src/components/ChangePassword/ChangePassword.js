@@ -46,18 +46,16 @@ export default function ChangePassword() {
     <Grid container spacing={0} mt={10}>
       <SidebarCabinet />
       {/*<SidebarMobileCabinet />*/}
-      <Grid item xs={12} sm={7} p={2} sx={{ margin: "auto", marginTop: 1 }}>
+      <Grid item xs={12} md={7} p={2} sx={{ margin: "auto", marginTop: 1 }}>
         <Paper elevation={4} sx={{ padding: 5 }}>
-          <Grid item container direction="row" xs={12} alignItems="center">
+          <Grid item container direction="row" xs={12} alignItems="center" gap={2}>
             <UserAvatar user={info} />
-            <Typography variant="body1" pl={2}>
-              {getUserFullName(info)}
-            </Typography>
+            <Typography variant="body1">{getUserFullName(info)}</Typography>
           </Grid>
           <Typography variant="body2" pt={3}>
             Enter your current password along with a new one to change it.
           </Typography>
-          <form onSubmit={formik.handleSubmit} id="myForm">
+          <form onSubmit={formik.handleSubmit} id="editForm" className={classes.form}>
             <Stack sx={{ margin: "auto", marginTop: 5 }} spacing={4}>
               <Stack
                 direction={{
@@ -66,9 +64,7 @@ export default function ChangePassword() {
                 }}
               >
                 <Grid item xs={5} className={classes.label}>
-                  <Typography variant="caption" sx={{ fontWeight: "bold" }}>
-                    Current Password
-                  </Typography>
+                  <Typography variant="caption">Current Password</Typography>
                 </Grid>
                 <Grid item>
                   <PasswordInput
@@ -84,9 +80,7 @@ export default function ChangePassword() {
                 }}
               >
                 <Grid item xs={5} className={classes.label}>
-                  <Typography variant="caption" sx={{ fontWeight: "bold" }}>
-                    New Password
-                  </Typography>
+                  <Typography variant="caption">New Password</Typography>
                 </Grid>
                 <Grid item>
                   <PasswordInput
@@ -102,9 +96,7 @@ export default function ChangePassword() {
                 }}
               >
                 <Grid item xs={5} className={classes.label}>
-                  <Typography variant="caption" sx={{ fontWeight: "bold" }}>
-                    Confirm Password
-                  </Typography>
+                  <Typography variant="caption">Confirm Password</Typography>
                 </Grid>
                 <Grid item>
                   <PasswordInput
