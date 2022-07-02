@@ -9,11 +9,11 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    signIn: (state, action) => {
+    setUserInfo: (state, action) => {
       state.auth = true
       state.info = action.payload
     },
-    signOut: (state, action) => {
+    deleteUserInfo: (state, action) => {
       state.auth = false
       state.info = {}
     },
@@ -29,6 +29,7 @@ export const userSlice = createSlice({
   },
 })
 
-export const { signIn, signOut, addUserFavorite, removeUserFavorite } = userSlice.actions
+export const { setUserInfo, deleteUserInfo, addUserFavorite, removeUserFavorite } =
+  userSlice.actions
 
 export default userSlice.reducer

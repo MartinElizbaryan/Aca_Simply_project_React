@@ -19,7 +19,7 @@ import FAQ from "./components/FAQ/FAQ"
 import Contact from "./components/Contact/Contact"
 import api from "./api/api"
 import history from "./helpers/history"
-import { signIn } from "./redux/userSlice"
+import { setUserInfo } from "./redux/userSlice"
 import "./App.css"
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
     const getMe = async () => {
       try {
         const res = await api.get("/users/me")
-        dispatch(signIn(res.data.user))
+        dispatch(setUserInfo(res.data.user))
       } catch (e) {
         // console.clear()
         console.log(e)

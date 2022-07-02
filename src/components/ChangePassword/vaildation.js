@@ -1,7 +1,7 @@
 import * as yup from "yup"
 
 export const validationSchema = yup.object({
-  oldPassword: yup
+  currentPassword: yup
     .string()
     .min(8, "Password should be of minimum 8 characters length")
     .max(15, "Password should be of maximum 15 characters length")
