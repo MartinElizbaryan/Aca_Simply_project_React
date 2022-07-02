@@ -9,6 +9,7 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt"
 import api from "../../api/api"
 import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
 import { getUserFullName } from "../../helpers/utils"
+import { findUser } from "./utils"
 
 const Chat = () => {
   const [open, setOpen] = useState(false)
@@ -33,10 +34,6 @@ const Chat = () => {
 
   const toggleDrawer = (open) => () => {
     setOpen(open)
-  }
-
-  const findOpenedChat = () => {
-    return users.find((user) => user.id === +id)
   }
 
   return (
@@ -69,8 +66,12 @@ const Chat = () => {
             <PeopleAltIcon />
           </IconButton>
           <Divider orientation="vertical" flexItem />
-          <UserAvatar user={findOpenedChat()} />
-          <Typography variant="body1">{getUserFullName(findOpenedChat())}</Typography>
+          {id && (
+            <>
+              <UserAvatar user={findUser(users, id)} />
+              <Typography variant="body1">{getUserFullName(findUser(users, id))}</Typography>
+            </>
+          )}
           <SwipeableDrawer
             anchor="top"
             open={open}
