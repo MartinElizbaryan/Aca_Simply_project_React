@@ -20,30 +20,35 @@ export default function SignUp() {
           account
           placeholder={"Name"}
           value={name}
+          type={"text"}
           onChange={(e) => setName(e.target.value)}
         />
         <InputField
           account
           placeholder={"Surname"}
           value={surname}
+          type={"text"}
           onChange={(e) => setSurname(e.target.value)}
         />
         <InputField
           email
           placeholder={"Your email"}
           value={email}
+          type={"email"}
           onChange={(e) => setEmail(e.target.value)}
         />
         <InputField
           password
           placeholder={"Your password"}
           value={password}
+          type={"password"}
           onChange={(e) => setPassword(e.target.value)}
         />
         <InputField
           confirmedPassword
           placeholder={"Confirm password"}
           value={confirmPassword}
+          type={"password"}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
       </Box>
