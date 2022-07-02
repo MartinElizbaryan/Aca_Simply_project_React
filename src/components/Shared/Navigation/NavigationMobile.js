@@ -28,7 +28,7 @@ export default function NavigationMobile() {
         {navlist?.map((item, index) => {
           return (
             <ListItemButton sx={{ padding: 2 }} key={index}>
-              <Link url={item.route} color={colors.dark} key={index} title={item.name} />
+              <Link url={item.route} color={colors.dark} key={index} content={item.name} />
             </ListItemButton>
           )
         })}

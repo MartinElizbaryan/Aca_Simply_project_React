@@ -5,11 +5,7 @@ const useStyles = createUseStyles({
   container: {
     marginTop: "120px !important",
     marginBottom: "30px !important",
-    // margin: "120px 50px 30px !important",
-    color: "#7f848c",
-  },
-  button: {
-    backgroundColor: `${colors.green} !important`,
+    color: colors.fontColor,
   },
   info: {
     paddingBottom: 15,

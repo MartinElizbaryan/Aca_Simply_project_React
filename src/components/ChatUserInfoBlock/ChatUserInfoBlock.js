@@ -1,28 +1,21 @@
-import List from "@mui/material/List"
-import React, { useEffect, useState } from "react"
+import React from "react"
+import { List } from "@mui/material"
+import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import ChatUserInfo from "../ChatUserInfo/ChatUserInfo"
-import api from "../../api/api"
-import { Link } from "react-router-dom"
+import { colors } from "../../constants/styles"
 
-function ChatUserInfoBlock({ id, onlineUsers }) {
-  const [users, setUsers] = useState([])
-
-  useEffect(() => {
-    ;(async () => {
-      const res = await api.get("users/chat")
-      console.log(res.data.users)
-      setUsers(res.data.users)
-    })()
-  }, [])
-
+function ChatUserInfoBlock({ id, users, onlineUsers, onClick }) {
   return (
-    <List>
+    <List onClick={onClick}>
       {users.map((user) => {
         const isActive = onlineUsers.includes(user.id)
         return (
-          <Link to={`/chat/${user.id}`} key={user.id}>
-            <ChatUserInfo isActive={isActive} user={user} id={id} />
-          </Link>
+          <Link
+            url={`/chat/${user.id}`}
+            key={user.id}
+            content={<ChatUserInfo isActive={isActive} user={user} id={id} />}
+            color={colors.fontColor}
+          />
         )
       })}
     </List>

@@ -1,53 +1,27 @@
 import React from "react"
-import Grid from "@mui/material/Grid"
-import ListItem from "@mui/material/ListItem"
-import ListItemText from "@mui/material/ListItemText"
-import { colors } from "../../constants/styles"
-import useStyles from "./style.js"
+import moment from "moment"
+import { Grid, ListItem, ListItemText, Tooltip } from "@mui/material"
+import useStyles from "./styles"
 
-export default function Message({ type, message, time }) {
+export default function Message({ type, message, createdAt }) {
   const classes = useStyles()
 
-  const styleType =
-    type === "from"
-      ? {
-          listItemStyle: classes.from,
-          bgColor: colors.blue,
-          textAlign: classes.textRight,
-        }
-      : {
-          listItemStyle: "",
-          bgColor: colors.green,
-          textAlign: "",
-        }
+  const timeFromNow = moment(createdAt).fromNow()
+  const date = moment(createdAt).format("LLLL")
 
   return (
-    <ListItem className={styleType.listItemStyle}>
-      <Grid
-        container
-        sx={{
-          backgroundColor: styleType.bgColor,
-          borderRadius: "15px",
-          width: {
-            xs: "75%",
-            md: "50%",
-            lg: "35%",
-          },
-          color: colors.white,
-          padding: 2,
-        }}
-      >
-        <Grid item xs={12}>
+    <ListItem className={classes[type]}>
+      <Tooltip title={date} placement={type === "from" ? "left" : "right"}>
+        <Grid className={classes.box}>
           <ListItemText
-            className={styleType.textAlign}
-            // primary={`User ${message.from.name} ${message.text}`}
+            primaryTypographyProps={{ fontSize: "0.8125rem" }}
+            secondaryTypographyProps={{ fontSize: "0.6rem" }}
             primary={message}
-          ></ListItemText>
+            secondary={timeFromNow}
+            className={classes.text}
+          />
         </Grid>
-        <Grid item xs={12}>
-          <ListItemText className={styleType.textAlign} secondary={time}></ListItemText>
-        </Grid>
-      </Grid>
+      </Tooltip>
     </ListItem>
   )
 }

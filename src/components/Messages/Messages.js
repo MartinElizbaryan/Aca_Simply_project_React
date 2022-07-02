@@ -1,16 +1,11 @@
-import List from "@mui/material/List"
-import Message from "../Message/Message"
-import Divider from "@mui/material/Divider"
-import InputBase from "@mui/material/InputBase"
-import IconButton from "@mui/material/IconButton"
-import SendIcon from "@mui/icons-material/Send"
-import Grid from "@mui/material/Grid"
 import { useEffect, useRef, useState } from "react"
-import useStyles from "../Chat/style"
+import { Box, Divider, Grid, IconButton, InputBase, List } from "@mui/material"
+import SendIcon from "@mui/icons-material/Send"
+import Message from "../Message/Message"
 import api from "../../api/api"
 import jwt_decode from "jwt-decode"
 import socket from "../../helpers/socket"
-import Box from "@mui/material/Box"
+import useStyles from "./styles"
 
 function Messages({ id }) {
   const [messages, setMessages] = useState([])
@@ -19,6 +14,7 @@ function Messages({ id }) {
   const [room, setRoom] = useState("")
   const list = useRef(null)
   const classes = useStyles()
+
   useEffect(() => {
     ;(async () => {
       const res = await api.get(`/messages/${id}`)
@@ -26,7 +22,6 @@ function Messages({ id }) {
     })()
 
     socket.on("receive", (data) => {
-      console.log(data)
       setMessages((messages) => [...messages, data])
     })
 
@@ -40,7 +35,6 @@ function Messages({ id }) {
   useEffect(() => {
     ;(async () => {
       await api.patch(`/messages/${id}`)
-      console.log("---aaaa----")
       socket.emit("messageDone", { room: 1 })
     })()
 
@@ -80,7 +74,7 @@ function Messages({ id }) {
               key={message.id}
               type={message.to_id === +id ? "from" : "to"}
               message={message.text}
-              time={message.created_at}
+              createdAt={message.created_at}
             />
           )
         })}

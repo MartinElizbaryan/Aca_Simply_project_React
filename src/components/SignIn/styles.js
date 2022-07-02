@@ -25,10 +25,6 @@ const useStyles = createUseStyles({
     backgroundColor: colors.white,
     width: "100%",
     borderRadius: 12,
-    ["@media (min-width:780px)"]: {
-      // eslint-disable-line no-useless-computed-key
-      width: 400,
-    },
   },
   spacing: {
     display: "flex",
@@ -48,6 +44,11 @@ const useStyles = createUseStyles({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    justifyContent: "space-between",
+    height: 95,
+    ["@media (min-width:630px)"]: {
+      height: 87,
+    },
   },
   finalBox: {
     display: "flex",

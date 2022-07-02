@@ -1,7 +1,5 @@
 import { useState } from "react"
-import Box from "@mui/material/Box"
-import SwipeableDrawer from "@mui/material/SwipeableDrawer"
-import Button from "@mui/material/Button"
+import { Box, Button, SwipeableDrawer } from "@mui/material"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import SidebarCabinet from "../SidebarCabinet/SidebarCabinet"
 

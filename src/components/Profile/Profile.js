@@ -1,118 +1,163 @@
+import { useState } from "react"
+import { useSelector } from "react-redux"
+import { Grid, Paper, Stack, Typography } from "@mui/material"
 import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
-import SidebarMobileCabinet from "../Shared/Sidebars/SidebarMobileCabinet/SidebarMobileCabinet"
-import Grid from "@mui/material/Grid"
-import Box from "@mui/material/Box"
-import Paper from "@mui/material/Paper"
-import { TextField } from "@mui/material"
+import { SuccessAlert } from "../Shared/Alerts/SuccessAlert/SuccessAlert"
+import { ErrorAlert } from "../Shared/Alerts/ErrorAlert/ErrorAlert"
+import UnlabeledInput from "../Shared/Inputs/UnlabeledInput/UnlabeledInput"
+import useStyles from "./styles"
+import { useFormik } from "formik"
+import { validationSchema } from "./vaildation"
+import { getUserFullName } from "../../helpers/utils"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
-import useStyles from "../Cabinet/style"
+import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
 
 export default function Profile() {
+  const { info } = useSelector((state) => state.user)
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(false)
   const classes = useStyles()
+
+  const onSuccessAlertClose = () => {
+    setSuccess(false)
+  }
+  const onErrorAlertClose = () => {
+    setError(false)
+  }
+
+  const formik = useFormik({
+    initialValues: {
+      name: info.name || "",
+      surname: info.surname || "",
+      phone: info.phone || "",
+    },
+    enableReinitialize: true,
+    validationSchema: validationSchema,
+    onSubmit: async ({ name, surname, phone }) => {
+      console.log(name, surname, phone)
+      setSuccess(true)
+    },
+  })
+
   return (
     <Grid container spacing={0} mt={10}>
-      <Grid
-        item
-        xs={12}
-        md={3}
-        mt={11}
-        sx={{
-          padding: 2,
-        }}
-      >
-        <Paper elevation={2}>
-          <Box
-            sx={{
-              display: {
-                xs: "none",
-                md: "block",
-              },
-            }}
-          >
-            <SidebarCabinet />
-          </Box>
-          <Box
-            sx={{
-              display: {
-                xs: "block",
-                md: "none",
-              },
-            }}
-          >
-            <SidebarMobileCabinet />
-          </Box>
+      <SidebarCabinet />
+      {/*<Box*/}
+      {/*  sx={{*/}
+      {/*    display: {*/}
+      {/*      xs: "block",*/}
+      {/*      md: "none",*/}
+      {/*    },*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  <SidebarMobileCabinet />*/}
+      {/*</Box>*/}
+      <Grid item xs={12} md={7} p={2} sx={{ margin: "auto" }}>
+        <Paper elevation={4} sx={{ padding: 5 }}>
+          <Grid item container direction="row" xs={12} alignItems="center" gap={2}>
+            <UserAvatar user={info} />
+            <Typography variant="body1">{getUserFullName(info)}</Typography>
+          </Grid>
+          <form onSubmit={formik.handleSubmit} id="editForm" className={classes.form}>
+            <Stack sx={{ margin: "auto", marginTop: 5 }} spacing={4}>
+              <Stack
+                direction={{
+                  xs: "column",
+                  sm: "row",
+                }}
+              >
+                <Grid item xs={5} className={classes.label}>
+                  <Typography variant="caption">Name</Typography>
+                </Grid>
+                <Grid item>
+                  <UnlabeledInput
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    name="name"
+                    error={formik.touched.name && Boolean(formik.errors.name)}
+                    helperText={formik.touched.name && formik.errors.name}
+                  />
+                </Grid>
+              </Stack>
+              <Stack
+                direction={{
+                  xs: "column",
+                  sm: "row",
+                }}
+              >
+                <Grid item xs={5} className={classes.label}>
+                  <Typography variant="caption">Surname</Typography>
+                </Grid>
+                <Grid item>
+                  <UnlabeledInput
+                    value={formik.values.surname}
+                    onChange={formik.handleChange}
+                    name="surname"
+                    error={formik.touched.surname && Boolean(formik.errors.surname)}
+                    helperText={formik.touched.surname && formik.errors.surname}
+                  />
+                </Grid>
+              </Stack>
+              <Stack
+                direction={{
+                  xs: "column",
+                  sm: "row",
+                }}
+              >
+                <Grid item xs={5} className={classes.label}>
+                  <Typography variant="caption">Email</Typography>
+                </Grid>
+                <Grid item>
+                  <UnlabeledInput value={info.email || ""} disabled />
+                </Grid>
+              </Stack>
+              <Stack
+                direction={{
+                  xs: "column",
+                  sm: "row",
+                }}
+              >
+                <Grid item xs={5} className={classes.label}>
+                  <Typography variant="caption">Phone</Typography>
+                </Grid>
+                <Grid item>
+                  <UnlabeledInput
+                    value={formik.values.phone}
+                    onChange={formik.handleChange}
+                    name="phone"
+                    error={formik.touched.phone && Boolean(formik.errors.phone)}
+                    helperText={formik.touched.phone && formik.errors.phone}
+                  />
+                </Grid>
+              </Stack>
+              <Grid item xs={12}>
+                <GreenButton title="Save Changes" type="submit" />
+                {/*<Button*/}
+                {/*  variant="contained"*/}
+                {/*  className={classes.button}*/}
+                {/*  onClick={async () => {*/}
+                {/*    // const res = await changePassword({ oldPassword, newPassword, confirmPassword })*/}
+                {/*    // if (res.status === 204) setOpen(true)*/}
+                {/*    // else*/}
+                {/*    // setSuccess(true)*/}
+                {/*    setError(true)*/}
+                {/*  }}*/}
+                {/*>*/}
+                {/*  Change Password*/}
+                {/*</Button>*/}
+              </Grid>
+              {success && (
+                <SuccessAlert
+                  message={"Your password has been changed!"}
+                  onClose={onSuccessAlertClose}
+                />
+              )}
+              {error && (
+                <ErrorAlert message={"Oops! Something went wrong!"} onClose={onErrorAlertClose} />
+              )}
+            </Stack>
+          </form>
         </Paper>
-      </Grid>
-      <Grid item xs={12} md={9} mt={6}>
-        <Box mt={5} mb={5}>
-          <Grid container spacing={2} p={2}>
-            <Grid item xs={12} md={6} lg={4}>
-              <TextField
-                className={classes.input}
-                fullWidth
-                label="Name"
-                variant="outlined"
-                size="normal"
-              />
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <TextField
-                className={classes.input}
-                fullWidth
-                label="Surname"
-                variant="outlined"
-                size="normal"
-              />
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <TextField
-                className={classes.input}
-                fullWidth
-                label="Phone"
-                variant="outlined"
-                size="normal"
-                type="number"
-              />
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <TextField
-                className={classes.input}
-                fullWidth
-                label="Old password"
-                variant="outlined"
-                size="normal"
-                type="password"
-              />
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <TextField
-                className={classes.input}
-                fullWidth
-                label="New password"
-                variant="outlined"
-                size="normal"
-                type="password"
-              />
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <TextField
-                className={classes.input}
-                fullWidth
-                label="Confirm password"
-                variant="outlined"
-                size="normal"
-                type="password"
-              />
-            </Grid>
-          </Grid>
-          <Grid container spacing={2} p={2}>
-            <Grid item xs={8} sm={6} md={4}>
-              <GreenButton className={classes.button} type="button">
-                Save Changes
-              </GreenButton>
-            </Grid>
-          </Grid>
-        </Box>
       </Grid>
     </Grid>
   )
