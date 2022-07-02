@@ -10,8 +10,10 @@ import emptyImage from "../../assets/adspy_loading_animation.gif"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import useStyles from "./style"
 import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
+import DeleteIcon from "@mui/icons-material/Delete"
+import { IconButton } from "@mui/material"
 
-export default function Post({ post, editable }) {
+export default function Post({ post, changeable, deletePost }) {
   const classes = useStyles()
 
   const img = post.images.length ? post.images[0] : emptyImage
@@ -28,6 +30,16 @@ export default function Post({ post, editable }) {
         title={`${post.user.name} ${post.user.surname}`}
         subheader={post.user.date}
       />
+      {changeable && (
+        <IconButton aria-label="delete" color="error">
+          <DeleteIcon onClick={(e) => deletePost(post.id)} />
+        </IconButton>
+      )}
+
+      {changeable && <div>{post.trusted ? "Trusted" : "Pending"}</div>}
+
+      {changeable && <div>{post.completed ? "is Closed" : "is Opened"}</div>}
+
       <CardMedia component="img" height="250" image={img} alt={img} />
       <CardContent>
         <Typography variant="h6" color="text.dark" mb={3}>
@@ -48,8 +60,7 @@ export default function Post({ post, editable }) {
         }}
       >
         <HeartButton post={post} />
-
-        {editable && (
+        {changeable && (
           <Link url={`/profile/my-posts/${post.id}`} content={<BlueButton title="Edit" />} />
         )}
 

@@ -4,18 +4,23 @@ import SidebarMobileCabinet from "../Shared/Sidebars/SidebarMobileCabinet/Sideba
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
 import Paper from "@mui/material/Paper"
-import { TextField } from "@mui/material"
+import { IconButton, ListItemIcon, TextField } from "@mui/material"
+import DeleteIcon from "@mui/icons-material/Delete"
+import DoneIcon from "@mui/icons-material/Done"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import MenuItem from "@mui/material/MenuItem"
 import UploadButtons from "../Shared/Inputs/Upload"
 import useFetch from "../../hooks/useFetch"
 import useStyles from "./style"
-import { useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import api from "../../api/api"
+import EmailIcon from "@mui/icons-material/Email"
+import MyPostsEditModal from "../MyPostsEditModal/MyPostsEditModal"
 
-export default function CreatePost() {
+export default function MyPostsEdit() {
   const classes = useStyles()
   const { id } = useParams()
+  const navigate = useNavigate()
   const [categories, setCategories] = useState([])
   const [post, setPost] = useState({})
   const [name, setName] = useState("")
@@ -23,9 +28,14 @@ export default function CreatePost() {
   const [category, setCategory] = useState("")
   const [description, setDescription] = useState("")
   const [images, setImages] = useState([])
+  const [confirmerUser, setConfirmerUser] = useState(null)
+
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
 
   const { data: categoriesResponse } = useFetch("/categories")
-  const { data: postResponse } = useFetch(`/posts/${id}`)
+  const { data: postResponse, reFetch: reFetchPost } = useFetch(`/posts/${id}`)
 
   useEffect(() => {
     setCategories(categoriesResponse.categories)
@@ -38,9 +48,26 @@ export default function CreatePost() {
     setCategory(postResponse.post?.category_id)
     setDescription(postResponse.post?.description)
     setImages(postResponse.post?.images)
+    setConfirmerUser(postResponse.post?.confirmer)
+    console.log("Mypost useeffect")
   }, [postResponse])
 
-  console.log(post?.images)
+  const deleteConfirmer = async () => {
+    const res = await api.delete(`/posts/delete-confirmed/${id}`)
+    console.log(res)
+    reFetchPost()
+    handleClose()
+  }
+
+  console.log(!post?.conpleted)
+  console.log(post)
+
+  const done = async () => {
+    const res = await api.patch(`/posts/completed/${id}`)
+    console.log(res)
+    reFetchPost()
+    navigate("/profile/my-posts")
+  }
 
   const updatePost = async () => {
     const sendData = {
@@ -51,15 +78,13 @@ export default function CreatePost() {
       // images,
     }
 
-    console.log(sendData)
-
     const res = await api.put(`/posts/${id}`, sendData)
-
-    console.log(res)
   }
 
   return (
     <Grid container spacing={0} mt={10}>
+      <MyPostsEditModal deleteConfirmer={deleteConfirmer} handleClose={handleClose} open={open} />
+
       <Grid
         item
         xs={12}
@@ -95,6 +120,26 @@ export default function CreatePost() {
       <Grid item xs={12} md={9} mt={6}>
         <Box mt={5} mb={5}>
           <Grid container spacing={2} p={2}>
+            {confirmerUser && (
+              <Grid item xs={6} mb={5}>
+                Confirmed By {confirmerUser.name} {confirmerUser.surname}
+                <IconButton aria-label="delete" color="error" onClick={handleOpen}>
+                  <DeleteIcon />
+                </IconButton>
+                <Link to={`/chat/${confirmerUser.id}`}>
+                  <ListItemIcon>
+                    <IconButton aria-label="delete" color="primary">
+                      <EmailIcon />
+                    </IconButton>
+                  </ListItemIcon>
+                </Link>
+                {!post?.completed && (
+                  <IconButton aria-label="delete" color="success" onClick={done}>
+                    <DoneIcon />
+                  </IconButton>
+                )}
+              </Grid>
+            )}
             <Grid item xs={12}>
               <TextField
                 className={classes.input}

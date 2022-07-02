@@ -1,29 +1,41 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import api from "../api/api"
 
-export default function useFetch(url, method = "get", config = {}) {
+// export const useLazyFetch = () => {
+//   return []
+// }
+
+export default function useFetch(url, method = "get", config) {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState([])
-  const configJson = JSON.stringify(config)
+
+  const reFetch = useCallback(async () => {
+    try {
+      setLoading(true)
+      const response = await api[method](url, config || {})
+      setData(response.data)
+    } catch (err) {
+      setError(err)
+    } finally {
+      setLoading(false)
+    }
+
+    return {
+      data,
+      loading,
+      error,
+    }
+  }, [url, method, config])
 
   useEffect(() => {
-    ;(async function () {
-      try {
-        setLoading(true)
-        const response = await api[method](url, JSON.parse(configJson))
-        setData(response.data)
-      } catch (err) {
-        setError(err)
-      } finally {
-        setLoading(false)
-      }
-    })()
-  }, [url, configJson])
+    reFetch()
+  }, [reFetch])
 
   return {
     data,
     loading,
     error,
+    reFetch,
   }
 }
