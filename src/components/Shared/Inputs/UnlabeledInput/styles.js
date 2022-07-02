@@ -1,9 +1,11 @@
 import { createUseStyles } from "react-jss"
 
 const useStyles = createUseStyles({
-  list: {
-    width: "100% !important",
-    backgroundColor: "background.paper",
+  input: {
+    "& p": {
+      maxWidth: 200,
+      fontSize: "0.65rem",
+    },
   },
 })
 export default useStyles

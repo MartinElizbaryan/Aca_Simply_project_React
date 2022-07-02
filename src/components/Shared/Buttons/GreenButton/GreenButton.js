@@ -5,7 +5,7 @@ export const GreenButton = ({ title, icon, ...props }) => {
   const classes = useStyles()
 
   return (
-    <Button variant="contained" className={classes.button} {...props}>
+    <Button variant="contained" color="success" className={classes.button} {...props}>
       {icon}
       {title}
     </Button>

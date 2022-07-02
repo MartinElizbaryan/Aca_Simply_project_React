@@ -74,7 +74,7 @@ function Messages({ id }) {
               key={message.id}
               type={message.to_id === +id ? "from" : "to"}
               message={message.text}
-              date={message.created_at}
+              createdAt={message.created_at}
             />
           )
         })}
