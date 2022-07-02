@@ -35,7 +35,7 @@ export default function MyPostsEdit() {
   const handleClose = () => setOpen(false)
 
   const { data: categoriesResponse } = useFetch("/categories")
-  const { data: postResponse, reCall: reCallPost } = useFetch(`/posts/${id}`)
+  const { data: postResponse, reFetch: reFetchPost } = useFetch(`/posts/${id}`)
 
   useEffect(() => {
     setCategories(categoriesResponse.categories)
@@ -55,7 +55,7 @@ export default function MyPostsEdit() {
   const deleteConfirmer = async () => {
     const res = await api.delete(`/posts/delete-confirmed/${id}`)
     console.log(res)
-    reCallPost()
+    reFetchPost()
     handleClose()
   }
 
@@ -65,7 +65,7 @@ export default function MyPostsEdit() {
   const done = async () => {
     const res = await api.patch(`/posts/completed/${id}`)
     console.log(res)
-    reCallPost()
+    reFetchPost()
     navigate("/profile/my-posts")
   }
 

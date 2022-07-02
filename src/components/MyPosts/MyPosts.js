@@ -10,7 +10,7 @@ import PostsSceleton from "../PostsSceleton/PostsSceleton"
 import api from "../../api/api"
 
 export default function Lost() {
-  const { data, error, loading, reCall: ReCallMyPosts } = useFetch("/posts/my-posts")
+  const { data, error, loading, reFetch: reFetchMyPosts } = useFetch("/posts/my-posts")
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function Lost() {
 
   const deletePost = async (id) => {
     const res = await api.delete(`/posts/${id}`)
-    ReCallMyPosts()
+    reFetchMyPosts()
   }
 
   return (

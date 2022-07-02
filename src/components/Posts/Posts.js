@@ -5,7 +5,7 @@ import SidebarMobile from "../Shared/Sidebars/SidebarMobile/SidebarMobile"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
 import Paper from "@mui/material/Paper"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import useFetch from "../../hooks/useFetch"
 import { useSearchParams } from "react-router-dom"
 import { getParamsCustomVersion, getParamsFromFiltering } from "./utils"
@@ -13,21 +13,38 @@ import { getParamsCustomVersion, getParamsFromFiltering } from "./utils"
 export default function Posts() {
   const [searchParams] = useSearchParams()
   const [isChecked, setIsChecked] = useState({})
-  const filterParams = getParamsFromFiltering(isChecked)
-  const params = getParamsCustomVersion([...searchParams, ...filterParams], "category")
-  const { data, error, loading, reCall: reCallPosts } = useFetch("/posts", "get", { params })
+
+  const filterParams = useMemo(() => {
+    return getParamsFromFiltering(isChecked)
+  }, [isChecked])
+
+  const config = useMemo(
+    () => ({
+      params: getParamsCustomVersion([...searchParams, ...filterParams], "category"),
+    }),
+    [searchParams, filterParams]
+  )
+  const { data, error, loading, reFetch: reFetchPosts } = useFetch("/posts", "get", config)
   const [posts, setPosts] = useState([])
 
+  // const location = useLocation()
+  // const query = new URLSearchParams(location.search)
+  // const page = parseInt(query.get("page") || "1", 10)
+
+  // const pageClick = (event, page) => {
+  //   console.log("pageClick")
+  // }
+  //
   useEffect(() => {
-    reCallPosts()
+    reFetchPosts()
   }, [searchParams])
 
   const onOff = (e, id) => {
+    console.log(2222222222)
     setIsChecked({
       ...isChecked,
       [id]: e.target.checked,
     })
-    reCallPosts()
   }
 
   useEffect(() => {
@@ -72,6 +89,8 @@ export default function Posts() {
         <Box mt={5} mb={5}>
           {loading ? <PostsSceleton /> : <PostsList title="Posts" data={posts} />}
         </Box>
+
+        {/*<BasicPagination onChange={pageClick} page={page} count={posts?.length / POST_PER_PAGE} />*/}
       </Grid>
     </Grid>
   )
