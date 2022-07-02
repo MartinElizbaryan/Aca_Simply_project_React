@@ -147,7 +147,7 @@ export default function Header() {
                 }}
               >
                 <Badge badgeContent={0} color="primary">
-                  <Link url="/chat" content={<MailIcon />} color="white" />
+                  <Link url="/chat" content={<MailIcon />} color="white" sx={{ display: "flex" }} />
                 </Badge>
                 {/*{messageCount}*/}
               </IconButton>

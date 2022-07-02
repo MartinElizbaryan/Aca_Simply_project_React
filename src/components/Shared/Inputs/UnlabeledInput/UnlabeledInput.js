@@ -1,5 +1,8 @@
 import { TextField } from "@mui/material"
+import useStyles from "./styles"
 
 export default function UnlabeledInput({ ...props }) {
-  return <TextField {...props} size={"small"} />
+  const classes = useStyles()
+
+  return <TextField {...props} size={"small"} className={classes.input} />
 }

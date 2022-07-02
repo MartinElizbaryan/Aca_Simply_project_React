@@ -1,37 +1,41 @@
 import { useCallback, useEffect, useState } from "react"
 import api from "../api/api"
 
-export default function useFetch(url, method = "get", config = {}) {
-  console.log(config.params)
+// export const useLazyFetch = () => {
+//   return []
+// }
+
+export default function useFetch(url, method = "get", config) {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState([])
-  // const configJson = JSON.stringify(config)
-  const [refresh, setRefresh] = useState({})
 
-  const reCall = useCallback(() => {
-    console.log("useFetch ReCall")
-    setRefresh({})
-  }, [])
+  const reFetch = useCallback(async () => {
+    try {
+      setLoading(true)
+      const response = await api[method](url, config || {})
+      setData(response.data)
+    } catch (err) {
+      setError(err)
+    } finally {
+      setLoading(false)
+    }
+
+    return {
+      data,
+      loading,
+      error,
+    }
+  }, [url, method, config])
 
   useEffect(() => {
-    ;(async function () {
-      try {
-        setLoading(true)
-        const response = await api[method](url, config)
-        setData(response.data)
-      } catch (err) {
-        setError(err)
-      } finally {
-        setLoading(false)
-      }
-    })()
-  }, [url, /*configJson,*/ refresh])
+    reFetch()
+  }, [reFetch])
 
   return {
     data,
     loading,
     error,
-    reCall,
+    reFetch,
   }
 }

@@ -5,21 +5,16 @@ import { TextField } from "@mui/material"
 import useStyles from "../Question/style"
 import Radios from "../Radios/Radios"
 
-export default function Variant() {
+export default function Variant({ answers, questionIndex, setQuestions }) {
   const [radio, setRadio] = useState([])
   const [variantInput, setVariantInput] = useState("")
   const [variantRadioValidate, setVariantRadioValidate] = useState(true)
   const addVariantRadio = () => {
-    let newRadio
-    if (variantInput !== "") {
-      newRadio = [...radio, <Radios variantInput={variantInput} key={radio.length + 1} />]
-      setRadio(newRadio)
-      setVariantInput("")
-      setVariantRadioValidate(true)
-    } else {
-      console.log("Varinat cannt be undefined")
-      setVariantRadioValidate(false)
-    }
+    setQuestions((prevState) => {
+      prevState[questionIndex].answers.push({ title: variantInput, status: false })
+      return [...prevState]
+    })
+    setVariantInput("")
   }
   const onVariantChange = (e) => {
     setVariantInput(e.target.value)
@@ -53,7 +48,19 @@ export default function Variant() {
           </Grid>
         </Grid>
       </Grid>
-      {radio}
+      {answers &&
+        answers.map((answer, answerIndex) => {
+          return (
+            <Radios
+              variantInput={variantInput}
+              key={answerIndex}
+              answerIndex={answerIndex}
+              answer={answer}
+              questionIndex={questionIndex}
+              setQuestions={setQuestions}
+            />
+          )
+        })}
     </Grid>
   )
 }
