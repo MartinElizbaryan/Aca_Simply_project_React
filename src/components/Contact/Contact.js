@@ -21,7 +21,7 @@ export default function Contact() {
   const classes = useStyles()
 
   return (
-    <Container className={classes.container}>
+    <Container className={classes.container} maxWidth={false}>
       <Typography variant="h4" className={classes.header}>
         Contact us
       </Typography>

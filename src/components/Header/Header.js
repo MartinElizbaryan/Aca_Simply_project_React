@@ -56,10 +56,15 @@ export default function Header() {
 
   useEffect(
     () => {
-      ;(async () => {
-        const res = await api.get("users/chat")
-        setUsers(res.data.users)
-      })()
+      const getUserChats = async () => {
+        try {
+          const res = await api.get("users/chat")
+          setUsers(res.data.users)
+        } catch (e) {
+          console.log(e)
+        }
+      }
+      if (auth) getUserChats()
     },
     [
       /*isReceived*/
@@ -174,17 +179,26 @@ export default function Header() {
           onClose={handleClose}
         >
           <MenuItem>
-            <ListItemIcon>
-              <PersonIcon fontSize="small" />
-            </ListItemIcon>
-            <Link url="/profile" content="My Profile" color="#212121" />
+            <Link
+              url="/profile"
+              content={
+                <>
+                  <ListItemIcon>
+                    <PersonIcon fontSize="small" />
+                  </ListItemIcon>
+                  My Profile
+                </>
+              }
+              color="#212121"
+              sx={{ display: "flex" }}
+            />
           </MenuItem>
           <MenuItem
             onClick={async () => {
+              setAnchorEl(null)
               const status = await signOut()
               if (status === 204) {
                 dispatch(deleteUserInfo())
-                setAnchorEl(null)
                 navigate("/signin")
               }
             }}

@@ -9,7 +9,7 @@ const useStyles = createUseStyles({
     marginBottom: "50px !important",
   },
   container: {
-    marginTop: "120px !important",
+    marginTop: "100px !important",
     marginBottom: "30px !important",
     color: colors.fontColor,
   },

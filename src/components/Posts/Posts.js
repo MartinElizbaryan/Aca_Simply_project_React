@@ -9,8 +9,10 @@ import { getParamsCustomVersion, getParamsFromFiltering } from "./utils"
 import BasicPagination from "../Shared/Pagination/DefaultPagination/DefaultPagination"
 import { POST_PER_PAGE } from "./constants"
 import { scrollToTop } from "../../helpers/utils"
-import { Container, Typography } from "@mui/material"
+import { Container, Paper, Stack, Typography } from "@mui/material"
 import useStyles from "./styles"
+import SidebarMobile from "../Shared/Sidebars/SidebarMobile/SidebarMobile"
+import Sidebar from "../Shared/Sidebars/Sidebar/Sidebar"
 
 export default function Posts() {
   const [searchParams] = useSearchParams()
@@ -66,55 +68,55 @@ export default function Posts() {
   }
 
   useEffect(() => {
-    console.log(data)
     setPosts(data.posts)
     setPostsInDB(data.count)
   }, [data])
 
   return (
-    // <Grid container spacing={0} mt={10}>
-    <Container className={classes.container}>
+    <Container className={classes.container} maxWidth={false}>
       <Typography variant="h4" className={classes.header}>
-        Contact us
+        Posts
       </Typography>
-      {/*<Grid*/}
-      {/*  item*/}
-      {/*  xs={12}*/}
-      {/*  md={3}*/}
-      {/*  mt={11}*/}
-      {/*  sx={{*/}
-      {/*    padding: 2,*/}
-      {/*  }}*/}
-      {/*>*/}
-      {/*  <Paper elevation={2}>*/}
-      {/*    <Box*/}
-      {/*      sx={{*/}
-      {/*        display: {*/}
-      {/*          xs: "none",*/}
-      {/*          md: "block",*/}
-      {/*        },*/}
-      {/*      }}*/}
-      {/*    >*/}
-      {/*      <Sidebar isChecked={isChecked} onOff={onOff} />*/}
-      {/*    </Box>*/}
-      {/*    <Box*/}
-      {/*      sx={{*/}
-      {/*        display: {*/}
-      {/*          xs: "block",*/}
-      {/*          md: "none",*/}
-      {/*        },*/}
-      {/*      }}*/}
-      {/*    >*/}
-      {/*      <SidebarMobile />*/}
-      {/*    </Box>*/}
-      {/*  </Paper>*/}
-      {/*</Grid>*/}
-      <Grid item xs={12} md={9}>
-        <Box mt={5} mb={5}>
-          {loading ? <PostsSceleton /> : <PostsList title="Posts" data={posts} />}
-        </Box>
-        {pageCount && <BasicPagination onChange={pageClick} page={page} count={pageCount} />}
-      </Grid>
+      <Stack>
+        <Grid
+          item
+          xs={12}
+          md={3}
+          mt={11}
+          sx={{
+            padding: 2,
+          }}
+        >
+          <Paper elevation={2}>
+            <Box
+              sx={{
+                display: {
+                  xs: "none",
+                  md: "block",
+                },
+              }}
+            >
+              <Sidebar isChecked={isChecked} onOff={onOff} />
+            </Box>
+            <Box
+              sx={{
+                display: {
+                  xs: "block",
+                  md: "none",
+                },
+              }}
+            >
+              <SidebarMobile />
+            </Box>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={9}>
+          <Box mt={5} mb={5}>
+            {loading ? <PostsSceleton /> : <PostsList title="Posts" data={posts} />}
+          </Box>
+          {pageCount && <BasicPagination onChange={pageClick} page={page} count={pageCount} />}
+        </Grid>
+      </Stack>
     </Container>
   )
 }

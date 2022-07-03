@@ -3,7 +3,7 @@ import { colors } from "../../constants/styles"
 
 const useStyles = createUseStyles({
   container: {
-    marginTop: "120px !important",
+    marginTop: "100px !important",
     marginBottom: "30px !important",
     color: colors.fontColor,
   },
