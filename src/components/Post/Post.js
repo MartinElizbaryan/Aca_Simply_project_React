@@ -32,8 +32,8 @@ export default function Post({ post, changeable, deletePost, trustPost, editable
         subheader={post.user.date}
       />
       {changeable && (
-        <IconButton aria-label="delete" color="error">
-          <DeleteIcon onClick={(e) => deletePost(post.id)} />
+        <IconButton aria-label="delete" color="error" onClick={(e) => deletePost(post.id)}>
+          <DeleteIcon />
         </IconButton>
       )}
 

@@ -1,7 +1,6 @@
 import Post from "../Post/Post"
 import Container from "@mui/material/Container"
 import Grid from "@mui/material/Grid"
-import Typography from "@mui/material/Typography"
 
 export default function PostsList({
   data,
@@ -15,9 +14,6 @@ export default function PostsList({
 }) {
   return (
     <Container size="md">
-      <Typography variant="h4" component="h2" mb={2} textAlign="center">
-        {title}
-      </Typography>
       <Grid container spacing={2}>
         {data?.map((post, index) => {
           return (

@@ -1,21 +1,24 @@
 import { useState } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { useFormik } from "formik"
 import { Grid, Paper, Stack, Typography } from "@mui/material"
 import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
 import { SuccessAlert } from "../Shared/Alerts/SuccessAlert/SuccessAlert"
 import { ErrorAlert } from "../Shared/Alerts/ErrorAlert/ErrorAlert"
 import UnlabeledInput from "../Shared/Inputs/UnlabeledInput/UnlabeledInput"
-import useStyles from "./styles"
-import { useFormik } from "formik"
-import { validationSchema } from "./vaildation"
-import { getUserFullName } from "../../helpers/utils"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
+import { editUserInfo } from "./utils"
+import { getUserFullName } from "../../helpers/utils"
+import { validationSchema } from "./vaildation"
+import { setUserInfo } from "../../redux/userSlice"
+import useStyles from "./styles"
 
 export default function Profile() {
   const { info } = useSelector((state) => state.user)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
+  const dispatch = useDispatch()
   const classes = useStyles()
 
   const onSuccessAlertClose = () => {
@@ -34,8 +37,16 @@ export default function Profile() {
     enableReinitialize: true,
     validationSchema: validationSchema,
     onSubmit: async ({ name, surname, phone }) => {
-      console.log(name, surname, phone)
-      setSuccess(true)
+      try {
+        const res = await editUserInfo({ name, surname, phone })
+        if (res.status === 200) {
+          setSuccess(true)
+          dispatch(setUserInfo(res.user))
+        }
+      } catch (e) {
+        console.log(e)
+        setError(true)
+      }
     },
   })
 
@@ -98,6 +109,18 @@ export default function Profile() {
                   />
                 </Grid>
               </Stack>
+              {/*<Grid item>*/}
+              {/*  <Typography variant="caption" fontWeight="bold">*/}
+              {/*    Personal Information*/}
+              {/*  </Typography>*/}
+              {/*  <Grid item>*/}
+              {/*    <Typography variant="caption">*/}
+              {/*      {*/}
+              {/*        "Provide your personal information. This won't be a part of your public profile."*/}
+              {/*      }*/}
+              {/*    </Typography>*/}
+              {/*  </Grid>*/}
+              {/*</Grid>*/}
               <Stack
                 direction={{
                   xs: "column",
@@ -130,25 +153,12 @@ export default function Profile() {
                   />
                 </Grid>
               </Stack>
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={{ textAlign: "start" }}>
                 <GreenButton title="Save Changes" type="submit" />
-                {/*<Button*/}
-                {/*  variant="contained"*/}
-                {/*  className={classes.button}*/}
-                {/*  onClick={async () => {*/}
-                {/*    // const res = await changePassword({ oldPassword, newPassword, confirmPassword })*/}
-                {/*    // if (res.status === 204) setOpen(true)*/}
-                {/*    // else*/}
-                {/*    // setSuccess(true)*/}
-                {/*    setError(true)*/}
-                {/*  }}*/}
-                {/*>*/}
-                {/*  Change Password*/}
-                {/*</Button>*/}
               </Grid>
               {success && (
                 <SuccessAlert
-                  message={"Your password has been changed!"}
+                  message={"Your info has been updated!"}
                   onClose={onSuccessAlertClose}
                 />
               )}
