@@ -15,10 +15,12 @@ import PostSingle from "./components/PostSingle/PostSingle"
 import Posts from "./components/Posts/Posts"
 import RegistrationLogin from "./components/RegistrationLogin/RegistrationLogin"
 import ChangePassword from "./components/ChangePassword/ChangePassword"
+import PendingPosts from "./components/PendingPosts/PendingPosts"
 import FAQ from "./components/FAQ/FAQ"
 import Contact from "./components/Contact/Contact"
 import api from "./api/api"
 import history from "./helpers/history"
+// import historyRouter from "react-router-dom"
 import { signIn } from "./redux/userSlice"
 import "./App.css"
 
@@ -55,6 +57,7 @@ function App() {
             <Route exact path="/profile/confirmed-posts" element={<ConfirmedPosts />} />
             <Route exact path="/profile/favorite-posts" element={<FavoritePosts />} />
             <Route exact path="/profile/change-password" element={<ChangePassword />} />
+            <Route exact path="/profile/pending-posts" element={<PendingPosts />} />
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/signin" element={<RegistrationLogin />} />
             <Route exact path="/signup" element={<RegistrationLogin />} />
