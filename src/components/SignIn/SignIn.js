@@ -11,11 +11,12 @@ import {
   DialogTitle,
 } from "@mui/material"
 import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
-import { signInFunction } from "./utils"
-import { signIn } from "../../redux/userSlice"
 import useStyles from "./styles"
 import { InputField } from "../Shared/Inputs/InputField/InputField"
 import { useFormik } from "formik"
+import * as yup from "yup"
+import { setUserInfo } from "../../redux/userSlice"
+import { signIn } from "./utils"
 import { validationSchema } from "./validation"
 
 export default function SignIn() {
@@ -39,8 +40,8 @@ export default function SignIn() {
     validationSchema: validationSchema,
     onSubmit: async ({ email, password }) => {
       try {
-        const data = await signInFunction({ email, password })
-        dispatch(signIn(data.user))
+        const data = await signIn({ email, password })
+        dispatch(setUserInfo(data.user))
         navigate("/profile")
         setOpen(false)
       } catch (e) {

@@ -21,12 +21,12 @@ import MailIcon from "@mui/icons-material/Mail"
 import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import NavigationMobile from "../Shared/Navigation/NavigationMobile"
 import { Logo } from "../Shared/Logo/Logo"
-import { signOut } from "../../redux/userSlice"
-import { signOutFunction } from "./utils"
 import { navlist } from "./constants"
 import api from "../../api/api"
 import { colors } from "../../constants/styles.js"
 import useStyles from "./styles"
+import { signOut } from "./utils"
+import { deleteUserInfo } from "../../redux/userSlice"
 
 export default function Header() {
   const dispatch = useDispatch()
@@ -56,10 +56,15 @@ export default function Header() {
 
   useEffect(
     () => {
-      ;(async () => {
-        const res = await api.get("users/chat")
-        setUsers(res.data.users)
-      })()
+      const getUserChats = async () => {
+        try {
+          const res = await api.get("users/chat")
+          setUsers(res.data.users)
+        } catch (e) {
+          console.log(e)
+        }
+      }
+      if (auth) getUserChats()
     },
     [
       /*isReceived*/
@@ -174,17 +179,26 @@ export default function Header() {
           onClose={handleClose}
         >
           <MenuItem>
-            <ListItemIcon>
-              <PersonIcon fontSize="small" />
-            </ListItemIcon>
-            <Link url="/profile" content="My Profile" color="#212121" />
+            <Link
+              url="/profile"
+              content={
+                <>
+                  <ListItemIcon>
+                    <PersonIcon fontSize="small" />
+                  </ListItemIcon>
+                  My Profile
+                </>
+              }
+              color="#212121"
+              sx={{ display: "flex" }}
+            />
           </MenuItem>
           <MenuItem
             onClick={async () => {
-              const status = await signOutFunction()
+              setAnchorEl(null)
+              const status = await signOut()
               if (status === 204) {
-                dispatch(signOut())
-                setAnchorEl(null)
+                dispatch(deleteUserInfo())
                 navigate("/signin")
               }
             }}

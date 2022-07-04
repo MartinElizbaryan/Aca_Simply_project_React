@@ -11,13 +11,11 @@ import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import { useFormik } from "formik"
 import { validationSchema } from "./vaildation"
 import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
+import { changePassword } from "./utils"
 
 export default function ChangePassword() {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
-  const [currentPassword, setOldPassword] = useState("")
-  const [newPassword, setNewPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
   const { info } = useSelector((state) => state.user)
 
   const classes = useStyles()
@@ -30,8 +28,13 @@ export default function ChangePassword() {
     },
     validationSchema: validationSchema,
     onSubmit: async ({ currentPassword, newPassword, confirmPassword }) => {
-      console.log(currentPassword, newPassword, confirmPassword)
-      setSuccess(true)
+      try {
+        const res = await changePassword({ currentPassword, newPassword, confirmPassword })
+        if (res.status === 204) setSuccess(true)
+      } catch (e) {
+        console.log(e)
+        setError(true)
+      }
     },
   })
 
@@ -68,8 +71,11 @@ export default function ChangePassword() {
                 </Grid>
                 <Grid item>
                   <PasswordInput
-                    value={currentPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
+                    value={formik.values.currentPassword}
+                    onChange={formik.handleChange}
+                    name="currentPassword"
+                    error={formik.touched.currentPassword && Boolean(formik.errors.currentPassword)}
+                    helperText={formik.touched.currentPassword && formik.errors.currentPassword}
                   />
                 </Grid>
               </Stack>
@@ -84,8 +90,11 @@ export default function ChangePassword() {
                 </Grid>
                 <Grid item>
                   <PasswordInput
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
+                    value={formik.values.newPassword}
+                    onChange={formik.handleChange}
+                    name="newPassword"
+                    error={formik.touched.newPassword && Boolean(formik.errors.newPassword)}
+                    helperText={formik.touched.newPassword && formik.errors.newPassword}
                   />
                 </Grid>
               </Stack>
@@ -100,26 +109,16 @@ export default function ChangePassword() {
                 </Grid>
                 <Grid item>
                   <PasswordInput
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    value={formik.values.confirmPassword}
+                    onChange={formik.handleChange}
+                    name="confirmPassword"
+                    error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+                    helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
                   />
                 </Grid>
               </Stack>
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={{ textAlign: "start" }}>
                 <GreenButton title="Change Password" type="submit" />
-                {/*<Button*/}
-                {/*  variant="contained"*/}
-                {/*  className={classes.button}*/}
-                {/*  onClick={async () => {*/}
-                {/*    // const res = await changePassword({ currentPassword, newPassword, confirmPassword })*/}
-                {/*    // if (res.status === 204) setOpen(true)*/}
-                {/*    // else*/}
-                {/*    // setSuccess(true)*/}
-                {/*    setError(true)*/}
-                {/*  }}*/}
-                {/*>*/}
-                {/*  Change Password*/}
-                {/*</Button>*/}
               </Grid>
             </Stack>
           </form>

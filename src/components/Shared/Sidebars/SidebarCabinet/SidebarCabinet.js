@@ -7,9 +7,12 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
 import KeyIcon from "@mui/icons-material/Key"
 import { ListItemWithIcon } from "../../ListItems/ListItemWithIcon/ListItemWithIcon"
 import useStyles from "./styles"
+import { useDispatch, useSelector } from "react-redux"
 
 export default function SidebarCabinet() {
   const classes = useStyles()
+  const dispatch = useDispatch()
+  const { auth, info } = useSelector((state) => state.user)
 
   return (
     <Box p={2}>
@@ -41,6 +44,20 @@ export default function SidebarCabinet() {
             icon={<KeyIcon />}
             title="Change Password"
           />
+
+          {info.is_admin && (
+            <ListItemWithIcon
+              url="/profile/pending-posts"
+              icon={<KeyIcon />}
+              title="Pending Posts"
+            />
+
+            // <ListItemWithIcon
+            //   url="/profile/"
+            //   icon={<KeyIcon />}
+            //   title="Pending Posts"
+            // />
+          )}
         </List>
       </Paper>
     </Box>
