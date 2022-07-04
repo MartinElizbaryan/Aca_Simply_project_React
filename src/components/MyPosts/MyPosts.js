@@ -31,7 +31,7 @@ export default function Lost() {
           {loading ? (
             <PostsSceleton />
           ) : (
-            <PostsList title="My posts" data={posts} changeable deletePost={deletePost} />
+            <PostsList title="My posts" data={posts} changeable editable deletePost={deletePost} />
           )}
         </Box>
       </Grid>
