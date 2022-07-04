@@ -20,6 +20,7 @@ import Contact from "./components/Contact/Contact"
 import api from "./api/api"
 import history from "./helpers/history"
 import { signIn } from "./redux/userSlice"
+import Privacy from "./components/Privacy/Privacy"
 import "./App.css"
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
             <Route exact path="/signin" element={<RegistrationLogin />} />
             <Route exact path="/signup" element={<RegistrationLogin />} />
             <Route exact path="/forgot-password" element={<RegistrationLogin />} />
+            <Route exact path="/privacy" element={<Privacy />} />
             <Route exact path="/faq" element={<FAQ />} />
             <Route path="*" element={<PageNotFound />} />
           </Route>
