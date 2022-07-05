@@ -21,7 +21,7 @@ export default function Radios({ answer, answerIndex, questionIndex, formik }) {
       <FormGroup>
         <FormControlLabel
           value={variantInputValue}
-          control={<Radio />}
+          control={<Radio name="answer" value={variantInputValue} />}
           label={answer.title}
           onChange={(e) => {
             setStatus(e)
