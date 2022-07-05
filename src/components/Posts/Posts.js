@@ -76,20 +76,28 @@ export default function Posts() {
       {/*<Typography variant="h4" className={classes.header}>*/}
       {/*  Posts*/}
       {/*</Typography>*/}
-      <Stack>
+      <Stack direction="row">
         <Box
           sx={{
             display: {
               xs: "none",
               md: "block",
             },
-            boxShadow: "4px 4px 20px rgb(0 0 0 / 20%)",
-            height: "100%",
-            width: "100%",
-            position: "fixed",
-            maxWidth: 300,
-            backgroundColor: "white",
           }}
+          //   boxShadow: "4px 4px 20px rgb(0 0 0 / 20%)",
+          //   width: "100%",
+          //   height: "472px",
+          //   position: "fixed",
+          //   maxWidth: 300,
+          //   backgroundColor: "white",
+          //   paddingBottom: "174px",
+          //   overflowY: "auto",
+          //   scrollbarWidth: 0,
+          //   "&::-webkit-scrollbar": {
+          //     display: "none",
+          //   },
+
+          className={classes.sidebar}
         >
           <Sidebar isChecked={isChecked} onOff={onOff} />
         </Box>
@@ -103,7 +111,13 @@ export default function Posts() {
         >
           {/*<SidebarMobile />*/}
         </Box>
-        <Grid item xs={12} md={9} ml={{ md: "300px" }} sx={{ backgroundColor: colors.grey }}>
+        <Grid
+          item
+          xs={12}
+          md={9}
+          ml={{ md: "300px" }}
+          sx={{ backgroundColor: colors.grey, width: "100%" }}
+        >
           <Box mt={5} mb={5}>
             {loading ? <PostsSceleton /> : <PostsList title="Posts" data={posts} />}
           </Box>

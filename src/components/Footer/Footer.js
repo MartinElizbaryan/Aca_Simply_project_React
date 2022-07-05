@@ -14,7 +14,7 @@ export default function Footer() {
   return (
     <footer>
       <Container maxWidth={false} className={classes.container}>
-        <Grid container justifyContent="space-around" p={2}>
+        <Grid container justifyContent="space-around">
           <Stack spacing={1} justifyContent="center" alignItems="center" textAlign="center">
             <img src={logo} alt="logo" width={150} />
             <Typography variant="caption" color={colors.white}>

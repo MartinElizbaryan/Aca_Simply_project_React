@@ -34,7 +34,7 @@ export default function Sidebar({ onOff, isChecked }) {
   }
 
   const handleTypesButtonClick = () => {
-    setOpenCategories(!openCategories)
+    setOpenTypes(!openTypes)
   }
 
   return (
@@ -48,11 +48,11 @@ export default function Sidebar({ onOff, isChecked }) {
           <SearchInput />
         </ListItem>
       </Collapse>
-      <ListItemButton onClick={handleCategoriesButtonClick} className={classes.button}>
-        {openCategories ? <ExpandMore /> : <ChevronRightIcon />}
+      <ListItemButton onClick={handleTypesButtonClick} className={classes.button}>
+        {openTypes ? <ExpandMore /> : <ChevronRightIcon />}
         <ListItemText primary="Types" sx={{ paddingLeft: 1 }} />
       </ListItemButton>
-      <Collapse in={openCategories} timeout="auto" unmountOnExit>
+      <Collapse in={openTypes} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {["LOST", "FOUND"].map((type) => {
             return (
