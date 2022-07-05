@@ -22,6 +22,7 @@ import FormControlLabel from "@mui/material/FormControlLabel"
 import Radio from "@mui/material/Radio"
 import RadioGroup from "@mui/material/RadioGroup"
 import { FormControl, FormLabel } from "@mui/material"
+import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 
 export default function PostSingle() {
   const classes = useStyles()
@@ -37,7 +38,16 @@ export default function PostSingle() {
     setQuestions(data.post?.questions)
   }, [data])
 
-  console.log(questions)
+  const sendAnswers = async () => {
+    // const textMessage = `Dimum em ${}`
+    // questions.forEach((question) => {
+    //   textMessage += `Question`
+    // })
+    //
+    // await api.post(`/messages/${id}`, {
+    //   text: textMessage,
+    // })
+  }
 
   const handelAnswer = (e, questionIndex, answerIndex) => {
     questions[questionIndex].answers.forEach((answer) => {
@@ -137,12 +147,12 @@ export default function PostSingle() {
                     })}
                   </RadioGroup>
                 </FormControl>
-
-                <BlueButton>awdawd</BlueButton>
               </div>
             )
           })}
         </div>
+
+        <GreenButton onClick={sendAnswers}>Send Answers</GreenButton>
       </Container>
     )
 }
