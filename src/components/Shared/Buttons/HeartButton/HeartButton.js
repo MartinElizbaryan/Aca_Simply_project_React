@@ -3,9 +3,8 @@ import IconButton from "@mui/material/IconButton"
 import { useEffect, useState } from "react"
 import api from "../../../../api/api"
 import { useDispatch } from "react-redux"
-import { addUserFavorite, removeUserFavorite } from "../../../../redux/userSlice"
 
-export default function HeartButton({ post }) {
+export default function HeartButton({ post, deleteFromMyFavorites }) {
   const [isFavorite, setIsFavorite] = useState(false)
 
   const dispatch = useDispatch()
@@ -15,6 +14,10 @@ export default function HeartButton({ post }) {
   }, [post])
 
   const fn = () => {
+    if (deleteFromMyFavorites) {
+      deleteFromMyFavorites(post.id)
+      return
+    }
     isFavorite ? removeFavorite() : addFavorite()
     // if (!setIsChanged) return
     //
@@ -28,7 +31,7 @@ export default function HeartButton({ post }) {
     try {
       await api.post(`/favorites/${post.id}`)
       setIsFavorite(true)
-      dispatch(addUserFavorite(post))
+      // dispatch(addUserFavorite(post))
     } catch (error) {
       console.log(error)
     }
@@ -36,9 +39,9 @@ export default function HeartButton({ post }) {
 
   const removeFavorite = async () => {
     try {
-      await api.delete(`/favorites/${post.id}`)
+      await api.delete(`/favorites/${post?.id}`)
       setIsFavorite(false)
-      dispatch(removeUserFavorite(post.id))
+      // dispatch(removeUserFavorite(post.id))
     } catch (error) {
       console.log(error)
     }
@@ -46,7 +49,7 @@ export default function HeartButton({ post }) {
 
   return (
     <>
-      <IconButton aria-label="add to favorites" onClick={fn}>
+      <IconButton aria-label="add to favorites" id={post?.id} onClick={fn}>
         <FavoriteIcon color={isFavorite ? "error" : "default"} />
       </IconButton>
     </>

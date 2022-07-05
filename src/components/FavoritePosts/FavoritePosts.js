@@ -3,15 +3,26 @@ import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
 import useFetch from "../../hooks/useFetch"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import PostsSceleton from "../PostsSceleton/PostsSceleton"
-import { useSelector } from "react-redux"
+import api from "../../api/api"
 
 export default function FavoritePosts() {
-  const { data, error, loading } = useFetch("/posts/favorites")
-  const [changed, setIsChanged] = useState(0)
+  const { data, error, loading, reFetch: reFetchFavorites } = useFetch("/posts/favorites")
+  const [posts, setPosts] = useState([])
 
-  const { favorites: posts } = useSelector((state) => state.user.info)
+  useEffect(() => {
+    setPosts(data.posts)
+  }, [data])
+
+  const deleteFavorite = async (id) => {
+    console.log("delete")
+    console.log(`/favorites/${id}`)
+    await api.delete(`/favorites/${id}`)
+    reFetchFavorites()
+  }
+
+  // const { favorites: posts } = useSelector((state) => state.user.info)
   // console.log("FavoritesPosts", setIsChanged)
 
   // useEffect(() => {
@@ -29,7 +40,7 @@ export default function FavoritePosts() {
           {loading ? (
             <PostsSceleton />
           ) : (
-            <PostsList title="My posts" data={posts} setIsChanged={setIsChanged} />
+            <PostsList title="My posts" deleteFromMyFavorites={deleteFavorite} data={posts} />
           )}
         </Box>
       </Grid>

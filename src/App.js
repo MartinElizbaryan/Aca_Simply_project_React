@@ -17,6 +17,9 @@ import RegistrationLogin from "./components/RegistrationLogin/RegistrationLogin"
 import ChangePassword from "./components/ChangePassword/ChangePassword"
 import PendingPosts from "./components/PendingPosts/PendingPosts"
 import FAQ from "./components/FAQ/FAQ"
+import AdminFAQ from "./components/AdminFAQ/AdminFAQ"
+import AdminFAQCreate from "./components/AdminFAQCreate/AdminFAQCreate"
+import AdminFAQEdit from "./components/AdminFAQEdit/AdminFAQEdit"
 import Contact from "./components/Contact/Contact"
 import api from "./api/api"
 import history from "./helpers/history"
@@ -78,6 +81,9 @@ function App() {
 
             <Route path="/" element={<AdminPrivateRoute />}>
               <Route exact path="/profile/pending-posts" element={<PendingPosts />} />
+              <Route exact path="/profile/faq" element={<AdminFAQ />} />
+              <Route exact path="/profile/faq/create" element={<AdminFAQCreate />} />
+              <Route exact path="/profile/faq/:id" element={<AdminFAQEdit />} />
             </Route>
           </Route>
         </Routes>
