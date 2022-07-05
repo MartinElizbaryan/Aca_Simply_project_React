@@ -5,14 +5,14 @@ import Box from "@mui/material/Box"
 import { useEffect, useMemo, useState } from "react"
 import useFetch from "../../hooks/useFetch"
 import { useNavigate, useSearchParams } from "react-router-dom"
-import { getParamsCustomVersion, getParamsFromFiltering } from "./utils"
-import BasicPagination from "../Shared/Pagination/DefaultPagination/DefaultPagination"
+import { getParamsFromFiltering } from "./utils"
 import { POST_PER_PAGE } from "./constants"
 import { scrollToTop } from "../../helpers/utils"
-import { Container, Paper, Stack, Typography } from "@mui/material"
+import { Container, Stack } from "@mui/material"
 import useStyles from "./styles"
-import SidebarMobile from "../Shared/Sidebars/SidebarMobile/SidebarMobile"
 import Sidebar from "../Shared/Sidebars/Sidebar/Sidebar"
+import DefaultPagination from "../Shared/Pagination/DefaultPagination/DefaultPagination"
+import { colors } from "../../constants/styles"
 
 export default function Posts() {
   const [searchParams] = useSearchParams()
@@ -20,12 +20,16 @@ export default function Posts() {
   const filterParams = useMemo(() => {
     return getParamsFromFiltering(isChecked)
   }, [isChecked])
+
+  console.log(filterParams)
+
   const config = useMemo(
     () => ({
-      params: getParamsCustomVersion(
-        [...searchParams, ...filterParams, ["take", POST_PER_PAGE]],
-        "category"
-      ),
+      params: {
+        ...Object.fromEntries([...searchParams]),
+        ...filterParams,
+        take: POST_PER_PAGE,
+      },
     }),
     [searchParams, filterParams]
   )
@@ -71,50 +75,43 @@ export default function Posts() {
     setPosts(data.posts)
     setPostsInDB(data.count)
   }, [data])
-
   return (
     <Container className={classes.container} maxWidth={false}>
-      <Typography variant="h4" className={classes.header}>
-        Posts
-      </Typography>
+      {/*<Typography variant="h4" className={classes.header}>*/}
+      {/*  Posts*/}
+      {/*</Typography>*/}
       <Stack>
-        <Grid
-          item
-          xs={12}
-          md={3}
-          mt={11}
+        <Box
           sx={{
-            padding: 2,
+            display: {
+              xs: "none",
+              md: "block",
+            },
+            boxShadow: "4px 4px 20px rgb(0 0 0 / 20%)",
+            height: "100%",
+            width: "100%",
+            position: "fixed",
+            maxWidth: 300,
+            backgroundColor: "white",
           }}
         >
-          <Paper elevation={2}>
-            <Box
-              sx={{
-                display: {
-                  xs: "none",
-                  md: "block",
-                },
-              }}
-            >
-              <Sidebar isChecked={isChecked} onOff={onOff} />
-            </Box>
-            <Box
-              sx={{
-                display: {
-                  xs: "block",
-                  md: "none",
-                },
-              }}
-            >
-              <SidebarMobile />
-            </Box>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={9}>
+          <Sidebar isChecked={isChecked} onOff={onOff} />
+        </Box>
+        <Box
+          sx={{
+            display: {
+              xs: "block",
+              md: "none",
+            },
+          }}
+        >
+          {/*<SidebarMobile />*/}
+        </Box>
+        <Grid item xs={12} md={9} ml={{ md: "300px" }} sx={{ backgroundColor: colors.grey }}>
           <Box mt={5} mb={5}>
             {loading ? <PostsSceleton /> : <PostsList title="Posts" data={posts} />}
           </Box>
-          {pageCount && <BasicPagination onChange={pageClick} page={page} count={pageCount} />}
+          {!!pageCount && <DefaultPagination onChange={pageClick} page={page} count={pageCount} />}
         </Grid>
       </Stack>
     </Container>

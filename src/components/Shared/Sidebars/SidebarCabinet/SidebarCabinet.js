@@ -4,6 +4,7 @@ import ArticleIcon from "@mui/icons-material/Article"
 import FactCheckIcon from "@mui/icons-material/FactCheck"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
+import QuestionMarkIcon from "@mui/icons-material/QuestionMark"
 import KeyIcon from "@mui/icons-material/Key"
 import { ListItemWithIcon } from "../../ListItems/ListItemWithIcon/ListItemWithIcon"
 import useStyles from "./styles"
@@ -46,17 +47,15 @@ export default function SidebarCabinet() {
           />
 
           {info.is_admin && (
-            <ListItemWithIcon
-              url="/profile/pending-posts"
-              icon={<KeyIcon />}
-              title="Pending Posts"
-            />
+            <>
+              <ListItemWithIcon
+                url="/profile/pending-posts"
+                icon={<KeyIcon />}
+                title="Pending Posts"
+              />
 
-            // <ListItemWithIcon
-            //   url="/profile/"
-            //   icon={<KeyIcon />}
-            //   title="Pending Posts"
-            // />
+              <ListItemWithIcon url="/profile/faq" icon={<QuestionMarkIcon />} title="FAQ" />
+            </>
           )}
         </List>
       </Paper>

@@ -26,7 +26,7 @@ export default function FAQ() {
         </Typography>
         <Stack p={4} spacing={2}>
           {faqs?.map((faq) => (
-            <Question key={faq.id} question={faq.question} answer={faq.answer} />
+            <Question key={faq.id} id={faq.id} question={faq.question} answer={faq.answer} />
           ))}
         </Stack>
         <Typography variant="caption">
