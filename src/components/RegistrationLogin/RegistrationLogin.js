@@ -45,8 +45,12 @@ export default function RegistrationLogin() {
 
       <Typography className={classes.policyText}>
         By signing up you agree to our
+        <Link href="terms-conditions" underline="none" target="_blank">
+          {" Terms of Service"}
+        </Link>{" "}
+        and
         <Link href="privacy" underline="none" target="_blank">
-          {" Terms of Service and Privacy Policy"}
+          {" Privacy Policy"}
         </Link>
       </Typography>
     </Box>
