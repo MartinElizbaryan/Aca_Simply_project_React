@@ -47,12 +47,9 @@ const useStyles = createUseStyles({
     alignItems: "center",
     justifyContent: "space-between",
     height: 266,
-    ["@media (min-width:680px)"]: {
+    ["@media (min-width:68a0px)"]: {
       height: 233,
     },
-    // ["@media (min-width:580px)"]: {
-    //   height: 300,
-    // },
   },
   finalBox: {
     display: "flex",

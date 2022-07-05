@@ -3,27 +3,13 @@ import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
 import { IconButton } from "@mui/material"
 import RadioGroup from "@mui/material/RadioGroup"
-import Variant from "../Variant/Variant"
 import useStyles from "./style"
 import DeleteIcon from "@mui/icons-material/Delete"
 import TextField from "@mui/material/TextField"
+import Variant from "../Variant/Variant"
 
-export default function Quetion({
-  setQuestions,
-  questionIndex,
-  question,
-  validationHandle,
-  validationValue,
-  name,
-}) {
+export default function Quetion({ questionIndex, question, formik }) {
   const classes = useStyles()
-
-  const changeTitle = (title) => {
-    setQuestions((prevState) => {
-      prevState[questionIndex].title = title
-      return [...prevState]
-    })
-  }
   return (
     <Box>
       <Grid container spacing={2} p={2}>
@@ -35,8 +21,28 @@ export default function Quetion({
             variant="outlined"
             size="normal"
             // name={name}
-            value={validationValue}
-            onChange={validationHandle}
+            onChange={(e) =>
+              formik.setFieldValue(`questions[${questionIndex}].title`, e.target.value)
+            }
+            // name={`questions[${questionIndex}].title`}
+            value={formik.values?.questions[questionIndex]?.title}
+            error={
+              !!(
+                formik.touched.questions &&
+                formik.touched.questions[questionIndex] &&
+                formik.touched.questions[questionIndex]?.title
+              ) &&
+              !!(
+                formik.errors.questions &&
+                formik.errors.questions[questionIndex] &&
+                formik.errors.questions[questionIndex]?.title
+              )
+            }
+            helperText={
+              !!(formik.touched.questions && formik.touched.questions[questionIndex]?.title) &&
+              !!(formik.errors.questions && formik.errors.questions[questionIndex]?.title) &&
+              formik.errors.questions[questionIndex].title
+            }
           />
           <IconButton aria-label="delete" size="large">
             <DeleteIcon fontSize="inherit" color="error" />
@@ -48,11 +54,7 @@ export default function Quetion({
         defaultValue="female"
         name="radio-buttons-group"
       >
-        <Variant
-          answers={question.answers}
-          questionIndex={questionIndex}
-          setQuestions={setQuestions}
-        />
+        <Variant formik={formik} answers={question.answers} questionIndex={questionIndex} />
       </RadioGroup>
     </Box>
   )

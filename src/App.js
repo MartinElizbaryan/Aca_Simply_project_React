@@ -15,12 +15,21 @@ import PostSingle from "./components/PostSingle/PostSingle"
 import Posts from "./components/Posts/Posts"
 import RegistrationLogin from "./components/RegistrationLogin/RegistrationLogin"
 import ChangePassword from "./components/ChangePassword/ChangePassword"
+import PendingPosts from "./components/PendingPosts/PendingPosts"
 import FAQ from "./components/FAQ/FAQ"
+import AdminFAQ from "./components/AdminFAQ/AdminFAQ"
+import AdminFAQCreate from "./components/AdminFAQCreate/AdminFAQCreate"
+import AdminFAQEdit from "./components/AdminFAQEdit/AdminFAQEdit"
 import Contact from "./components/Contact/Contact"
 import api from "./api/api"
 import history from "./helpers/history"
+import Privacy from "./components/Privacy/Privacy"
 import { deleteUserInfo, setUserInfo } from "./redux/userSlice"
-import { AuthorizedUserPrivateRoute, UnauthorizedUserPrivateRoute } from "./routes/PrivateRoutes"
+import {
+  AdminPrivateRoute,
+  AuthorizedUserPrivateRoute,
+  UnauthorizedUserPrivateRoute,
+} from "./routes/PrivateRoutes"
 import "./App.css"
 
 function App() {
@@ -51,12 +60,15 @@ function App() {
             <Route exact path="/post/:id" element={<PostSingle />} />
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/faq" element={<FAQ />} />
+            <Route exact path="/privacy" element={<Privacy />} />
             <Route path="*" element={<PageNotFound />} />
+
             <Route path="/" element={<UnauthorizedUserPrivateRoute />}>
               <Route exact path="/signin" element={<RegistrationLogin />} />
               <Route exact path="/signup" element={<RegistrationLogin />} />
               <Route exact path="/forgot-password" element={<RegistrationLogin />} />
             </Route>
+
             <Route path="/" element={<AuthorizedUserPrivateRoute />}>
               <Route exact path="/chat" element={<Chat />} />
               <Route exact path="/chat/:id" element={<Chat />} />
@@ -67,6 +79,13 @@ function App() {
               <Route exact path="/profile/confirmed-posts" element={<ConfirmedPosts />} />
               <Route exact path="/profile/favorite-posts" element={<FavoritePosts />} />
               <Route exact path="/profile/change-password" element={<ChangePassword />} />
+            </Route>
+
+            <Route path="/" element={<AdminPrivateRoute />}>
+              <Route exact path="/profile/pending-posts" element={<PendingPosts />} />
+              <Route exact path="/profile/faq" element={<AdminFAQ />} />
+              <Route exact path="/profile/faq/create" element={<AdminFAQCreate />} />
+              <Route exact path="/profile/faq/:id" element={<AdminFAQEdit />} />
             </Route>
           </Route>
         </Routes>

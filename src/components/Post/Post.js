@@ -12,8 +12,17 @@ import useStyles from "./style"
 import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { IconButton } from "@mui/material"
+import BeenhereIcon from "@mui/icons-material/Beenhere"
 
-export default function Post({ post, changeable, deletePost }) {
+export default function Post({
+  post,
+  changeable,
+  deletePost,
+  trustPost,
+  editable,
+  admin,
+  deleteFromMyFavorites,
+}) {
   const classes = useStyles()
 
   const img = post.images.length ? post.images[0] : emptyImage
@@ -33,6 +42,12 @@ export default function Post({ post, changeable, deletePost }) {
       {changeable && (
         <IconButton aria-label="delete" color="error" onClick={(e) => deletePost(post.id)}>
           <DeleteIcon />
+        </IconButton>
+      )}
+
+      {admin && (
+        <IconButton onClick={(e) => trustPost(post.id)} aria-label="delete" color="primary">
+          <BeenhereIcon />
         </IconButton>
       )}
 
@@ -59,8 +74,8 @@ export default function Post({ post, changeable, deletePost }) {
           justifyContent: "space-between",
         }}
       >
-        <HeartButton post={post} />
-        {changeable && (
+        <HeartButton post={post} deleteFromMyFavorites={deleteFromMyFavorites} />
+        {editable && (
           <Link url={`/profile/my-posts/${post.id}`} content={<BlueButton title="Edit" />} />
         )}
 
