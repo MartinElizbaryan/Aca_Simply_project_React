@@ -1,6 +1,6 @@
 import useStyles from "./style"
 import CountUp from "react-countup"
-import { Box, Grid, Typography, Container } from "@mui/material"
+import { Box, Container, Grid, Typography } from "@mui/material"
 
 export default function Counter() {
   const classes = useStyles()
@@ -14,7 +14,7 @@ export default function Counter() {
           Anytime. Anyplace. Anywhere.
         </Typography>
         <Grid container justifyContent="center" spacing={2} mt={5}>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} sm={3}>
             <Typography variant="h4" component="p" textAlign="center">
               <CountUp end={1542} duration={2.75} />
             </Typography>
@@ -22,7 +22,7 @@ export default function Counter() {
               Users
             </Typography>
           </Grid>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} sm={3}>
             <Typography variant="h4" component="p" textAlign="center">
               <CountUp end={1214} duration={2.75} />
             </Typography>
@@ -30,7 +30,7 @@ export default function Counter() {
               Posts
             </Typography>
           </Grid>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} sm={3}>
             <Typography variant="h4" component="p" textAlign="center">
               <CountUp end={841} duration={2.75} />
             </Typography>

@@ -10,6 +10,7 @@ export default function PostsList({
   deletePost,
   trustPost,
   admin,
+  deleteFromMyFavorites,
   ColsCount = 4,
 }) {
   return (
@@ -25,6 +26,7 @@ export default function PostsList({
                 admin={admin}
                 editable={editable}
                 trustPost={trustPost}
+                deleteFromMyFavorites={deleteFromMyFavorites}
               />
             </Grid>
           )

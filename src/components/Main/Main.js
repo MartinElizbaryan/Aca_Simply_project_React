@@ -21,7 +21,7 @@ export default function Main({ component: Component, ...rest }) {
   return (
     <>
       <Header />
-      <main className={"content-wrapper"}>
+      <main>
         <Outlet />
       </main>
       <Footer />
