@@ -5,7 +5,7 @@ import Box from "@mui/material/Box"
 import { useEffect, useMemo, useState } from "react"
 import useFetch from "../../hooks/useFetch"
 import { useNavigate, useSearchParams } from "react-router-dom"
-import { getParamsCustomVersion, getParamsFromFiltering } from "./utils"
+import { getParamsFromFiltering } from "./utils"
 import { POST_PER_PAGE } from "./constants"
 import { scrollToTop } from "../../helpers/utils"
 import { Container, Stack } from "@mui/material"
@@ -20,12 +20,16 @@ export default function Posts() {
   const filterParams = useMemo(() => {
     return getParamsFromFiltering(isChecked)
   }, [isChecked])
+
+  console.log(filterParams)
+
   const config = useMemo(
     () => ({
-      params: getParamsCustomVersion(
-        [...searchParams, ...filterParams, ["take", POST_PER_PAGE]],
-        "category"
-      ),
+      params: {
+        ...Object.fromEntries([...searchParams]),
+        ...filterParams,
+        take: POST_PER_PAGE,
+      },
     }),
     [searchParams, filterParams]
   )

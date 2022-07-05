@@ -54,13 +54,13 @@ export default function Footer() {
           <Link url="/faq" content="FAQ" color={colors.white} variant="caption" />
           {/*<Divider orientation="vertical" flexItem />*/}
           <Link
-            url="/terms"
+            url="/terms-conditions"
             content="Terms and Conditions"
             color={colors.white}
             variant="caption"
           />
           {/*<Divider orientation="vertical" flexItem />*/}
-          <Link url="/policy" content="Privacy Policy" color={colors.white} variant="caption" />
+          <Link url="/privacy" content="Privacy Policy" color={colors.white} variant="caption" />
         </Stack>
       </Container>
     </footer>
