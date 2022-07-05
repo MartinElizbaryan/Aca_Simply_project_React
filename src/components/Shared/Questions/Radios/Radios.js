@@ -5,16 +5,16 @@ import Radio from "@mui/material/Radio"
 import { IconButton } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 
-export default function Radios({ answer, answerIndex, questionIndex, setQuestions }) {
+export default function Radios({ answer, answerIndex, questionIndex, formik }) {
   const variantInputValue = answer.title.split(" ").join("").toLowerCase()
-  const setStatus = () => {
-    setQuestions((prevState) => {
-      prevState[questionIndex].answers.map((item) => {
-        item.status = false
-      })
-      prevState[questionIndex].answers[answerIndex].status = true
-      return [...prevState]
+  const setStatus = (e) => {
+    formik.values.questions[questionIndex].answers.map((item) => {
+      item.status = false
     })
+    formik.setFieldValue(
+      `questions[${questionIndex}].answers[${answerIndex}].status`,
+      e.target.checked
+    )
   }
   return (
     <Grid item xs={12} md={6} lg={3} display="flex" align="center">
@@ -23,7 +23,9 @@ export default function Radios({ answer, answerIndex, questionIndex, setQuestion
           value={variantInputValue}
           control={<Radio />}
           label={answer.title}
-          onChange={setStatus}
+          onChange={(e) => {
+            setStatus(e)
+          }}
         />
       </FormGroup>
       <IconButton aria-label="delete" color="error">

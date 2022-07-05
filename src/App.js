@@ -23,6 +23,7 @@ import AdminFAQEdit from "./components/AdminFAQEdit/AdminFAQEdit"
 import Contact from "./components/Contact/Contact"
 import api from "./api/api"
 import history from "./helpers/history"
+import Privacy from "./components/Privacy/Privacy"
 import { deleteUserInfo, setUserInfo } from "./redux/userSlice"
 import {
   AdminPrivateRoute,
@@ -59,6 +60,7 @@ function App() {
             <Route exact path="/post/:id" element={<PostSingle />} />
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/faq" element={<FAQ />} />
+            <Route exact path="/privacy" element={<Privacy />} />
             <Route path="*" element={<PageNotFound />} />
 
             <Route path="/" element={<UnauthorizedUserPrivateRoute />}>

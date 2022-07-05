@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom"
-import { Box, Typography } from "@mui/material"
+import { Box, Typography, Link } from "@mui/material"
 import ForgotPassword from "../ForgotPassword/ForgotPassword"
 import { CustomLink } from "../Shared/CustomLink/CustomLink"
 import { Logo } from "../Shared/Logo/Logo"
@@ -44,7 +44,10 @@ export default function RegistrationLogin() {
       </Box>
 
       <Typography className={classes.policyText}>
-        By signing up you agree to our Terms of Service and Privacy Policy
+        By signing up you agree to our
+        <Link href="privacy" underline="none" target="_blank">
+          {" Terms of Service and Privacy Policy"}
+        </Link>
       </Typography>
     </Box>
   )
