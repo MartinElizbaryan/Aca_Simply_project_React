@@ -12,6 +12,7 @@ export default function SearchInput({ ...props }) {
           </InputAdornment>
         ),
       }}
+      {...props}
     />
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { AccountCircle, Lock, LockClock, Mail, Password } from "@mui/icons-material"
 import { IconButton, InputAdornment, TextField } from "@mui/material"
 import useStyles from "./styles"
@@ -37,7 +37,7 @@ export function InputField({
           </InputAdornment>
         ),
         endAdornment: (
-          <InputAdornment position="start">
+          <InputAdornment position="end">
             {eye && (
               <IconButton onClick={() => setIsVisible(!isVisible)} className={classes.inputStyle}>
                 {type === "password" ? (

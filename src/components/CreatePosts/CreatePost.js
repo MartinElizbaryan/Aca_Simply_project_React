@@ -7,7 +7,7 @@ import Paper from "@mui/material/Paper"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import useStyles from "./style"
 import Question from "../Shared/Questions/Question/Question"
-import useFetch from "../../hooks/useFetch"
+import { useFetch } from "../../hooks/useFetch"
 import { useFormik } from "formik"
 import * as yup from "yup"
 //Form Validation
@@ -244,7 +244,9 @@ export default function CreatePost() {
               })}
             <Grid container spacing={2} p={2}>
               <Grid item xs={8} sm={6} md={4}>
-                <GreenButton className={classes.button} type="submit" title={"Save Changes"} />
+                <GreenButton className={classes.button} type="submit">
+                  Save Changes
+                </GreenButton>
               </Grid>
             </Grid>
           </Box>

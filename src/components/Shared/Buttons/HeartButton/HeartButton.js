@@ -1,8 +1,8 @@
-import FavoriteIcon from "@mui/icons-material/Favorite"
-import IconButton from "@mui/material/IconButton"
 import { useEffect, useState } from "react"
-import api from "../../../../api/api"
 import { useDispatch } from "react-redux"
+import IconButton from "@mui/material/IconButton"
+import FavoriteIcon from "@mui/icons-material/Favorite"
+import api from "../../../../api/api"
 
 export default function HeartButton({ post, deleteFromMyFavorites }) {
   const [isFavorite, setIsFavorite] = useState(false)

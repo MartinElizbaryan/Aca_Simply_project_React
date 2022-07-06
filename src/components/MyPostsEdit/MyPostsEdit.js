@@ -10,7 +10,7 @@ import DoneIcon from "@mui/icons-material/Done"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import MenuItem from "@mui/material/MenuItem"
 import UploadButtons from "../Shared/Inputs/Upload"
-import useFetch from "../../hooks/useFetch"
+import { useFetch } from "../../hooks/useFetch"
 import useStyles from "./style"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import api from "../../api/api"
@@ -270,7 +270,9 @@ export default function MyPostsEdit() {
             </Grid>
             <Grid container spacing={2} p={2}>
               <Grid item xs={8} sm={6} md={4}>
-                <GreenButton className={classes.button} type="submit" title={"Save Changes"} />
+                <GreenButton className={classes.button} type="submit">
+                  Save Changes
+                </GreenButton>
               </Grid>
             </Grid>
           </Box>

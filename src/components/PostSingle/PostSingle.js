@@ -9,7 +9,7 @@ import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import Avatar from "@mui/material/Avatar"
 import Typography from "@mui/material/Typography"
 import { useParams } from "react-router-dom"
-import useFetch from "../../hooks/useFetch"
+import { useFetch } from "../../hooks/useFetch"
 import { useEffect, useState } from "react"
 import emptyImage from "../../assets/adspy_loading_animation.gif"
 import moment from "moment"
@@ -22,6 +22,7 @@ import FormControlLabel from "@mui/material/FormControlLabel"
 import Radio from "@mui/material/Radio"
 import RadioGroup from "@mui/material/RadioGroup"
 import { FormControl, FormLabel } from "@mui/material"
+import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 
 export default function PostSingle() {
   const classes = useStyles()
@@ -37,7 +38,16 @@ export default function PostSingle() {
     setQuestions(data.post?.questions)
   }, [data])
 
-  console.log(questions)
+  const sendAnswers = async () => {
+    // const textMessage = `Dimum em ${}`
+    // questions.forEach((question) => {
+    //   textMessage += `Question`
+    // })
+    //
+    // await api.post(`/messages/${id}`, {
+    //   text: textMessage,
+    // })
+  }
 
   const handelAnswer = (e, questionIndex, answerIndex) => {
     questions[questionIndex].answers.forEach((answer) => {
@@ -105,7 +115,7 @@ export default function PostSingle() {
               }}
             >
               <HeartButton post={post} />
-              <Link url="/chat/1" content={<BlueButton title={"Start chat"} />} />
+              <Link url="/chat/1" content={<BlueButton>Start chat</BlueButton>} />
             </CardActions>
           </Card>
         </Box>
@@ -137,12 +147,12 @@ export default function PostSingle() {
                     })}
                   </RadioGroup>
                 </FormControl>
-
-                <BlueButton>awdawd</BlueButton>
               </div>
             )
           })}
         </div>
+
+        <GreenButton onClick={sendAnswers}>Send Answers</GreenButton>
       </Container>
     )
 }

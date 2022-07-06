@@ -11,6 +11,9 @@ const useStyles = createUseStyles({
     borderRadius: 5,
     paddingLeft: 10,
     marginBottom: 10,
+    "&>div": {
+      padding: "6px 0 !important",
+    },
   },
 })
 export default useStyles

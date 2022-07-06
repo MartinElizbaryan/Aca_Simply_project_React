@@ -1,9 +1,4 @@
 export const getParamsFromFiltering = (params) => {
-  const categories = []
-  Object.keys(params).forEach((key) => {
-    if (params[key]) {
-      categories.push(key)
-    }
-  })
-  return { category: categories }
+  const p = Object.keys(params).filter((key) => params[key])
+  return { category: p }
 }

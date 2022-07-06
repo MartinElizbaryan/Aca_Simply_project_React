@@ -1,6 +1,6 @@
 import { Container, Stack, Typography } from "@mui/material"
 import useStyles from "./styles"
-import useFetch from "../../hooks/useFetch"
+import { useFetch } from "../../hooks/useFetch"
 import { useEffect, useState } from "react"
 import api from "../../api/api"
 import { Question } from "../Shared/Accordions/Question/Question"
@@ -17,7 +17,8 @@ export default function AdminFAQ() {
     setFAQs(data.faq)
   }, [data])
 
-  const deleteFAQ = async (id) => {
+  const deleteFAQ = async (e, id) => {
+    e.stopPropagation()
     await api.delete(`/admin/faq/${id}`)
     reFetchFAQs()
   }
@@ -32,7 +33,7 @@ export default function AdminFAQ() {
               FAQs
             </Typography>
 
-            <Link url="/profile/faq/create" content={<BlueButton title={"Create"} />} />
+            <Link url="/profile/faq/create" content={<BlueButton>Create</BlueButton>} />
 
             <Stack p={4} spacing={2}>
               {faqs?.map((faq) => (

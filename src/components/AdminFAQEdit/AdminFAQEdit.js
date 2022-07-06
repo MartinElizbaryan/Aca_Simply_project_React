@@ -1,6 +1,6 @@
 import { Container, TextField, Typography } from "@mui/material"
 import useStyles from "./styles"
-import useFetch from "../../hooks/useFetch"
+import { useFetch } from "../../hooks/useFetch"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import Box from "@mui/material/Box"
@@ -98,7 +98,7 @@ export default function AdminFAQEdit() {
                   </Grid>
                   <Grid container spacing={2} p={2}>
                     <Grid item xs={8} sm={6} md={4}>
-                      <GreenButton className={classes.button} title="" type="submit">
+                      <GreenButton className={classes.button} type="submit">
                         Save Changes
                       </GreenButton>
                     </Grid>

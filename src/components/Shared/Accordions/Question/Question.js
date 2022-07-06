@@ -26,7 +26,7 @@ export function Question({ question, answer, editable, deleteFAQ, id }) {
         )}
 
         {editable && (
-          <IconButton aria-label="delete" color="error" onClick={() => deleteFAQ(id)}>
+          <IconButton aria-label="delete" color="error" onClick={(e) => deleteFAQ(e, id)}>
             <DeleteIcon />
           </IconButton>
         )}

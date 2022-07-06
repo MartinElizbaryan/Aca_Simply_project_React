@@ -76,10 +76,10 @@ export default function Post({
       >
         <HeartButton post={post} deleteFromMyFavorites={deleteFromMyFavorites} />
         {editable && (
-          <Link url={`/profile/my-posts/${post.id}`} content={<BlueButton title="Edit" />} />
+          <Link url={`/profile/my-posts/${post.id}`} content={<BlueButton>Edit</BlueButton>} />
         )}
 
-        <Link url={`/post/${post.id}`} content={<BlueButton title="See details" />} />
+        <Link url={`/post/${post.id}`} content={<BlueButton>See details</BlueButton>} />
       </CardActions>
     </Card>
   )

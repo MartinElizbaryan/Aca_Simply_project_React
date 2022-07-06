@@ -154,7 +154,7 @@ export default function Profile() {
                 </Grid>
               </Stack>
               <Grid item xs={12} sx={{ textAlign: "start" }}>
-                <GreenButton title="Save Changes" type="submit" />
+                <GreenButton type="submit">Save Changes</GreenButton>
               </Grid>
               {success && (
                 <SuccessAlert
