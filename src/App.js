@@ -44,8 +44,6 @@ function App() {
         setLoading(false)
       } catch (e) {
         dispatch(deleteUserInfo())
-        // console.clear()
-        console.log(e)
       }
     }
     getMe()
