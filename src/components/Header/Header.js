@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
-import { AppBar, Box, Stack, Toolbar } from "@mui/material"
+import { AppBar, Box, Stack, Toolbar, Typography } from "@mui/material"
 import LoginIcon from "@mui/icons-material/Login"
 import { TransparentButton } from "../Shared/Buttons/TransparentButton/TransparentButton"
 import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
@@ -101,7 +101,12 @@ export default function Header() {
           {!auth ? (
             <Link
               url="/signin"
-              content={<TransparentButton icon={<LoginIcon />} title="Sign In" />}
+              content={
+                <TransparentButton>
+                  <LoginIcon />
+                  <Typography ml={2}>Sign In</Typography>
+                </TransparentButton>
+              }
               color="white"
             />
           ) : (

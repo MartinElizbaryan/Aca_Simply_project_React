@@ -60,7 +60,8 @@ export default function FindPost() {
                   flex: 1,
                 }}
               >
-                <GreenButton size="large" onClick={findPost} icon={<SearchIcon ml={2} />}>
+                <GreenButton size="large" onClick={findPost}>
+                  <SearchIcon />
                   Find post
                 </GreenButton>
               </Grid>

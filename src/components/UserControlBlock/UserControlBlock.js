@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { Badge, ListItemIcon, Menu, MenuItem } from "@mui/material"
+import { Badge, ListItemIcon, Menu, MenuItem, Typography } from "@mui/material"
 import MailIcon from "@mui/icons-material/Mail"
 import LogoutIcon from "@mui/icons-material/Logout"
 import PersonIcon from "@mui/icons-material/Person"
@@ -45,19 +45,20 @@ export default function UserControlBlock() {
       <Link
         url="/chat"
         content={
-          <TransparentButton
-            icon={
-              <Badge badgeContent={0} color="primary">
-                <MailIcon />
-              </Badge>
-            }
-          />
+          <TransparentButton>
+            <Badge badgeContent={0} color="primary">
+              <MailIcon />
+            </Badge>
+          </TransparentButton>
         }
         color="white"
         sx={{ display: "flex" }}
       />
       {/*{messageCount}*/}
-      <TransparentButton icon={<AccountCircle />} title={user.name} onClick={handleMenu} />
+      <TransparentButton onClick={handleMenu}>
+        <AccountCircle />
+        <Typography ml={2}>{user.name}</Typography>
+      </TransparentButton>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
         <MenuItem onClick={handleProfileClick}>
           <ListItemIcon>
