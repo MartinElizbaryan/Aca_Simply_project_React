@@ -1,6 +1,6 @@
 import { Container, Stack, Typography } from "@mui/material"
 import useStyles from "./styles"
-import useFetch from "../../hooks/useFetch"
+import { useFetch } from "../../hooks/useFetch"
 import { useEffect, useState } from "react"
 import api from "../../api/api"
 import { Question } from "../Shared/Accordions/Question/Question"

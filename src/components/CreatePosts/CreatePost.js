@@ -7,7 +7,7 @@ import Paper from "@mui/material/Paper"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import useStyles from "./style"
 import Question from "../Shared/Questions/Question/Question"
-import useFetch from "../../hooks/useFetch"
+import { useFetch } from "../../hooks/useFetch"
 import { useFormik } from "formik"
 import * as yup from "yup"
 //Form Validation

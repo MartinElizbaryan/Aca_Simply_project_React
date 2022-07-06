@@ -6,7 +6,7 @@ import TeamSlider from "../TeamSlider/TeamSlider"
 import { useEffect, useState } from "react"
 import PostsSceleton from "../PostsSceleton/PostsSceleton"
 import Typography from "@mui/material/Typography"
-import useFetch from "../../hooks/useFetch"
+import { useFetch } from "../../hooks/useFetch"
 
 export default function Home() {
   const { data, error, loading } = useFetch("/posts?take=3")

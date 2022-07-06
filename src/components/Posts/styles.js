@@ -17,16 +17,14 @@ const useStyles = createUseStyles({
   sidebar: {
     boxShadow: "4px 4px 20px rgb(0 0 0 / 20%)",
     width: "100%",
-    height: "472px",
-    position: "fixed",
+    position: "sticky",
     maxWidth: 300,
     backgroundColor: "white",
-    paddingBottom: "174px",
-    overflowY: "auto",
-    scrollbarWidth: 0,
-    "&::-webkit-scrollbar": {
-      display: "none",
-    },
+    // overflowY: "auto",
+    // scrollbarWidth: 0,
+    // "&::-webkit-scrollbar": {
+    //   display: "none",
+    // },
   },
 })
 

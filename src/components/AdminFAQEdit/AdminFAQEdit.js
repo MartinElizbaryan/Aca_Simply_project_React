@@ -1,6 +1,6 @@
 import { Container, TextField, Typography } from "@mui/material"
 import useStyles from "./styles"
-import useFetch from "../../hooks/useFetch"
+import { useFetch } from "../../hooks/useFetch"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import Box from "@mui/material/Box"

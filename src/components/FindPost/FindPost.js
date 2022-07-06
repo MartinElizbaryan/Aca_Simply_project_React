@@ -8,12 +8,12 @@ import { colors } from "../../constants/styles"
 import useStyles from "./style"
 
 export default function FindPost() {
-  const [name, setName] = useState("")
+  const [searchQuery, setSearchQuery] = useState("")
   const [type, setType] = useState("LOST")
   const navigate = useNavigate()
 
   const findPost = () => {
-    navigate(`/posts?type=${type}&name=${name}`)
+    navigate(`/posts?type=${type}&search=${searchQuery}`)
   }
 
   const classes = useStyles()
@@ -31,11 +31,11 @@ export default function FindPost() {
             <Grid container spacing={2} mt={2} alignItems="center">
               <Grid item xs={12} sm={6} md={6}>
                 <WhiteInput
-                  label="Name"
+                  label="Name or description"
                   variant="filled"
                   size="small"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
