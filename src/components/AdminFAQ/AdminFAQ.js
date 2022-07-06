@@ -17,7 +17,8 @@ export default function AdminFAQ() {
     setFAQs(data.faq)
   }, [data])
 
-  const deleteFAQ = async (id) => {
+  const deleteFAQ = async (e, id) => {
+    e.stopPropagation()
     await api.delete(`/admin/faq/${id}`)
     reFetchFAQs()
   }
