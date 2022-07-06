@@ -70,6 +70,7 @@ export default function ForgotPassword() {
       }
     },
   })
+
   const formikNewPassword = useFormik({
     initialValues: {
       password: "",
@@ -133,12 +134,7 @@ export default function ForgotPassword() {
       )}
       {open && (
         <Box>
-          <Dialog
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-          >
+          <Dialog open={open} onClose={handleClose}>
             <DialogTitle id="alert-dialog-title" style={{ textAlign: "center" }}>
               {"Something went wrong."}
             </DialogTitle>

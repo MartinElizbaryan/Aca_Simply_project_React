@@ -4,7 +4,7 @@ import { colors } from "../../../../constants/styles"
 const useStyles = createUseStyles({
   inputStyle: {
     backgroundColor: colors.lightGrey,
-    height: 40,
+    // height: 40,
     display: "flex",
     justifyContent: "center",
     width: "100%",
