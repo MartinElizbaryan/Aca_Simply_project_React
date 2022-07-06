@@ -270,7 +270,9 @@ export default function MyPostsEdit() {
             </Grid>
             <Grid container spacing={2} p={2}>
               <Grid item xs={8} sm={6} md={4}>
-                <GreenButton className={classes.button} type="submit" title={"Save Changes"} />
+                <GreenButton className={classes.button} type="submit">
+                  Save Changes
+                </GreenButton>
               </Grid>
             </Grid>
           </Box>

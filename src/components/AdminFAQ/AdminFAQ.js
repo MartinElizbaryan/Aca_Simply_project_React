@@ -33,7 +33,7 @@ export default function AdminFAQ() {
               FAQs
             </Typography>
 
-            <Link url="/profile/faq/create" content={<BlueButton title={"Create"} />} />
+            <Link url="/profile/faq/create" content={<BlueButton>Create</BlueButton>} />
 
             <Stack p={4} spacing={2}>
               {faqs?.map((faq) => (

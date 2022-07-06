@@ -115,7 +115,7 @@ export default function PostSingle() {
               }}
             >
               <HeartButton post={post} />
-              <Link url="/chat/1" content={<BlueButton title={"Start chat"} />} />
+              <Link url="/chat/1" content={<BlueButton>Start chat</BlueButton>} />
             </CardActions>
           </Card>
         </Box>

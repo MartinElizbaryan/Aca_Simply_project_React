@@ -82,12 +82,7 @@ export default function AdminFAQEdit() {
                 </Grid>
                 <Grid container spacing={2} p={2}>
                   <Grid item xs={8} sm={6} md={4}>
-                    <GreenButton
-                      className={classes.button}
-                      title=""
-                      type="button"
-                      onClick={updateFAQ}
-                    >
+                    <GreenButton className={classes.button} onClick={updateFAQ}>
                       Save Changes
                     </GreenButton>
                   </Grid>

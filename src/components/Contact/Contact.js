@@ -75,9 +75,10 @@ export default function Contact() {
               <GreenButton
                 size="large"
                 icon={<SendIcon sx={{ paddingRight: 2 }} />}
-                title="Send"
                 onClick={() => sendMessage({ name, surname, email, subject, message })}
-              />
+              >
+                Send
+              </GreenButton>
             </Grid>
           </Grid>
         </Stack>
