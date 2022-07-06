@@ -78,6 +78,7 @@ const useStyles = createUseStyles({
   policyText: {
     marginTop: [[20], "!important"],
     marginBottom: [[20], "!important"],
+    fontSize: "0.7rem !important",
   },
 })
 export default useStyles

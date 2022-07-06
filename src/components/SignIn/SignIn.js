@@ -11,13 +11,12 @@ import {
   DialogTitle,
 } from "@mui/material"
 import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
-import useStyles from "./styles"
 import { InputField } from "../Shared/Inputs/InputField/InputField"
-import { useFormik } from "formik"
-import * as yup from "yup"
-import { setUserInfo } from "../../redux/userSlice"
 import { signIn } from "./utils"
+import { useFormik } from "formik"
+import { setUserInfo } from "../../redux/userSlice"
 import { validationSchema } from "./validation"
+import useStyles from "./styles"
 
 export default function SignIn() {
   const dispatch = useDispatch()
