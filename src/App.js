@@ -52,8 +52,6 @@ function App() {
       } catch (e) {
         console.log(e)
         dispatch(deleteUserInfo())
-        // console.clear()
-        console.log(e)
       }
     }
     getMe()

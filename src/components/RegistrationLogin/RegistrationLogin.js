@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom"
-import { Box, Typography, Link } from "@mui/material"
+import { Box, Link, Typography } from "@mui/material"
 import ForgotPassword from "../ForgotPassword/ForgotPassword"
 import { CustomLink } from "../Shared/CustomLink/CustomLink"
 import { Logo } from "../Shared/Logo/Logo"
@@ -26,13 +26,13 @@ export default function RegistrationLogin() {
               url="/signup"
               content={<Box className={classes.button}>Sign Up</Box>}
               bgcolor={pathname === "/signup" ? "white" : "#F3F7F7"}
-              className={`${classes.linkBox} ${classes.borderRadiuses1}`}
+              className={`${classes.linkBox} ${classes.borderRadius1}`}
             />
             <CustomLink
               url="/signin"
               content={<Box className={classes.button}>Sign In</Box>}
               bgcolor={pathname === "/signin" ? "white" : "#F3F7F7"}
-              className={`${classes.linkBox} ${classes.borderRadiuses2}`}
+              className={`${classes.linkBox} ${classes.borderRadius2}`}
             />
           </Box>
         )}
@@ -46,8 +46,8 @@ export default function RegistrationLogin() {
       <Typography className={classes.policyText}>
         By signing up you agree to our
         <Link href="terms-conditions" underline="none" target="_blank">
-          {" Terms of Service"}
-        </Link>{" "}
+          {" Terms of Service "}
+        </Link>
         and
         <Link href="privacy" underline="none" target="_blank">
           {" Privacy Policy"}
