@@ -18,7 +18,7 @@ export default function Sidebar({ handleCategoryChange }) {
   const [openSearch, setOpenSearch] = useState(true)
   const [openTypes, setOpenTypes] = useState(true)
   const [openCategories, setOpenCategories] = useState(true)
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "")
   const debouncedSearchTerm = useDebounce(searchTerm, 1000)
   const classes = useStyles()
 
@@ -43,7 +43,7 @@ export default function Sidebar({ handleCategoryChange }) {
 
   useEffect(() => {
     const searchQuery = searchParams.get("search") || ""
-    const typeQuery = searchParams.get("type")
+    const typeQuery = searchParams.get("type") || ""
     setSearchTerm(searchQuery)
     setType(typeQuery)
   }, [searchParams])

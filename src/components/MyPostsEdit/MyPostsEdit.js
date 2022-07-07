@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
 import SidebarMobileCabinet from "../Shared/Sidebars/SidebarMobileCabinet/SidebarMobileCabinet"
 import Grid from "@mui/material/Grid"
@@ -16,28 +16,13 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import api from "../../api/api"
 import EmailIcon from "@mui/icons-material/Email"
 import MyPostsEditModal from "../MyPostsEditModal/MyPostsEditModal"
-import * as yup from "yup"
 import { useFormik } from "formik"
+import CardMedia from "@mui/material/CardMedia"
+import { IMAGE_BASE_URL } from "../../constants/cloudinery"
+import { removeCurrentImage, removeImage, updatePost } from "./utilits"
+import validationSchema from "./validationSchema"
 
 export default function MyPostsEdit() {
-  const validationSchema = yup.object().shape({
-    name: yup
-      .string("Enter Title")
-      .min(3, "Title should be of minimum 3 characters length")
-      .max(50, "Title should be of maximum 50 characters length")
-      .required("Title is required"),
-    address: yup
-      .string("Enter Address")
-      .min(4, "Address should be of minimum 4 characters length")
-      .max(50, "Address should be of maximum 50 characters length")
-      .required("Address is required"),
-    description: yup
-      .string("Enter Description")
-      .min(3, "Description should be of minimum 50 characters length")
-      .required("Description is required"),
-    category_id: yup.string("Enter Category").required("Category is required"),
-    type: yup.string("Enter Type").required("Type is required"),
-  })
   const classes = useStyles()
   const { id } = useParams()
   const navigate = useNavigate()
@@ -45,23 +30,15 @@ export default function MyPostsEdit() {
   const [post, setPost] = useState({})
   const [images, setImages] = useState([])
   const [confirmerUser, setConfirmerUser] = useState(null)
-
+  const [deletedImages, setDeletedImages] = useState([])
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+  const [fileInputState, setFileInputState] = useState("")
+  const [previewSource, setPreviewSource] = useState([])
 
   const { data: categoriesResponse } = useFetch("/categories")
   const { data: postResponse, reFetch: reFetchPost } = useFetch(`/posts/${id}`)
-  const updatePost = async (values) => {
-    const sendData = {
-      ...values,
-      // images,
-    }
-
-    const res = await api.put(`/posts/${id}`, sendData)
-    console.log(res)
-    navigate("/profile/my-posts")
-  }
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -72,8 +49,8 @@ export default function MyPostsEdit() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values)
-      updatePost(values)
+      console.log(deletedImages)
+      updatePost(post.id, navigate, values, deletedImages, previewSource)
     },
   })
   useEffect(() => {
@@ -104,6 +81,25 @@ export default function MyPostsEdit() {
     const res = await api.patch(`/posts/completed/${id}`)
     reFetchPost()
     navigate("/profile/my-posts")
+  }
+  console.log(images)
+
+  const handleFileInputChange = (e) => {
+    const files = e.target.files
+    previewFile(files)
+  }
+  const previewFile = (files) => {
+    for (const file of files) {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+
+      reader.onloadend = () => {
+        console.log(reader.result)
+        setPreviewSource((prevState) => {
+          return [...prevState, reader.result]
+        })
+      }
+    }
   }
   return (
     <Grid container spacing={0} mt={10}>
@@ -265,7 +261,70 @@ export default function MyPostsEdit() {
                 />
               </Grid>
               <Grid item xs={12} md={6} lg={4} display="flex">
-                <UploadButtons />
+                <UploadButtons
+                  handleFileInputChange={handleFileInputChange}
+                  fileInputState={fileInputState}
+                  multipleUpload={true}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Grid container spacing={2}>
+                  {images &&
+                    images.map((image, index) => {
+                      return (
+                        <Grid item xs={6} sm={3} key={index} textAlign={"center"}>
+                          <CardMedia
+                            component="img"
+                            height="200"
+                            image={IMAGE_BASE_URL + image.src}
+                            alt={IMAGE_BASE_URL + image.src}
+                            sx={{
+                              borderRadius: 5,
+                            }}
+                          />
+                          <IconButton aria-label="delete" size="large">
+                            <DeleteIcon
+                              fontSize="inherit"
+                              color="error"
+                              onClick={(e) => {
+                                removeCurrentImage({
+                                  setDeletedImages,
+                                  setImages,
+                                  image_index: index,
+                                  id: image.id,
+                                })
+                              }}
+                            />
+                          </IconButton>
+                        </Grid>
+                      )
+                    })}
+                  {previewSource &&
+                    previewSource.map((image, index) => {
+                      return (
+                        <Grid item xs={6} sm={3} key={index} textAlign={"center"}>
+                          <CardMedia
+                            component="img"
+                            height="200"
+                            image={image}
+                            alt={image}
+                            sx={{
+                              borderRadius: 5,
+                            }}
+                          />
+                          <IconButton aria-label="delete" size="large">
+                            <DeleteIcon
+                              fontSize="inherit"
+                              color="error"
+                              onClick={(e) => {
+                                removeImage({ setPreviewSource, image_index: index })
+                              }}
+                            />
+                          </IconButton>
+                        </Grid>
+                      )
+                    })}
+                </Grid>
               </Grid>
             </Grid>
             <Grid container spacing={2} p={2}>
