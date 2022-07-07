@@ -22,20 +22,15 @@ function Messages({ id }) {
     })()
 
     socket.on("receive", (data) => {
+      console.log("socket receive")
       setMessages((messages) => [...messages, data])
     })
-
-    const room = createRoom()
-    setRoom(room)
-
-    const { id: authId } = jwt_decode(localStorage.getItem("accessToken"))
-    socket.emit("join", { room, authId })
   }, [id])
 
   useEffect(() => {
     ;(async () => {
       await api.patch(`/messages/${id}`)
-      socket.emit("messageDone", { room: 1 })
+      socket.emit("messageIsSeen")
     })()
 
     const el = list.current
@@ -49,7 +44,6 @@ function Messages({ id }) {
       })
       const data = res.data.message
       await socket.emit("send", {
-        room,
         data,
       })
       setMessages((messages) => [...messages, data])

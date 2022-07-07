@@ -5,6 +5,13 @@ const useStyles = createUseStyles({
   clickedBlock: {
     backgroundColor: `${colors.clickedGrey} !important`,
   },
+  badge: {
+    "& .MuiBadge-badge": {
+      right: 2,
+      top: 5,
+      padding: "0 4px",
+    },
+  },
 })
 
 export default useStyles

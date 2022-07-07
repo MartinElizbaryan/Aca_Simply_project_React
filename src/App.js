@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { lazy, Suspense, useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import Main from "./components/Main/Main"
@@ -10,7 +10,6 @@ import FavoritePosts from "./components/FavoritePosts/FavoritePosts"
 import PageNotFound from "./components/Errors/PageNotFound/PageNotFound"
 import Profile from "./components/Profile/Profile"
 import CreatePost from "./components/CreatePosts/CreatePost"
-import Chat from "./components/Chat/Chat"
 import PostSingle from "./components/PostSingle/PostSingle"
 import Posts from "./components/Posts/Posts"
 import RegistrationLogin from "./components/RegistrationLogin/RegistrationLogin"
@@ -32,6 +31,10 @@ import {
   UnauthorizedUserPrivateRoute,
 } from "./routes/PrivateRoutes"
 import "./App.css"
+// import Chat from "./components/Chat/Chat"
+import connectToSocket from "./helpers/connectToSocket"
+
+const Chat = lazy(() => import("./components/Chat/Chat"))
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -40,9 +43,14 @@ function App() {
     const getMe = async () => {
       try {
         const res = await api.get("/users/me")
-        dispatch(setUserInfo(res.data.user))
+        const user = res.data.user
+
+        dispatch(setUserInfo(user))
+        connectToSocket(user.id)
+
         setLoading(false)
       } catch (e) {
+        console.log(e)
         dispatch(deleteUserInfo())
       }
     }
@@ -70,8 +78,25 @@ function App() {
             </Route>
 
             <Route path="/" element={<AuthorizedUserPrivateRoute />}>
-              <Route exact path="/chat" element={<Chat />} />
-              <Route exact path="/chat/:id" element={<Chat />} />
+              <Route
+                exact
+                path="/chat"
+                element={
+                  <Suspense fallback={<div>Loading</div>}>
+                    <Chat />
+                  </Suspense>
+                }
+              />
+
+              <Route
+                exact
+                path="/chat/:id"
+                element={
+                  <Suspense fallback={<div>Loading</div>}>
+                    <Chat />
+                  </Suspense>
+                }
+              />
               <Route exact path="/profile" element={<Profile />} />
               <Route exact path="/profile/create-post" element={<CreatePost />} />
               <Route exact path="/profile/my-posts" element={<MyPosts />} />
