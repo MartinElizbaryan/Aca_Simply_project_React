@@ -6,8 +6,10 @@ import api from "../../api/api"
 import jwt_decode from "jwt-decode"
 import socket from "../../helpers/socket"
 import useStyles from "./styles"
+import { useParams } from "react-router-dom"
 
-function Messages({ id }) {
+function Messages() {
+  const { id } = useParams()
   const [messages, setMessages] = useState([])
   const [message, setMessage] = useState("")
   const [error, setError] = useState("")
@@ -20,11 +22,6 @@ function Messages({ id }) {
       const res = await api.get(`/messages/${id}`)
       setMessages(res.data.messages)
     })()
-
-    socket.on("receive", (data) => {
-      console.log("socket receive")
-      setMessages((messages) => [...messages, data])
-    })
   }, [id])
 
   useEffect(() => {
@@ -36,6 +33,18 @@ function Messages({ id }) {
     const el = list.current
     el.scrollTop = el.scrollHeight
   }, [messages, id])
+
+  useEffect(() => {
+    socket.on("receive", (data) => {
+      if (+id === data.from_id) {
+        setMessages((messages) => [...messages, data])
+      }
+    })
+
+    return () => {
+      socket.off("receive")
+    }
+  }, [id])
 
   const sendMessage = async () => {
     try {
