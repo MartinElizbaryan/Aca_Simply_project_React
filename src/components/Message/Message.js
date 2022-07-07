@@ -1,10 +1,11 @@
-import React from "react"
+import React, { memo } from "react"
 import moment from "moment"
 import { Grid, ListItem, ListItemText, Tooltip } from "@mui/material"
 import useStyles from "./styles"
 
-export default function Message({ type, message, createdAt }) {
+export function Message({ type, message, isSeen, createdAt }) {
   const classes = useStyles()
+  console.log(message)
 
   const timeFromNow = moment(createdAt).fromNow()
   const date = moment(createdAt).format("LLLL")
@@ -17,7 +18,7 @@ export default function Message({ type, message, createdAt }) {
             primaryTypographyProps={{ fontSize: "0.8125rem" }}
             secondaryTypographyProps={{ fontSize: "0.6rem" }}
             primary={message}
-            secondary={timeFromNow}
+            secondary={(timeFromNow, isSeen ? "seen" : "sent")}
             className={classes.text}
           />
         </Grid>
@@ -25,3 +26,5 @@ export default function Message({ type, message, createdAt }) {
     </ListItem>
   )
 }
+
+export default memo(Message)

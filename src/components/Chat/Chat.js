@@ -17,8 +17,6 @@ const Chat = () => {
   const [users, setUsers] = useState([])
   const { id } = useParams()
 
-  console.log(users)
-
   const classes = useStyles()
 
   useEffect(() => {

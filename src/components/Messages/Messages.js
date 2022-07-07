@@ -41,8 +41,14 @@ function Messages() {
       }
     })
 
+    socket.on("seenMessages", async () => {
+      const res = await api.get(`/messages/${id}`)
+      setMessages(res.data.messages)
+    })
+
     return () => {
       socket.off("receive")
+      socket.off("seenMessages")
     }
   }, [id])
 
@@ -77,6 +83,7 @@ function Messages() {
               key={message.id}
               type={message.to_id === +id ? "from" : "to"}
               message={message.text}
+              isSeen={message.is_seen}
               createdAt={message.created_at}
             />
           )
