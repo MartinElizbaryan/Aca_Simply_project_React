@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useFormik } from "formik"
-import { Grid, Paper, Stack, Typography } from "@mui/material"
+import { Box, Grid, Paper, Stack, Typography } from "@mui/material"
 import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
 import { SuccessAlert } from "../Shared/Alerts/SuccessAlert/SuccessAlert"
 import { ErrorAlert } from "../Shared/Alerts/ErrorAlert/ErrorAlert"
@@ -13,6 +13,7 @@ import { getUserFullName } from "../../helpers/utils"
 import { validationSchema } from "./vaildation"
 import { setUserInfo } from "../../redux/userSlice"
 import useStyles from "./styles"
+import SidebarMobileCabinet from "../Shared/Sidebars/SidebarMobileCabinet/SidebarMobileCabinet"
 
 export default function Profile() {
   const { info } = useSelector((state) => state.user)
@@ -52,18 +53,47 @@ export default function Profile() {
 
   return (
     <Grid container spacing={0} mt={10}>
-      <SidebarCabinet />
-      {/*<Box*/}
-      {/*  sx={{*/}
-      {/*    display: {*/}
-      {/*      xs: "block",*/}
-      {/*      md: "none",*/}
-      {/*    },*/}
-      {/*  }}*/}
-      {/*>*/}
-      {/*  <SidebarMobileCabinet />*/}
-      {/*</Box>*/}
-      <Grid item xs={12} md={7} p={2} sx={{ margin: "auto" }}>
+      <Grid
+        item
+        xs={12}
+        md={3}
+        mt={11}
+        sx={{
+          padding: 2,
+        }}
+      >
+        <Box
+          sx={{
+            display: {
+              xs: "none",
+              md: "block",
+            },
+          }}
+        >
+          <SidebarCabinet />
+        </Box>
+        <Box
+          sx={{
+            display: {
+              xs: "block",
+              md: "none",
+            },
+          }}
+        >
+          <SidebarMobileCabinet />
+        </Box>
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        md={9}
+        sx={{
+          marginTop: {
+            xs: 0,
+            md: 6,
+          },
+        }}
+      >
         <Paper elevation={4} sx={{ padding: 5 }}>
           <Grid item container direction="row" xs={12} alignItems="center" gap={2}>
             <UserAvatar user={info} />

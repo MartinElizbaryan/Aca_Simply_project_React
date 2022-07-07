@@ -13,6 +13,7 @@ import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { IconButton } from "@mui/material"
 import BeenhereIcon from "@mui/icons-material/Beenhere"
+import { IMAGE_BASE_URL } from "../../constants/cloudinery"
 
 export default function Post({
   post,
@@ -25,11 +26,18 @@ export default function Post({
 }) {
   const classes = useStyles()
 
-  const img = post.images.length ? post.images[0] : emptyImage
+  const img = post.images.length ? `${IMAGE_BASE_URL}${post.images[0].src}` : emptyImage
+  console.log(img)
   const avatarInitials = post.user.name[0] + post.user.surname[0]
 
   return (
-    <Card>
+    <Card
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+      }}
+    >
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
@@ -56,11 +64,15 @@ export default function Post({
       {changeable && <div>{post.completed ? "is Closed" : "is Opened"}</div>}
 
       <CardMedia component="img" height="250" image={img} alt={img} />
-      <CardContent>
-        <Typography variant="h6" color="text.dark" mb={3}>
-          Name: {post.name}
+      <CardContent
+        sx={{
+          flex: "1 1 auto",
+        }}
+      >
+        <Typography variant="h6" component="p" color="text.dark" mb={3}>
+          {post.name}
         </Typography>
-        <Typography variant="h6" color="text.dark" mb={3}>
+        <Typography variant="p" component="p" color="text.dark" mb={3}>
           Category: {post.category.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">

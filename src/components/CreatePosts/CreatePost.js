@@ -1,56 +1,73 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { sendToServerHendler } from "./utilits"
+// MUI Components
+import { Box, Grid, IconButton, MenuItem, TextField, Typography } from "@mui/material"
+//Custom Components
 import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
 import SidebarMobileCabinet from "../Shared/Sidebars/SidebarMobileCabinet/SidebarMobileCabinet"
-import Grid from "@mui/material/Grid"
-import Box from "@mui/material/Box"
-import Paper from "@mui/material/Paper"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
-import useStyles from "./style"
 import Question from "../Shared/Questions/Question/Question"
-import { useFetch } from "../../hooks/useFetch"
-import { useFormik } from "formik"
-import * as yup from "yup"
-//Form Validation
-import TextField from "@mui/material/TextField"
-import api from "../../api/api"
-import { MenuItem } from "@mui/material"
 import UploadButtons from "../Shared/Inputs/Upload"
 import AddButton from "../Shared/Buttons/AddButton/AddButton"
-import Typography from "@mui/material/Typography"
+// Styles
+import useStyles from "./style"
+//Form Validation
+import { useFormik } from "formik"
+import { validationSchema } from "./validationSchema"
+import { useFetch } from "../../hooks/useFetch"
+import CardMedia from "@mui/material/CardMedia"
+import DeleteIcon from "@mui/icons-material/Delete"
 
 export default function CreatePost() {
-  const validationSchema = yup.object().shape({
-    name: yup
-      .string("Enter Title")
-      .min(3, "Title should be of minimum 3 characters length")
-      .max(50, "Title should be of maximum 50 characters length")
-      .required("Title is required"),
-    address: yup
-      .string("Enter Address")
-      .min(4, "Address should be of minimum 4 characters length")
-      .max(50, "Address should be of maximum 50 characters length")
-      .required("Address is required"),
-    description: yup
-      .string("Enter Description")
-      .min(50, "Description should be of minimum 50 characters length")
-      .required("Description is required"),
-    category_id: yup.string("Enter Category").required("Category is required"),
-    type: yup.string("Enter Type").required("Type is required"),
-    questions: yup.array(
-      yup.object().shape({
-        title: yup.string("Enter Question title").required("required-field"),
-        answers: yup.array().of(
-          yup.object().shape({
-            title: yup
-              .string("Enter answer title")
-              .min(3, "Title should be of minimum 3 characters length")
-              .required("required-field"),
-            status: yup.boolean("Must be checked").required("required-field"),
-          })
-        ),
-      })
-    ),
-  })
+  // Styles
+  const classes = useStyles()
+  // Categories and Post Types
+  const [categories, setCategories] = useState([])
+  const postTypes = [
+    { name: "Lost", id: "LOST" },
+    { name: "Found", id: "FOUND" },
+  ]
+  const { data } = useFetch("/categories")
+  useEffect(() => {
+    setCategories(data.categories)
+  }, [data])
+  //File Uploader
+  const [fileInputState, setFileInputState] = useState("")
+  const [previewSource, setPreviewSource] = useState([])
+
+  const handleFileInputChange = (e) => {
+    const files = e.target.files
+    previewFile(files)
+  }
+  const removeImage = (image_index) => {
+    setPreviewSource((prevState) => {
+      return [
+        ...prevState.filter((item, index) => {
+          return index !== image_index
+        }),
+      ]
+    })
+  }
+  const previewFile = (files) => {
+    for (const file of files) {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+
+      reader.onloadend = () => {
+        console.log(reader.result)
+        setPreviewSource((prevState) => {
+          return [...prevState, reader.result]
+        })
+      }
+    }
+  }
+  // Handlers
+  const addQuestionList = () => {
+    formik.setFieldValue("questions", [...formik.values.questions, { title: "", answers: [] }])
+  }
+  // Formik - Validation and Submit
+  const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -61,37 +78,17 @@ export default function CreatePost() {
       questions: [],
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      const sendToServerHendler = async (values) => {
-        const sendToServerModel = {
-          ...values,
-          images: [],
-        }
-        console.log(sendToServerModel)
-
-        const res = await api.post("/posts", sendToServerModel)
-      }
-      sendToServerHendler(values)
-      console.log("qaq")
+    onSubmit: async (values) => {
+      await sendToServerHendler(values, previewSource)
+      navigate("/profile/my-posts")
     },
   })
-  const [categories, setCategories] = useState([])
-  const postTypes = [
-    { name: "Lost", id: "LOST" },
-    { name: "Found", id: "FOUND" },
-  ]
-  const classes = useStyles()
-  const addQuestionList = () => {
-    formik.setFieldValue("questions", [...formik.values.questions, { title: "", answers: [] }])
-    console.log("asdas")
-  }
-  const { data } = useFetch("/categories")
-  useEffect(() => {
-    setCategories(data.categories)
-  }, [data])
+
+  window.formik = formik
+  console.log(previewSource)
   return (
     <form onSubmit={formik.handleSubmit}>
-      <Grid container spacing={0} mt={10}>
+      <Grid container spacing={0} mt={1}>
         <Grid
           item
           xs={12}
@@ -101,31 +98,47 @@ export default function CreatePost() {
             padding: 2,
           }}
         >
-          <Paper elevation={2}>
-            <Box
-              sx={{
-                display: {
-                  xs: "none",
-                  md: "block",
-                },
-              }}
-            >
-              <SidebarCabinet />
-            </Box>
-            <Box
-              sx={{
-                display: {
-                  xs: "block",
-                  md: "none",
-                },
-              }}
-            >
-              <SidebarMobileCabinet />
-            </Box>
-          </Paper>
+          <Box
+            sx={{
+              display: {
+                xs: "none",
+                md: "block",
+              },
+            }}
+          >
+            <SidebarCabinet />
+          </Box>
+          <Box
+            sx={{
+              display: {
+                xs: "block",
+                md: "none",
+              },
+            }}
+          >
+            <SidebarMobileCabinet />
+          </Box>
         </Grid>
-        <Grid item xs={12} md={9} mt={6}>
-          <Box mt={5} mb={5}>
+        <Grid
+          item
+          xs={12}
+          md={9}
+          sx={{
+            marginTop: {
+              xs: 0,
+              md: 6,
+            },
+          }}
+        >
+          <Box
+            mt={5}
+            sx={{
+              marginTop: {
+                xs: 0,
+                md: 5,
+              },
+            }}
+          >
             <Grid container spacing={2} p={2}>
               <Grid item xs={12}>
                 <TextField
@@ -227,7 +240,40 @@ export default function CreatePost() {
                 />
               </Grid>
               <Grid item xs={12} md={6} lg={4} display="flex">
-                <UploadButtons />
+                <UploadButtons
+                  handleFileInputChange={handleFileInputChange}
+                  fileInputState={fileInputState}
+                  multipleUpload={true}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Grid container spacing={2}>
+                  {previewSource &&
+                    previewSource.map((image, index) => {
+                      return (
+                        <Grid item xs={6} sm={3} key={index} textAlign={"center"}>
+                          <CardMedia
+                            component="img"
+                            height="200"
+                            image={image}
+                            alt={image}
+                            sx={{
+                              borderRadius: 5,
+                            }}
+                          />
+                          <IconButton aria-label="delete" size="large">
+                            <DeleteIcon
+                              fontSize="inherit"
+                              color="error"
+                              onClick={(e) => {
+                                removeImage(index)
+                              }}
+                            />
+                          </IconButton>
+                        </Grid>
+                      )
+                    })}
+                </Grid>
               </Grid>
               <Grid item xs={12} md={6} lg={12} display="flex" alignItems="center">
                 <AddButton onClick={addQuestionList} />{" "}
