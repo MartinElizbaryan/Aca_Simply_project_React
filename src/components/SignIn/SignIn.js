@@ -17,6 +17,7 @@ import { useFormik } from "formik"
 import { setUserInfo } from "../../redux/userSlice"
 import { validationSchema } from "./validation"
 import useStyles from "./styles"
+import connectToSocket from "../../helpers/connectToSocket"
 
 export default function SignIn() {
   const dispatch = useDispatch()
@@ -41,6 +42,7 @@ export default function SignIn() {
       try {
         const data = await signIn({ email, password })
         dispatch(setUserInfo(data.user))
+        connectToSocket(data.user.id)
         navigate("/profile")
         setOpen(false)
       } catch (e) {

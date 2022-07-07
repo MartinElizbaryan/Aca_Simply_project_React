@@ -1,71 +1,21 @@
-import { useEffect, useState } from "react"
+import React, { lazy, Suspense } from "react"
 import { useSelector } from "react-redux"
 import { AppBar, Box, Stack, Toolbar, Typography } from "@mui/material"
 import LoginIcon from "@mui/icons-material/Login"
 import { TransparentButton } from "../Shared/Buttons/TransparentButton/TransparentButton"
 import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import NavigationMobile from "../Shared/Navigation/NavigationMobile"
-import UserControlBlock from "../UserControlBlock/UserControlBlock"
 import { Logo } from "../Shared/Logo/Logo"
-import api from "../../api/api"
 import { navlist } from "./constants"
 import { getUserAuth } from "../../redux/userSelectors"
 import { colors } from "../../constants/styles.js"
 import useStyles from "./styles"
 
+const UserControlBlock = lazy(() => import("../UserControlBlock/UserControlBlock"))
+
 export default function Header() {
   const classes = useStyles()
   const auth = useSelector(getUserAuth)
-  const [users, setUsers] = useState([])
-  // const [isReceived, setIsReceived] = useState(true)
-  // const [messageCount, setMessageCount] = useState([])
-
-  // useEffect(() => {
-  //   users.forEach((user) => {
-  //     const id = user.id
-  //     const room = id > info.id ? `${info.id}_${id}` : `${id}_${info.id}`
-  //     socket.emit("join", { room, authId: info.id })
-  //   })
-  //
-  //   // return () => {
-  //   //   users.forEach((user) => {
-  //   //     const id = user.id
-  //   //     const room = id > info.id ? `${info.id}_${id}` : `${id}_${info.id}`
-  //   //     socket.emit("leave", { room, authId: info.id })
-  //   //   })
-  //   // }
-  // }, [])
-
-  useEffect(
-    () => {
-      const getUserChats = async () => {
-        try {
-          const res = await api.get("users/chat")
-          setUsers(res.data.users)
-        } catch (e) {
-          console.log(e)
-        }
-      }
-      if (auth) getUserChats()
-    },
-    [
-      /*isReceived*/
-    ]
-  )
-
-  // useEffect(() => {
-  //   socket.on("messageAdded", () => {
-  //     console.log("receive in header")
-  //     setIsReceived(!isReceived)
-  //   })
-  // }, [])
-
-  // useEffect(() => {
-  //   ;(async () => {
-  //     const messagesInfo = await api.get("/messages/unread")
-  //     setMessageCount(messagesInfo.data._count.id)
-  //   })()
-  // }, [isReceived])
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
@@ -110,7 +60,9 @@ export default function Header() {
               color="white"
             />
           ) : (
-            <UserControlBlock />
+            <Suspense fallback={<div>Loading</div>}>
+              <UserControlBlock />
+            </Suspense>
           )}
         </Box>
       </Toolbar>

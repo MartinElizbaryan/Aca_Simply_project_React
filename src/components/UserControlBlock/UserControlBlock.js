@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { Badge, ListItemIcon, Menu, MenuItem, Typography } from "@mui/material"
@@ -11,12 +11,29 @@ import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import { signOut } from "../Header/utils"
 import { deleteUserInfo } from "../../redux/userSlice"
 import { getUserInfo } from "../../redux/userSelectors"
+import api from "../../api/api"
+import socket from "../../helpers/socket"
 
 export default function UserControlBlock() {
   const [anchorEl, setAnchorEl] = useState(null)
   const user = useSelector(getUserInfo)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [messageCount, setMessageCount] = useState([])
+
+  useEffect(() => {
+    ;(async () => {
+      const messagesInfo = await api.get("/messages/unread")
+      setMessageCount(messagesInfo.data._count.id)
+    })()
+  }, [])
+
+  useEffect(() => {
+    socket.on("messageCountUpdate", async () => {
+      const messagesInfo = await api.get("/messages/unread")
+      setMessageCount(messagesInfo.data._count.id)
+    })
+  }, [])
 
   const handleClose = () => {
     setAnchorEl(null)
@@ -31,6 +48,8 @@ export default function UserControlBlock() {
     const status = await signOut()
     if (status === 204) {
       dispatch(deleteUserInfo())
+      // socket.emit("disconnect")
+      socket.disconnect()
       navigate("/signin")
     }
   }
@@ -46,7 +65,7 @@ export default function UserControlBlock() {
         url="/chat"
         content={
           <TransparentButton>
-            <Badge badgeContent={0} color="primary">
+            <Badge badgeContent={messageCount} color="primary">
               <MailIcon />
             </Badge>
           </TransparentButton>

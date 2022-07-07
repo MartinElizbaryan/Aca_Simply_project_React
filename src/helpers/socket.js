@@ -1,3 +1,5 @@
 import io from "socket.io-client"
 
-export default io.connect("http://localhost:5000")
+export const socket = io.connect("http://localhost:5000")
+
+export default socket

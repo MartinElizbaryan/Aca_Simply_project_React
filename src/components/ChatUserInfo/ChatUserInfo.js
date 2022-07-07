@@ -1,4 +1,4 @@
-import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
+import { Badge, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord"
 import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
 import { getUserFullName } from "../../helpers/utils"
@@ -9,10 +9,11 @@ function ChatUserInfo({ user, id, isActive }) {
   return (
     <ListItemButton className={+id === user.id ? classes.clickedBlock : ""}>
       <ListItemIcon>
-        <UserAvatar user={user} />
+        <Badge badgeContent={user.messages_from.length} color="primary" className={classes.badge}>
+          <UserAvatar user={user} />
+        </Badge>
       </ListItemIcon>
       <ListItemText primary={getUserFullName(user)} />
-      {/*{!!user.messages_from.length && <FiberManualRecordIcon color={"error"} />}*/}
       <FiberManualRecordIcon color={isActive ? "success" : "disabled"} fontSize="small" />
     </ListItemButton>
   )
