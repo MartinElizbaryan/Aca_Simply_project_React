@@ -1,4 +1,4 @@
-import { Box, List, ListSubheader, Paper } from "@mui/material"
+import { List, ListSubheader, Paper } from "@mui/material"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import ArticleIcon from "@mui/icons-material/Article"
 import FactCheckIcon from "@mui/icons-material/FactCheck"
@@ -9,6 +9,7 @@ import KeyIcon from "@mui/icons-material/Key"
 import { ListItemWithIcon } from "../../ListItems/ListItemWithIcon/ListItemWithIcon"
 import useStyles from "./styles"
 import { useDispatch, useSelector } from "react-redux"
+import Box from "@mui/material/Box"
 
 export default function SidebarCabinet() {
   const classes = useStyles()
@@ -16,7 +17,7 @@ export default function SidebarCabinet() {
   const { auth, info } = useSelector((state) => state.user)
 
   return (
-    <Box p={2}>
+    <Box>
       <Paper elevation={2} sx={{ maxWidth: 300 }}>
         <List
           className={classes.list}

@@ -7,11 +7,18 @@ const Input = styled("input")({
   display: "none",
 })
 
-export default function UploadButtons() {
+export default function UploadButtons({ handleFileInputChange, fileInputState, multipleUpload }) {
   return (
     <Stack direction="row" alignItems="center" spacing={2}>
       <label htmlFor="icon-button-file">
-        <Input accept="image/*" id="icon-button-file" type="file" />
+        <Input
+          accept="image/*"
+          id="icon-button-file"
+          type="file"
+          onChange={handleFileInputChange}
+          value={fileInputState}
+          multiple={multipleUpload}
+        />
         <IconButton color="primary" aria-label="upload picture" component="span">
           <PhotoCamera />
         </IconButton>
