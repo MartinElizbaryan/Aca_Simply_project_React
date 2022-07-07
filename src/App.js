@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { Suspense, useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import Main from "./components/Main/Main"
@@ -32,11 +32,30 @@ import {
   UnauthorizedUserPrivateRoute,
 } from "./routes/PrivateRoutes"
 import "./App.css"
+import { initReactI18next } from "react-i18next"
+import i18n from "i18next"
+import { useTranslation } from "react-i18next"
+
+/* const translationsEn = { testing: "Language Testing" }
+const translationsRu = { testing: "Языковое тестирование" }
+
+i18n.use(initReactI18next).init({
+  resources: {
+    en: { translation: translationsEn },
+    ru: { translation: translationsRu },
+  },
+  lng: "en",
+  fallbackLng: "en",
+  interpolation: { escapeValue: false },
+}) */
 
 function App() {
+  //const { t } = useTranslation()
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
   useEffect(() => {
+    const language = localStorage.getItem("language")
+    i18n.changeLanguage(language)
     const getMe = async () => {
       try {
         const res = await api.get("/users/me")
@@ -51,47 +70,53 @@ function App() {
     getMe()
   }, [])
 
+  const onChange = (event) => {
+    //i18n.changeLanguage(eve)
+  }
+
   return (
     <>
-      <Router history={history}>
-        <Routes>
-          <Route path="/" element={<Main />}>
-            <Route index element={<Home />} />
-            <Route exact path="/posts" element={<Posts />} />
-            <Route exact path="/post/:id" element={<PostSingle />} />
-            <Route exact path="/contact" element={<Contact />} />
-            <Route exact path="/faq" element={<FAQ />} />
-            <Route exact path="/privacy" element={<Privacy />} />
-            <Route exact path="/terms-conditions" element={<TermsAndConditions />} />
-            <Route path="*" element={<PageNotFound />} />
+      <Suspense fallback="Loading...">
+        <Router history={history}>
+          <Routes>
+            <Route path="/" element={<Main />}>
+              <Route index element={<Home />} />
+              <Route exact path="/posts" element={<Posts />} />
+              <Route exact path="/post/:id" element={<PostSingle />} />
+              <Route exact path="/contact" element={<Contact />} />
+              <Route exact path="/faq" element={<FAQ />} />
+              <Route exact path="/privacy" element={<Privacy />} />
+              <Route exact path="/terms-conditions" element={<TermsAndConditions />} />
+              <Route path="*" element={<PageNotFound />} />
 
-            <Route path="/" element={<UnauthorizedUserPrivateRoute />}>
-              <Route exact path="/signin" element={<RegistrationLogin />} />
-              <Route exact path="/signup" element={<RegistrationLogin />} />
-              <Route exact path="/forgot-password" element={<RegistrationLogin />} />
-            </Route>
+              <Route path="/" element={<UnauthorizedUserPrivateRoute />}>
+                <Route exact path="/signin" element={<RegistrationLogin />} />
+                <Route exact path="/signup" element={<RegistrationLogin />} />
+                <Route exact path="/forgot-password" element={<RegistrationLogin />} />
+              </Route>
 
-            <Route path="/" element={<AuthorizedUserPrivateRoute />}>
-              <Route exact path="/chat" element={<Chat />} />
-              <Route exact path="/chat/:id" element={<Chat />} />
-              <Route exact path="/profile" element={<Profile />} />
-              <Route exact path="/profile/create-post" element={<CreatePost />} />
-              <Route exact path="/profile/my-posts" element={<MyPosts />} />
-              <Route exact path="/profile/my-posts/:id" element={<MyPostsEdit />} />
-              <Route exact path="/profile/confirmed-posts" element={<ConfirmedPosts />} />
-              <Route exact path="/profile/favorite-posts" element={<FavoritePosts />} />
-              <Route exact path="/profile/change-password" element={<ChangePassword />} />
-            </Route>
+              <Route path="/" element={<AuthorizedUserPrivateRoute />}>
+                <Route exact path="/chat" element={<Chat />} />
+                <Route exact path="/chat/:id" element={<Chat />} />
+                <Route exact path="/profile" element={<Profile />} />
+                <Route exact path="/profile/create-post" element={<CreatePost />} />
+                <Route exact path="/profile/my-posts" element={<MyPosts />} />
+                <Route exact path="/profile/my-posts/:id" element={<MyPostsEdit />} />
+                <Route exact path="/profile/confirmed-posts" element={<ConfirmedPosts />} />
+                <Route exact path="/profile/favorite-posts" element={<FavoritePosts />} />
+                <Route exact path="/profile/change-password" element={<ChangePassword />} />
+              </Route>
 
-            <Route path="/" element={<AdminPrivateRoute />}>
-              <Route exact path="/profile/pending-posts" element={<PendingPosts />} />
-              <Route exact path="/profile/faq" element={<AdminFAQ />} />
-              <Route exact path="/profile/faq/create" element={<AdminFAQCreate />} />
-              <Route exact path="/profile/faq/:id" element={<AdminFAQEdit />} />
+              <Route path="/" element={<AdminPrivateRoute />}>
+                <Route exact path="/profile/pending-posts" element={<PendingPosts />} />
+                <Route exact path="/profile/faq" element={<AdminFAQ />} />
+                <Route exact path="/profile/faq/create" element={<AdminFAQCreate />} />
+                <Route exact path="/profile/faq/:id" element={<AdminFAQEdit />} />
+              </Route>
             </Route>
-          </Route>
-        </Routes>
-      </Router>
+          </Routes>
+        </Router>
+      </Suspense>
     </>
   )
 }

@@ -76,8 +76,8 @@ const useStyles = createUseStyles({
     marginBottom: 10,
   },
   policyText: {
-    marginTop: [[20], "!important"],
-    marginBottom: [[20], "!important"],
+    margin: [[20], "!important"],
+    textAlign: "center",
   },
 })
 export default useStyles

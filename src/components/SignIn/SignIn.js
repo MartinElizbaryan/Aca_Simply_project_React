@@ -18,8 +18,10 @@ import * as yup from "yup"
 import { setUserInfo } from "../../redux/userSlice"
 import { signIn } from "./utils"
 import { validationSchema } from "./validation"
+import { useTranslation } from "react-i18next"
 
 export default function SignIn() {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
 
   const [open, setOpen] = useState(false)
@@ -41,13 +43,14 @@ export default function SignIn() {
     onSubmit: async ({ email, password }) => {
       try {
         const data = await signIn({ email, password })
+        console.log(data)
         dispatch(setUserInfo(data.user))
         navigate("/profile")
         setOpen(false)
       } catch (e) {
+        console.log(e)
         setOpen(true)
         setErrMessage(e.response.data.details)
-        console.log(e)
       }
     },
   })
@@ -59,7 +62,7 @@ export default function SignIn() {
         <Box className={classes.central}>
           <InputField
             account
-            placeholder={"Your email"}
+            placeholder={t("Your_email")}
             value={formik.values.email}
             onChange={formik.handleChange}
             name="email"
@@ -72,7 +75,7 @@ export default function SignIn() {
             setIsVisible={setIsVisible}
             isVisible={isVisible}
             password
-            placeholder={"Your password"}
+            placeholder={t("Your_password")}
             value={formik.values.password}
             onChange={formik.handleChange}
             name="password"
@@ -82,28 +85,28 @@ export default function SignIn() {
         </Box>
       </form>
       <Box className={classes.finalBox}>
-        <Link url="/forgot-password" content="Forgot your password?" />
+        <Link url="/forgot-password" content={t("Forgot_pass")} />
       </Box>
       <Box className={classes.central2}>
         <Button variant="contained" color="success" type="submit" form="myForm">
-          Log in
+          {t("Log_in")}
         </Button>
       </Box>
       {open && (
         <Box>
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle id="alert-dialog-title" style={{ textAlign: "center" }}>
-              {"Something went wrong. Failed to sign in"}
+              {t("SomethingWW")}
             </DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description" style={{ textAlign: "center" }}>
-                Your {errMessage}. <br />
-                Please try again.
+                {t("Your")} {errMessage}. <br />
+                {t("Pls_Try_Again")}
               </DialogContentText>
             </DialogContent>
             <DialogActions style={{ display: "flex", justifyContent: "center" }}>
               <Button onClick={handleClose} autoFocus>
-                Okay
+                {t("Okay")}
               </Button>
             </DialogActions>
           </Dialog>
