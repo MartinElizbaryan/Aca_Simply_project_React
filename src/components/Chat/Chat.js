@@ -17,6 +17,8 @@ const Chat = () => {
   const [users, setUsers] = useState([])
   const { id } = useParams()
 
+  console.log(users)
+
   const classes = useStyles()
 
   useEffect(() => {
@@ -28,7 +30,7 @@ const Chat = () => {
 
   useEffect(() => {
     socket.on("onlineUsers", (users) => {
-      // console.log("chat useeffect", users)
+      // console.log("chat useffect", users)
       setOnlineUsers(users)
       // console.log(onlineUsers)
     })
