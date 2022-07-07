@@ -2,20 +2,17 @@ import Container from "@mui/material/Container"
 import Box from "@mui/material/Box"
 import Card from "@mui/material/Card"
 import CardHeader from "@mui/material/CardHeader"
-import CardMedia from "@mui/material/CardMedia"
 import CardContent from "@mui/material/CardContent"
 import CardActions from "@mui/material/CardActions"
 import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import Avatar from "@mui/material/Avatar"
 import Typography from "@mui/material/Typography"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useFetch } from "../../hooks/useFetch"
 import { useEffect, useState } from "react"
-import emptyImage from "../../assets/adspy_loading_animation.gif"
 import moment from "moment"
 import useStyles from "./style"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
-
 import PostsSceletonSingle from "../PostsSceletonSingle/PostsSceletonSingle"
 import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
 import FormControlLabel from "@mui/material/FormControlLabel"
@@ -23,6 +20,15 @@ import Radio from "@mui/material/Radio"
 import RadioGroup from "@mui/material/RadioGroup"
 import { FormControl, FormLabel } from "@mui/material"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
+import SwiperGallery from "../SwiperSliders/SwiperGallery/SwiperGallery"
+import emptyImage from "../../assets/adspy_loading_animation.gif"
+// Import Swiper styles
+import "swiper/css"
+import "swiper/css/free-mode"
+import "swiper/css/navigation"
+import "swiper/css/thumbs"
+import CardMedia from "@mui/material/CardMedia"
+import api from "../../api/api"
 
 export default function PostSingle() {
   const classes = useStyles()
@@ -32,7 +38,7 @@ export default function PostSingle() {
   const { data, error, loading } = useFetch(`/posts/${id}/with-questions`)
   const date = moment(post?.created_at).format("LLLL")
   const avatarInitials = `${post?.user?.name[0]}${post?.user?.surname[0]}`
-
+  const navigate = useNavigate()
   useEffect(() => {
     setPost(data.post)
     setQuestions(data.post?.questions)
@@ -44,9 +50,13 @@ export default function PostSingle() {
     //   textMessage += `Question`
     // })
     //
-    // await api.post(`/messages/${id}`, {
-    //   text: textMessage,
-    // })
+    await api.post("messages/send-answers", {
+      post_title: post.name,
+      user_id: +post.user_id,
+      questions,
+    })
+    console.log("good")
+    navigate(`/chat/${post.user_id}`)
   }
 
   const handelAnswer = (e, questionIndex, answerIndex) => {
@@ -56,7 +66,6 @@ export default function PostSingle() {
     questions[questionIndex].answers[answerIndex].checked = e.target.checked
     setQuestions([...questions])
   }
-
   if (loading)
     return (
       <Container size="md">
@@ -89,16 +98,21 @@ export default function PostSingle() {
               title={`${post?.user?.name} ${post?.user?.surname}`}
               subheader={date}
             />
-            <CardMedia
-              component="img"
-              sx={{
-                maxHeight: 500,
-                minHeight: 250,
-                objectFit: "contain",
-              }}
-              image={post?.images?.length ? post.images[0] : emptyImage}
-              alt={post?.created_at}
-            />
+            {post?.images.length > 0 ? (
+              <SwiperGallery images={post?.images} />
+            ) : (
+              <CardMedia
+                component="img"
+                sx={{
+                  maxHeight: 500,
+                  minHeight: 250,
+                  objectFit: "contain",
+                  width: "100%",
+                }}
+                image={emptyImage}
+                alt={""}
+              />
+            )}
             <CardContent>
               <Typography variant="h5" color="text.dark" mb={3}>
                 {post?.name}
