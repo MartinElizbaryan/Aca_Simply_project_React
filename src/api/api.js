@@ -2,11 +2,9 @@ import axios from "axios"
 import { store } from "../redux/store"
 import { deleteUserInfo } from "../redux/userSlice"
 
-const SERVER_URL = "http://localhost:5000/api/v1"
-
 const api = axios.create({
   withCredentials: true, // for cookie
-  baseURL: SERVER_URL,
+  baseURL: process.env.REACT_APP_SERVER_BASE_URL,
 })
 
 api.interceptors.request.use((config) => {
@@ -20,7 +18,7 @@ api.interceptors.response.use(
   },
   (error) => {
     if (error.response.status === 401) store.dispatch(deleteUserInfo())
-    throw error
+    else throw error
   }
 )
 
