@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useFormik } from "formik"
-import { Grid, Paper, Stack, Typography } from "@mui/material"
+import { Box, Grid, Paper, Stack, Typography } from "@mui/material"
 import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
 import { SuccessAlert } from "../Shared/Alerts/SuccessAlert/SuccessAlert"
 import { ErrorAlert } from "../Shared/Alerts/ErrorAlert/ErrorAlert"
@@ -13,8 +13,11 @@ import { getUserFullName } from "../../helpers/utils"
 import { validationSchema } from "./vaildation"
 import { setUserInfo } from "../../redux/userSlice"
 import useStyles from "./styles"
+import SidebarMobileCabinet from "../Shared/Sidebars/SidebarMobileCabinet/SidebarMobileCabinet"
+import { useTranslation } from "react-i18next"
 
 export default function Profile() {
+  const { t } = useTranslation()
   const { info } = useSelector((state) => state.user)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
@@ -52,18 +55,47 @@ export default function Profile() {
 
   return (
     <Grid container spacing={0} mt={10}>
-      <SidebarCabinet />
-      {/*<Box*/}
-      {/*  sx={{*/}
-      {/*    display: {*/}
-      {/*      xs: "block",*/}
-      {/*      md: "none",*/}
-      {/*    },*/}
-      {/*  }}*/}
-      {/*>*/}
-      {/*  <SidebarMobileCabinet />*/}
-      {/*</Box>*/}
-      <Grid item xs={12} md={7} p={2} sx={{ margin: "auto" }}>
+      <Grid
+        item
+        xs={12}
+        md={3}
+        mt={11}
+        sx={{
+          padding: 2,
+        }}
+      >
+        <Box
+          sx={{
+            display: {
+              xs: "none",
+              md: "block",
+            },
+          }}
+        >
+          <SidebarCabinet />
+        </Box>
+        <Box
+          sx={{
+            display: {
+              xs: "block",
+              md: "none",
+            },
+          }}
+        >
+          <SidebarMobileCabinet />
+        </Box>
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        md={9}
+        sx={{
+          marginTop: {
+            xs: 0,
+            md: 6,
+          },
+        }}
+      >
         <Paper elevation={4} sx={{ padding: 5 }}>
           <Grid item container direction="row" xs={12} alignItems="center" gap={2}>
             <UserAvatar user={info} />
@@ -78,7 +110,7 @@ export default function Profile() {
                 }}
               >
                 <Grid item xs={5} className={classes.label}>
-                  <Typography variant="caption">Name</Typography>
+                  <Typography variant="caption">{t("Name")}</Typography>
                 </Grid>
                 <Grid item>
                   <UnlabeledInput
@@ -97,7 +129,7 @@ export default function Profile() {
                 }}
               >
                 <Grid item xs={5} className={classes.label}>
-                  <Typography variant="caption">Surname</Typography>
+                  <Typography variant="caption">{t("Surname")}</Typography>
                 </Grid>
                 <Grid item>
                   <UnlabeledInput
@@ -128,7 +160,7 @@ export default function Profile() {
                 }}
               >
                 <Grid item xs={5} className={classes.label}>
-                  <Typography variant="caption">Email</Typography>
+                  <Typography variant="caption">{t("Email")}</Typography>
                 </Grid>
                 <Grid item>
                   <UnlabeledInput value={info.email || ""} disabled />
@@ -141,7 +173,7 @@ export default function Profile() {
                 }}
               >
                 <Grid item xs={5} className={classes.label}>
-                  <Typography variant="caption">Phone</Typography>
+                  <Typography variant="caption">{t("Phone")}</Typography>
                 </Grid>
                 <Grid item>
                   <UnlabeledInput
@@ -154,7 +186,7 @@ export default function Profile() {
                 </Grid>
               </Stack>
               <Grid item xs={12} sx={{ textAlign: "start" }}>
-                <GreenButton title="Save Changes" type="submit" />
+                <GreenButton type="submit">{t("Save_Changes")}</GreenButton>
               </Grid>
               {success && (
                 <SuccessAlert

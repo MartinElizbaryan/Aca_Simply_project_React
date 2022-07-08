@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Grid } from "@mui/material"
 import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
-import useFetch from "../../hooks/useFetch"
+import { useFetch } from "../../hooks/useFetch"
 import api from "../../api/api"
 import Box from "@mui/material/Box"
 import PostsSceleton from "../PostsSceleton/PostsSceleton"

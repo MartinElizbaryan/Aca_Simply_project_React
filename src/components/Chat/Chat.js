@@ -3,13 +3,13 @@ import { useParams } from "react-router-dom"
 import { Box, Divider, Grid, IconButton, Paper, SwipeableDrawer, Typography } from "@mui/material"
 import ChatUserInfoBlock from "../ChatUserInfoBlock/ChatUserInfoBlock"
 import Messages from "../Messages/Messages"
-import socket from "../../helpers/socket"
 import useStyles from "./styles"
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt"
 import api from "../../api/api"
 import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
 import { getUserFullName } from "../../helpers/utils"
 import { findUser } from "./utils"
+import socket from "../../helpers/socket"
 
 const Chat = () => {
   const [open, setOpen] = useState(false)
@@ -28,9 +28,18 @@ const Chat = () => {
 
   useEffect(() => {
     socket.on("onlineUsers", (users) => {
+      // console.log("chat useeffect", users)
       setOnlineUsers(users)
+      // console.log(onlineUsers)
     })
-  })
+
+    socket.on("seen", async () => {
+      const res = await api.get("users/chat")
+      setUsers(res.data.users)
+    })
+
+    socket.emit("getOnlineUsers")
+  }, [])
 
   const toggleDrawer = (open) => () => {
     setOpen(open)

@@ -118,7 +118,7 @@ export default function ChangePassword() {
                 </Grid>
               </Stack>
               <Grid item xs={12} sx={{ textAlign: "start" }}>
-                <GreenButton title="Change Password" type="submit" />
+                <GreenButton type="submit">Change Password</GreenButton>
               </Grid>
             </Stack>
           </form>

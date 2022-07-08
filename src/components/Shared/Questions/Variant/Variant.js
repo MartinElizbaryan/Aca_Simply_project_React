@@ -7,12 +7,19 @@ import { useState } from "react"
 
 export default function Variant({ answers, questionIndex, formik }) {
   const [variant, setVariant] = useState("")
+  const [error, setError] = useState("")
   console.log(formik.errors)
   const addVariantRadio = () => {
-    formik.setFieldValue(`questions[${questionIndex}].answers`, [
-      ...formik.values.questions[questionIndex].answers,
-      { title: variant, status: false },
-    ])
+    if (variant !== "") {
+      formik.setFieldValue(`questions[${questionIndex}].answers`, [
+        ...formik.values.questions[questionIndex].answers,
+        { title: variant, status: false },
+      ])
+      setError("")
+    } else {
+      setError("Variant can't be empty")
+    }
+
     setVariant("")
     console.log("dsa")
   }
@@ -34,6 +41,8 @@ export default function Variant({ answers, questionIndex, formik }) {
               sx={{
                 marginRight: 2,
               }}
+              error={error}
+              helperText={error}
             />
             <AddButton onClick={addVariantRadio} />
           </Grid>

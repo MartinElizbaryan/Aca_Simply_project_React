@@ -17,7 +17,7 @@ export default function Quetion({ questionIndex, question, formik }) {
           <TextField
             className={classes.input}
             fullWidth
-            label="Quetion Title"
+            label="Question Title"
             variant="outlined"
             size="normal"
             // name={name}

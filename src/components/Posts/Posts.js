@@ -1,101 +1,74 @@
-import PostsList from "../PostsList/PostsList"
-import PostsSceleton from "../PostsSceleton/PostsSceleton"
-import Grid from "@mui/material/Grid"
-import Box from "@mui/material/Box"
 import { useEffect, useMemo, useState } from "react"
-import useFetch from "../../hooks/useFetch"
-import { useNavigate, useSearchParams } from "react-router-dom"
-import { getParamsFromFiltering } from "./utils"
-import { POST_PER_PAGE } from "./constants"
-import { scrollToTop } from "../../helpers/utils"
-import { Container, Stack } from "@mui/material"
-import useStyles from "./styles"
-import Sidebar from "../Shared/Sidebars/Sidebar/Sidebar"
+import { useSearchParams } from "react-router-dom"
+import { Box, Container, Grid, Stack } from "@mui/material"
 import DefaultPagination from "../Shared/Pagination/DefaultPagination/DefaultPagination"
+import PostsSceleton from "../PostsSceleton/PostsSceleton"
+import Sidebar from "../Shared/Sidebars/Sidebar/Sidebar"
+import PostsList from "../PostsList/PostsList"
+import { useFetch } from "../../hooks/useFetch"
+import { getParamsFromFiltering } from "./utils"
+import { scrollToTop } from "../../helpers/utils"
+import { POST_PER_PAGE } from "./constants"
 import { colors } from "../../constants/styles"
+import useStyles from "./styles"
 
 export default function Posts() {
-  const [searchParams] = useSearchParams()
-  const [isChecked, setIsChecked] = useState({})
-  const filterParams = useMemo(() => {
-    return getParamsFromFiltering(isChecked)
-  }, [isChecked])
-
-  console.log(filterParams)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [categories, setCategories] = useState({})
 
   const config = useMemo(
     () => ({
       params: {
         ...Object.fromEntries([...searchParams]),
-        ...filterParams,
+        ...getParamsFromFiltering(categories),
         take: POST_PER_PAGE,
       },
     }),
-    [searchParams, filterParams]
+    [searchParams, categories]
   )
-  const { data, error, loading, reFetch: reFetchPosts } = useFetch("/posts", "get", config)
-  const [posts, setPosts] = useState([])
+  const { data, error, loading } = useFetch("/posts", "get", config)
   const [page, setPage] = useState(1)
+  const [posts, setPosts] = useState([])
   const [postsInDB, setPostsInDB] = useState(0)
   const pageCount = Math.ceil(postsInDB / POST_PER_PAGE)
   const classes = useStyles()
-
-  // const location = useLocation()
-  // const query = new URLSearchParams(location.search)
-  // const page = parseInt(query.get("page") || "1", 10)
-
-  const navigate = useNavigate()
-  const pageClick = (event, value) => {
-    setPage(value)
-    let link = "/posts?"
-    ;[...searchParams].forEach((search) => {
-      if (search[0] === "page") return
-
-      link += `${search[0]}=${search[1]}&`
-    })
-
-    link += `page=${value}`
-
-    navigate(link)
-    scrollToTop()
-  }
 
   useEffect(() => {
     setPage(+config.params.page || 1)
   }, [searchParams])
 
-  const onOff = (e, id) => {
-    setIsChecked({
-      ...isChecked,
-      [id]: e.target.checked,
-    })
-  }
-
   useEffect(() => {
     setPosts(data.posts)
     setPostsInDB(data.count)
   }, [data])
+
+  const handlePageClick = (e, value) => {
+    setPage(value)
+    searchParams.set("page", value)
+    setSearchParams(searchParams)
+    scrollToTop()
+  }
+
+  const handleCategoryChange = (e, id) => {
+    setCategories({
+      ...categories,
+      [id]: e.target.checked,
+    })
+  }
+
   return (
     <Container className={classes.container} maxWidth={false}>
-      {/*<Typography variant="h4" className={classes.header}>*/}
-      {/*  Posts*/}
-      {/*</Typography>*/}
-      <Stack>
+      <Stack direction="row">
         <Box
           sx={{
             display: {
               xs: "none",
               md: "block",
             },
-            boxShadow: "4px 4px 20px rgb(0 0 0 / 20%)",
-            height: "100%",
-            width: "100%",
-            position: "fixed",
-            maxWidth: 300,
-            backgroundColor: "white",
           }}
+          className={classes.sidebar}
         >
-          <Sidebar isChecked={isChecked} onOff={onOff} />
+          <Sidebar handleCategoryChange={handleCategoryChange} />
         </Box>
         <Box
           sx={{
@@ -107,11 +80,13 @@ export default function Posts() {
         >
           {/*<SidebarMobile />*/}
         </Box>
-        <Grid item xs={12} md={9} ml={{ md: "300px" }} sx={{ backgroundColor: colors.grey }}>
+        <Grid item xs={12} md={9} sx={{ backgroundColor: colors.grey, width: "100%" }}>
           <Box mt={5} mb={5}>
             {loading ? <PostsSceleton /> : <PostsList title="Posts" data={posts} />}
           </Box>
-          {!!pageCount && <DefaultPagination onChange={pageClick} page={page} count={pageCount} />}
+          {!!pageCount && (
+            <DefaultPagination onChange={handlePageClick} page={page} count={pageCount} />
+          )}
         </Grid>
       </Stack>
     </Container>

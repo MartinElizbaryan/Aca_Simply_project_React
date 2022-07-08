@@ -6,8 +6,10 @@ import api from "../../api/api"
 import jwt_decode from "jwt-decode"
 import socket from "../../helpers/socket"
 import useStyles from "./styles"
+import { useParams } from "react-router-dom"
 
-function Messages({ id }) {
+function Messages() {
+  const { id } = useParams()
   const [messages, setMessages] = useState([])
   const [message, setMessage] = useState("")
   const [error, setError] = useState("")
@@ -20,27 +22,29 @@ function Messages({ id }) {
       const res = await api.get(`/messages/${id}`)
       setMessages(res.data.messages)
     })()
-
-    socket.on("receive", (data) => {
-      setMessages((messages) => [...messages, data])
-    })
-
-    const room = createRoom()
-    setRoom(room)
-
-    const { id: authId } = jwt_decode(localStorage.getItem("accessToken"))
-    socket.emit("join", { room, authId })
   }, [id])
 
   useEffect(() => {
     ;(async () => {
       await api.patch(`/messages/${id}`)
-      socket.emit("messageDone", { room: 1 })
+      socket.emit("messageIsSeen")
     })()
 
     const el = list.current
     el.scrollTop = el.scrollHeight
   }, [messages, id])
+
+  useEffect(() => {
+    socket.on("receive", (data) => {
+      if (+id === data.from_id) {
+        setMessages((messages) => [...messages, data])
+      }
+    })
+
+    return () => {
+      socket.off("receive")
+    }
+  }, [id])
 
   const sendMessage = async () => {
     try {
@@ -49,7 +53,6 @@ function Messages({ id }) {
       })
       const data = res.data.message
       await socket.emit("send", {
-        room,
         data,
       })
       setMessages((messages) => [...messages, data])

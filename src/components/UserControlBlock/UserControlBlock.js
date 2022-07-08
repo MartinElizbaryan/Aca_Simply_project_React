@@ -1,36 +1,64 @@
-import React, { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { Badge, ListItemIcon, Menu, MenuItem } from "@mui/material"
+import { Badge, ListItemIcon, Menu, MenuItem, Typography } from "@mui/material"
 import MailIcon from "@mui/icons-material/Mail"
 import LogoutIcon from "@mui/icons-material/Logout"
 import PersonIcon from "@mui/icons-material/Person"
 import AccountCircle from "@mui/icons-material/AccountCircle"
+import { TransparentButton } from "../Shared/Buttons/TransparentButton/TransparentButton"
 import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import { signOut } from "../Header/utils"
 import { deleteUserInfo } from "../../redux/userSlice"
 import { getUserInfo } from "../../redux/userSelectors"
-import { TransparentButton } from "../Shared/Buttons/TransparentButton/TransparentButton"
+import api from "../../api/api"
+import socket from "../../helpers/socket"
+import { useTranslation } from "react-i18next"
 
-export default function UserControlBlock({ onLeft = false }) {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+export default function UserControlBlock() {
+  const { t } = useTranslation()
   const [anchorEl, setAnchorEl] = useState(null)
   const user = useSelector(getUserInfo)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [messageCount, setMessageCount] = useState([])
+
+  useEffect(() => {
+    ;(async () => {
+      const messagesInfo = await api.get("/messages/unread")
+      setMessageCount(messagesInfo.data._count.id)
+    })()
+  }, [])
+
+  useEffect(() => {
+    socket.on("messageCountUpdate", async () => {
+      const messagesInfo = await api.get("/messages/unread")
+      setMessageCount(messagesInfo.data._count.id)
+    })
+  }, [])
 
   const handleClose = () => {
     setAnchorEl(null)
   }
+
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget)
   }
+
   const handleSignOutClick = async () => {
     setAnchorEl(null)
     const status = await signOut()
     if (status === 204) {
       dispatch(deleteUserInfo())
+      // socket.emit("disconnect")
+      socket.disconnect()
       navigate("/signin")
     }
+  }
+
+  const handleProfileClick = () => {
+    setAnchorEl(null)
+    navigate("/profile")
   }
 
   return (
@@ -38,53 +66,32 @@ export default function UserControlBlock({ onLeft = false }) {
       <Link
         url="/chat"
         content={
-          <TransparentButton
-            icon={
-              <Badge badgeContent={0} color="primary">
-                <MailIcon />
-              </Badge>
-            }
-          />
+          <TransparentButton>
+            <Badge badgeContent={messageCount} color="primary">
+              <MailIcon />
+            </Badge>
+          </TransparentButton>
         }
         color="white"
         sx={{ display: "flex" }}
       />
       {/*{messageCount}*/}
-      <TransparentButton icon={<AccountCircle />} title={user.name} onClick={handleMenu} />
-      <Menu
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-        // anchorOrigin={{
-        //   vertical: "bottom",
-        //   horizontal: "right",
-        // }}
-        // anchorOrigin={{
-        //   vertical: "top",
-        //   horizontal: "right",
-        // }}
-      >
-        <MenuItem>
-          <Link
-            url="/profile"
-            content={
-              <>
-                <ListItemIcon>
-                  <PersonIcon fontSize="small" />
-                </ListItemIcon>
-                My Profile
-              </>
-            }
-            color="#212121"
-            sx={{ display: "flex" }}
-          />
+      <TransparentButton onClick={handleMenu}>
+        <AccountCircle />
+        <Typography ml={2}>{user.name}</Typography>
+      </TransparentButton>
+      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+        <MenuItem onClick={handleProfileClick}>
+          <ListItemIcon>
+            <PersonIcon fontSize="small" />
+          </ListItemIcon>
+          {t("My_Profile")}
         </MenuItem>
         <MenuItem onClick={handleSignOutClick}>
           <ListItemIcon>
             <LogoutIcon fontSize="small" />
           </ListItemIcon>
-          Sign Out
+          {t("Sign_Out")}
         </MenuItem>
       </Menu>
     </>

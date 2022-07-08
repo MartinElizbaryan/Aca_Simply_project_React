@@ -7,5 +7,8 @@ const useStyles = createUseStyles({
     backgroundColor: colors.blue,
     paddingBottom: "2px",
   },
+  languagesBox: {
+    marginTop: 20,
+  },
 })
 export default useStyles
