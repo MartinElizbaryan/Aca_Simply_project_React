@@ -20,6 +20,7 @@ function Messages() {
   useEffect(() => {
     ;(async () => {
       const res = await api.get(`/messages/${id}`)
+      console.log(res.data.messages)
       setMessages(res.data.messages)
     })()
   }, [id])

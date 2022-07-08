@@ -64,7 +64,7 @@ function App() {
           <Route path="/" element={<Main />}>
             <Route index element={<Home />} />
             <Route exact path="/posts" element={<Posts />} />
-            <Route exact path="/post/:id" element={<PostSingle />} />
+            <Route exact path="/posts/:id" element={<PostSingle />} />
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/faq" element={<FAQ />} />
             <Route exact path="/privacy" element={<Privacy />} />

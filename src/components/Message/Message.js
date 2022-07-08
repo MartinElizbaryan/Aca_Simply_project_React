@@ -5,7 +5,6 @@ import useStyles from "./styles"
 
 export function Message({ type, message, isSeen, createdAt }) {
   const classes = useStyles()
-  console.log(message)
 
   const timeFromNow = moment(createdAt).fromNow()
   const date = moment(createdAt).format("LLLL")

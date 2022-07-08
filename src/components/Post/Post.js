@@ -27,7 +27,6 @@ export default function Post({
   const classes = useStyles()
 
   const img = post.images.length ? `${IMAGE_BASE_URL}${post.images[0].src}` : emptyImage
-  console.log(img)
   const avatarInitials = post.user.name[0] + post.user.surname[0]
 
   return (
@@ -91,7 +90,7 @@ export default function Post({
           <Link url={`/profile/my-posts/${post.id}`} content={<BlueButton>Edit</BlueButton>} />
         )}
 
-        <Link url={`/post/${post.id}`} content={<BlueButton>See details</BlueButton>} />
+        <Link url={`/posts/${post.id}`} content={<BlueButton>See details</BlueButton>} />
       </CardActions>
     </Card>
   )

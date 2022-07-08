@@ -13,18 +13,24 @@ import { deleteUserInfo } from "../../redux/userSlice"
 import { getUserInfo } from "../../redux/userSelectors"
 import api from "../../api/api"
 import socket from "../../helpers/socket"
+import { Notifications as NotificationsIcon, NotificationsActive } from "@mui/icons-material"
+import { Notifications } from "../Notifications/Notifications"
 
 export default function UserControlBlock() {
-  const [anchorEl, setAnchorEl] = useState(null)
+  const [profileAnchorEl, setProfileAnchorEl] = useState(null)
+  const [notificationAnchorEl, setNotificationAnchorEl] = useState(null)
   const user = useSelector(getUserInfo)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [messageCount, setMessageCount] = useState([])
+  const [notificationsCount, setNotificationsCount] = useState([])
 
   useEffect(() => {
     ;(async () => {
       const messagesInfo = await api.get("/messages/unread")
       setMessageCount(messagesInfo.data._count.id)
+      const notificationsInfo = await api.get("/notifications/unread")
+      setNotificationsCount(notificationsInfo.data._count.id)
     })()
   }, [])
 
@@ -33,34 +39,57 @@ export default function UserControlBlock() {
       const messagesInfo = await api.get("/messages/unread")
       setMessageCount(messagesInfo.data._count.id)
     })
+    socket.on("receiveNotification", ({ unread }) => {
+      setNotificationsCount(unread)
+    })
+    socket.on("receiveUpdatedNotifications", ({ unread }) => {
+      setNotificationsCount(unread)
+    })
   }, [])
 
-  const handleClose = () => {
-    setAnchorEl(null)
+  const handleProfileMenuClose = () => {
+    setProfileAnchorEl(null)
   }
 
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget)
+  const handleNotificationClose = () => {
+    setNotificationAnchorEl(null)
+  }
+
+  const handleProfileMenu = (e) => {
+    setProfileAnchorEl(e.currentTarget)
   }
 
   const handleSignOutClick = async () => {
-    setAnchorEl(null)
+    setProfileAnchorEl(null)
     const status = await signOut()
     if (status === 204) {
       dispatch(deleteUserInfo())
-      // socket.emit("disconnect")
       socket.disconnect()
       navigate("/signin")
     }
   }
 
   const handleProfileClick = () => {
-    setAnchorEl(null)
+    setProfileAnchorEl(null)
     navigate("/profile")
+  }
+
+  const handleNotificationClick = (e) => {
+    setNotificationAnchorEl(e.currentTarget)
   }
 
   return (
     <>
+      <TransparentButton onClick={handleNotificationClick}>
+        <Badge badgeContent={notificationsCount} color="primary">
+          {messageCount ? <NotificationsActive /> : <NotificationsIcon />}
+        </Badge>
+      </TransparentButton>
+      <Notifications
+        open={Boolean(notificationAnchorEl)}
+        anchorEl={notificationAnchorEl}
+        handleNotificationClose={handleNotificationClose}
+      />
       <Link
         url="/chat"
         content={
@@ -73,12 +102,15 @@ export default function UserControlBlock() {
         color="white"
         sx={{ display: "flex" }}
       />
-      {/*{messageCount}*/}
-      <TransparentButton onClick={handleMenu}>
+      <TransparentButton onClick={handleProfileMenu}>
         <AccountCircle />
         <Typography ml={2}>{user.name}</Typography>
       </TransparentButton>
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+      <Menu
+        anchorEl={profileAnchorEl}
+        open={Boolean(profileAnchorEl)}
+        onClose={handleProfileMenuClose}
+      >
         <MenuItem onClick={handleProfileClick}>
           <ListItemIcon>
             <PersonIcon fontSize="small" />
