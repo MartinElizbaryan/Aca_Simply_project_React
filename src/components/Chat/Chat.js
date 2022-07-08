@@ -33,7 +33,7 @@ const Chat = () => {
       // console.log(onlineUsers)
     })
 
-    socket.on("seen", async () => {
+    socket.on("chatUsersUpdate", async () => {
       const res = await api.get("users/chat")
       setUsers(res.data.users)
     })

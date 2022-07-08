@@ -64,6 +64,7 @@ export default function UserControlBlock() {
     const status = await signOut()
     if (status === 204) {
       dispatch(deleteUserInfo())
+      socket.removeAllListeners()
       socket.disconnect()
       navigate("/signin")
     }

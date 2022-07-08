@@ -23,22 +23,24 @@ function Messages() {
       console.log(res.data.messages)
       setMessages(res.data.messages)
     })()
+    ;(async () => {
+      await api.patch(`/messages/${id}`)
+      socket.emit("messageIsSeen", { to_id: id })
+    })()
   }, [id])
 
   useEffect(() => {
-    ;(async () => {
-      await api.patch(`/messages/${id}`)
-      socket.emit("messageIsSeen")
-    })()
-
     const el = list.current
     el.scrollTop = el.scrollHeight
   }, [messages, id])
 
   useEffect(() => {
-    socket.on("receive", (data) => {
+    socket.on("receive", async (data) => {
       if (+id === data.from_id) {
         setMessages((messages) => [...messages, data])
+
+        await api.patch(`/messages/${id}`)
+        socket.emit("messageIsSeen", { to_id: id })
       }
     })
 
