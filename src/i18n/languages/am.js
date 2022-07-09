@@ -64,6 +64,12 @@ const am = {
   fake_address: "203 Fake Փողոց, Սան Ֆրանցիսկո, Կալիֆորնիա, ԱՄՆ",
   Call_us: "Զանգահարեք մեզ",
   Email_us: "Գրեք մեր էլ.փոստին",
+  Post_Title: "Գրառման վերնագիր",
+  Address: "Հասցե",
+  Post_Type: "Գրառման տեսակ",
+  Categories: "Կատեգորիաներ",
+  Description: "Նկարագրություն",
+  Add_Question: "Ավելացնել հարց",
 }
 
 export default am

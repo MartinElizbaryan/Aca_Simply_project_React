@@ -64,6 +64,12 @@ const ru = {
   fake_address: "203 Fake улица, Сан-Франциско, Калифорния, США",
   Call_us: "Позвоните нам",
   Email_us: "Напишите нам",
+  Post_Title: "Заголовок сообщения",
+  Address: "Адрес",
+  Post_Type: "Тип сообщения",
+  Categories: "Категории",
+  Description: "Описание",
+  Add_Question: "Добавить вопрос",
 }
 
 export default ru
