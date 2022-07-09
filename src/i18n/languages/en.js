@@ -98,6 +98,9 @@ const en = {
   "user not found": "user not found",
   "email is not confirmed": "email is not confirmed",
   "email address is already used": "email address is already used",
+  FAQ: "FAQ",
+  Start_chat: "Start chat",
+  Send_Answers: "Send Answers",
 }
 
 export default en

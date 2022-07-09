@@ -21,9 +21,9 @@ const am = {
   Okay: "Լավ",
   rights: "Բոլոր իրավունքները պաշտպանված են:",
   Home: "Գլխավոր",
-  Lost: "Կորած",
+  Lost: "Կորցրած",
   Found: "Գտնված",
-  Contact: "Կապ",
+  Contact: "Հետադարձ կապ",
   Find_post: "Գտնել",
   Have_lost: "Կորցրե՞լ ես ինչ-որ բան",
   Find_item: "Գտի'ր քո կորցրածը",
@@ -53,7 +53,7 @@ const am = {
   Phone: "Հեռախոսահամար",
   Save_Changes: "Պահպանել փոփոխությունները",
   Create_An_Account: "Ստեղծել հաշիվ",
-  Contact_us: "Կապ մեզ հետ",
+  Contact_us: "Հետադարձ կապ մեզ հետ",
   have_questions: "Հարցեր կամ խնդիրներ ունե՞ք: Կարդացեք սա՝",
   describe_question: "կամ նկարագրեք ձեր խնդիրը ստորև բերված դաշտում:",
   Subject: "Թեմա",
@@ -98,6 +98,9 @@ const am = {
   "user not found": "օգտատերը չի գտնվել",
   "email is not confirmed": "էլ.փոստ-ով չեք հաստատել գրանցումը:",
   "email address is already used": "էլ․ հասցեն արդեն գործածված է:",
+  FAQ: "ՀՏՀ",
+  Start_chat: "Սկսել չատը",
+  Send_Answers: "Ուղարկել պատասխաններ",
 }
 
 export default am

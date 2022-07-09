@@ -53,7 +53,7 @@ export default function SidebarCabinet() {
                 title={t("Pending_Posts")}
               />
 
-              <ListItemWithIcon url="/profile/faq" icon={<QuestionMarkIcon />} title="FAQ" />
+              <ListItemWithIcon url="/profile/faq" icon={<QuestionMarkIcon />} title={t("FAQ")} />
             </>
           )}
         </List>

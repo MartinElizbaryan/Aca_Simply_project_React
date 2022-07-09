@@ -31,10 +31,12 @@ import "swiper/css/thumbs"
 import CardMedia from "@mui/material/CardMedia"
 import api from "../../api/api"
 import { useSelector } from "react-redux"
+import { useTranslation } from "react-i18next"
 
 import { getUserInfo } from "../../redux/userSelectors"
 
 export default function PostSingle() {
+  const { t } = useTranslation()
   const auth = useSelector(getUserInfo)
   const classes = useStyles()
   const { id } = useParams()
@@ -135,7 +137,7 @@ export default function PostSingle() {
             >
               <HeartButton post={post} />
               {post?.user_id != auth.id && (
-                <Link url="/chat/1" content={<BlueButton>Start chat</BlueButton>} />
+                <Link url="/chat/1" content={<BlueButton>{t("Start_chat")}</BlueButton>} />
               )}
             </CardActions>
           </Card>
@@ -148,7 +150,6 @@ export default function PostSingle() {
                 <p>{question.title}</p>
 
                 <FormControl>
-                  <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
                   <RadioGroup
                     aria-labelledby="demo-radio-buttons-group-label"
                     name="radio-buttons-group"
@@ -173,7 +174,7 @@ export default function PostSingle() {
           })}
         </div>
 
-        <GreenButton onClick={sendAnswers}>Send Answers</GreenButton>
+        <GreenButton onClick={sendAnswers}>{t("Send_Answers")}</GreenButton>
       </Container>
     )
 }

@@ -98,6 +98,9 @@ const ru = {
   "user not found": "пользователь не найден",
   "email is not confirmed": "электронная почта не подтверждена.",
   "email address is already used": "адрес электронной почты уже используется",
+  FAQ: "ЧЗВ",
+  Start_chat: "Начать чат",
+  Send_Answers: "Отправить ответы",
 }
 
 export default ru

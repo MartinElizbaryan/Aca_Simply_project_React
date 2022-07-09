@@ -82,7 +82,7 @@ export default function Footer() {
           textAlign="center"
           alignItems="center"
         >
-          <Link url="/faq" content="FAQ" color={colors.white} variant="caption" />
+          <Link url="/faq" content={t("FAQ")} color={colors.white} variant="caption" />
           {/*<Divider orientation="vertical" flexItem />*/}
           <Link
             url="/terms-conditions"
