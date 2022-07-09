@@ -12,7 +12,7 @@ export const colors = {
   hoveredGreen: "#6b9110",
   blurGreen: "rgba(137,186,22,.9)",
   grey: "#f7f7f7",
-  lightGrey: "rgba(255,255,255,.6)",
+  lightGrey: "rgba(255,255,255,0.6)",
   darkGrey: "#7f848c",
   hoveredGrey: "#fafafa",
   clickedGrey: "#e6e6e6",

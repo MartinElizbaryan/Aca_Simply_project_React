@@ -1,6 +1,6 @@
 import { Container, Stack, Typography } from "@mui/material"
 import useStyles from "./styles"
-import useFetch from "../../hooks/useFetch"
+import { useFetch } from "../../hooks/useFetch"
 import { useEffect, useState } from "react"
 import api from "../../api/api"
 import { Question } from "../Shared/Accordions/Question/Question"
@@ -8,8 +8,10 @@ import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
 import Grid from "@mui/material/Grid"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
+import { useTranslation } from "react-i18next"
 
 export default function AdminFAQ() {
+  const { t } = useTranslation()
   const classes = useStyles()
   const { data, error, loading, reFetch: reFetchFAQs } = useFetch("/faq")
   const [faqs, setFAQs] = useState([])
@@ -17,7 +19,8 @@ export default function AdminFAQ() {
     setFAQs(data.faq)
   }, [data])
 
-  const deleteFAQ = async (id) => {
+  const deleteFAQ = async (e, id) => {
+    e.stopPropagation()
     await api.delete(`/admin/faq/${id}`)
     reFetchFAQs()
   }
@@ -32,7 +35,7 @@ export default function AdminFAQ() {
               FAQs
             </Typography>
 
-            <Link url="/profile/faq/create" content={<BlueButton title={"Create"} />} />
+            <Link url="/profile/faq/create" content={<BlueButton>{t("Create")}</BlueButton>} />
 
             <Stack p={4} spacing={2}>
               {faqs?.map((faq) => (

@@ -38,11 +38,11 @@ export default function Footer() {
   return (
     <footer>
       <Container maxWidth={false} className={classes.container}>
-        <Grid container justifyContent="space-around" p={2}>
+        <Grid container justifyContent="space-around">
           <Stack spacing={1} justifyContent="center" alignItems="center" textAlign="center">
             <img src={logo} alt="logo" width={150} />
             <Typography variant="caption" color={colors.white}>
-              &copy; 2022 JE&JE, Inc. All rights reserved.
+              &copy; 2022 JE&JE, {t("rights")}
             </Typography>
           </Stack>
           <Stack spacing={1} m={1} alignItems="center">
@@ -66,7 +66,7 @@ export default function Footer() {
             </Grid>
           </Stack>
           <Box sx={{ minWidth: 120 }}>
-            <Select value={language} onChange={handleChange}>
+            <Select value={language} onChange={handleChange} className={classes.languagesBox}>
               <MenuItem value={"en"}>English</MenuItem>
               <MenuItem value={"ru"}>Russian</MenuItem>
               <MenuItem value={"am"}>Armenian</MenuItem>
@@ -86,12 +86,12 @@ export default function Footer() {
           {/*<Divider orientation="vertical" flexItem />*/}
           <Link
             url="/terms-conditions"
-            content="Terms and Conditions"
+            content={t("terms")}
             color={colors.white}
             variant="caption"
           />
           {/*<Divider orientation="vertical" flexItem />*/}
-          <Link url="/privacy" content="Privacy Policy" color={colors.white} variant="caption" />
+          <Link url="/privacy" content={t("privacy")} color={colors.white} variant="caption" />
         </Stack>
       </Container>
     </footer>

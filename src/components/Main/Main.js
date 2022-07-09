@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Header from "../Header/Header"
 import Footer from "../Footer/Footer"
 import { ScrollTopButton } from "../Shared/Buttons/ScrollTopButton/ScrollTopButton"
@@ -7,7 +7,7 @@ import { scrollToTop } from "../../helpers/utils"
 
 export default function Main({ component: Component, ...rest }) {
   const [visible, setVisible] = useState(false)
-
+  const main = useRef(null)
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 300 && window.innerWidth > 300) {
@@ -21,7 +21,7 @@ export default function Main({ component: Component, ...rest }) {
   return (
     <>
       <Header />
-      <main>
+      <main ref={main}>
         <Outlet />
       </main>
       <Footer />

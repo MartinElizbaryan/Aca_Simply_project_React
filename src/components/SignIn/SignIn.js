@@ -11,13 +11,13 @@ import {
   DialogTitle,
 } from "@mui/material"
 import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
-import useStyles from "./styles"
 import { InputField } from "../Shared/Inputs/InputField/InputField"
-import { useFormik } from "formik"
-import * as yup from "yup"
-import { setUserInfo } from "../../redux/userSlice"
 import { signIn } from "./utils"
+import { useFormik } from "formik"
+import { setUserInfo } from "../../redux/userSlice"
 import { validationSchema } from "./validation"
+import useStyles from "./styles"
+import connectToSocket from "../../helpers/connectToSocket"
 import { useTranslation } from "react-i18next"
 
 export default function SignIn() {
@@ -45,12 +45,13 @@ export default function SignIn() {
         const data = await signIn({ email, password })
         console.log(data)
         dispatch(setUserInfo(data.user))
+        connectToSocket(data.user.id)
         navigate("/profile")
         setOpen(false)
       } catch (e) {
         console.log(e)
         setOpen(true)
-        setErrMessage(e.response.data.details)
+        setErrMessage(t(e.response.data.details))
       }
     },
   })
@@ -100,7 +101,7 @@ export default function SignIn() {
             </DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description" style={{ textAlign: "center" }}>
-                {t("Your")} {errMessage}. <br />
+                {t("Your")} {errMessage} <br />
                 {t("Pls_Try_Again")}
               </DialogContentText>
             </DialogContent>

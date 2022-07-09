@@ -1,7 +1,7 @@
-import { IconButton, Typography } from "@mui/material"
+import { IconButton } from "@mui/material"
 // import useStyles from "./styles"
 
-export const TransparentButton = ({ icon, title, ...props }) => {
+export const TransparentButton = ({ children, ...props }) => {
   // const classes = useStyles()
 
   return (
@@ -13,8 +13,7 @@ export const TransparentButton = ({ icon, title, ...props }) => {
       }}
       {...props}
     >
-      {icon}
-      {title && <Typography ml={2}>{title}</Typography>}
+      {children}
     </IconButton>
   )
 }

@@ -1,9 +1,8 @@
 import { Checkbox, FormControl, FormControlLabel, FormGroup, ListItemButton } from "@mui/material"
 // import useStyles from "./styles"
 
-export const ListItemWithCheckbox = ({ title, onChange, ...props }) => {
+export const ListItemWithCheckbox = ({ label, category, onChange, ...props }) => {
   // const classes = useStyles()
-
   return (
     <ListItemButton dense {...props}>
       <FormControl
@@ -17,7 +16,10 @@ export const ListItemWithCheckbox = ({ title, onChange, ...props }) => {
         }}
       >
         <FormGroup>
-          <FormControlLabel control={<Checkbox size="small" onChange={onChange} />} label={title} />
+          <FormControlLabel
+            control={<Checkbox size="small" value={category} onChange={onChange} />}
+            label={label}
+          />
         </FormGroup>
       </FormControl>
     </ListItemButton>

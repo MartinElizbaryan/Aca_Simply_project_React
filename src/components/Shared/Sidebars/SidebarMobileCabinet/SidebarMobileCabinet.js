@@ -23,8 +23,14 @@ export default function SidebarMobileCabinet() {
   )
 
   return (
-    <div>
-      <Button onClick={toggleDrawer("left", true)}>
+    <Box>
+      <Button
+        onClick={toggleDrawer("left", true)}
+        fullWidth
+        sx={{
+          padding: 2,
+        }}
+      >
         <AccountCircleIcon /> Cabinet
       </Button>
       <SwipeableDrawer
@@ -35,6 +41,6 @@ export default function SidebarMobileCabinet() {
       >
         {list("left")}
       </SwipeableDrawer>
-    </div>
+    </Box>
   )
 }

@@ -4,15 +4,24 @@ import { TextField } from "@mui/material"
 import useStyles from "../Question/style"
 import Radios from "../Radios/Radios"
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 export default function Variant({ answers, questionIndex, formik }) {
+  const { t } = useTranslation()
   const [variant, setVariant] = useState("")
+  const [error, setError] = useState("")
   console.log(formik.errors)
   const addVariantRadio = () => {
-    formik.setFieldValue(`questions[${questionIndex}].answers`, [
-      ...formik.values.questions[questionIndex].answers,
-      { title: variant, status: false },
-    ])
+    if (variant !== "") {
+      formik.setFieldValue(`questions[${questionIndex}].answers`, [
+        ...formik.values.questions[questionIndex].answers,
+        { title: variant, status: false },
+      ])
+      setError("")
+    } else {
+      setError(t("Variant_empty"))
+    }
+
     setVariant("")
     console.log("dsa")
   }
@@ -25,7 +34,7 @@ export default function Variant({ answers, questionIndex, formik }) {
             <TextField
               className={classes.input}
               fullWidth
-              label="Variant Title"
+              label={t("Variant_Title")}
               variant="outlined"
               name="variant"
               onChange={(e) => setVariant(e.target.value)}
@@ -34,6 +43,8 @@ export default function Variant({ answers, questionIndex, formik }) {
               sx={{
                 marginRight: 2,
               }}
+              error={error}
+              helperText={error}
             />
             <AddButton onClick={addVariantRadio} />
           </Grid>

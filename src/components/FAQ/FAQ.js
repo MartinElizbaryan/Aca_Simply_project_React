@@ -3,7 +3,7 @@ import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import { Question } from "../Shared/Accordions/Question/Question"
 import useStyles from "./styles"
 import { colors } from "../../constants/styles"
-import useFetch from "../../hooks/useFetch"
+import { useFetch } from "../../hooks/useFetch"
 import { useEffect, useState } from "react"
 
 export default function FAQ() {

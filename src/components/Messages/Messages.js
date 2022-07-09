@@ -6,8 +6,12 @@ import api from "../../api/api"
 import jwt_decode from "jwt-decode"
 import socket from "../../helpers/socket"
 import useStyles from "./styles"
+import { useParams } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
-function Messages({ id }) {
+function Messages() {
+  const { t } = useTranslation()
+  const { id } = useParams()
   const [messages, setMessages] = useState([])
   const [message, setMessage] = useState("")
   const [error, setError] = useState("")
@@ -18,29 +22,40 @@ function Messages({ id }) {
   useEffect(() => {
     ;(async () => {
       const res = await api.get(`/messages/${id}`)
+      console.log(res.data.messages)
       setMessages(res.data.messages)
     })()
-
-    socket.on("receive", (data) => {
-      setMessages((messages) => [...messages, data])
-    })
-
-    const room = createRoom()
-    setRoom(room)
-
-    const { id: authId } = jwt_decode(localStorage.getItem("accessToken"))
-    socket.emit("join", { room, authId })
+    ;(async () => {
+      await api.patch(`/messages/${id}`)
+      socket.emit("messageIsSeen", { to_id: id })
+    })()
   }, [id])
 
   useEffect(() => {
-    ;(async () => {
-      await api.patch(`/messages/${id}`)
-      socket.emit("messageDone", { room: 1 })
-    })()
-
     const el = list.current
     el.scrollTop = el.scrollHeight
   }, [messages, id])
+
+  useEffect(() => {
+    socket.on("receive", async (data) => {
+      if (+id === data.from_id) {
+        setMessages((messages) => [...messages, data])
+
+        await api.patch(`/messages/${id}`)
+        socket.emit("messageIsSeen", { to_id: id })
+      }
+    })
+
+    socket.on("seenMessages", async () => {
+      const res = await api.get(`/messages/${id}`)
+      setMessages(res.data.messages)
+    })
+
+    return () => {
+      socket.off("receive")
+      socket.off("seenMessages")
+    }
+  }, [id])
 
   const sendMessage = async () => {
     try {
@@ -49,7 +64,6 @@ function Messages({ id }) {
       })
       const data = res.data.message
       await socket.emit("send", {
-        room,
         data,
       })
       setMessages((messages) => [...messages, data])
@@ -58,11 +72,6 @@ function Messages({ id }) {
     } catch (e) {
       setError(e.response.data.details[0].message)
     }
-  }
-
-  const createRoom = () => {
-    const { id: authId } = jwt_decode(localStorage.getItem("accessToken"))
-    return id > authId ? `${authId}_${id}` : `${id}_${authId}`
   }
 
   return (
@@ -74,6 +83,7 @@ function Messages({ id }) {
               key={message.id}
               type={message.to_id === +id ? "from" : "to"}
               message={message.text}
+              isSeen={message.is_seen}
               createdAt={message.created_at}
             />
           )
@@ -88,7 +98,7 @@ function Messages({ id }) {
       <Box display="flex" alignItems="center">
         <InputBase
           sx={{ ml: 1, flex: 1 }}
-          placeholder="Type..."
+          placeholder={t("Type_placeholder")}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyUp={(e) => {

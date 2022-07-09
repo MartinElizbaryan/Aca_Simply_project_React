@@ -5,7 +5,7 @@ import api from "../api/api"
 //   return []
 // }
 
-export default function useFetch(url, method = "get", config) {
+export function useFetch(url, method = "get", config) {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState([])
