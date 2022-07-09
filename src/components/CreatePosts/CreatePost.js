@@ -22,6 +22,21 @@ import { useTranslation } from "react-i18next"
 
 export default function CreatePost() {
   const { t } = useTranslation()
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      description: "",
+      category_id: "",
+      type: "",
+      address: "",
+      questions: [],
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      await sendToServerHendler(values, previewSource)
+      navigate("/profile/my-posts")
+    },
+  })
   // Styles
   const classes = useStyles()
   // Categories and Post Types
@@ -70,24 +85,7 @@ export default function CreatePost() {
   }
   // Formik - Validation and Submit
   const navigate = useNavigate()
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      description: "",
-      category_id: "",
-      type: "",
-      address: "",
-      questions: [],
-    },
-    validationSchema: validationSchema,
-    onSubmit: async (values) => {
-      await sendToServerHendler(values, previewSource)
-      navigate("/profile/my-posts")
-    },
-  })
-
   window.formik = formik
-  console.log(previewSource)
   return (
     <form onSubmit={formik.handleSubmit}>
       <Grid container spacing={0} mt={1}>

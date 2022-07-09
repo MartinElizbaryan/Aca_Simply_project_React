@@ -15,37 +15,38 @@ export default function Sidebar({ handleCategoryChange }) {
   const { t } = useTranslation()
   const { data, error, loading } = useFetch("/categories")
   const [searchParams, setSearchParams] = useSearchParams()
-  const [type, setType] = useState(searchParams.get("type"))
+  const [type, setType] = useState(searchParams.get("type") || "")
+  const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "")
   const [categories, setCategories] = useState([])
   const [openSearch, setOpenSearch] = useState(true)
   const [openTypes, setOpenTypes] = useState(true)
   const [openCategories, setOpenCategories] = useState(true)
-  const [searchTerm, setSearchTerm] = useState("")
   const debouncedSearchTerm = useDebounce(searchTerm, 1000)
   const classes = useStyles()
-
   useEffect(() => {
     setCategories(data.categories)
   }, [data])
 
   useEffect(() => {
-    if (debouncedSearchTerm) {
+    if (debouncedSearchTerm && debouncedSearchTerm !== searchParams.get("search")) {
       searchParams.set("search", debouncedSearchTerm)
       setSearchParams(searchParams)
-    } else {
+    } else if (!debouncedSearchTerm) {
       searchParams.delete("search")
       setSearchParams(searchParams)
     }
   }, [debouncedSearchTerm])
 
   useEffect(() => {
-    searchParams.set("type", type)
-    setSearchParams(searchParams)
+    if (searchParams.get("type") !== type) {
+      searchParams.set("type", type)
+      setSearchParams(searchParams)
+    }
   }, [type])
 
   useEffect(() => {
     const searchQuery = searchParams.get("search") || ""
-    const typeQuery = searchParams.get("type")
+    const typeQuery = searchParams.get("type") || ""
     setSearchTerm(searchQuery)
     setType(typeQuery)
   }, [searchParams])
@@ -61,7 +62,6 @@ export default function Sidebar({ handleCategoryChange }) {
   const handleTypesButtonClick = () => {
     setOpenTypes(!openTypes)
   }
-
   return (
     <List component="nav">
       <ListItemButton onClick={handleSearchButtonClick} className={classes.button}>

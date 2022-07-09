@@ -31,26 +31,13 @@ import {
   UnauthorizedUserPrivateRoute,
 } from "./routes/PrivateRoutes"
 import "./App.css"
-import { initReactI18next } from "react-i18next"
-import i18n from "i18next"
-import { useTranslation } from "react-i18next"
-
-/* const translationsEn = { testing: "Language Testing" }
-const translationsRu = { testing: "Языковое тестирование" }
-
-i18n.use(initReactI18next).init({
-  resources: {
-    en: { translation: translationsEn },
-    ru: { translation: translationsRu },
-  },
-  lng: "en",
-  fallbackLng: "en",
-  interpolation: { escapeValue: false },
-}) */
 // import Chat from "./components/Chat/Chat"
 import connectToSocket from "./helpers/connectToSocket"
 
 const Chat = lazy(() => import("./components/Chat/Chat"))
+import { initReactI18next } from "react-i18next"
+import i18n from "i18next"
+import { useTranslation } from "react-i18next"
 
 function App() {
   //const { t } = useTranslation()
@@ -121,6 +108,7 @@ function App() {
                     </Suspense>
                   }
                 />
+
                 <Route exact path="/profile" element={<Profile />} />
                 <Route exact path="/profile/create-post" element={<CreatePost />} />
                 <Route exact path="/profile/my-posts" element={<MyPosts />} />

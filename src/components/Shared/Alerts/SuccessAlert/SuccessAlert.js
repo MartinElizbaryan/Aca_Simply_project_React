@@ -1,6 +1,6 @@
 import { Alert, AlertTitle, Dialog } from "@mui/material"
 
-export const SuccessAlert = ({ message, open, onClose, ...props }) => {
+export const SuccessAlert = ({ message, onClose, ...props }) => {
   return (
     <Dialog open={true} onClose={onClose}>
       <Alert severity="success" role="button" onClose={onClose}>

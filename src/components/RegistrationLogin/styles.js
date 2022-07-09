@@ -53,7 +53,8 @@ const useStyles = createUseStyles({
     borderTopRightRadius: 10,
   },
   policyText: {
-    margin: [[20], "!important"],
+    marginTop: [[20], "!important"],
+    marginBottom: [[20], "!important"],
     fontSize: "0.7rem !important",
     textAlign: "center",
   },

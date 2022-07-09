@@ -22,29 +22,38 @@ function Messages() {
   useEffect(() => {
     ;(async () => {
       const res = await api.get(`/messages/${id}`)
+      console.log(res.data.messages)
       setMessages(res.data.messages)
+    })()
+    ;(async () => {
+      await api.patch(`/messages/${id}`)
+      socket.emit("messageIsSeen", { to_id: id })
     })()
   }, [id])
 
   useEffect(() => {
-    ;(async () => {
-      await api.patch(`/messages/${id}`)
-      socket.emit("messageIsSeen")
-    })()
-
     const el = list.current
     el.scrollTop = el.scrollHeight
   }, [messages, id])
 
   useEffect(() => {
-    socket.on("receive", (data) => {
+    socket.on("receive", async (data) => {
       if (+id === data.from_id) {
         setMessages((messages) => [...messages, data])
+
+        await api.patch(`/messages/${id}`)
+        socket.emit("messageIsSeen", { to_id: id })
       }
+    })
+
+    socket.on("seenMessages", async () => {
+      const res = await api.get(`/messages/${id}`)
+      setMessages(res.data.messages)
     })
 
     return () => {
       socket.off("receive")
+      socket.off("seenMessages")
     }
   }, [id])
 
@@ -65,11 +74,6 @@ function Messages() {
     }
   }
 
-  const createRoom = () => {
-    const { id: authId } = jwt_decode(localStorage.getItem("accessToken"))
-    return id > authId ? `${authId}_${id}` : `${id}_${authId}`
-  }
-
   return (
     <Grid item xs={12} md={9}>
       <List className={classes.messageArea} ref={list}>
@@ -79,6 +83,7 @@ function Messages() {
               key={message.id}
               type={message.to_id === +id ? "from" : "to"}
               message={message.text}
+              isSeen={message.is_seen}
               createdAt={message.created_at}
             />
           )
