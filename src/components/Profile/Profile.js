@@ -14,8 +14,10 @@ import { validationSchema } from "./vaildation"
 import { setUserInfo } from "../../redux/userSlice"
 import useStyles from "./styles"
 import SidebarMobileCabinet from "../Shared/Sidebars/SidebarMobileCabinet/SidebarMobileCabinet"
+import { useTranslation } from "react-i18next"
 
 export default function Profile() {
+  const { t } = useTranslation()
   const { info } = useSelector((state) => state.user)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
@@ -108,7 +110,7 @@ export default function Profile() {
                 }}
               >
                 <Grid item xs={5} className={classes.label}>
-                  <Typography variant="caption">Name</Typography>
+                  <Typography variant="caption">{t("Name")}</Typography>
                 </Grid>
                 <Grid item>
                   <UnlabeledInput
@@ -127,7 +129,7 @@ export default function Profile() {
                 }}
               >
                 <Grid item xs={5} className={classes.label}>
-                  <Typography variant="caption">Surname</Typography>
+                  <Typography variant="caption">{t("Surname")}</Typography>
                 </Grid>
                 <Grid item>
                   <UnlabeledInput
@@ -158,7 +160,7 @@ export default function Profile() {
                 }}
               >
                 <Grid item xs={5} className={classes.label}>
-                  <Typography variant="caption">Email</Typography>
+                  <Typography variant="caption">{t("Email")}</Typography>
                 </Grid>
                 <Grid item>
                   <UnlabeledInput value={info.email || ""} disabled />
@@ -171,7 +173,7 @@ export default function Profile() {
                 }}
               >
                 <Grid item xs={5} className={classes.label}>
-                  <Typography variant="caption">Phone</Typography>
+                  <Typography variant="caption">{t("Phone")}</Typography>
                 </Grid>
                 <Grid item>
                   <UnlabeledInput
@@ -184,7 +186,7 @@ export default function Profile() {
                 </Grid>
               </Stack>
               <Grid item xs={12} sx={{ textAlign: "start" }}>
-                <GreenButton type="submit">Save Changes</GreenButton>
+                <GreenButton type="submit">{t("Save_Changes")}</GreenButton>
               </Grid>
               {success && (
                 <SuccessAlert

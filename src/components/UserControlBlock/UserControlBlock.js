@@ -15,13 +15,16 @@ import api from "../../api/api"
 import socket from "../../helpers/socket"
 import { Notifications as NotificationsIcon, NotificationsActive } from "@mui/icons-material"
 import { Notifications } from "../Notifications/Notifications"
+import { useTranslation } from "react-i18next"
 
 export default function UserControlBlock() {
+  const { t } = useTranslation()
   const [profileAnchorEl, setProfileAnchorEl] = useState(null)
   const [notificationAnchorEl, setNotificationAnchorEl] = useState(null)
   const user = useSelector(getUserInfo)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
   const [messageCount, setMessageCount] = useState([])
   const [notificationsCount, setNotificationsCount] = useState([])
 
@@ -116,13 +119,13 @@ export default function UserControlBlock() {
           <ListItemIcon>
             <PersonIcon fontSize="small" />
           </ListItemIcon>
-          My Profile
+          {t("My_Profile")}
         </MenuItem>
         <MenuItem onClick={handleSignOutClick}>
           <ListItemIcon>
             <LogoutIcon fontSize="small" />
           </ListItemIcon>
-          Sign Out
+          {t("Sign_Out")}
         </MenuItem>
       </Menu>
     </>

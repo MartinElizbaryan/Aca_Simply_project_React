@@ -14,8 +14,10 @@ import { useNavigate } from "react-router-dom"
 import { InputField } from "../Shared/Inputs/InputField/InputField"
 import { useFormik } from "formik"
 import { validationSchema } from "./validation"
+import { useTranslation } from "react-i18next"
 
 export default function SignUp() {
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const [errMessage, setErrMessage] = useState("")
   const [isVisible, setIsVisible] = useState(false)
@@ -58,7 +60,7 @@ export default function SignUp() {
         <Box className={classes.central}>
           <InputField
             account
-            placeholder={"Name"}
+            placeholder={t("Name")}
             value={formik.values.name}
             onChange={formik.handleChange}
             name="name"
@@ -68,7 +70,7 @@ export default function SignUp() {
           />
           <InputField
             account
-            placeholder={"Surname"}
+            placeholder={t("Surname")}
             value={formik.values.surname}
             onChange={formik.handleChange}
             name="surname"
@@ -78,7 +80,7 @@ export default function SignUp() {
           />
           <InputField
             email
-            placeholder={"Your email"}
+            placeholder={t("Your_email")}
             value={formik.values.email}
             onChange={formik.handleChange}
             name="email"
@@ -91,7 +93,7 @@ export default function SignUp() {
             eye
             setIsVisible={setIsVisible2}
             isVisible={isVisible2}
-            placeholder={"Your password"}
+            placeholder={t("Your_password")}
             value={formik.values.password}
             onChange={formik.handleChange}
             name="password"
@@ -103,7 +105,7 @@ export default function SignUp() {
             eye
             setIsVisible={setIsVisible}
             isVisible={isVisible}
-            placeholder={"Confirm password"}
+            placeholder={t("Confirm_password")}
             value={formik.values.confirmPassword}
             onChange={formik.handleChange}
             name="confirmPassword"
@@ -114,7 +116,7 @@ export default function SignUp() {
       </form>
       <Box className={classes.central2}>
         <Button variant="contained" color="success" type="submit" form="signinButton">
-          Create An Account
+          {t("Create_An_Account")}
         </Button>
       </Box>
       {open && (
@@ -126,12 +128,12 @@ export default function SignUp() {
             }}
           >
             <DialogTitle id="alert-dialog-title" style={{ textAlign: "center" }}>
-              {"Something went wrong. Failed to sign up"}
+              {t("SomethingWSignUp")}
             </DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description" style={{ textAlign: "center" }}>
-                Your {errMessage}. <br />
-                Please try again.
+                {t("Your")} Your {errMessage}. <br />
+                {t("Pls_Try_Again")}.
               </DialogContentText>
             </DialogContent>
             <DialogActions style={{ display: "flex", justifyContent: "center" }}>
@@ -141,7 +143,7 @@ export default function SignUp() {
                 }}
                 autoFocus
               >
-                Okay
+                {t("Okay")}
               </Button>
             </DialogActions>
           </Dialog>

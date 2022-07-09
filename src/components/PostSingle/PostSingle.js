@@ -9,6 +9,7 @@ import Avatar from "@mui/material/Avatar"
 import Typography from "@mui/material/Typography"
 import { useNavigate, useParams } from "react-router-dom"
 import { useFetch } from "../../hooks/useFetch"
+
 import { useEffect, useState } from "react"
 import moment from "moment"
 import useStyles from "./style"

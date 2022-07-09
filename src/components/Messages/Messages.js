@@ -72,11 +72,6 @@ function Messages() {
     }
   }
 
-  const createRoom = () => {
-    const { id: authId } = jwt_decode(localStorage.getItem("accessToken"))
-    return id > authId ? `${authId}_${id}` : `${id}_${authId}`
-  }
-
   return (
     <Grid item xs={12} md={9}>
       <List className={classes.messageArea} ref={list}>

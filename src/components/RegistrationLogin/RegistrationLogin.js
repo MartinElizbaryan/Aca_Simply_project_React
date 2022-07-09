@@ -6,8 +6,10 @@ import { Logo } from "../Shared/Logo/Logo"
 import SignIn from "../SignIn/SignIn"
 import SignUp from "../SignUp/SignUp"
 import useStyles from "./styles"
+import { useTranslation } from "react-i18next"
 
 export default function RegistrationLogin() {
+  const { t } = useTranslation()
   const { pathname } = useLocation()
 
   const classes = useStyles()
@@ -17,20 +19,20 @@ export default function RegistrationLogin() {
       <Box className={classes.bgColor}>
         <Logo black={true} />
       </Box>
-      <Typography className={classes.text1}>{"Post what you've lost and find it. "}</Typography>
+      <Typography className={classes.text1}>{t("sign_in_header")}</Typography>
 
       <Box className={classes.totalBox}>
         {!(pathname === "/forgot-password") && (
           <Box className={classes.spacing}>
             <CustomLink
               url="/signup"
-              content={<Box className={classes.button}>Sign Up</Box>}
+              content={<Box className={classes.button}>{t("Sign_Up")}</Box>}
               bgcolor={pathname === "/signup" ? "white" : "#F3F7F7"}
               className={`${classes.linkBox} ${classes.borderRadius1}`}
             />
             <CustomLink
               url="/signin"
-              content={<Box className={classes.button}>Sign In</Box>}
+              content={<Box className={classes.button}>{t("Sign_In")}</Box>}
               bgcolor={pathname === "/signin" ? "white" : "#F3F7F7"}
               className={`${classes.linkBox} ${classes.borderRadius2}`}
             />
@@ -44,13 +46,13 @@ export default function RegistrationLogin() {
       </Box>
 
       <Typography className={classes.policyText}>
-        By signing up you agree to our
+        {t("By_signing")}
         <Link href="terms-conditions" underline="none" target="_blank">
-          {" Terms of Service "}
-        </Link>
-        and
+          {t("terms")}
+        </Link>{" "}
+        {t("and")}
         <Link href="privacy" underline="none" target="_blank">
-          {" Privacy Policy"}
+          {t("privacy")}
         </Link>
       </Typography>
     </Box>

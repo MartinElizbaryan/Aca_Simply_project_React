@@ -9,8 +9,10 @@ import SearchInput from "../../Inputs/SearchInput/SearchInput"
 import { useFetch } from "../../../../hooks/useFetch"
 import { useDebounce } from "../../../../hooks/useDebounce"
 import useStyles from "./styles"
+import { useTranslation } from "react-i18next"
 
 export default function Sidebar({ handleCategoryChange }) {
+  const { t } = useTranslation()
   const { data, error, loading } = useFetch("/categories")
   const [searchParams, setSearchParams] = useSearchParams()
   const [type, setType] = useState(searchParams.get("type") || "")
@@ -60,7 +62,6 @@ export default function Sidebar({ handleCategoryChange }) {
   const handleTypesButtonClick = () => {
     setOpenTypes(!openTypes)
   }
-
   return (
     <List component="nav">
       <ListItemButton onClick={handleSearchButtonClick} className={classes.button}>

@@ -11,6 +11,7 @@ import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import MenuItem from "@mui/material/MenuItem"
 import UploadButtons from "../Shared/Inputs/Upload"
 import { useFetch } from "../../hooks/useFetch"
+
 import useStyles from "./style"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import api from "../../api/api"
@@ -101,6 +102,7 @@ export default function MyPostsEdit() {
       }
     }
   }
+
   return (
     <Grid container spacing={0} mt={10}>
       <MyPostsEditModal deleteConfirmer={deleteConfirmer} handleClose={handleClose} open={open} />
