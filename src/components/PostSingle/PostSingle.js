@@ -29,8 +29,12 @@ import "swiper/css/navigation"
 import "swiper/css/thumbs"
 import CardMedia from "@mui/material/CardMedia"
 import api from "../../api/api"
+import { useSelector } from "react-redux"
+
+import { getUserInfo } from "../../redux/userSelectors"
 
 export default function PostSingle() {
+  const auth = useSelector(getUserInfo)
   const classes = useStyles()
   const { id } = useParams()
   const [post, setPost] = useState({})
@@ -129,7 +133,9 @@ export default function PostSingle() {
               }}
             >
               <HeartButton post={post} />
-              <Link url="/chat/1" content={<BlueButton>Start chat</BlueButton>} />
+              {post?.user_id != auth.id && (
+                <Link url="/chat/1" content={<BlueButton>Start chat</BlueButton>} />
+              )}
             </CardActions>
           </Card>
         </Box>

@@ -85,7 +85,6 @@ export default function CreatePost() {
   })
 
   window.formik = formik
-  console.log(previewSource)
   return (
     <form onSubmit={formik.handleSubmit}>
       <Grid container spacing={0} mt={1}>
