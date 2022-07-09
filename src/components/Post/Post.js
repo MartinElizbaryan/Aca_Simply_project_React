@@ -75,7 +75,7 @@ export default function Post({
           {post.name}
         </Typography>
         <Typography variant="p" component="p" color="text.dark" mb={3}>
-          {t("Category")}: {post.category.name}
+          {t("Category")}: {t(post.category.name)}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {post.description.slice(0, 120) + "..."}

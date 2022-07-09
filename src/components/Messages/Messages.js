@@ -7,8 +7,10 @@ import jwt_decode from "jwt-decode"
 import socket from "../../helpers/socket"
 import useStyles from "./styles"
 import { useParams } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 function Messages() {
+  const { t } = useTranslation()
   const { id } = useParams()
   const [messages, setMessages] = useState([])
   const [message, setMessage] = useState("")
@@ -91,7 +93,7 @@ function Messages() {
       <Box display="flex" alignItems="center">
         <InputBase
           sx={{ ml: 1, flex: 1 }}
-          placeholder="Type..."
+          placeholder={t("Type_placeholder")}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyUp={(e) => {

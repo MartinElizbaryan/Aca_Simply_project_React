@@ -51,7 +51,7 @@ export default function SignIn() {
       } catch (e) {
         console.log(e)
         setOpen(true)
-        setErrMessage(e.response.data.details)
+        setErrMessage(t(e.response.data.details))
       }
     },
   })
@@ -101,7 +101,7 @@ export default function SignIn() {
             </DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description" style={{ textAlign: "center" }}>
-                {t("Your")} {errMessage}. <br />
+                {t("Your")} {errMessage} <br />
                 {t("Pls_Try_Again")}
               </DialogContentText>
             </DialogContent>

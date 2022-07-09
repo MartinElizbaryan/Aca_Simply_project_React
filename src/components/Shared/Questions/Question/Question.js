@@ -19,7 +19,7 @@ export default function Quetion({ questionIndex, question, formik }) {
           <TextField
             className={classes.input}
             fullWidth
-            label={t("Question Title")}
+            label={t("Question_Title")}
             variant="outlined"
             size="normal"
             // name={name}

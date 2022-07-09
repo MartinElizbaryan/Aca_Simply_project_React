@@ -66,7 +66,7 @@ export default function Sidebar({ handleCategoryChange }) {
     <List component="nav">
       <ListItemButton onClick={handleSearchButtonClick} className={classes.button}>
         {openSearch ? <ExpandMore /> : <ChevronRightIcon />}
-        <ListItemText primary="Search" sx={{ paddingLeft: 1 }} />
+        <ListItemText primary={t("Search")} sx={{ paddingLeft: 1 }} />
       </ListItemButton>
       <Collapse in={openSearch} timeout="auto" unmountOnExit>
         <ListItem sx={{ pl: 4 }}>
@@ -80,7 +80,7 @@ export default function Sidebar({ handleCategoryChange }) {
       </Collapse>
       <ListItemButton onClick={handleTypesButtonClick} className={classes.button}>
         {openTypes ? <ExpandMore /> : <ChevronRightIcon />}
-        <ListItemText primary="Types" sx={{ paddingLeft: 1 }} />
+        <ListItemText primary={t("Types")} sx={{ paddingLeft: 1 }} />
       </ListItemButton>
       <Collapse in={openTypes} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
@@ -89,7 +89,8 @@ export default function Sidebar({ handleCategoryChange }) {
               return (
                 <ListItemWithRadio
                   sx={{ pl: 4 }}
-                  label={type}
+                  type={type}
+                  label={t(type)}
                   key={type}
                   onChange={(e) => setType(e.target.value)}
                 />
@@ -100,7 +101,7 @@ export default function Sidebar({ handleCategoryChange }) {
       </Collapse>
       <ListItemButton onClick={handleCategoriesButtonClick} className={classes.button}>
         {openCategories ? <ExpandMore /> : <ChevronRightIcon />}
-        <ListItemText primary="Categories" sx={{ paddingLeft: 1 }} />
+        <ListItemText primary={t("Categories")} sx={{ paddingLeft: 1 }} />
       </ListItemButton>
       <Collapse in={openCategories} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
@@ -108,7 +109,8 @@ export default function Sidebar({ handleCategoryChange }) {
             return (
               <ListItemWithCheckbox
                 sx={{ pl: 4 }}
-                label={category.name}
+                category={category.name}
+                label={t(category.name)}
                 key={category.id}
                 onChange={(e) => handleCategoryChange(e, category.id)}
               />

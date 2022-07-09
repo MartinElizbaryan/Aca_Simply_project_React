@@ -1,7 +1,7 @@
 import { FormControl, FormControlLabel, FormGroup, ListItemButton, Radio } from "@mui/material"
 // import useStyles from "./styles"
 
-export const ListItemWithRadio = ({ label, onChange, ...props }) => {
+export const ListItemWithRadio = ({ label, type, onChange, ...props }) => {
   // const classes = useStyles()
   return (
     <ListItemButton dense {...props}>
@@ -17,7 +17,7 @@ export const ListItemWithRadio = ({ label, onChange, ...props }) => {
       >
         <FormGroup>
           <FormControlLabel
-            control={<Radio size="small" value={label} onChange={onChange} />}
+            control={<Radio size="small" value={type} onChange={onChange} />}
             label={label}
           />
         </FormGroup>

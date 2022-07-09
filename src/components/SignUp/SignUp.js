@@ -45,7 +45,7 @@ export default function SignUp() {
         setOpen(false)
       } catch (e) {
         setOpen(true)
-        setErrMessage(e.response.data.details)
+        setErrMessage(t(e.response.data.details))
         console.log(e)
       }
     },
@@ -132,8 +132,8 @@ export default function SignUp() {
             </DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description" style={{ textAlign: "center" }}>
-                {t("Your")} Your {errMessage}. <br />
-                {t("Pls_Try_Again")}.
+                {t("Your")} {errMessage} <br />
+                {t("Pls_Try_Again")}
               </DialogContentText>
             </DialogContent>
             <DialogActions style={{ display: "flex", justifyContent: "center" }}>
