@@ -10,8 +10,10 @@ import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import { sendMessage } from "./utils"
 import { colors } from "../../constants/styles"
 import useStyles from "./styles"
+import { useTranslation } from "react-i18next"
 
 export default function Contact() {
+  const { t } = useTranslation()
   const [name, setName] = useState("")
   const [surname, setSurname] = useState("")
   const [email, setEmail] = useState("")
@@ -23,47 +25,47 @@ export default function Contact() {
   return (
     <Container className={classes.container} maxWidth={false}>
       <Typography variant="h4" className={classes.header}>
-        Contact us
+        {t("Contact_us")}
       </Typography>
       <Stack spacing={{ xs: 3, sm: 10, md: 20 }} direction={{ xs: "column", sm: "row" }}>
         <Stack>
           <Typography variant="body1">
-            Do you have any questions or issues? Check the
+            {t("have_questions")}
             <Link url="/faq" color={colors.darkBlue} content=" FAQs " />
-            or describe your problem in the form below.
+            {t("describe_question")}
           </Typography>
           <Grid container spacing={2} p={3}>
             <Grid item xs={12} sm={6}>
               <OutlinedInput
-                label="First Name"
+                label={t("Name")}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               ></OutlinedInput>
             </Grid>
             <Grid item xs={12} sm={6}>
               <OutlinedInput
-                label="Last Name"
+                label={t("Surname")}
                 value={surname}
                 onChange={(e) => setSurname(e.target.value)}
               ></OutlinedInput>
             </Grid>
             <Grid item xs={12}>
               <OutlinedInput
-                label="Email"
+                label={t("Email")}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               ></OutlinedInput>
             </Grid>
             <Grid item xs={12}>
               <OutlinedInput
-                label="Subject"
+                label={t("Subject")}
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
               ></OutlinedInput>
             </Grid>
             <Grid item xs={12}>
               <OutlinedInput
-                label="Message"
+                label={t("Message")}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 multiline
@@ -77,34 +79,32 @@ export default function Contact() {
                 onClick={() => sendMessage({ name, surname, email, subject, message })}
               >
                 <SendIcon sx={{ paddingRight: 2 }} />
-                Send
+                {t("Send")}
               </GreenButton>
             </Grid>
           </Grid>
         </Stack>
         <Stack>
-          <Typography variant="subtitle1">Other ways to contact us:</Typography>
+          <Typography variant="subtitle1">{t("Other_ways")}</Typography>
           <Grid container spacing={4} p={3}>
             <Grid item xs={12}>
               <Stack direction="row" spacing={2} className={classes.info}>
                 <HomeIcon />
-                <Typography variant="body1">Visit us</Typography>
+                <Typography variant="body1">{t("Visit_us")}</Typography>
               </Stack>
-              <Typography variant="caption">
-                203 Fake St. Mountain View, San Francisco, California, USA
-              </Typography>
+              <Typography variant="caption">{t("fake_address")}</Typography>
             </Grid>
             <Grid item xs={12}>
               <Stack direction="row" spacing={2} className={classes.info}>
                 <CallIcon />
-                <Typography variant="body1">Call us</Typography>
+                <Typography variant="body1">{t("Call_us")}</Typography>
               </Stack>
               <Typography variant="caption">+374-33-613-003</Typography>
             </Grid>
             <Grid item xs={12}>
               <Stack direction="row" spacing={2} className={classes.info}>
                 <EmailIcon />
-                <Typography variant="body1">Email us</Typography>
+                <Typography variant="body1">{t("Email_us")}</Typography>
               </Stack>
               <Typography variant="caption">lost.list.found@gmail.com</Typography>
             </Grid>

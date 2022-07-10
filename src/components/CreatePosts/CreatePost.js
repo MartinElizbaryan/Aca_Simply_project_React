@@ -18,8 +18,25 @@ import { validationSchema } from "./validationSchema"
 import { useFetch } from "../../hooks/useFetch"
 import CardMedia from "@mui/material/CardMedia"
 import DeleteIcon from "@mui/icons-material/Delete"
+import { useTranslation } from "react-i18next"
 
 export default function CreatePost() {
+  const { t } = useTranslation()
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      description: "",
+      category_id: "",
+      type: "",
+      address: "",
+      questions: [],
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      await sendToServerHendler(values, previewSource)
+      navigate("/profile/my-posts")
+    },
+  })
   // Styles
   const classes = useStyles()
   // Categories and Post Types
@@ -68,24 +85,7 @@ export default function CreatePost() {
   }
   // Formik - Validation and Submit
   const navigate = useNavigate()
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      description: "",
-      category_id: "",
-      type: "",
-      address: "",
-      questions: [],
-    },
-    validationSchema: validationSchema,
-    onSubmit: async (values) => {
-      await sendToServerHendler(values, previewSource)
-      navigate("/profile/my-posts")
-    },
-  })
-
   window.formik = formik
-  console.log(previewSource)
   return (
     <form onSubmit={formik.handleSubmit}>
       <Grid container spacing={0} mt={1}>
@@ -144,7 +144,7 @@ export default function CreatePost() {
                 <TextField
                   className={classes.input}
                   fullWidth
-                  label="Post Title"
+                  label={t("Post_Title")}
                   variant="outlined"
                   size="normal"
                   onChange={formik.handleChange}
@@ -158,7 +158,7 @@ export default function CreatePost() {
                 <TextField
                   className={classes.input}
                   fullWidth
-                  label="Address"
+                  label={t("Address")}
                   variant="outlined"
                   size="normal"
                   name="address"
@@ -172,7 +172,7 @@ export default function CreatePost() {
                 <TextField
                   className={classes.input}
                   fullWidth
-                  label="Post Type"
+                  label={t("Post_Type")}
                   variant="outlined"
                   size="normal"
                   select
@@ -199,7 +199,7 @@ export default function CreatePost() {
                 <TextField
                   className={classes.input}
                   fullWidth
-                  label="Categories"
+                  label={t("Categories")}
                   variant="outlined"
                   size="normal"
                   select
@@ -226,7 +226,7 @@ export default function CreatePost() {
                 <TextField
                   className={classes.input}
                   fullWidth
-                  label="Description"
+                  label={t("Description")}
                   variant="outlined"
                   size="normal"
                   multiline
@@ -278,7 +278,7 @@ export default function CreatePost() {
               <Grid item xs={12} md={6} lg={12} display="flex" alignItems="center">
                 <AddButton onClick={addQuestionList} />{" "}
                 <Typography variant="span" ml={3}>
-                  Add Question
+                  {t("Add_Question")}
                 </Typography>
               </Grid>
             </Grid>
@@ -291,7 +291,7 @@ export default function CreatePost() {
             <Grid container spacing={2} p={2}>
               <Grid item xs={8} sm={6} md={4}>
                 <GreenButton className={classes.button} type="submit">
-                  Save Changes
+                  {t("Save_Changes")}
                 </GreenButton>
               </Grid>
             </Grid>

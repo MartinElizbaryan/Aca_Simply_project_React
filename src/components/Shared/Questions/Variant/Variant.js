@@ -4,8 +4,10 @@ import { TextField } from "@mui/material"
 import useStyles from "../Question/style"
 import Radios from "../Radios/Radios"
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 export default function Variant({ answers, questionIndex, formik }) {
+  const { t } = useTranslation()
   const [variant, setVariant] = useState("")
   const [error, setError] = useState("")
   console.log(formik.errors)
@@ -17,7 +19,7 @@ export default function Variant({ answers, questionIndex, formik }) {
       ])
       setError("")
     } else {
-      setError("Variant can't be empty")
+      setError(t("Variant_empty"))
     }
 
     setVariant("")
@@ -32,7 +34,7 @@ export default function Variant({ answers, questionIndex, formik }) {
             <TextField
               className={classes.input}
               fullWidth
-              label="Variant Title"
+              label={t("Variant_Title")}
               variant="outlined"
               name="variant"
               onChange={(e) => setVariant(e.target.value)}
