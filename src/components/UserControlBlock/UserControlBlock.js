@@ -15,13 +15,16 @@ import api from "../../api/api"
 import socket from "../../helpers/socket"
 import { Notifications as NotificationsIcon, NotificationsActive } from "@mui/icons-material"
 import { Notifications } from "../Notifications/Notifications"
+import { useTranslation } from "react-i18next"
 
 export default function UserControlBlock() {
+  const { t } = useTranslation()
   const [profileAnchorEl, setProfileAnchorEl] = useState(null)
   const [notificationAnchorEl, setNotificationAnchorEl] = useState(null)
   const user = useSelector(getUserInfo)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
   const [messageCount, setMessageCount] = useState([])
   const [notificationsCount, setNotificationsCount] = useState([])
 
@@ -30,7 +33,7 @@ export default function UserControlBlock() {
       const messagesInfo = await api.get("/messages/unread")
       setMessageCount(messagesInfo.data._count.id)
       const notificationsInfo = await api.get("/notifications/unread")
-      setNotificationsCount(notificationsInfo.data._count.id)
+      setNotificationsCount(notificationsInfo.data.count)
     })()
   }, [])
 
@@ -39,11 +42,8 @@ export default function UserControlBlock() {
       const messagesInfo = await api.get("/messages/unread")
       setMessageCount(messagesInfo.data._count.id)
     })
-    socket.on("receiveNotification", ({ unread }) => {
-      setNotificationsCount(unread)
-    })
-    socket.on("receiveUpdatedNotifications", ({ unread }) => {
-      setNotificationsCount(unread)
+    socket.on("receiveNotification", ({ count }) => {
+      setNotificationsCount(count)
     })
   }, [])
 
@@ -83,13 +83,14 @@ export default function UserControlBlock() {
     <>
       <TransparentButton onClick={handleNotificationClick}>
         <Badge badgeContent={notificationsCount} color="primary">
-          {messageCount ? <NotificationsActive /> : <NotificationsIcon />}
+          {notificationsCount ? <NotificationsActive /> : <NotificationsIcon />}
         </Badge>
       </TransparentButton>
       <Notifications
         open={Boolean(notificationAnchorEl)}
         anchorEl={notificationAnchorEl}
         handleNotificationClose={handleNotificationClose}
+        changeNotificationsCount={setNotificationsCount}
       />
       <Link
         url="/chat"
@@ -116,13 +117,13 @@ export default function UserControlBlock() {
           <ListItemIcon>
             <PersonIcon fontSize="small" />
           </ListItemIcon>
-          My Profile
+          {t("My_Profile")}
         </MenuItem>
         <MenuItem onClick={handleSignOutClick}>
           <ListItemIcon>
             <LogoutIcon fontSize="small" />
           </ListItemIcon>
-          Sign Out
+          {t("Sign_Out")}
         </MenuItem>
       </Menu>
     </>

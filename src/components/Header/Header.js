@@ -10,10 +10,12 @@ import { navlist } from "./constants"
 import { getUserAuth } from "../../redux/userSelectors"
 import { colors } from "../../constants/styles.js"
 import useStyles from "./styles"
+import { useTranslation } from "react-i18next"
 
 const UserControlBlock = lazy(() => import("../UserControlBlock/UserControlBlock"))
 
 export default function Header() {
+  const { t } = useTranslation()
   const classes = useStyles()
   const auth = useSelector(getUserAuth)
 
@@ -33,7 +35,7 @@ export default function Header() {
         >
           {navlist?.map((item, index) => {
             return (
-              <Link url={item.route} color={colors.white} key={item.name} content={item.name} />
+              <Link url={item.route} color={colors.white} key={item.name} content={t(item.name)} />
             )
           })}
         </Stack>
@@ -54,7 +56,7 @@ export default function Header() {
               content={
                 <TransparentButton>
                   <LoginIcon />
-                  <Typography ml={2}>Sign In</Typography>
+                  <Typography ml={2}>{t("Sign_In")}</Typography>
                 </TransparentButton>
               }
               color="white"

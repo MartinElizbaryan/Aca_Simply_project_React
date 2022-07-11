@@ -35,11 +35,17 @@ import "./App.css"
 import connectToSocket from "./helpers/connectToSocket"
 
 const Chat = lazy(() => import("./components/Chat/Chat"))
+import { initReactI18next } from "react-i18next"
+import i18n from "i18next"
+import { useTranslation } from "react-i18next"
 
 function App() {
+  //const { t } = useTranslation()
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
   useEffect(() => {
+    const language = localStorage.getItem("language")
+    i18n.changeLanguage(language)
     const getMe = async () => {
       try {
         const res = await api.get("/users/me")
@@ -57,64 +63,71 @@ function App() {
     getMe()
   }, [])
 
+  const onChange = (event) => {
+    //i18n.changeLanguage(eve)
+  }
+
   return (
     <>
-      <Router history={history}>
-        <Routes>
-          <Route path="/" element={<Main />}>
-            <Route index element={<Home />} />
-            <Route exact path="/posts" element={<Posts />} />
-            <Route exact path="/posts/:id" element={<PostSingle />} />
-            <Route exact path="/contact" element={<Contact />} />
-            <Route exact path="/faq" element={<FAQ />} />
-            <Route exact path="/privacy" element={<Privacy />} />
-            <Route exact path="/terms-conditions" element={<TermsAndConditions />} />
-            <Route path="*" element={<PageNotFound />} />
+      <Suspense fallback="Loading...">
+        <Router history={history}>
+          <Routes>
+            <Route path="/" element={<Main />}>
+              <Route index element={<Home />} />
+              <Route exact path="/posts" element={<Posts />} />
+              <Route exact path="/post/:id" element={<PostSingle />} />
+              <Route exact path="/contact" element={<Contact />} />
+              <Route exact path="/faq" element={<FAQ />} />
+              <Route exact path="/privacy" element={<Privacy />} />
+              <Route exact path="/terms-conditions" element={<TermsAndConditions />} />
+              <Route path="*" element={<PageNotFound />} />
 
-            <Route path="/" element={<UnauthorizedUserPrivateRoute />}>
-              <Route exact path="/signin" element={<RegistrationLogin />} />
-              <Route exact path="/signup" element={<RegistrationLogin />} />
-              <Route exact path="/forgot-password" element={<RegistrationLogin />} />
+              <Route path="/" element={<UnauthorizedUserPrivateRoute />}>
+                <Route exact path="/signin" element={<RegistrationLogin />} />
+                <Route exact path="/signup" element={<RegistrationLogin />} />
+                <Route exact path="/forgot-password" element={<RegistrationLogin />} />
+              </Route>
+
+              <Route path="/" element={<AuthorizedUserPrivateRoute />}>
+                <Route
+                  exact
+                  path="/chat"
+                  element={
+                    <Suspense fallback={<div>Loading</div>}>
+                      <Chat />
+                    </Suspense>
+                  }
+                />
+
+                <Route
+                  exact
+                  path="/chat/:id"
+                  element={
+                    <Suspense fallback={<div>Loading</div>}>
+                      <Chat />
+                    </Suspense>
+                  }
+                />
+
+                <Route exact path="/profile" element={<Profile />} />
+                <Route exact path="/profile/create-post" element={<CreatePost />} />
+                <Route exact path="/profile/my-posts" element={<MyPosts />} />
+                <Route exact path="/profile/my-posts/:id" element={<MyPostsEdit />} />
+                <Route exact path="/profile/confirmed-posts" element={<ConfirmedPosts />} />
+                <Route exact path="/profile/favorite-posts" element={<FavoritePosts />} />
+                <Route exact path="/profile/change-password" element={<ChangePassword />} />
+              </Route>
+
+              <Route path="/" element={<AdminPrivateRoute />}>
+                <Route exact path="/profile/pending-posts" element={<PendingPosts />} />
+                <Route exact path="/profile/faq" element={<AdminFAQ />} />
+                <Route exact path="/profile/faq/create" element={<AdminFAQCreate />} />
+                <Route exact path="/profile/faq/:id" element={<AdminFAQEdit />} />
+              </Route>
             </Route>
-
-            <Route path="/" element={<AuthorizedUserPrivateRoute />}>
-              <Route
-                exact
-                path="/chat"
-                element={
-                  <Suspense fallback={<div>Loading</div>}>
-                    <Chat />
-                  </Suspense>
-                }
-              />
-
-              <Route
-                exact
-                path="/chat/:id"
-                element={
-                  <Suspense fallback={<div>Loading</div>}>
-                    <Chat />
-                  </Suspense>
-                }
-              />
-              <Route exact path="/profile" element={<Profile />} />
-              <Route exact path="/profile/create-post" element={<CreatePost />} />
-              <Route exact path="/profile/my-posts" element={<MyPosts />} />
-              <Route exact path="/profile/my-posts/:id" element={<MyPostsEdit />} />
-              <Route exact path="/profile/confirmed-posts" element={<ConfirmedPosts />} />
-              <Route exact path="/profile/favorite-posts" element={<FavoritePosts />} />
-              <Route exact path="/profile/change-password" element={<ChangePassword />} />
-            </Route>
-
-            <Route path="/" element={<AdminPrivateRoute />}>
-              <Route exact path="/profile/pending-posts" element={<PendingPosts />} />
-              <Route exact path="/profile/faq" element={<AdminFAQ />} />
-              <Route exact path="/profile/faq/create" element={<AdminFAQCreate />} />
-              <Route exact path="/profile/faq/:id" element={<AdminFAQEdit />} />
-            </Route>
-          </Route>
-        </Routes>
-      </Router>
+          </Routes>
+        </Router>
+      </Suspense>
     </>
   )
 }

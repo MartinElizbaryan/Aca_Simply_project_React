@@ -7,8 +7,10 @@ import useStyles from "./style"
 import DeleteIcon from "@mui/icons-material/Delete"
 import TextField from "@mui/material/TextField"
 import Variant from "../Variant/Variant"
+import { useTranslation } from "react-i18next"
 
 export default function Quetion({ questionIndex, question, formik }) {
+  const { t } = useTranslation()
   const classes = useStyles()
   return (
     <Box>
@@ -17,7 +19,7 @@ export default function Quetion({ questionIndex, question, formik }) {
           <TextField
             className={classes.input}
             fullWidth
-            label="Quetion Title"
+            label={t("Question_Title")}
             variant="outlined"
             size="normal"
             // name={name}

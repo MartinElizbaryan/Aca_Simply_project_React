@@ -12,8 +12,10 @@ import { useFormik } from "formik"
 import { validationSchema } from "./vaildation"
 import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
 import { changePassword } from "./utils"
+import { useTranslation } from "react-i18next"
 
 export default function ChangePassword() {
+  const { t } = useTranslation()
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
   const { info } = useSelector((state) => state.user)
@@ -56,7 +58,7 @@ export default function ChangePassword() {
             <Typography variant="body1">{getUserFullName(info)}</Typography>
           </Grid>
           <Typography variant="body2" pt={3}>
-            Enter your current password along with a new one to change it.
+            {t("enter_your_pass")}
           </Typography>
           <form onSubmit={formik.handleSubmit} id="editForm" className={classes.form}>
             <Stack sx={{ margin: "auto", marginTop: 5 }} spacing={4}>
@@ -67,7 +69,7 @@ export default function ChangePassword() {
                 }}
               >
                 <Grid item xs={5} className={classes.label}>
-                  <Typography variant="caption">Current Password</Typography>
+                  <Typography variant="caption">{t("Current_Password")}</Typography>
                 </Grid>
                 <Grid item>
                   <PasswordInput
@@ -86,7 +88,7 @@ export default function ChangePassword() {
                 }}
               >
                 <Grid item xs={5} className={classes.label}>
-                  <Typography variant="caption">New Password</Typography>
+                  <Typography variant="caption">{t("New_Password")}</Typography>
                 </Grid>
                 <Grid item>
                   <PasswordInput
@@ -105,7 +107,7 @@ export default function ChangePassword() {
                 }}
               >
                 <Grid item xs={5} className={classes.label}>
-                  <Typography variant="caption">Confirm Password</Typography>
+                  <Typography variant="caption">{t("Confirm_Password")}</Typography>
                 </Grid>
                 <Grid item>
                   <PasswordInput
@@ -118,17 +120,15 @@ export default function ChangePassword() {
                 </Grid>
               </Stack>
               <Grid item xs={12} sx={{ textAlign: "start" }}>
-                <GreenButton type="submit">Change Password</GreenButton>
+                <GreenButton type="submit">{t("Change Password")}</GreenButton>
               </Grid>
             </Stack>
           </form>
         </Paper>
         {success && (
-          <SuccessAlert message={"Your password has been changed!"} onClose={onSuccessAlertClose} />
+          <SuccessAlert message={t("Your_password_changed")} onClose={onSuccessAlertClose} />
         )}
-        {error && (
-          <ErrorAlert message={"Oops! Something went wrong!"} onClose={onErrorAlertClose} />
-        )}
+        {error && <ErrorAlert message={t("oops_went_wrong")} onClose={onErrorAlertClose} />}
       </Grid>
     </Grid>
   )
