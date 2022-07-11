@@ -3,7 +3,6 @@ import { Box, Divider, Grid, IconButton, InputBase, List } from "@mui/material"
 import SendIcon from "@mui/icons-material/Send"
 import Message from "../Message/Message"
 import api from "../../api/api"
-import jwt_decode from "jwt-decode"
 import socket from "../../helpers/socket"
 import useStyles from "./styles"
 import { useParams } from "react-router-dom"
@@ -64,17 +63,13 @@ function Messages() {
       await socket.emit("send", {
         data,
       })
+
       setMessages((messages) => [...messages, data])
       setError("")
       setMessage("")
     } catch (e) {
       setError(e.response.data.details[0].message)
     }
-  }
-
-  const createRoom = () => {
-    const { id: authId } = jwt_decode(localStorage.getItem("accessToken"))
-    return id > authId ? `${authId}_${id}` : `${id}_${authId}`
   }
 
   return (
