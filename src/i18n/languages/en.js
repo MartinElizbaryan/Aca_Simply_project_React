@@ -101,6 +101,11 @@ const en = {
   FAQ: "FAQ",
   Start_chat: "Start chat",
   Send_Answers: "Send Answers",
+  "About us": "About us",
+  inspire_Header: "Inspiring Quote by Our Team",
+  inspire_Text1: "The best products are developed by teams with desire to solve a problem,",
+  inspire_Text2: "not a company’s need to fulfill a strategy.",
+  who_we_are: "Who we are?",
 }
 
 export default en

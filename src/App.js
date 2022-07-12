@@ -20,6 +20,7 @@ import AdminFAQ from "./components/AdminFAQ/AdminFAQ"
 import AdminFAQCreate from "./components/AdminFAQCreate/AdminFAQCreate"
 import AdminFAQEdit from "./components/AdminFAQEdit/AdminFAQEdit"
 import Contact from "./components/Contact/Contact"
+import AboutUs from "./components/AboutUs/AboutUs"
 import api from "./api/api"
 import history from "./helpers/history"
 import Privacy from "./components/Privacy/Privacy"
@@ -77,6 +78,7 @@ function App() {
               <Route exact path="/posts" element={<Posts />} />
               <Route exact path="/post/:id" element={<PostSingle />} />
               <Route exact path="/contact" element={<Contact />} />
+              <Route exact path="/about" element={<AboutUs />} />
               <Route exact path="/faq" element={<FAQ />} />
               <Route exact path="/privacy" element={<Privacy />} />
               <Route exact path="/terms-conditions" element={<TermsAndConditions />} />
