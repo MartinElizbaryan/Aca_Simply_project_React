@@ -5,8 +5,11 @@ import Message from "../Message/Message"
 import api from "../../api/api"
 import socket from "../../helpers/socket"
 import useStyles from "./styles"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+
+import { useSelector } from "react-redux"
+import { getUserInfo } from "../../redux/userSelectors"
 
 function Messages() {
   const { t } = useTranslation()
@@ -18,7 +21,14 @@ function Messages() {
   const list = useRef(null)
   const classes = useStyles()
 
+  const authInfo = useSelector(getUserInfo)
+  const navigate = useNavigate()
+
   useEffect(() => {
+    if (+id === authInfo.id) {
+      navigate("/profile")
+    }
+
     ;(async () => {
       const res = await api.get(`/messages/${id}`)
       console.log(res.data.messages)
