@@ -33,11 +33,9 @@ import {
 import "./App.css"
 // import Chat from "./components/Chat/Chat"
 import connectToSocket from "./helpers/connectToSocket"
+import i18n from "i18next"
 
 const Chat = lazy(() => import("./components/Chat/Chat"))
-import { initReactI18next } from "react-i18next"
-import i18n from "i18next"
-import { useTranslation } from "react-i18next"
 
 function App() {
   //const { t } = useTranslation()
@@ -75,7 +73,7 @@ function App() {
             <Route path="/" element={<Main />}>
               <Route index element={<Home />} />
               <Route exact path="/posts" element={<Posts />} />
-              <Route exact path="/post/:id" element={<PostSingle />} />
+              <Route exact path="/posts/:id" element={<PostSingle />} />
               <Route exact path="/contact" element={<Contact />} />
               <Route exact path="/faq" element={<FAQ />} />
               <Route exact path="/privacy" element={<Privacy />} />

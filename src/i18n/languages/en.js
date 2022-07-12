@@ -94,13 +94,17 @@ const en = {
   Devices: "Devices",
   Others: "Others",
   Type_placeholder: "Type...",
-  "email/password is invalid": `email/password is invalid.`,
+  "email/password is invalid": "email/password is invalid.",
   "user not found": "user not found",
   "email is not confirmed": "email is not confirmed",
   "email address is already used": "email address is already used",
   FAQ: "FAQ",
   Start_chat: "Start chat",
   Send_Answers: "Send Answers",
+  It_is_mine: "It's mine",
+  I_found: "I found",
+  confirmed_by_yourself: "Confirmed by yourself",
+  already_confirmed: "Already confirmed",
 }
 
 export default en

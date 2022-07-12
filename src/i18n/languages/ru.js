@@ -94,13 +94,17 @@ const ru = {
   Devices: "Устройства",
   Others: "Другие",
   Type_placeholder: "Введите...",
-  "email/password is invalid": `электронная почта/пароль недействительны.`,
+  "email/password is invalid": "электронная почта/пароль недействительны.",
   "user not found": "пользователь не найден",
   "email is not confirmed": "электронная почта не подтверждена.",
   "email address is already used": "адрес электронной почты уже используется",
   FAQ: "ЧЗВ",
   Start_chat: "Начать чат",
   Send_Answers: "Отправить ответы",
+  It_is_mine: "It's mine",
+  I_found: "I have found",
+  confirmed_by_yourself: "Ընտրված է Ձեր կողմից",
+  already_confirmed: "Already confirmed",
 }
 
 export default ru

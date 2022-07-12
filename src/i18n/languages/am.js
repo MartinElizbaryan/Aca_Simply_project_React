@@ -94,13 +94,17 @@ const am = {
   Devices: "Սարքավորումներ",
   Others: "Այլ",
   Type_placeholder: "Գրեք...",
-  "email/password is invalid": `էլ.փոստը/գաղտնաբառը սխալ է գրված:`,
+  "email/password is invalid": "էլ.փոստը/գաղտնաբառը սխալ է գրված:",
   "user not found": "օգտատերը չի գտնվել",
   "email is not confirmed": "էլ.փոստ-ով չեք հաստատել գրանցումը:",
   "email address is already used": "էլ․ հասցեն արդեն գործածված է:",
   FAQ: "ՀՏՀ",
   Start_chat: "Սկսել չատը",
   Send_Answers: "Ուղարկել պատասխաններ",
+  It_is_mine: "Դա իմն է",
+  I_found: "Ես գտել եմ",
+  confirmed_by_yourself: "Ընտրված է Ձեր կողմից",
+  already_confirmed: "Արդեն հաստատված է",
 }
 
 export default am
