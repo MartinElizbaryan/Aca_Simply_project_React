@@ -28,9 +28,7 @@ const Chat = () => {
 
   useEffect(() => {
     socket.on("onlineUsers", (users) => {
-      // console.log("chat useffect", users)
       setOnlineUsers(users)
-      // console.log(onlineUsers)
     })
 
     socket.on("chatUsersUpdate", async () => {

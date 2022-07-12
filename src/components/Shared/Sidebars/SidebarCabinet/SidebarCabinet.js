@@ -1,22 +1,19 @@
-import { List, ListSubheader, Paper } from "@mui/material"
+import { List, Paper } from "@mui/material"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import ArticleIcon from "@mui/icons-material/Article"
 import FactCheckIcon from "@mui/icons-material/FactCheck"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
-import QuestionMarkIcon from "@mui/icons-material/QuestionMark"
 import KeyIcon from "@mui/icons-material/Key"
 import { ListItemWithIcon } from "../../ListItems/ListItemWithIcon/ListItemWithIcon"
 import useStyles from "./styles"
-import { useDispatch, useSelector } from "react-redux"
 import Box from "@mui/material/Box"
 import { useTranslation } from "react-i18next"
+import AdminSidebar from "../AdminSidebar/AdminSidebar"
 
 export default function SidebarCabinet() {
   const { t } = useTranslation()
   const classes = useStyles()
-  const dispatch = useDispatch()
-  const { auth, info } = useSelector((state) => state.user)
 
   return (
     <Box>
@@ -45,17 +42,7 @@ export default function SidebarCabinet() {
             title={t("Change_Password")}
           />
 
-          {info.is_admin && (
-            <>
-              <ListItemWithIcon
-                url="/profile/pending-posts"
-                icon={<KeyIcon />}
-                title={t("Pending_Posts")}
-              />
-
-              <ListItemWithIcon url="/profile/faq" icon={<QuestionMarkIcon />} title={t("FAQ")} />
-            </>
-          )}
+          <AdminSidebar />
         </List>
       </Paper>
     </Box>
