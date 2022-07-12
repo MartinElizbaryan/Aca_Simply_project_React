@@ -102,10 +102,12 @@ const en = {
   Start_chat: "Start chat",
   Send_Answers: "Send Answers",
   "About us": "About us",
-  inspire_Header: "Inspiring Quote by Our Team",
-  inspire_Text1: "The best products are developed by teams with desire to solve a problem,",
-  inspire_Text2: "not a company’s need to fulfill a strategy.",
+  inspire_Header: "Inspiring Quote from Our Team",
+  inspire_Text1: "Team need to have a sense of unity that goes through developmental stages. ",
   who_we_are: "Who we are?",
+  meet_us: `
+  Meet us! The team of creatively developers. Our 4 members are so different but when we get united we're starting to undestand each other by one word. All of us are so purposeful and we are confident in our colleague's skills. It takes extraordinary leadership to assemble great teams. We don't have a team lead but we manage everything. As a team we understand the importance for technical tasks like e.g. performance, security and scalability.`,
+  last_line: "P.S. We learned a lot from each other and of course we had so much fun :)",
 }
 
 export default en

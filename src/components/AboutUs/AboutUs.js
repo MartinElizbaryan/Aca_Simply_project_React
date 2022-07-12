@@ -33,16 +33,15 @@ export default function AboutUs() {
         </Typography>
         <Box>
           <Typography className={classes.contant}>{t("inspire_Header")}</Typography>
-          <Typography className={classes.miniText2}>
-            &quot; {t("inspire_Text1")} <br></br> {t("inspire_Text2")} &quot;
-          </Typography>
+          <Typography className={classes.miniText2}>&quot; {t("inspire_Text1")} &quot;</Typography>
         </Box>
       </Box>
       <Typography className={classes.contant}>{t("who_we_are")}</Typography>
       <Typography className={classes.miniText}>
-        {`
-        Meet us! The team of creatively developers. It takes extraordinary leadership to assemble great teams. We don't have a team lead but we manage everything for the most part. As a team we understand the importance for technical tasks like e.g. performance, security and scalability.
-        `}
+        {t("meet_us")}
+        <br></br>
+        <br></br>
+        {t("last_line")}
       </Typography>
 
       <Box sx={{ width: "100%", height: "100%" }}>

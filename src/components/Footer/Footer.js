@@ -32,7 +32,6 @@ export default function Footer() {
     setLanguage(event.target.value)
     i18n.changeLanguage(event.target.value)
     localStorage.setItem("language", event.target.value)
-    console.log(event.target.value)
   }
 
   return (
@@ -66,7 +65,12 @@ export default function Footer() {
             </Grid>
           </Stack>
           <Box sx={{ minWidth: 120 }}>
-            <Select value={language} onChange={handleChange} className={classes.languagesBox}>
+            <Select
+              value={language ? language : "en"}
+              onChange={handleChange}
+              className={classes.languagesBox}
+              defaultValue={{ label: "English", value: "en" }}
+            >
               <MenuItem value={"en"}>English</MenuItem>
               <MenuItem value={"ru"}>Russian</MenuItem>
               <MenuItem value={"am"}>Armenian</MenuItem>
