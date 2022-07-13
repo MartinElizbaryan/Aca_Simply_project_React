@@ -1,32 +1,31 @@
-import React, { useState } from "react"
-import logo from "../../assets/logo-white.svg"
+import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import {
+  Box,
   Container,
   Divider,
   Grid,
   IconButton,
+  MenuItem,
+  Select,
   Stack,
   Typography,
-  Box,
-  InputLabel,
-  MenuItem,
-  FormControl,
-  Select,
 } from "@mui/material"
-import FacebookIcon from "@mui/icons-material/Facebook"
-import LinkedInIcon from "@mui/icons-material/LinkedIn"
-import InstagramIcon from "@mui/icons-material/Instagram"
+import { AM, GB, RU } from "country-flag-icons/react/3x2"
 import TwitterIcon from "@mui/icons-material/Twitter"
-import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
-import { colors } from "../../constants/styles"
-import useStyles from "./styles"
-import { useTranslation } from "react-i18next"
+import LinkedInIcon from "@mui/icons-material/LinkedIn"
+import FacebookIcon from "@mui/icons-material/Facebook"
+import InstagramIcon from "@mui/icons-material/Instagram"
+import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
+import logo from "../../assets/logo-white.svg"
 import i18n from "../../i18n/languages/translations/translations"
+import useStyles from "./styles"
+import { colors } from "../../constants/styles"
 
 export default function Footer() {
   const { t } = useTranslation()
   const classes = useStyles()
-  const [language, setLanguage] = useState(localStorage.getItem("language"))
+  const [language, setLanguage] = useState(localStorage.getItem("language") || "en")
 
   const handleChange = (event) => {
     setLanguage(event.target.value)
@@ -64,16 +63,17 @@ export default function Footer() {
               </IconButton>
             </Grid>
           </Stack>
-          <Box sx={{ minWidth: 120 }}>
-            <Select
-              value={language ? language : "en"}
-              onChange={handleChange}
-              className={classes.languagesBox}
-              defaultValue={{ label: "English", value: "en" }}
-            >
-              <MenuItem value={"en"}>English</MenuItem>
-              <MenuItem value={"ru"}>Russian</MenuItem>
-              <MenuItem value={"am"}>Armenian</MenuItem>
+          <Box className={classes.languagesBox}>
+            <Select value={language} onChange={handleChange} className={classes.languagesSelect}>
+              <MenuItem value={"am"}>
+                <AM />
+              </MenuItem>
+              <MenuItem value={"ru"}>
+                <RU />
+              </MenuItem>
+              <MenuItem value={"en"}>
+                <GB />
+              </MenuItem>
             </Select>
           </Box>
         </Grid>
@@ -87,14 +87,12 @@ export default function Footer() {
           alignItems="center"
         >
           <Link url="/faq" content={t("FAQ")} color={colors.white} variant="caption" />
-          {/*<Divider orientation="vertical" flexItem />*/}
           <Link
             url="/terms-conditions"
             content={t("terms")}
             color={colors.white}
             variant="caption"
           />
-          {/*<Divider orientation="vertical" flexItem />*/}
           <Link url="/privacy" content={t("privacy")} color={colors.white} variant="caption" />
         </Stack>
       </Container>

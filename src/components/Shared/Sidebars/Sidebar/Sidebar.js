@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
-import { Collapse, List, ListItem, ListItemButton, ListItemText, RadioGroup } from "@mui/material"
+import {
+  Collapse,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  RadioGroup,
+} from "@mui/material"
 import { ExpandMore } from "@mui/icons-material"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import { ListItemWithCheckbox } from "../../ListItems/ListItemWithCheckbox/ListItemWithCheckbox"
@@ -10,19 +18,20 @@ import { useFetch } from "../../../../hooks/useFetch"
 import { useDebounce } from "../../../../hooks/useDebounce"
 import useStyles from "./styles"
 import { useTranslation } from "react-i18next"
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined"
 
-export default function Sidebar({ handleCategoryChange }) {
+export default function Sidebar({ handleCategoryChange, onClose }) {
   const { t } = useTranslation()
   const { data, error, loading } = useFetch("/categories")
   const [searchParams, setSearchParams] = useSearchParams()
   const [type, setType] = useState(searchParams.get("type") || "")
   const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "")
   const [categories, setCategories] = useState([])
-  const [openSearch, setOpenSearch] = useState(true)
   const [openTypes, setOpenTypes] = useState(true)
   const [openCategories, setOpenCategories] = useState(true)
   const debouncedSearchTerm = useDebounce(searchTerm, 1000)
   const classes = useStyles()
+
   useEffect(() => {
     setCategories(data.categories)
   }, [data])
@@ -51,10 +60,6 @@ export default function Sidebar({ handleCategoryChange }) {
     setType(typeQuery)
   }, [searchParams])
 
-  const handleSearchButtonClick = () => {
-    setOpenSearch(!openSearch)
-  }
-
   const handleCategoriesButtonClick = () => {
     setOpenCategories(!openCategories)
   }
@@ -62,22 +67,22 @@ export default function Sidebar({ handleCategoryChange }) {
   const handleTypesButtonClick = () => {
     setOpenTypes(!openTypes)
   }
+
   return (
     <List component="nav">
-      <ListItemButton onClick={handleSearchButtonClick} className={classes.button}>
-        {openSearch ? <ExpandMore /> : <ChevronRightIcon />}
-        <ListItemText primary={t("Search")} sx={{ paddingLeft: 1 }} />
+      <ListItemButton className={classes.button}>
+        <IconButton onClick={onClose}>
+          <CloseOutlinedIcon />
+        </IconButton>
       </ListItemButton>
-      <Collapse in={openSearch} timeout="auto" unmountOnExit>
-        <ListItem sx={{ pl: 4 }}>
-          <SearchInput
-            value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value)
-            }}
-          />
-        </ListItem>
-      </Collapse>
+      <ListItem sx={{ pl: 4 }}>
+        <SearchInput
+          value={searchTerm}
+          onChange={(e) => {
+            setSearchTerm(e.target.value)
+          }}
+        />
+      </ListItem>
       <ListItemButton onClick={handleTypesButtonClick} className={classes.button}>
         {openTypes ? <ExpandMore /> : <ChevronRightIcon />}
         <ListItemText primary={t("Types")} sx={{ paddingLeft: 1 }} />

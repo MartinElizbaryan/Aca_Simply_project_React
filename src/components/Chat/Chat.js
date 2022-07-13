@@ -45,9 +45,9 @@ const Chat = () => {
 
   return (
     <Box
-      mt={10}
+      mt={9}
       sx={{
-        height: "calc(100% - 80px)",
+        height: "calc(100% - 72px)",
       }}
     >
       <Grid container component={Paper} className={classes.chatSection}>
@@ -80,7 +80,7 @@ const Chat = () => {
             </>
           )}
           <SwipeableDrawer
-            anchor="top"
+            anchor="left"
             open={open}
             onClose={toggleDrawer(false)}
             onOpen={toggleDrawer(true)}

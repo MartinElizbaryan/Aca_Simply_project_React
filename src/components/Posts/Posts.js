@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState } from "react"
 import { useSearchParams } from "react-router-dom"
-import { Box, Container, Grid, Stack } from "@mui/material"
+import { Box, Container, Grid } from "@mui/material"
 import DefaultPagination from "../Shared/Pagination/DefaultPagination/DefaultPagination"
 import PostsSceleton from "../PostsSceleton/PostsSceleton"
-import Sidebar from "../Shared/Sidebars/Sidebar/Sidebar"
 import PostsList from "../PostsList/PostsList"
 import { useFetch } from "../../hooks/useFetch"
 import { getParamsFromFiltering } from "./utils"
@@ -11,6 +10,7 @@ import { scrollToTop } from "../../helpers/utils"
 import { POST_PER_PAGE } from "./constants"
 import { colors } from "../../constants/styles"
 import useStyles from "./styles"
+import SidebarMobile from "../Shared/Sidebars/SidebarMobile/SidebarMobile"
 
 export default function Posts() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -26,6 +26,7 @@ export default function Posts() {
     }),
     [searchParams, categories]
   )
+
   const { data, error, loading } = useFetch("/posts", "get", config)
   const [page, setPage] = useState(1)
   const [posts, setPosts] = useState([])
@@ -55,40 +56,50 @@ export default function Posts() {
       [id]: e.target.checked,
     })
   }
+  const [open, setOpen] = useState(false)
+
+  const toggleDrawer = (open) => () => {
+    setOpen(open)
+  }
 
   return (
     <Container className={classes.container} maxWidth={false}>
-      <Stack direction="row">
-        <Box
-          sx={{
-            display: {
-              xs: "none",
-              md: "block",
-            },
-          }}
-          className={classes.sidebar}
-        >
-          <Sidebar handleCategoryChange={handleCategoryChange} />
+      {/*<FilterListOutlinedIcon />*/}
+      {/*<Box*/}
+      {/*  sx={{*/}
+      {/*    display: {*/}
+      {/*      xs: "none",*/}
+      {/*      md: "block",*/}
+      {/*    },*/}
+      {/*  }}*/}
+      {/*  className={classes.sidebar}*/}
+      {/*>*/}
+      {/*  <Sidebar handleCategoryChange={handleCategoryChange} />*/}
+      {/*</Box>*/}
+      {/*<Box*/}
+      {/*  sx={{*/}
+      {/*    display: {*/}
+      {/*      xs: "block",*/}
+      {/*      md: "none",*/}
+      {/*    },*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*<SidebarMobile />*/}
+      {/*</Box>*/}
+      <Grid
+        item
+        xs={12}
+        md={9}
+        sx={{ backgroundColor: colors.grey, width: "100%", height: "100%" }}
+      >
+        <SidebarMobile open={open} toggleDrawer={toggleDrawer} />
+        <Box mt={5} mb={5} sx={{ marginLeft: open ? "250px" : 0 }}>
+          {loading ? <PostsSceleton /> : <PostsList title="Posts" data={posts} />}
         </Box>
-        <Box
-          sx={{
-            display: {
-              xs: "block",
-              md: "none",
-            },
-          }}
-        >
-          {/*<SidebarMobile />*/}
-        </Box>
-        <Grid item xs={12} md={9} sx={{ backgroundColor: colors.grey, width: "100%" }}>
-          <Box mt={5} mb={5}>
-            {loading ? <PostsSceleton /> : <PostsList title="Posts" data={posts} />}
-          </Box>
-          {!!pageCount && (
-            <DefaultPagination onChange={handlePageClick} page={page} count={pageCount} />
-          )}
-        </Grid>
-      </Stack>
+        {!!pageCount && (
+          <DefaultPagination onChange={handlePageClick} page={page} count={pageCount} />
+        )}
+      </Grid>
     </Container>
   )
 }

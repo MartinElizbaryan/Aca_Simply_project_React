@@ -7,8 +7,18 @@ const useStyles = createUseStyles({
     backgroundColor: colors.blue,
     paddingBottom: "2px",
   },
+  languagesSelect: {
+    "&>div": {
+      width: "20px",
+      padding: "7px 25px 5px 10px !important",
+    },
+    "&>svg": {
+      right: 0,
+    },
+  },
   languagesBox: {
-    marginTop: 20,
+    display: "flex",
+    alignItems: "center",
   },
 })
 export default useStyles

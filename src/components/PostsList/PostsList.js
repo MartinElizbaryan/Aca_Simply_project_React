@@ -14,8 +14,8 @@ export default function PostsList({
   ColsCount = 4,
 }) {
   return (
-    <Container size="md">
-      <Grid container spacing={2}>
+    <Container sx={{ marginBottom: "40px" }}>
+      <Grid container spacing={2} sx={{ marginTop: 0 }}>
         {data?.map((post, index) => {
           return (
             <Grid item xs={12} sm={6} lg={ColsCount} key={post.id}>

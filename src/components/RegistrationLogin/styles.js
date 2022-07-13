@@ -21,7 +21,7 @@ const useStyles = createUseStyles({
     backgroundColor: colors.white,
     boxShadow: "0 6px 16px 0 rgb(0 0 0 / 20%)",
     borderRadius: 10,
-    ["@media (min-width:780px)"]: {
+    ["@media (min-width:600px)"]: {
       width: 400,
     },
   },

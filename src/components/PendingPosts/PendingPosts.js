@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react"
-import { Grid } from "@mui/material"
-import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
 import { useFetch } from "../../hooks/useFetch"
 import api from "../../api/api"
 import Box from "@mui/material/Box"
@@ -26,27 +24,19 @@ export default function PendingPosts() {
   }
 
   return (
-    <Grid container spacing={0} mt={10}>
-      <SidebarCabinet />
-
-      {/*<SidebarMobileCabinet />*/}
-
-      <Grid item xs={12} md={9}>
-        <Box mt={5} mb={5}>
-          {loading ? (
-            <PostsSceleton />
-          ) : (
-            <PostsList
-              title="My posts"
-              data={posts}
-              changeable
-              admin
-              deletePost={deletePost}
-              trustPost={trustPost}
-            />
-          )}
-        </Box>
-      </Grid>
-    </Grid>
+    <Box mb={5}>
+      {loading ? (
+        <PostsSceleton />
+      ) : (
+        <PostsList
+          title="My posts"
+          data={posts}
+          changeable
+          admin
+          deletePost={deletePost}
+          trustPost={trustPost}
+        />
+      )}
+    </Box>
   )
 }

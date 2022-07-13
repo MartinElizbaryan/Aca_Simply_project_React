@@ -1,12 +1,12 @@
 import React from "react"
 import { List } from "@mui/material"
-import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
+import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import ChatUserInfo from "../ChatUserInfo/ChatUserInfo"
 import { colors } from "../../constants/styles"
 
 function ChatUserInfoBlock({ id, users, onlineUsers, onClick }) {
   return (
-    <List onClick={onClick}>
+    <List onClick={onClick} sx={{ minWidth: 200 }}>
       {users.map((user) => {
         const isActive = onlineUsers.includes(user.id)
         return (
