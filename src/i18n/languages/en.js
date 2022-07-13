@@ -108,7 +108,7 @@ const en = {
   inspire_Text1: "The team needs to have a sense of unity that goes through developmental stages. ",
   who_we_are: "Who we are?",
   meet_us: `
-  Meet us! The team of creative developers. Our four members are so different, but when we get united, we start to understand each other by one word. All of us are purposeful and confident in our colleague's skills. It takes extraordinary leadership to assemble great teams. While we don't have a team lead, we manage everything due to our great sense of responsibility and dedication. As a team, we understand the importance of technical tasks like, e.g., performance, security, and scalability`,
+  Meet us! The team of creative developers. Our four members are so different, but when we get united, we start to understand each other by one word. All of us are purposeful and confident in our colleague's skills. It takes extraordinary leadership to assemble great teams. While we don't have a team lead, we manage everything due to our great sense of responsibility and dedication. As a team, we understand the importance of technical tasks like, e.g., performance, security, and scalability.`,
   last_line: "P.S. We learned a lot from each other and, of course, we had so much fun :)",
   It_is_mine: "It's mine",
   I_found: "I have found it",
