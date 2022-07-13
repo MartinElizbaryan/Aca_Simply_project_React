@@ -27,11 +27,11 @@ export default function Sidebar({ handleCategoryChange, onClose }) {
   const [type, setType] = useState(searchParams.get("type") || "")
   const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "")
   const [categories, setCategories] = useState([])
-  const [openSearch, setOpenSearch] = useState(true)
   const [openTypes, setOpenTypes] = useState(true)
   const [openCategories, setOpenCategories] = useState(true)
   const debouncedSearchTerm = useDebounce(searchTerm, 1000)
   const classes = useStyles()
+
   useEffect(() => {
     setCategories(data.categories)
   }, [data])
@@ -60,10 +60,6 @@ export default function Sidebar({ handleCategoryChange, onClose }) {
     setType(typeQuery)
   }, [searchParams])
 
-  const handleSearchButtonClick = () => {
-    setOpenSearch(!openSearch)
-  }
-
   const handleCategoriesButtonClick = () => {
     setOpenCategories(!openCategories)
   }
@@ -71,25 +67,22 @@ export default function Sidebar({ handleCategoryChange, onClose }) {
   const handleTypesButtonClick = () => {
     setOpenTypes(!openTypes)
   }
+
   return (
     <List component="nav">
-      <ListItemButton onClick={handleSearchButtonClick} className={classes.button}>
-        {openSearch ? <ExpandMore /> : <ChevronRightIcon />}
-        <ListItemText primary={t("Search")} sx={{ paddingLeft: 1 }} />
+      <ListItemButton className={classes.button}>
         <IconButton onClick={onClose}>
           <CloseOutlinedIcon />
         </IconButton>
       </ListItemButton>
-      <Collapse in={openSearch} timeout="auto" unmountOnExit>
-        <ListItem sx={{ pl: 4 }}>
-          <SearchInput
-            value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value)
-            }}
-          />
-        </ListItem>
-      </Collapse>
+      <ListItem sx={{ pl: 4 }}>
+        <SearchInput
+          value={searchTerm}
+          onChange={(e) => {
+            setSearchTerm(e.target.value)
+          }}
+        />
+      </ListItem>
       <ListItemButton onClick={handleTypesButtonClick} className={classes.button}>
         {openTypes ? <ExpandMore /> : <ChevronRightIcon />}
         <ListItemText primary={t("Types")} sx={{ paddingLeft: 1 }} />

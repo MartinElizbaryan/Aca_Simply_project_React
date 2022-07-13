@@ -51,12 +51,21 @@ export default function PostSingle() {
     setQuestions(data.post?.questions)
   }, [data])
 
+  const showConfirmer = () => {
+    const version = {
+      [post?.confirmer_id]: <div>{t("already_confirmed")}</div>,
+      [auth.id]: <div>{t("confirmed_by_yourself")}</div>,
+      null: (
+        <BlueButton onClick={toConfirm}>
+          {post?.type === "FOUND" ? t("It_is_mine") : t("I_found")}
+        </BlueButton>
+      ),
+    }
+
+    return version[post?.confirmer_id]
+  }
+
   const sendAnswers = async () => {
-    // const textMessage = `Dimum em ${}`
-    // questions.forEach((question) => {
-    //   textMessage += `Question`
-    // })
-    //
     await api.post("messages/send-answers", {
       post_title: post.name,
       user_id: +post.user_id,
@@ -64,6 +73,17 @@ export default function PostSingle() {
     })
     console.log("good")
     navigate(`/chat/${post.user_id}`)
+  }
+
+  const toConfirm = async () => {
+    try {
+      const response = await api.patch(`/posts/confirmed/${id}`)
+      if (response.status === 200) {
+        setPost({ ...post, confirmer_id: auth.id })
+      }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   const handelAnswer = (e, questionIndex, answerIndex) => {
@@ -137,12 +157,15 @@ export default function PostSingle() {
             >
               <HeartButton post={post} />
               {post?.user_id != auth.id && (
-                <Link url="/chat/1" content={<BlueButton>{t("Start_chat")}</BlueButton>} />
+                <>
+                  {showConfirmer()}
+
+                  <Link url="/chat/1" content={<BlueButton>{t("Start_chat")}</BlueButton>} />
+                </>
               )}
             </CardActions>
           </Card>
         </Box>
-
         <div>
           {questions?.map((question, questionIndex) => {
             return (
@@ -173,7 +196,6 @@ export default function PostSingle() {
             )
           })}
         </div>
-
         <GreenButton onClick={sendAnswers}>{t("Send_Answers")}</GreenButton>
       </Container>
     )

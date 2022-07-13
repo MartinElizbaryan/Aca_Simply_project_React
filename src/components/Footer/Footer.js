@@ -25,7 +25,7 @@ import { colors } from "../../constants/styles"
 export default function Footer() {
   const { t } = useTranslation()
   const classes = useStyles()
-  const [language, setLanguage] = useState(localStorage.getItem("language"))
+  const [language, setLanguage] = useState(localStorage.getItem("language") || "en")
 
   const handleChange = (event) => {
     setLanguage(event.target.value)

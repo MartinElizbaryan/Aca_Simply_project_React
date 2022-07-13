@@ -48,11 +48,11 @@ export default function RegistrationLogin() {
       <Typography className={classes.policyText}>
         {t("By_signing")}
         <Link href="terms-conditions" underline="none" target="_blank">
-          {t("terms")}
+          {t("withTerms")}
         </Link>{" "}
         {t("and")}
         <Link href="privacy" underline="none" target="_blank">
-          {t("privacy")}
+          {t("withPrivacy")}
         </Link>
       </Typography>
     </Box>

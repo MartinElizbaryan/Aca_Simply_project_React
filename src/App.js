@@ -1,6 +1,12 @@
-import React, { lazy, Suspense, useEffect, useState } from "react"
+import { lazy, Suspense, useEffect, useState } from "react"
+import i18n from "i18next"
 import { useDispatch } from "react-redux"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import {
+  AdminPrivateRoute,
+  AuthorizedUserPrivateRoute,
+  UnauthorizedUserPrivateRoute,
+} from "./routes/PrivateRoutes"
 import Main from "./components/Main/Main"
 import Home from "./components/Home/Home"
 import MyPosts from "./components/MyPosts/MyPosts"
@@ -19,21 +25,15 @@ import AdminFAQ from "./components/AdminFAQ/AdminFAQ"
 import AdminFAQCreate from "./components/AdminFAQCreate/AdminFAQCreate"
 import AdminFAQEdit from "./components/AdminFAQEdit/AdminFAQEdit"
 import Contact from "./components/Contact/Contact"
+import AboutUs from "./components/AboutUs/AboutUs"
+import Privacy from "./components/Privacy/Privacy"
+import Account from "./components/Account/Account"
+import Terms from "./components/Terms/Terms"
 import api from "./api/api"
 import history from "./helpers/history"
-import Privacy from "./components/Privacy/Privacy"
-import TermsAndConditions from "./components/TermsAndConditions/TermsAndConditions"
-import { deleteUserInfo, setUserInfo } from "./redux/userSlice"
-import {
-  AdminPrivateRoute,
-  AuthorizedUserPrivateRoute,
-  UnauthorizedUserPrivateRoute,
-} from "./routes/PrivateRoutes"
-import "./App.css"
-// import Chat from "./components/Chat/Chat"
 import connectToSocket from "./helpers/connectToSocket"
-import i18n from "i18next"
-import Account from "./components/Account/Account"
+import { deleteUserInfo, setUserInfo } from "./redux/userSlice"
+import "./App.css"
 
 const Chat = lazy(() => import("./components/Chat/Chat"))
 
@@ -71,9 +71,10 @@ function App() {
               <Route exact path="/posts" element={<Posts />} />
               <Route exact path="/posts/:id" element={<PostSingle />} />
               <Route exact path="/contact" element={<Contact />} />
+              <Route exact path="/about" element={<AboutUs />} />
               <Route exact path="/faq" element={<FAQ />} />
               <Route exact path="/privacy" element={<Privacy />} />
-              <Route exact path="/terms-conditions" element={<TermsAndConditions />} />
+              <Route exact path="/terms-conditions" element={<Terms />} />
               <Route path="*" element={<PageNotFound />} />
 
               <Route path="/" element={<UnauthorizedUserPrivateRoute />}>

@@ -20,7 +20,7 @@ import { TransparentButton } from "../Buttons/TransparentButton/TransparentButto
 import { navlist } from "../../Header/constants"
 import socket from "../../../helpers/socket"
 import { signOut } from "../../Header/utils"
-import { getUserInfo } from "../../../redux/userSelectors"
+import { getUserAuth, getUserInfo } from "../../../redux/userSelectors"
 import { deleteUserInfo } from "../../../redux/userSlice"
 import { colors } from "../../../constants/styles.js"
 
@@ -31,6 +31,7 @@ export default function NavigationMobile() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const user = useSelector(getUserInfo)
+  const auth = useSelector(getUserAuth)
 
   const toggleDrawer = (open) => () => {
     setOpen(open)
@@ -70,26 +71,37 @@ export default function NavigationMobile() {
       >
         <Box sx={{ width: 200 }} role="presentation">
           <List component="div" disablePadding>
-            <ListItemButton sx={{ padding: 2 }} onClick={toggleOpenProfile}>
-              <AccountCircle />
-              <Typography ml={2}>{user.name}</Typography>
-            </ListItemButton>
-            <Collapse in={openProfile} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ padding: 2, paddingLeft: 4 }} onClick={handleMyProfileClick}>
-                  <ListItemIcon>
-                    <PersonIcon fontSize="small" />
-                  </ListItemIcon>
-                  {t("My_Profile")}
+            {auth && (
+              <>
+                <ListItemButton sx={{ padding: 2 }} onClick={toggleOpenProfile}>
+                  <AccountCircle />
+                  <Typography ml={2}>{user.name}</Typography>
                 </ListItemButton>
-                <ListItemButton sx={{ padding: 2, paddingLeft: 4 }} onClick={handleSignOutClick}>
-                  <ListItemIcon>
-                    <LogoutIcon fontSize="small" />
-                  </ListItemIcon>
-                  {t("Sign_Out")}
-                </ListItemButton>
-              </List>
-            </Collapse>
+                <Collapse in={openProfile} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    <ListItemButton
+                      sx={{ padding: 2, paddingLeft: 4 }}
+                      onClick={handleMyProfileClick}
+                    >
+                      <ListItemIcon>
+                        <PersonIcon fontSize="small" />
+                      </ListItemIcon>
+                      {t("My_Profile")}
+                    </ListItemButton>
+                    <ListItemButton
+                      sx={{ padding: 2, paddingLeft: 4 }}
+                      onClick={handleSignOutClick}
+                    >
+                      <ListItemIcon>
+                        <LogoutIcon fontSize="small" />
+                      </ListItemIcon>
+                      {t("Sign_Out")}
+                    </ListItemButton>
+                  </List>
+                </Collapse>
+              </>
+            )}
+
             {navlist?.map((link, index) => {
               return (
                 <Link
