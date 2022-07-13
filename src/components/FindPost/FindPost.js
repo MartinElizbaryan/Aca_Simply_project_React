@@ -5,7 +5,7 @@ import SearchIcon from "@mui/icons-material/Search"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import { WhiteInput } from "../Shared/Inputs/Input"
 import { colors } from "../../constants/styles"
-import useStyles from "./style"
+import useStyles from "./styles"
 import { useTranslation } from "react-i18next"
 
 export default function FindPost() {
@@ -31,7 +31,7 @@ export default function FindPost() {
               {t("Find_item")}
             </Typography>
             <Grid container spacing={2} mt={2} alignItems="center">
-              <Grid item xs={12} sm={6} md={6}>
+              <Grid item xs={12} sm={6} md={7}>
                 <WhiteInput
                   label={t("Name_Desc")}
                   variant="filled"
@@ -53,7 +53,7 @@ export default function FindPost() {
                   <MenuItem value={"FOUND"}>{t("Found")}</MenuItem>
                 </WhiteInput>
               </Grid>
-              <Grid item xs={12} sm={12} md={3}>
+              <Grid item xs={12} sm={12} md={2}>
                 <GreenButton size="large" onClick={findPost}>
                   <SearchIcon sx={{ paddingRight: 1 }} />
                   {t("Find_post")}

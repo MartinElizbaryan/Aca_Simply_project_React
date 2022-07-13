@@ -1,6 +1,6 @@
 import * as yup from "yup"
 
-export const validationSchema = yup.object().shape({
+export const validation = yup.object().shape({
   name: yup
     .string("Enter Title")
     .min(3, "Title should be of minimum 3 characters length")

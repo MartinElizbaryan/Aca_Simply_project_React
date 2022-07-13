@@ -1,42 +1,32 @@
-import { useState } from "react"
 import Box from "@mui/material/Box"
-import SwipeableDrawer from "@mui/material/SwipeableDrawer"
-import Button from "@mui/material/Button"
-import FilterAltIcon from "@mui/icons-material/FilterAlt"
 import Sidebar from "../Sidebar/Sidebar"
+import { Drawer } from "@mui/material"
+import Button from "@mui/material/Button"
+import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined"
 
-export default function SidebarMobile() {
-  const [state, setState] = useState({
-    left: false,
-  })
-
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (event && event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
-      return
-    }
-
-    setState({ ...state, [anchor]: open })
-  }
-
-  const list = (anchor) => (
-    <Box sx={{ width: 250 }} role="presentation" onKeyDown={toggleDrawer(anchor, false)}>
-      <Sidebar />
+export default function SidebarMobile({ open, toggleDrawer }) {
+  const list = () => (
+    <Box sx={{ width: 250 }} role="presentation">
+      <Sidebar onClose={toggleDrawer(false)} />
     </Box>
   )
 
   return (
     <div>
-      <Button onClick={toggleDrawer("left", true)}>
-        <FilterAltIcon /> Filtered list
+      <Button onClick={toggleDrawer(true)} variant="filled">
+        <FilterListOutlinedIcon /> Search and Filter
       </Button>
-      <SwipeableDrawer
+      <Drawer
+        variant="persistent"
         anchor={"left"}
-        open={state["left"]}
-        onClose={toggleDrawer("left", false)}
-        onOpen={toggleDrawer("left", true)}
+        open={open}
+        sx={{ width: 250 }}
+        onClose={toggleDrawer(false)}
       >
+        <Box sx={{ textAlign: "end" }}></Box>
+        {/*<Divider />*/}
         {list("left")}
-      </SwipeableDrawer>
+      </Drawer>
     </div>
   )
 }

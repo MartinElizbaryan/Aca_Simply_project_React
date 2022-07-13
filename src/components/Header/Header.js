@@ -3,8 +3,8 @@ import { useSelector } from "react-redux"
 import { AppBar, Box, Stack, Toolbar, Typography } from "@mui/material"
 import LoginIcon from "@mui/icons-material/Login"
 import { TransparentButton } from "../Shared/Buttons/TransparentButton/TransparentButton"
-import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
-import NavigationMobile from "../Shared/Navigation/NavigationMobile"
+import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
+import NavigationMobile from "../Shared/NavigationMobile/NavigationMobile"
 import { Logo } from "../Shared/Logo/Logo"
 import { navlist } from "./constants"
 import { getUserAuth } from "../../redux/userSelectors"
@@ -33,23 +33,23 @@ export default function Header() {
             },
           }}
         >
-          {navlist?.map((item, index) => {
+          {navlist?.map((link, index) => {
             return (
-              <Link url={item.route} color={colors.white} key={item.name} content={t(item.name)} />
+              <Link url={link.route} color={colors.white} key={link.name} content={t(link.name)} />
             )
           })}
         </Stack>
+        <Box
+          sx={{
+            display: {
+              xs: "block",
+              sm: "none",
+            },
+          }}
+        >
+          <NavigationMobile />
+        </Box>
         <Box display="flex" alignItems="center">
-          <Box
-            sx={{
-              display: {
-                xs: "block",
-                sm: "none",
-              },
-            }}
-          >
-            <NavigationMobile />
-          </Box>
           {!auth ? (
             <Link
               url="/signin"
@@ -62,7 +62,7 @@ export default function Header() {
               color="white"
             />
           ) : (
-            <Suspense fallback={<div>Loading</div>}>
+            <Suspense fallback={<div></div>}>
               <UserControlBlock />
             </Suspense>
           )}

@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
-import { Collapse, List, ListItem, ListItemButton, ListItemText, RadioGroup } from "@mui/material"
+import {
+  Collapse,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  RadioGroup,
+} from "@mui/material"
 import { ExpandMore } from "@mui/icons-material"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import { ListItemWithCheckbox } from "../../ListItems/ListItemWithCheckbox/ListItemWithCheckbox"
@@ -10,8 +18,9 @@ import { useFetch } from "../../../../hooks/useFetch"
 import { useDebounce } from "../../../../hooks/useDebounce"
 import useStyles from "./styles"
 import { useTranslation } from "react-i18next"
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined"
 
-export default function Sidebar({ handleCategoryChange }) {
+export default function Sidebar({ handleCategoryChange, onClose }) {
   const { t } = useTranslation()
   const { data, error, loading } = useFetch("/categories")
   const [searchParams, setSearchParams] = useSearchParams()
@@ -67,6 +76,9 @@ export default function Sidebar({ handleCategoryChange }) {
       <ListItemButton onClick={handleSearchButtonClick} className={classes.button}>
         {openSearch ? <ExpandMore /> : <ChevronRightIcon />}
         <ListItemText primary={t("Search")} sx={{ paddingLeft: 1 }} />
+        <IconButton onClick={onClose}>
+          <CloseOutlinedIcon />
+        </IconButton>
       </ListItemButton>
       <Collapse in={openSearch} timeout="auto" unmountOnExit>
         <ListItem sx={{ pl: 4 }}>

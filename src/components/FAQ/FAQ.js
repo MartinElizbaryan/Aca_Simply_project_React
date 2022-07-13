@@ -1,5 +1,5 @@
 import { Container, Stack, Typography } from "@mui/material"
-import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
+import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import { Question } from "../Shared/Accordions/Question/Question"
 import useStyles from "./styles"
 import { colors } from "../../constants/styles"
