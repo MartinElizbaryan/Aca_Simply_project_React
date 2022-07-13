@@ -11,12 +11,16 @@ const useStyles = createUseStyles({
     backgroundColor: colors.white,
     width: "100%",
     borderRadius: 12,
+    ["@media (max-width:600px)"]: {
+      width: 300,
+    },
   },
   central: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     marginBottom: 15,
+    justifyContent: "space-between",
   },
   central2: {
     display: "flex",
