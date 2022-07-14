@@ -4,10 +4,8 @@ import { useFetch } from "../../hooks/useFetch"
 import { useEffect, useState } from "react"
 import api from "../../api/api"
 import { Question } from "../Shared/Accordions/Question/Question"
-import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
-import Grid from "@mui/material/Grid"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
-import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
+import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import { useTranslation } from "react-i18next"
 
 export default function AdminFAQ() {
@@ -27,31 +25,26 @@ export default function AdminFAQ() {
 
   return (
     <>
-      <Grid container spacing={0} mt={10}>
-        <SidebarCabinet />
-        <Grid item xs={12} md={9}>
-          <Container className={classes.container} maxWidth={false}>
-            <Typography variant="h4" className={classes.header}>
-              FAQs
-            </Typography>
+      <Container className={classes.container} maxWidth={false}>
+        <Typography variant="h4" className={classes.header}>
+          FAQs
+        </Typography>
 
-            <Link url="/profile/faq/create" content={<BlueButton>{t("Create")}</BlueButton>} />
+        <Link url="/profile/faq/create" content={<BlueButton>{t("Create")}</BlueButton>} />
 
-            <Stack p={4} spacing={2}>
-              {faqs?.map((faq) => (
-                <Question
-                  key={faq.id}
-                  id={faq.id}
-                  question={faq.question}
-                  answer={faq.answer}
-                  editable
-                  deleteFAQ={deleteFAQ}
-                />
-              ))}
-            </Stack>
-          </Container>
-        </Grid>
-      </Grid>
+        <Stack p={4} spacing={2}>
+          {faqs?.map((faq) => (
+            <Question
+              key={faq.id}
+              id={faq.id}
+              question={faq.question}
+              answer={faq.answer}
+              editable
+              deleteFAQ={deleteFAQ}
+            />
+          ))}
+        </Stack>
+      </Container>
     </>
   )
 }

@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from "react"
-import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
-import SidebarMobileCabinet from "../Shared/Sidebars/SidebarMobileCabinet/SidebarMobileCabinet"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
-import Paper from "@mui/material/Paper"
 import { IconButton, ListItemIcon, TextField } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import DoneIcon from "@mui/icons-material/Done"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import MenuItem from "@mui/material/MenuItem"
-import UploadButtons from "../Shared/Inputs/Upload"
+import UploadButtons from "../Shared/Inputs/UploadInput/UploadInput"
 import { useFetch } from "../../hooks/useFetch"
 
 import useStyles from "./style"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import api from "../../api/api"
 import EmailIcon from "@mui/icons-material/Email"
-import MyPostsEditModal from "../MyPostsEditModal/MyPostsEditModal"
 import { useFormik } from "formik"
 import CardMedia from "@mui/material/CardMedia"
-import { IMAGE_BASE_URL } from "../../constants/cloudinery"
+import { IMAGE_BASE_URL } from "../../constants/cloudinary"
 import { removeCurrentImage, removeImage, updatePost } from "./utilits"
 import validationSchema from "./validationSchema"
 
@@ -104,241 +100,205 @@ export default function MyPostsEdit() {
   }
 
   return (
-    <Grid container spacing={0} mt={10}>
-      <MyPostsEditModal deleteConfirmer={deleteConfirmer} handleClose={handleClose} open={open} />
-      <Grid
-        item
-        xs={12}
-        md={3}
-        mt={11}
-        sx={{
-          padding: 2,
-        }}
-      >
-        <Paper elevation={2}>
-          <Box
-            sx={{
-              display: {
-                xs: "none",
-                md: "block",
-              },
-            }}
-          >
-            <SidebarCabinet />
-          </Box>
-          <Box
-            sx={{
-              display: {
-                xs: "block",
-                md: "none",
-              },
-            }}
-          >
-            <SidebarMobileCabinet />
-          </Box>
-        </Paper>
-      </Grid>
-      <Grid item xs={12} md={9} mt={6}>
-        <form onSubmit={formik.handleSubmit}>
-          <Box mt={5} mb={5}>
-            <Grid container spacing={2} p={2}>
-              {confirmerUser && (
-                <Grid item xs={6} mb={5}>
-                  Confirmed By {confirmerUser.name} {confirmerUser.surname}
-                  <IconButton aria-label="delete" color="error" onClick={handleOpen}>
-                    <DeleteIcon />
+    <Box>
+      {/*<MyPostsEditModal deleteConfirmer={deleteConfirmer} handleClose={handleClose} open={open} />*/}
+      <form onSubmit={formik.handleSubmit}>
+        <Grid container spacing={2} p={2}>
+          {confirmerUser && (
+            <Grid item xs={6} mb={5}>
+              Confirmed By {confirmerUser.name} {confirmerUser.surname}
+              <IconButton aria-label="delete" color="error" onClick={handleOpen}>
+                <DeleteIcon />
+              </IconButton>
+              <Link to={`/chat/${confirmerUser.id}`}>
+                <ListItemIcon>
+                  <IconButton aria-label="delete" color="primary">
+                    <EmailIcon />
                   </IconButton>
-                  <Link to={`/chat/${confirmerUser.id}`}>
-                    <ListItemIcon>
-                      <IconButton aria-label="delete" color="primary">
-                        <EmailIcon />
-                      </IconButton>
-                    </ListItemIcon>
-                  </Link>
-                  {!post?.completed && (
-                    <IconButton aria-label="delete" color="success" onClick={done}>
-                      <DoneIcon />
-                    </IconButton>
-                  )}
-                </Grid>
+                </ListItemIcon>
+              </Link>
+              {!post?.completed && (
+                <IconButton aria-label="delete" color="success" onClick={done}>
+                  <DoneIcon />
+                </IconButton>
               )}
+            </Grid>
+          )}
 
-              <Grid item xs={12}>
-                <TextField
-                  className={classes.input}
-                  fullWidth
-                  label="Post Title"
-                  variant="outlined"
-                  size="normal"
-                  onChange={formik.handleChange}
-                  value={formik.values.name}
-                  name="name"
-                  error={formik.touched.name && Boolean(formik.errors.name)}
-                  helperText={formik.touched.name && formik.errors.name}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  className={classes.input}
-                  fullWidth
-                  label="Address"
-                  variant="outlined"
-                  size="normal"
-                  name="address"
-                  onChange={formik.handleChange}
-                  value={formik.values.address}
-                  error={formik.touched.address && Boolean(formik.errors.address)}
-                  helperText={formik.touched.address && formik.errors.address}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  className={classes.input}
-                  fullWidth
-                  label="Type"
-                  variant="outlined"
-                  size="normal"
-                  select
-                  onChange={formik.handleChange}
-                  value={formik.values.type}
-                  name="type"
-                  error={formik.touched.type && Boolean(formik.errors.type)}
-                  helperText={formik.touched.type && formik.errors.type}
-                >
-                  {postTypes ? (
-                    postTypes.map((type) => {
-                      return (
-                        <MenuItem value={type.id} key={type.id}>
-                          {type.name}
-                        </MenuItem>
-                      )
-                    })
-                  ) : (
-                    <MenuItem value="none">None</MenuItem>
-                  )}
-                </TextField>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  className={classes.input}
-                  fullWidth
-                  label="Category"
-                  variant="outlined"
-                  size="normal"
-                  select
-                  name="category_id"
-                  onChange={formik.handleChange}
-                  value={formik.values.category_id}
-                  error={formik.touched.category_id && Boolean(formik.errors.category_id)}
-                  helperText={formik.touched.category_id && formik.errors.category_id}
-                >
-                  {categories ? (
-                    categories.map((cat) => {
-                      return (
-                        <MenuItem value={cat.id} key={cat.id}>
-                          {cat.name}
-                        </MenuItem>
-                      )
-                    })
-                  ) : (
-                    <MenuItem value="none">None</MenuItem>
-                  )}
-                </TextField>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  className={classes.input}
-                  fullWidth
-                  label="Description"
-                  variant="outlined"
-                  size="normal"
-                  multiline
-                  minRows={5}
-                  maxRows={10}
-                  name="description"
-                  onChange={formik.handleChange}
-                  value={formik.values.description}
-                  error={formik.touched.description && Boolean(formik.errors.description)}
-                  helperText={formik.touched.description && formik.errors.description}
-                />
-              </Grid>
-              <Grid item xs={12} md={6} lg={4} display="flex">
-                <UploadButtons
-                  handleFileInputChange={handleFileInputChange}
-                  fileInputState={fileInputState}
-                  multipleUpload={true}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Grid container spacing={2}>
-                  {images &&
-                    images.map((image, index) => {
-                      return (
-                        <Grid item xs={6} sm={3} key={index} textAlign={"center"}>
-                          <CardMedia
-                            component="img"
-                            height="200"
-                            image={IMAGE_BASE_URL + image.src}
-                            alt={IMAGE_BASE_URL + image.src}
-                            sx={{
-                              borderRadius: 5,
-                            }}
-                          />
-                          <IconButton aria-label="delete" size="large">
-                            <DeleteIcon
-                              fontSize="inherit"
-                              color="error"
-                              onClick={(e) => {
-                                removeCurrentImage({
-                                  setDeletedImages,
-                                  setImages,
-                                  image_index: index,
-                                  id: image.id,
-                                })
-                              }}
-                            />
-                          </IconButton>
-                        </Grid>
-                      )
-                    })}
-                  {previewSource &&
-                    previewSource.map((image, index) => {
-                      return (
-                        <Grid item xs={6} sm={3} key={index} textAlign={"center"}>
-                          <CardMedia
-                            component="img"
-                            height="200"
-                            image={image}
-                            alt={image}
-                            sx={{
-                              borderRadius: 5,
-                            }}
-                          />
-                          <IconButton aria-label="delete" size="large">
-                            <DeleteIcon
-                              fontSize="inherit"
-                              color="error"
-                              onClick={(e) => {
-                                removeImage({ setPreviewSource, image_index: index })
-                              }}
-                            />
-                          </IconButton>
-                        </Grid>
-                      )
-                    })}
-                </Grid>
-              </Grid>
+          <Grid item xs={12}>
+            <TextField
+              className={classes.input}
+              fullWidth
+              label="Post Title"
+              variant="outlined"
+              size="normal"
+              onChange={formik.handleChange}
+              value={formik.values.name}
+              name="name"
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              className={classes.input}
+              fullWidth
+              label="Address"
+              variant="outlined"
+              size="normal"
+              name="address"
+              onChange={formik.handleChange}
+              value={formik.values.address}
+              error={formik.touched.address && Boolean(formik.errors.address)}
+              helperText={formik.touched.address && formik.errors.address}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              className={classes.input}
+              fullWidth
+              label="Type"
+              variant="outlined"
+              size="normal"
+              select
+              onChange={formik.handleChange}
+              value={formik.values.type}
+              name="type"
+              error={formik.touched.type && Boolean(formik.errors.type)}
+              helperText={formik.touched.type && formik.errors.type}
+            >
+              {postTypes ? (
+                postTypes.map((type) => {
+                  return (
+                    <MenuItem value={type.id} key={type.id}>
+                      {type.name}
+                    </MenuItem>
+                  )
+                })
+              ) : (
+                <MenuItem value="none">None</MenuItem>
+              )}
+            </TextField>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              className={classes.input}
+              fullWidth
+              label="Category"
+              variant="outlined"
+              size="normal"
+              select
+              name="category_id"
+              onChange={formik.handleChange}
+              value={formik.values.category_id}
+              error={formik.touched.category_id && Boolean(formik.errors.category_id)}
+              helperText={formik.touched.category_id && formik.errors.category_id}
+            >
+              {categories ? (
+                categories.map((cat) => {
+                  return (
+                    <MenuItem value={cat.id} key={cat.id}>
+                      {cat.name}
+                    </MenuItem>
+                  )
+                })
+              ) : (
+                <MenuItem value="none">None</MenuItem>
+              )}
+            </TextField>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              className={classes.input}
+              fullWidth
+              label="Description"
+              variant="outlined"
+              size="normal"
+              multiline
+              minRows={5}
+              maxRows={10}
+              name="description"
+              onChange={formik.handleChange}
+              value={formik.values.description}
+              error={formik.touched.description && Boolean(formik.errors.description)}
+              helperText={formik.touched.description && formik.errors.description}
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={4} display="flex">
+            <UploadButtons
+              handleFileInputChange={handleFileInputChange}
+              fileInputState={fileInputState}
+              multipleUpload={true}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Grid container spacing={2}>
+              {images &&
+                images.map((image, index) => {
+                  return (
+                    <Grid item xs={6} sm={3} key={index} textAlign={"center"}>
+                      <CardMedia
+                        component="img"
+                        height="200"
+                        image={IMAGE_BASE_URL + image.src}
+                        alt={IMAGE_BASE_URL + image.src}
+                        sx={{
+                          borderRadius: 5,
+                        }}
+                      />
+                      <IconButton aria-label="delete" size="large">
+                        <DeleteIcon
+                          fontSize="inherit"
+                          color="error"
+                          onClick={(e) => {
+                            removeCurrentImage({
+                              setDeletedImages,
+                              setImages,
+                              image_index: index,
+                              id: image.id,
+                            })
+                          }}
+                        />
+                      </IconButton>
+                    </Grid>
+                  )
+                })}
+              {previewSource &&
+                previewSource.map((image, index) => {
+                  return (
+                    <Grid item xs={6} sm={3} key={index} textAlign={"center"}>
+                      <CardMedia
+                        component="img"
+                        height="200"
+                        image={image}
+                        alt={image}
+                        sx={{
+                          borderRadius: 5,
+                        }}
+                      />
+                      <IconButton aria-label="delete" size="large">
+                        <DeleteIcon
+                          fontSize="inherit"
+                          color="error"
+                          onClick={(e) => {
+                            removeImage({ setPreviewSource, image_index: index })
+                          }}
+                        />
+                      </IconButton>
+                    </Grid>
+                  )
+                })}
             </Grid>
-            <Grid container spacing={2} p={2}>
-              <Grid item xs={8} sm={6} md={4}>
-                <GreenButton className={classes.button} type="submit">
-                  Save Changes
-                </GreenButton>
-              </Grid>
-            </Grid>
-          </Box>
-        </form>
-      </Grid>
-    </Grid>
+          </Grid>
+        </Grid>
+        <Grid container spacing={2} p={2}>
+          <Grid item xs={8} sm={6} md={4}>
+            <GreenButton className={classes.button} type="submit">
+              Save Changes
+            </GreenButton>
+          </Grid>
+        </Grid>
+      </form>
+    </Box>
   )
 }

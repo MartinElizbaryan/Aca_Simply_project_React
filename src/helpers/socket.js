@@ -1,5 +1,7 @@
 import io from "socket.io-client"
 
-export const socket = io.connect("http://localhost:5000")
+console.log("oricessssss ", process.env.REACT_APP_SERVER_BASE_URL_WITHOUT_VERSION)
+
+export const socket = io.connect(process.env.REACT_APP_SERVER_BASE_URL_WITHOUT_VERSION)
 
 export default socket

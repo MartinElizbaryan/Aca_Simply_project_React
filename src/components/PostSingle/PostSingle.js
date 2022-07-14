@@ -4,7 +4,7 @@ import Card from "@mui/material/Card"
 import CardHeader from "@mui/material/CardHeader"
 import CardContent from "@mui/material/CardContent"
 import CardActions from "@mui/material/CardActions"
-import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
+import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import Avatar from "@mui/material/Avatar"
 import Typography from "@mui/material/Typography"
 import { useNavigate, useParams } from "react-router-dom"
@@ -12,7 +12,7 @@ import { useFetch } from "../../hooks/useFetch"
 
 import { useEffect, useState } from "react"
 import moment from "moment"
-import useStyles from "./style"
+import useStyles from "./styles"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import PostsSceletonSingle from "../PostsSceletonSingle/PostsSceletonSingle"
 import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
@@ -21,9 +21,9 @@ import Radio from "@mui/material/Radio"
 import RadioGroup from "@mui/material/RadioGroup"
 import { FormControl } from "@mui/material"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
-import SwiperGallery from "../SwiperSliders/SwiperGallery/SwiperGallery"
+import Slider from "../Slider/Slider"
 import emptyImage from "../../assets/adspy_loading_animation.gif"
-// Import Swiper styles
+// Import Slider styles
 import "swiper/css"
 import "swiper/css/free-mode"
 import "swiper/css/navigation"
@@ -126,7 +126,7 @@ export default function PostSingle() {
               subheader={date}
             />
             {post?.images.length > 0 ? (
-              <SwiperGallery images={post?.images} />
+              <Slider images={post?.images} />
             ) : (
               <CardMedia
                 component="img"

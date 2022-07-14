@@ -17,7 +17,6 @@ function Messages() {
   const [messages, setMessages] = useState([])
   const [message, setMessage] = useState("")
   const [error, setError] = useState("")
-  const [room, setRoom] = useState("")
   const list = useRef(null)
   const classes = useStyles()
 
