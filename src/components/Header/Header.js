@@ -49,10 +49,13 @@ export default function Header() {
           <NavigationMobile />
         </Box>
         <Box display="flex" alignItems="center">
-          <Suspense fallback={<div></div>}>
+          {!auth ? (
             <SignInButton />
-            <UserControlBlock />
-          </Suspense>
+          ) : (
+            <Suspense fallback={<div></div>}>
+              <UserControlBlock />
+            </Suspense>
+          )}
         </Box>
       </Toolbar>
     </AppBar>

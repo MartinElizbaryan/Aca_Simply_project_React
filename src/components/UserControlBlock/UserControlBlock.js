@@ -18,7 +18,8 @@ import { Notifications as NotificationsIcon, NotificationsActive } from "@mui/ic
 import { Notifications } from "../Notifications/Notifications"
 import { useTranslation } from "react-i18next"
 import CreatePost from "../CreatePost/CreatePost"
-import { authHOC } from "../../hocs/authHOC"
+
+console.log("UserControlBlock -------------")
 
 const UserControlBlock = () => {
   const { t } = useTranslation()
@@ -144,4 +145,4 @@ const UserControlBlock = () => {
   )
 }
 
-export default authHOC(UserControlBlock)
+export default UserControlBlock

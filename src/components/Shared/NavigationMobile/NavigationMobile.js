@@ -18,7 +18,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle"
 import { CustomLink as Link } from "../Links/CustomLink/CustomLink"
 import { TransparentButton } from "../Buttons/TransparentButton/TransparentButton"
 import { navlist } from "../../Header/constants"
-import socket from "../../../helpers/socket"
+// import socket from "../../../helpers/socket"
 import { signOut } from "../../Header/utils"
 import { getUserAuth, getUserInfo } from "../../../redux/userSelectors"
 import { deleteUserInfo } from "../../../redux/userSlice"
@@ -45,8 +45,8 @@ export default function NavigationMobile() {
     const status = await signOut()
     if (status === 204) {
       dispatch(deleteUserInfo())
-      socket.removeAllListeners()
-      socket.disconnect()
+      // socket.removeAllListeners()
+      // socket.disconnect()
       toggleDrawer(false)()
       navigate("/signin")
     }
