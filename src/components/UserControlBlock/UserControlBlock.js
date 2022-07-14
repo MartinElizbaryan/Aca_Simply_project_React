@@ -18,8 +18,9 @@ import { Notifications as NotificationsIcon, NotificationsActive } from "@mui/ic
 import { Notifications } from "../Notifications/Notifications"
 import { useTranslation } from "react-i18next"
 import CreatePost from "../CreatePost/CreatePost"
+import { authHOC } from "../../hocs/authHOC"
 
-export default function UserControlBlock() {
+const UserControlBlock = () => {
   const { t } = useTranslation()
   const [openCreatePost, setOpenCreatePost] = useState(false)
   const [profileAnchorEl, setProfileAnchorEl] = useState(null)
@@ -142,3 +143,5 @@ export default function UserControlBlock() {
     </>
   )
 }
+
+export default authHOC(UserControlBlock)
