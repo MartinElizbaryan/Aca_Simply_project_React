@@ -70,12 +70,10 @@ export default function Sidebar({ handleCategoryChange, onClose }) {
 
   return (
     <List component="nav">
-      <ListItemButton className={classes.button}>
-        <IconButton onClick={onClose}>
-          <CloseOutlinedIcon />
-        </IconButton>
-      </ListItemButton>
-      <ListItem sx={{ pl: 4 }}>
+      <IconButton onClick={onClose}>
+        <CloseOutlinedIcon />
+      </IconButton>
+      <ListItem>
         <SearchInput
           value={searchTerm}
           onChange={(e) => {

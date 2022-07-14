@@ -46,7 +46,7 @@ const am = {
   Create_Post: "Ստեղծել Գրառում",
   My_Posts: "Իմ Գրառումները",
   Confirmed_Posts: "Հաստատված Գրառումներ",
-  Favorite_Posts: "Սիրելի Գրառումներ",
+  Favorites: "Ընտրվածներ",
   Change_Password: "Փոխել Գաղտնաբառը",
   Pending_Posts: "Հարցված Գրառումներ",
   Name: "Անուն",
@@ -80,6 +80,7 @@ const am = {
   New_Password: "Նոր գաղտնաբառ",
   Confirm_Password: "Հաստատել գաղտնաբառը",
   Your_password_changed: "Ձեր գաղտնաբառը փոխվել է!",
+  Your_info_changed: "Ձեր տվյալները փոխվել են!",
   oops_went_wrong: "Վա՜յ: Ինչ որ բան այնպես չգնաց!",
   Create: "Ստեղծել",
   LOST: "ԿՈՐԱԾ",
@@ -118,6 +119,7 @@ const am = {
     "Գտեք Lost & Found-ի մասին այն հարցերի պատասխանները, որոնք մեզ առավել հաճախ են տրվում:",
   still_have_questions: "Դեռ հարցեր ունե՞ք: ",
   let_us_know: " և տեղեկացրեք, թե ինչպես կարող ենք օգնել ձեզ.",
+  Security: "Անվտանգություն",
 }
 
 export default am

@@ -4,8 +4,10 @@ import useStyles from "./styles"
 import { colors } from "../../../../constants/styles"
 
 export const ListItemWithIcon = ({ icon, url, title }) => {
-  const classes = useStyles()
   const { pathname } = useLocation()
+
+  const classes = useStyles()
+
   return (
     <ListItemButton className={pathname === url && classes.clicked}>
       <Link to={url} className={classes.link}>

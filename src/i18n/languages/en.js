@@ -46,7 +46,7 @@ const en = {
   Create_Post: "Create Post",
   My_Posts: "My Posts",
   Confirmed_Posts: "Confirmed Posts",
-  Favorite_Posts: "Favorite Posts",
+  Favorites: "Favorites",
   Change_Password: "Change Password",
   Pending_Posts: "Pending Posts",
   Name: "Name",
@@ -80,6 +80,7 @@ const en = {
   New_Password: "New Password",
   Confirm_Password: "Confirm Password",
   Your_password_changed: "Your password has been changed!",
+  Your_info_changed: "Your info has been updated!",
   oops_went_wrong: "Oops! Something went wrong!",
   Create: "Create",
   LOST: "LOST",
@@ -118,6 +119,7 @@ const en = {
     "Find answers to the questions and topics that we are most commonly asked about Lost & Found.",
   still_have_questions: "Still have questions? ",
   let_us_know: " and let us know how we can help you.",
+  Security: "Security",
 }
 
 export default en
