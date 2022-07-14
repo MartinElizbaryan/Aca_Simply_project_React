@@ -95,7 +95,7 @@ export default function Post({
           />
         )}
 
-        <Link url={`/post/${post.id}`} content={<BlueButton>{t("See_details")}</BlueButton>} />
+        <Link url={`/posts/${post.id}`} content={<BlueButton>{t("See_details")}</BlueButton>} />
       </CardActions>
     </Card>
   )
