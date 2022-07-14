@@ -1,22 +1,23 @@
 import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import { useFormik } from "formik"
-import { Container, Grid, Paper, Stack, Typography } from "@mui/material"
-import UnlabeledInput from "../Shared/Inputs/UnlabeledInput/UnlabeledInput"
-import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
-import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
-import { editUserInfo } from "./utils"
-import { getUserFullName } from "../../helpers/utils"
-import { validationSchema } from "./vaildation"
-import { setUserInfo } from "../../redux/userSlice"
-import useStyles from "./styles"
 import { useTranslation } from "react-i18next"
-import { SuccessDialog } from "../Shared/Dialogs/SuccessDialog/SuccessDialog"
+import { useDispatch, useSelector } from "react-redux"
+import { Container, Divider, Grid, ListItem, Paper, Stack, Typography } from "@mui/material"
+import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
 import { ErrorDialog } from "../Shared/Dialogs/ErrorDialog/ErrorDialog"
+import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
+import UnlabeledInput from "../Shared/Inputs/UnlabeledInput/UnlabeledInput"
+import { SuccessDialog } from "../Shared/Dialogs/SuccessDialog/SuccessDialog"
+import { editUserInfo } from "./utils"
+import { validationSchema } from "./vaildation"
+import { getUserFullName } from "../../helpers/utils"
+import { setUserInfo } from "../../redux/userSlice"
+import { getUserInfo } from "../../redux/userSelectors"
+import useStyles from "./styles"
 
 export default function Profile() {
   const { t } = useTranslation()
-  const { info } = useSelector((state) => state.user)
+  const user = useSelector(getUserInfo)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
   const dispatch = useDispatch()
@@ -31,9 +32,9 @@ export default function Profile() {
 
   const formik = useFormik({
     initialValues: {
-      name: info.name || "",
-      surname: info.surname || "",
-      phone: info.phone || "",
+      name: user.name || "",
+      surname: user.surname || "",
+      phone: user.phone || "",
     },
     enableReinitialize: true,
     validationSchema: validationSchema,
@@ -53,13 +54,13 @@ export default function Profile() {
 
   return (
     <>
-      <Container sx={{ paddingTop: 1 }}>
+      <Container sx={{ paddingTop: 1, marginBottom: 1 }}>
         <Paper>
-          <ListItem></ListItem>
-          <Grid item container direction="row" xs={12} alignItems="center" gap={2}>
-            <UserAvatar user={info} />
-            <Typography variant="body1">{getUserFullName(info)}</Typography>
-          </Grid>
+          <ListItem>
+            <UserAvatar user={user} sx={{ marginRight: 2 }} />
+            <Typography variant="body1">{getUserFullName(user)}</Typography>
+          </ListItem>
+          <Divider />
           <form onSubmit={formik.handleSubmit} id="editForm" className={classes.form}>
             <Stack sx={{ margin: "auto", marginTop: 5 }} spacing={4}>
               <Stack
@@ -122,7 +123,7 @@ export default function Profile() {
                   <Typography variant="caption">{t("Email")}</Typography>
                 </Grid>
                 <Grid item>
-                  <UnlabeledInput value={info.email || ""} disabled />
+                  <UnlabeledInput value={user.email || ""} disabled />
                 </Grid>
               </Stack>
               <Stack

@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { Box, Divider, Grid, IconButton, Paper, SwipeableDrawer, Typography } from "@mui/material"
-import ChatUserInfoBlock from "../ChatUserInfoBlock/ChatUserInfoBlock"
-import Messages from "../Messages/Messages"
-import useStyles from "./styles"
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt"
-import api from "../../api/api"
+import Messages from "../Messages/Messages"
+import ChatUserInfoBlock from "../ChatUserInfoBlock/ChatUserInfoBlock"
 import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
-import { getUserFullName } from "../../helpers/utils"
-import { findUser } from "./utils"
+import api from "../../api/api"
 import socket from "../../helpers/socket"
+import { findUser } from "./utils"
+import { getUserFullName } from "../../helpers/utils"
+import useStyles from "./styles"
 
 const Chat = () => {
   const [open, setOpen] = useState(false)

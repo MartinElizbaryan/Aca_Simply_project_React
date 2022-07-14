@@ -1,27 +1,23 @@
 import { useState } from "react"
-import { useSelector } from "react-redux"
-import { Container, Divider, Grid, ListItem, Paper, Stack, Typography } from "@mui/material"
-import PasswordInput from "../Shared/Inputs/PasswordInput/PasswordInput"
-import useStyles from "./styles"
 import { useFormik } from "formik"
+import { useTranslation } from "react-i18next"
+import { Container, Divider, Grid, ListItemButton, Paper, Stack, Typography } from "@mui/material"
+import VpnKeyIcon from "@mui/icons-material/VpnKey"
+import LogoutIcon from "@mui/icons-material/Logout"
+import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
+import { ErrorDialog } from "../Shared/Dialogs/ErrorDialog/ErrorDialog"
+import { AlertDialog } from "../Shared/Dialogs/AlertDialog/AlertDialog"
+import PasswordInput from "../Shared/Inputs/PasswordInput/PasswordInput"
+import { SuccessDialog } from "../Shared/Dialogs/SuccessDialog/SuccessDialog"
 import { validationSchema } from "./vaildation"
 import { changePassword, signOutFromOtherDevices } from "./utils"
-import { useTranslation } from "react-i18next"
-import LogoutIcon from "@mui/icons-material/Logout"
-import { TransparentButton } from "../Shared/Buttons/TransparentButton/TransparentButton"
-import { ErrorDialog } from "../Shared/Dialogs/ErrorDialog/ErrorDialog"
-import { SuccessDialog } from "../Shared/Dialogs/SuccessDialog/SuccessDialog"
-import { AlertDialog } from "../Shared/Dialogs/AlertDialog/AlertDialog"
-import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
-import VpnKeyIcon from "@mui/icons-material/VpnKey"
+import useStyles from "./styles"
 
 export default function Security() {
   const { t } = useTranslation()
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
   const [openDialog, setOpenDialog] = useState(false)
-
-  const { info } = useSelector((state) => state.user)
 
   const classes = useStyles()
 
@@ -60,18 +56,18 @@ export default function Security() {
   }
 
   return (
-    <Container sx={{ paddingTop: 1 }}>
+    <Container sx={{ paddingTop: 1, marginBottom: 1 }}>
       <Paper>
-        <ListItem>
+        <ListItemButton sx={{ minHeight: "56px" }}>
           <VpnKeyIcon sx={{ marginRight: 2 }} />
           <Typography>Change password</Typography>
-        </ListItem>
+        </ListItemButton>
         <Divider />
-        <Typography variant="body2" pt={3}>
+        <Typography variant="body2" p={3}>
           {t("enter_your_pass")}
         </Typography>
         <form onSubmit={formik.handleSubmit} id="editForm" className={classes.form}>
-          <Stack sx={{ margin: "40px" }} spacing={4}>
+          <Stack spacing={4} p={4}>
             <Stack
               direction={{
                 xs: "column",
@@ -135,10 +131,10 @@ export default function Security() {
           </Stack>
         </form>
         <Divider />
-        <TransparentButton onClick={onSignOutClick}>
+        <ListItemButton onClick={onSignOutClick}>
           <LogoutIcon />
           <Typography ml={2}>Sign out from other devices</Typography>
-        </TransparentButton>
+        </ListItemButton>
       </Paper>
 
       <AlertDialog

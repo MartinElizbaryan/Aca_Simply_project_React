@@ -7,7 +7,7 @@ const useStyles = createUseStyles({
     color: colors.white,
     padding: "12px 14px !important",
     fontSize: "14px !important",
-    // width: "100%",
+    textTransform: "none !important",
     justifyContent: "space-between !important",
     "&:hover": {
       backgroundColor: `${colors.hoveredBlue} !important`,

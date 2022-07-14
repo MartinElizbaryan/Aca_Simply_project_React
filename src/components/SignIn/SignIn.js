@@ -88,7 +88,7 @@ export default function SignIn() {
       </Box>
       <Box className={classes.central2}>
         <Button variant="contained" color="success" type="submit" form="myForm">
-          {t("Log_in")}
+          {t("Sign_In")}
         </Button>
       </Box>
       {open && (
