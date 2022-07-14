@@ -18,7 +18,7 @@ import Profile from "./components/Profile/Profile"
 import PostSingle from "./components/PostSingle/PostSingle"
 import Posts from "./components/Posts/Posts"
 import RegistrationLogin from "./components/RegistrationLogin/RegistrationLogin"
-import ChangePassword from "./components/ChangePassword/ChangePassword"
+import Security from "./components/Security/Security"
 import PendingPosts from "./components/PendingPosts/PendingPosts"
 import FAQ from "./components/FAQ/FAQ"
 import AdminFAQ from "./components/AdminFAQ/AdminFAQ"
@@ -107,8 +107,8 @@ function App() {
                   <Route exact path="/profile/my-posts" element={<MyPosts />} />
                   <Route exact path="/profile/my-posts/:id" element={<MyPostsEdit />} />
                   <Route exact path="/profile/confirmed-posts" element={<ConfirmedPosts />} />
-                  <Route exact path="/profile/favorite-posts" element={<FavoritePosts />} />
-                  <Route exact path="/profile/change-password" element={<ChangePassword />} />
+                  <Route exact path="/profile/favorites" element={<FavoritePosts />} />
+                  <Route exact path="/profile/security" element={<Security />} />
                   <Route path="/" element={<AdminPrivateRoute />}>
                     <Route exact path="/profile/pending-posts" element={<PendingPosts />} />
                     <Route exact path="/profile/faq" element={<AdminFAQ />} />

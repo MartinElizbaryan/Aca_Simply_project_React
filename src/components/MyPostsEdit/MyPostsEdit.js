@@ -15,7 +15,7 @@ import api from "../../api/api"
 import EmailIcon from "@mui/icons-material/Email"
 import { useFormik } from "formik"
 import CardMedia from "@mui/material/CardMedia"
-import { IMAGE_BASE_URL } from "../../constants/cloudinery"
+import { IMAGE_BASE_URL } from "../../constants/cloudinary"
 import { removeCurrentImage, removeImage, updatePost } from "./utilits"
 import validationSchema from "./validationSchema"
 

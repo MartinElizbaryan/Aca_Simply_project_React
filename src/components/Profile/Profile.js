@@ -1,9 +1,7 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useFormik } from "formik"
-import { Container, Dialog, Grid, Stack, Typography } from "@mui/material"
-import { SuccessAlert } from "../Shared/Alerts/SuccessAlert/SuccessAlert"
-import { ErrorAlert } from "../Shared/Alerts/ErrorAlert/ErrorAlert"
+import { Container, Grid, Stack, Typography } from "@mui/material"
 import UnlabeledInput from "../Shared/Inputs/UnlabeledInput/UnlabeledInput"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
@@ -13,6 +11,8 @@ import { validationSchema } from "./vaildation"
 import { setUserInfo } from "../../redux/userSlice"
 import useStyles from "./styles"
 import { useTranslation } from "react-i18next"
+import { SuccessDialog } from "../Shared/Dialogs/SuccessDialog/SuccessDialog"
+import { ErrorDialog } from "../Shared/Dialogs/ErrorDialog/ErrorDialog"
 
 export default function Profile() {
   const { t } = useTranslation()
@@ -22,10 +22,10 @@ export default function Profile() {
   const dispatch = useDispatch()
   const classes = useStyles()
 
-  const onSuccessAlertClose = () => {
+  const onSuccessDialogClose = () => {
     setSuccess(false)
   }
-  const onErrorAlertClose = () => {
+  const onErrorDialogClose = () => {
     setError(false)
   }
 
@@ -147,19 +147,12 @@ export default function Profile() {
                 {t("Save_Changes")}
               </GreenButton>
             </Grid>
-            {success && (
-              <Dialog open onClose={onSuccessAlertClose}>
-                <SuccessAlert
-                  message={"Your info has been updated!"}
-                  onClose={onSuccessAlertClose}
-                />
-              </Dialog>
-            )}
-            {error && (
-              <Dialog open onClose={onErrorAlertClose}>
-                <ErrorAlert message={t("oops_went_wrong")} onClose={onErrorAlertClose} />
-              </Dialog>
-            )}
+            <SuccessDialog
+              open={success}
+              onClose={onSuccessDialogClose}
+              message={t("Your_info_changed")}
+            />
+            <ErrorDialog open={error} onClose={onErrorDialogClose} message={t("oops_went_wrong")} />
           </Stack>
         </form>
       </Container>

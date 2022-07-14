@@ -5,7 +5,6 @@ import "swiper/css/pagination"
 import Person1 from "../../assets/xperson_transparent.png.pagespeed.ic.csjhCv60Hy.webp"
 import Person2 from "../../assets/xperson_transparent_2.png.pagespeed.ic.kQKb75h-nO.webp"
 import CardMedia from "@mui/material/CardMedia"
-// import required modules
 import { Pagination } from "swiper"
 
 export default function TeamSlider() {

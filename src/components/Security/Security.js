@@ -1,22 +1,27 @@
 import { useState } from "react"
 import { useSelector } from "react-redux"
-import { Container, Dialog, Grid, Stack, Typography } from "@mui/material"
+import { Container, Grid, Stack, Typography } from "@mui/material"
 import PasswordInput from "../Shared/Inputs/PasswordInput/PasswordInput"
-import { SuccessAlert } from "../Shared/Alerts/SuccessAlert/SuccessAlert"
-import { ErrorAlert } from "../Shared/Alerts/ErrorAlert/ErrorAlert"
 import { getUserFullName } from "../../helpers/utils"
 import useStyles from "./styles"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import { useFormik } from "formik"
 import { validationSchema } from "./vaildation"
 import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
-import { changePassword } from "./utils"
+import { changePassword, signOutFromOtherDevices } from "./utils"
 import { useTranslation } from "react-i18next"
+import LogoutIcon from "@mui/icons-material/Logout"
+import { TransparentButton } from "../Shared/Buttons/TransparentButton/TransparentButton"
+import { ErrorDialog } from "../Shared/Dialogs/ErrorDialog/ErrorDialog"
+import { SuccessDialog } from "../Shared/Dialogs/SuccessDialog/SuccessDialog"
+import { AlertDialog } from "../Shared/Dialogs/AlertDialog/AlertDialog"
 
-export default function ChangePassword() {
+export default function Security() {
   const { t } = useTranslation()
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
+  const [openDialog, setOpenDialog] = useState(false)
+
   const { info } = useSelector((state) => state.user)
 
   const classes = useStyles()
@@ -39,12 +44,20 @@ export default function ChangePassword() {
     },
   })
 
-  const onSuccessAlertClose = () => {
+  const onSuccessDialogClose = () => {
     setSuccess(false)
   }
 
-  const onErrorAlertClose = () => {
+  const onErrorDialogClose = () => {
     setError(false)
+  }
+
+  const onSignOutClick = () => {
+    setOpenDialog(true)
+  }
+
+  const onAlertDialogClose = () => {
+    setOpenDialog(false)
   }
 
   return (
@@ -120,16 +133,25 @@ export default function ChangePassword() {
           </Grid>
         </Stack>
       </form>
-      {success && (
-        <Dialog open onClose={onSuccessAlertClose}>
-          <SuccessAlert message={t("Your_password_changed")} onClose={onSuccessAlertClose} />
-        </Dialog>
-      )}
-      {error && (
-        <Dialog open onClose={onErrorAlertClose}>
-          <ErrorAlert message={t("oops_went_wrong")} onClose={onErrorAlertClose} />
-        </Dialog>
-      )}
+      <TransparentButton onClick={onSignOutClick}>
+        <LogoutIcon />
+        <Typography ml={2}>Sign out from other devices</Typography>
+      </TransparentButton>
+      <AlertDialog
+        open={openDialog}
+        title={"Are you sure?"}
+        message={
+          "This will sign you out from every other device that you are currently signed in on. Are you sure you want to continue?"
+        }
+        handleOk={signOutFromOtherDevices}
+        handleClose={onAlertDialogClose}
+      />
+      <SuccessDialog
+        open={success}
+        onClose={onSuccessDialogClose}
+        message={t("Your_password_changed")}
+      />
+      <ErrorDialog open={error} onClose={onErrorDialogClose} message={t("oops_went_wrong")} />
     </Container>
   )
 }

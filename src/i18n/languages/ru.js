@@ -46,7 +46,7 @@ const ru = {
   Create_Post: "Создать Пост",
   My_Posts: "Мои Посты",
   Confirmed_Posts: "Подтвержденные Посты",
-  Favorite_Posts: "Избранные Посты",
+  Favorites: "Избранное",
   Change_Password: "Изменить Пароль",
   Pending_Posts: "Ожидающие Посты",
   Name: "Имя",
@@ -80,6 +80,7 @@ const ru = {
   New_Password: "Новый пароль",
   Confirm_Password: "Подтвердить пароль",
   Your_password_changed: "Ваш пароль изменен!",
+  Your_info_changed: "Ваша информация изменена!",
   oops_went_wrong: "Ой! Что-то пошло не так!",
   Create: "Создать",
   LOST: "ПОТЕРЯННЫЙ",
@@ -117,6 +118,7 @@ const ru = {
   find_answers: "Найдите ответы на вопросы, которые нам чаще всего задают о Lost & Found.",
   still_have_questions: "Все еще есть вопросы? ",
   let_us_know: " и дайте нам знать, чем мы можем вам помочь.",
+  Security: "Безопасность",
 }
 
 export default ru
