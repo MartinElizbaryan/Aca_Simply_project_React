@@ -60,11 +60,7 @@ export default function Security() {
   }
 
   return (
-    <Container>
-      {/*<Grid item container direction="row" xs={12} alignItems="center" gap={2}>*/}
-      {/*  <UserAvatar user={info} />*/}
-      {/*  <Typography variant="body1">{getUserFullName(info)}</Typography>*/}
-      {/*</Grid>*/}
+    <Container sx={{ paddingTop: 1 }}>
       <Paper>
         <ListItem>
           <VpnKeyIcon sx={{ marginRight: 2 }} />

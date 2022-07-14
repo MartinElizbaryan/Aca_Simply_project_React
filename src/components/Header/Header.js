@@ -1,8 +1,6 @@
 import React, { lazy, Suspense } from "react"
 import { useSelector } from "react-redux"
-import { AppBar, Box, Stack, Toolbar, Typography } from "@mui/material"
-import LoginIcon from "@mui/icons-material/Login"
-import { TransparentButton } from "../Shared/Buttons/TransparentButton/TransparentButton"
+import { AppBar, Box, Stack, Toolbar } from "@mui/material"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import NavigationMobile from "../Shared/NavigationMobile/NavigationMobile"
 import { Logo } from "../Shared/Logo/Logo"
@@ -11,6 +9,7 @@ import { getUserAuth } from "../../redux/userSelectors"
 import { colors } from "../../constants/styles.js"
 import useStyles from "./styles"
 import { useTranslation } from "react-i18next"
+import SignInButton from "../Shared/Buttons/SignInButton/SignInButton"
 
 const UserControlBlock = lazy(() => import("../UserControlBlock/UserControlBlock"))
 
@@ -51,16 +50,7 @@ export default function Header() {
         </Box>
         <Box display="flex" alignItems="center">
           {!auth ? (
-            <Link
-              url="/signin"
-              content={
-                <TransparentButton>
-                  <LoginIcon />
-                  <Typography ml={2}>{t("Sign_In")}</Typography>
-                </TransparentButton>
-              }
-              color="white"
-            />
+            <SignInButton />
           ) : (
             <Suspense fallback={<div></div>}>
               <UserControlBlock />
