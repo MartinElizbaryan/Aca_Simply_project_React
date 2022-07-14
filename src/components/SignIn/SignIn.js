@@ -1,6 +1,8 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useFormik } from "formik"
 import { useDispatch } from "react-redux"
+import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 import {
   Box,
   Button,
@@ -10,15 +12,13 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material"
-import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
 import { InputField } from "../Shared/Inputs/InputField/InputField"
+import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import { signIn } from "./utils"
-import { useFormik } from "formik"
 import { setUserInfo } from "../../redux/userSlice"
+import connectToSocket from "../../helpers/connectToSocket"
 import { validationSchema } from "./validation"
 import useStyles from "./styles"
-import connectToSocket from "../../helpers/connectToSocket"
-import { useTranslation } from "react-i18next"
 
 export default function SignIn() {
   const { t } = useTranslation()
@@ -43,13 +43,11 @@ export default function SignIn() {
     onSubmit: async ({ email, password }) => {
       try {
         const data = await signIn({ email, password })
-        console.log(data)
         dispatch(setUserInfo(data.user))
         connectToSocket(data.user.id)
         navigate("/profile")
         setOpen(false)
       } catch (e) {
-        console.log(e)
         setOpen(true)
         setErrMessage(t(e.response.data.details))
       }
@@ -90,7 +88,7 @@ export default function SignIn() {
       </Box>
       <Box className={classes.central2}>
         <Button variant="contained" color="success" type="submit" form="myForm">
-          {t("Log_in")}
+          {t("Sign_In")}
         </Button>
       </Box>
       {open && (

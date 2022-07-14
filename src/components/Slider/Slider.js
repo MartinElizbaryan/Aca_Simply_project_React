@@ -1,11 +1,10 @@
+import { useState } from "react"
+import { Box, CardMedia } from "@mui/material"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { FreeMode, Navigation, Thumbs } from "swiper"
-import CardMedia from "@mui/material/CardMedia"
-import { IMAGE_BASE_URL } from "../../../constants/cloudinery"
-import Box from "@mui/material/Box"
-import { useState } from "react"
+import { IMAGE_BASE_URL } from "../../constants/cloudinary"
 
-export default function SwiperGallery({ images }) {
+export default function Slider({ images }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
   return (
     <Box>

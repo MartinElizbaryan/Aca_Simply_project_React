@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { Box, Divider, Grid, IconButton, Paper, SwipeableDrawer, Typography } from "@mui/material"
-import ChatUserInfoBlock from "../ChatUserInfoBlock/ChatUserInfoBlock"
-import Messages from "../Messages/Messages"
-import useStyles from "./styles"
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt"
-import api from "../../api/api"
+import Messages from "../Messages/Messages"
+import ChatUserInfoBlock from "../ChatUserInfoBlock/ChatUserInfoBlock"
 import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
-import { getUserFullName } from "../../helpers/utils"
-import { findUser } from "./utils"
+import api from "../../api/api"
 import socket from "../../helpers/socket"
+import { findUser } from "./utils"
+import { getUserFullName } from "../../helpers/utils"
+import useStyles from "./styles"
 
 const Chat = () => {
   const [open, setOpen] = useState(false)
@@ -28,9 +28,7 @@ const Chat = () => {
 
   useEffect(() => {
     socket.on("onlineUsers", (users) => {
-      // console.log("chat useffect", users)
       setOnlineUsers(users)
-      // console.log(onlineUsers)
     })
 
     socket.on("chatUsersUpdate", async () => {
@@ -47,9 +45,9 @@ const Chat = () => {
 
   return (
     <Box
-      mt={10}
+      mt={9}
       sx={{
-        height: "calc(100% - 80px)",
+        height: "calc(100% - 72px)",
       }}
     >
       <Grid container component={Paper} className={classes.chatSection}>
@@ -82,7 +80,7 @@ const Chat = () => {
             </>
           )}
           <SwipeableDrawer
-            anchor="top"
+            anchor="left"
             open={open}
             onClose={toggleDrawer(false)}
             onOpen={toggleDrawer(true)}

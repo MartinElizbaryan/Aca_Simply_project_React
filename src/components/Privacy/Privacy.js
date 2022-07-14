@@ -1,13 +1,16 @@
-import { Box, Typography, Link } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import useStyles from "./styles"
+import { useTranslation } from "react-i18next"
 
 export default function Privacy() {
+  const { t } = useTranslation()
+
   const classes = useStyles()
 
   return (
     <Box className={classes.flexible}>
       <Typography variant="h4" className={classes.header}>
-        {"Privacy"}
+        {t("privacy")}
       </Typography>
 
       <Typography className={classes.policyText}>

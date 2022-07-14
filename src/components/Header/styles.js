@@ -2,10 +2,9 @@ import { createUseStyles } from "react-jss"
 import { colors } from "../../constants/styles.js"
 
 const useStyles = createUseStyles({
-  logo: {
-    maxWidth: "120px",
-  },
   appBar: {
+    height: 71,
+    justifyContent: "center",
     backgroundColor: `${colors.blueBlur} !important`,
     backdropFilter: "saturate(180%) blur(5px)",
   },

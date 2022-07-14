@@ -1,24 +1,27 @@
 import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { Badge, ListItemIcon, Menu, MenuItem, Typography } from "@mui/material"
+import { Badge, Box, ListItemIcon, Menu, MenuItem, Typography } from "@mui/material"
 import MailIcon from "@mui/icons-material/Mail"
 import LogoutIcon from "@mui/icons-material/Logout"
 import PersonIcon from "@mui/icons-material/Person"
+import AddCircleIcon from "@mui/icons-material/AddCircle"
 import AccountCircle from "@mui/icons-material/AccountCircle"
+import { Notifications as NotificationsIcon, NotificationsActive } from "@mui/icons-material"
 import { TransparentButton } from "../Shared/Buttons/TransparentButton/TransparentButton"
-import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
+import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
+import CreatePost from "../CreatePost/CreatePost"
+import { Notifications } from "../Notifications/Notifications"
+import api from "../../api/api"
+import socket from "../../helpers/socket"
 import { signOut } from "../Header/utils"
 import { deleteUserInfo } from "../../redux/userSlice"
 import { getUserInfo } from "../../redux/userSelectors"
-import api from "../../api/api"
-import socket from "../../helpers/socket"
-import { Notifications as NotificationsIcon, NotificationsActive } from "@mui/icons-material"
-import { Notifications } from "../Notifications/Notifications"
-import { useTranslation } from "react-i18next"
 
 export default function UserControlBlock() {
   const { t } = useTranslation()
+  const [openCreatePost, setOpenCreatePost] = useState(false)
   const [profileAnchorEl, setProfileAnchorEl] = useState(null)
   const [notificationAnchorEl, setNotificationAnchorEl] = useState(null)
   const user = useSelector(getUserInfo)
@@ -79,8 +82,16 @@ export default function UserControlBlock() {
     setNotificationAnchorEl(e.currentTarget)
   }
 
+  const toggleOpenCreatePost = (open) => {
+    setOpenCreatePost(open)
+  }
+
   return (
     <>
+      <TransparentButton onClick={() => toggleOpenCreatePost(true)}>
+        <AddCircleIcon />
+      </TransparentButton>
+      <CreatePost open={openCreatePost} toggleOpen={toggleOpenCreatePost} />
       <TransparentButton onClick={handleNotificationClick}>
         <Badge badgeContent={notificationsCount} color="primary">
           {notificationsCount ? <NotificationsActive /> : <NotificationsIcon />}
@@ -101,31 +112,33 @@ export default function UserControlBlock() {
             </Badge>
           </TransparentButton>
         }
-        color="white"
+        color="inherit"
         sx={{ display: "flex" }}
       />
-      <TransparentButton onClick={handleProfileMenu}>
-        <AccountCircle />
-        <Typography ml={2}>{user.name}</Typography>
-      </TransparentButton>
-      <Menu
-        anchorEl={profileAnchorEl}
-        open={Boolean(profileAnchorEl)}
-        onClose={handleProfileMenuClose}
-      >
-        <MenuItem onClick={handleProfileClick}>
-          <ListItemIcon>
-            <PersonIcon fontSize="small" />
-          </ListItemIcon>
-          {t("My_Profile")}
-        </MenuItem>
-        <MenuItem onClick={handleSignOutClick}>
-          <ListItemIcon>
-            <LogoutIcon fontSize="small" />
-          </ListItemIcon>
-          {t("Sign_Out")}
-        </MenuItem>
-      </Menu>
+      <Box sx={{ display: { xs: "none", sm: "flex" } }}>
+        <TransparentButton onClick={handleProfileMenu}>
+          <AccountCircle />
+          <Typography ml={2}>{user.name}</Typography>
+        </TransparentButton>
+        <Menu
+          anchorEl={profileAnchorEl}
+          open={Boolean(profileAnchorEl)}
+          onClose={handleProfileMenuClose}
+        >
+          <MenuItem onClick={handleProfileClick}>
+            <ListItemIcon>
+              <PersonIcon fontSize="small" />
+            </ListItemIcon>
+            {t("My_Profile")}
+          </MenuItem>
+          <MenuItem onClick={handleSignOutClick}>
+            <ListItemIcon>
+              <LogoutIcon fontSize="small" />
+            </ListItemIcon>
+            {t("Sign_Out")}
+          </MenuItem>
+        </Menu>
+      </Box>
     </>
   )
 }

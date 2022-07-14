@@ -3,11 +3,13 @@ import { Box, Divider, Grid, IconButton, InputBase, List } from "@mui/material"
 import SendIcon from "@mui/icons-material/Send"
 import Message from "../Message/Message"
 import api from "../../api/api"
-import jwt_decode from "jwt-decode"
 import socket from "../../helpers/socket"
 import useStyles from "./styles"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+
+import { useSelector } from "react-redux"
+import { getUserInfo } from "../../redux/userSelectors"
 
 function Messages() {
   const { t } = useTranslation()
@@ -15,11 +17,17 @@ function Messages() {
   const [messages, setMessages] = useState([])
   const [message, setMessage] = useState("")
   const [error, setError] = useState("")
-  const [room, setRoom] = useState("")
   const list = useRef(null)
   const classes = useStyles()
 
+  const authInfo = useSelector(getUserInfo)
+  const navigate = useNavigate()
+
   useEffect(() => {
+    if (+id === authInfo.id) {
+      navigate("/profile")
+    }
+
     ;(async () => {
       const res = await api.get(`/messages/${id}`)
       console.log(res.data.messages)
@@ -66,6 +74,7 @@ function Messages() {
       await socket.emit("send", {
         data,
       })
+
       setMessages((messages) => [...messages, data])
       setError("")
       setMessage("")

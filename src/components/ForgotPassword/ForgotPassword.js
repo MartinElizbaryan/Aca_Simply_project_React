@@ -15,7 +15,7 @@ import { InputField } from "../Shared/Inputs/InputField/InputField"
 import { changePassword, forgotPasswordRequest, sixDigitRequest } from "./utils"
 import { useFormik } from "formik"
 import { validationSchema, validationSchemaCode, validationSchemaNewPassword } from "./validation"
-import { CustomLink } from "../Shared/CustomLink/CustomLink"
+import { CustomLink } from "../Shared/Links/CustomLink/CustomLink"
 
 export default function ForgotPassword() {
   const [open, setOpen] = useState(false)

@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom"
 import { Box, Link, Typography } from "@mui/material"
 import ForgotPassword from "../ForgotPassword/ForgotPassword"
-import { CustomLink } from "../Shared/CustomLink/CustomLink"
+import { CustomLink } from "../Shared/Links/CustomLink/CustomLink"
 import { Logo } from "../Shared/Logo/Logo"
 import SignIn from "../SignIn/SignIn"
 import SignUp from "../SignUp/SignUp"
@@ -48,11 +48,11 @@ export default function RegistrationLogin() {
       <Typography className={classes.policyText}>
         {t("By_signing")}
         <Link href="terms-conditions" underline="none" target="_blank">
-          {t("terms")}
+          {t("withTerms")}
         </Link>{" "}
         {t("and")}
         <Link href="privacy" underline="none" target="_blank">
-          {t("privacy")}
+          {t("withPrivacy")}
         </Link>
       </Typography>
     </Box>

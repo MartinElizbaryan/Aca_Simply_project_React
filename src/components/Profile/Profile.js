@@ -1,41 +1,40 @@
 import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import { useFormik } from "formik"
-import { Box, Grid, Paper, Stack, Typography } from "@mui/material"
-import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
-import { SuccessAlert } from "../Shared/Alerts/SuccessAlert/SuccessAlert"
-import { ErrorAlert } from "../Shared/Alerts/ErrorAlert/ErrorAlert"
-import UnlabeledInput from "../Shared/Inputs/UnlabeledInput/UnlabeledInput"
-import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
-import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
-import { editUserInfo } from "./utils"
-import { getUserFullName } from "../../helpers/utils"
-import { validationSchema } from "./vaildation"
-import { setUserInfo } from "../../redux/userSlice"
-import useStyles from "./styles"
-import SidebarMobileCabinet from "../Shared/Sidebars/SidebarMobileCabinet/SidebarMobileCabinet"
 import { useTranslation } from "react-i18next"
+import { useDispatch, useSelector } from "react-redux"
+import { Container, Divider, Grid, ListItem, Paper, Stack, Typography } from "@mui/material"
+import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
+import { ErrorDialog } from "../Shared/Dialogs/ErrorDialog/ErrorDialog"
+import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
+import UnlabeledInput from "../Shared/Inputs/UnlabeledInput/UnlabeledInput"
+import { SuccessDialog } from "../Shared/Dialogs/SuccessDialog/SuccessDialog"
+import { editUserInfo } from "./utils"
+import { validationSchema } from "./vaildation"
+import { getUserFullName } from "../../helpers/utils"
+import { setUserInfo } from "../../redux/userSlice"
+import { getUserInfo } from "../../redux/userSelectors"
+import useStyles from "./styles"
 
 export default function Profile() {
   const { t } = useTranslation()
-  const { info } = useSelector((state) => state.user)
+  const user = useSelector(getUserInfo)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
   const dispatch = useDispatch()
   const classes = useStyles()
 
-  const onSuccessAlertClose = () => {
+  const onSuccessDialogClose = () => {
     setSuccess(false)
   }
-  const onErrorAlertClose = () => {
+  const onErrorDialogClose = () => {
     setError(false)
   }
 
   const formik = useFormik({
     initialValues: {
-      name: info.name || "",
-      surname: info.surname || "",
-      phone: info.phone || "",
+      name: user.name || "",
+      surname: user.surname || "",
+      phone: user.phone || "",
     },
     enableReinitialize: true,
     validationSchema: validationSchema,
@@ -54,53 +53,14 @@ export default function Profile() {
   })
 
   return (
-    <Grid container spacing={0} mt={10}>
-      <Grid
-        item
-        xs={12}
-        md={3}
-        mt={11}
-        sx={{
-          padding: 2,
-        }}
-      >
-        <Box
-          sx={{
-            display: {
-              xs: "none",
-              md: "block",
-            },
-          }}
-        >
-          <SidebarCabinet />
-        </Box>
-        <Box
-          sx={{
-            display: {
-              xs: "block",
-              md: "none",
-            },
-          }}
-        >
-          <SidebarMobileCabinet />
-        </Box>
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        md={9}
-        sx={{
-          marginTop: {
-            xs: 0,
-            md: 6,
-          },
-        }}
-      >
-        <Paper elevation={4} sx={{ padding: 5 }}>
-          <Grid item container direction="row" xs={12} alignItems="center" gap={2}>
-            <UserAvatar user={info} />
-            <Typography variant="body1">{getUserFullName(info)}</Typography>
-          </Grid>
+    <>
+      <Container sx={{ paddingTop: 1, marginBottom: 1 }}>
+        <Paper>
+          <ListItem>
+            <UserAvatar user={user} sx={{ marginRight: 2 }} />
+            <Typography variant="body1">{getUserFullName(user)}</Typography>
+          </ListItem>
+          <Divider />
           <form onSubmit={formik.handleSubmit} id="editForm" className={classes.form}>
             <Stack sx={{ margin: "auto", marginTop: 5 }} spacing={4}>
               <Stack
@@ -163,7 +123,7 @@ export default function Profile() {
                   <Typography variant="caption">{t("Email")}</Typography>
                 </Grid>
                 <Grid item>
-                  <UnlabeledInput value={info.email || ""} disabled />
+                  <UnlabeledInput value={user.email || ""} disabled />
                 </Grid>
               </Stack>
               <Stack
@@ -186,21 +146,24 @@ export default function Profile() {
                 </Grid>
               </Stack>
               <Grid item xs={12} sx={{ textAlign: "start" }}>
-                <GreenButton type="submit">{t("Save_Changes")}</GreenButton>
+                <GreenButton type="submit" size="small">
+                  {t("Save_Changes")}
+                </GreenButton>
               </Grid>
-              {success && (
-                <SuccessAlert
-                  message={"Your info has been updated!"}
-                  onClose={onSuccessAlertClose}
-                />
-              )}
-              {error && (
-                <ErrorAlert message={"Oops! Something went wrong!"} onClose={onErrorAlertClose} />
-              )}
+              <SuccessDialog
+                open={success}
+                onClose={onSuccessDialogClose}
+                message={t("Your_info_changed")}
+              />
+              <ErrorDialog
+                open={error}
+                onClose={onErrorDialogClose}
+                message={t("oops_went_wrong")}
+              />
             </Stack>
           </form>
         </Paper>
-      </Grid>
-    </Grid>
+      </Container>
+    </>
   )
 }
