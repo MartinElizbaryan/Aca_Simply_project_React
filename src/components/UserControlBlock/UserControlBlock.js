@@ -19,6 +19,7 @@ import { Notifications } from "../Notifications/Notifications"
 import { useTranslation } from "react-i18next"
 import CreatePost from "../CreatePost/CreatePost"
 
+console.log("userControlBlock")
 export default function UserControlBlock() {
   const { t } = useTranslation()
   const [openCreatePost, setOpenCreatePost] = useState(false)
