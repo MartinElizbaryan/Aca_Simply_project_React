@@ -12,7 +12,7 @@ export default function TeamSlider() {
     <Container size="md">
       <Swiper
         spaceBetween={50}
-        slidesPerView={1}
+        slidesPerView={2}
         onSlideChange={() => console.log("slide change")}
         pagination={true}
         modules={[Pagination]}
