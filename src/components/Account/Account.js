@@ -3,7 +3,7 @@ import ProfileSidebar from "../Shared/Sidebars/ProfileSidebar/ProfileSidebar"
 import { Outlet } from "react-router-dom"
 import useStyles from "./styles"
 import { colors } from "../../constants/styles"
-import ProfileSidebarMobileIcons from "../Shared/Sidebars/ProfileSidebarMobileIcons/ProfileSidebarMobileIcons"
+import ProfileSidebarMobile from "../Shared/Sidebars/ProfileSidebarMobile/ProfileSidebarMobile"
 
 export default function Account() {
   const classes = useStyles()
@@ -34,8 +34,7 @@ export default function Account() {
             },
           }}
         >
-          {/*<ProfileSidebarMobile />*/}
-          <ProfileSidebarMobileIcons />
+          <ProfileSidebarMobile />
         </Box>
 
         <Grid
