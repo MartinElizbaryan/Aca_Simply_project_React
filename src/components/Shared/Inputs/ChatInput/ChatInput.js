@@ -1,5 +1,4 @@
-import { IconButton, InputAdornment, InputBase } from "@mui/material"
-import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions"
+import { InputAdornment, InputBase } from "@mui/material"
 
 export default function ChatInput({ ...props }) {
   return (
@@ -7,9 +6,9 @@ export default function ChatInput({ ...props }) {
       sx={{ ml: 1, flex: 1 }}
       startAdornment={
         <InputAdornment position="start">
-          <IconButton color="primary">
-            <EmojiEmotionsIcon />
-          </IconButton>
+          {/*<IconButton color="primary">*/}
+          {/*  <EmojiEmotionsIcon />*/}
+          {/*</IconButton>*/}
         </InputAdornment>
       }
       fullWidth

@@ -46,12 +46,9 @@ export default function UserControlBlock() {
 
   useEffect(() => {
     socket.on("playNotificationSound", () => {
-      console.dir(clickElement.current)
-      console.log("worked")
       clickElement.current.click()
     })
     socket.on("messageCountUpdate", async () => {
-      console.log("received message count")
       const messagesInfo = await api.get("/messages/unread")
       setMessageCount(messagesInfo.data._count.id)
     })
