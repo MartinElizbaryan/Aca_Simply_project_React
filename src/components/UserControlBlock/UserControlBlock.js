@@ -45,6 +45,11 @@ export default function UserControlBlock() {
       const messagesInfo = await api.get("/messages/unread")
       setMessageCount(messagesInfo.data._count.id)
     })
+    socket.on("signOut", () => {
+      dispatch(deleteUserInfo())
+      navigate("/signin")
+      localStorage.removeItem("accessToken")
+    })
     socket.on("receiveNotification", ({ count }) => {
       setNotificationsCount(count)
     })
