@@ -7,6 +7,7 @@ import {
   AuthorizedUserPrivateRoute,
   UnauthorizedUserPrivateRoute,
 } from "./routes/PrivateRoutes"
+import Loading from "./components/Shared/Loading/Loading"
 import api from "./api/api"
 import history from "./helpers/history"
 import connectToSocket from "./helpers/connectToSocket"
@@ -63,13 +64,13 @@ function App() {
 
   return (
     <Router history={history}>
-      <Suspense fallback="Loading...">
+      <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={<Main />}>
             <Route
               index
               element={
-                <Suspense fallback="Loading...">
+                <Suspense fallback={<Loading />}>
                   <Home />
                 </Suspense>
               }
@@ -78,7 +79,7 @@ function App() {
               exact
               path="/posts"
               element={
-                <Suspense fallback="Loading...">
+                <Suspense fallback={<Loading />}>
                   <Posts />
                 </Suspense>
               }
@@ -87,7 +88,7 @@ function App() {
               exact
               path="/posts/:id"
               element={
-                <Suspense fallback="Loading...">
+                <Suspense fallback={<Loading />}>
                   <PostSingle />
                 </Suspense>
               }
@@ -96,7 +97,7 @@ function App() {
               exact
               path="/contact"
               element={
-                <Suspense fallback="Loading...">
+                <Suspense fallback={<Loading />}>
                   <Contact />
                 </Suspense>
               }
@@ -105,7 +106,7 @@ function App() {
               exact
               path="/about"
               element={
-                <Suspense fallback="Loading...">
+                <Suspense fallback={<Loading />}>
                   <AboutUs />
                 </Suspense>
               }
@@ -114,7 +115,7 @@ function App() {
               exact
               path="/faq"
               element={
-                <Suspense fallback="Loading...">
+                <Suspense fallback={<Loading />}>
                   <FAQ />
                 </Suspense>
               }
@@ -123,7 +124,7 @@ function App() {
               exact
               path="/privacy"
               element={
-                <Suspense fallback="Loading...">
+                <Suspense fallback={<Loading />}>
                   <Privacy />
                 </Suspense>
               }
@@ -132,7 +133,7 @@ function App() {
               exact
               path="/terms"
               element={
-                <Suspense fallback="Loading...">
+                <Suspense fallback={<Loading />}>
                   <Terms />
                 </Suspense>
               }
@@ -140,7 +141,7 @@ function App() {
             <Route
               path="*"
               element={
-                <Suspense fallback="Loading...">
+                <Suspense fallback={<Loading />}>
                   <PageNotFound />
                 </Suspense>
               }
@@ -151,7 +152,7 @@ function App() {
                 exact
                 path="/signin"
                 element={
-                  <Suspense fallback="Loading...">
+                  <Suspense fallback={<Loading />}>
                     <RegistrationLogin />
                   </Suspense>
                 }
@@ -160,7 +161,7 @@ function App() {
                 exact
                 path="/signup"
                 element={
-                  <Suspense fallback="Loading...">
+                  <Suspense fallback={<Loading />}>
                     <RegistrationLogin />
                   </Suspense>
                 }
@@ -169,7 +170,7 @@ function App() {
                 exact
                 path="/forgot-password"
                 element={
-                  <Suspense fallback="Loading...">
+                  <Suspense fallback={<Loading />}>
                     <RegistrationLogin />
                   </Suspense>
                 }
@@ -181,7 +182,7 @@ function App() {
                 exact
                 path="/chat"
                 element={
-                  <Suspense fallback="Loading...">
+                  <Suspense fallback={<Loading />}>
                     <Chat />
                   </Suspense>
                 }
@@ -190,7 +191,7 @@ function App() {
                 exact
                 path="/chat/:id"
                 element={
-                  <Suspense fallback="Loading...">
+                  <Suspense fallback={<Loading />}>
                     <Chat />
                   </Suspense>
                 }
@@ -198,7 +199,7 @@ function App() {
               <Route
                 path="/"
                 element={
-                  <Suspense fallback="Loading...">
+                  <Suspense fallback={<Loading />}>
                     <Account />
                   </Suspense>
                 }
@@ -207,7 +208,7 @@ function App() {
                   exact
                   path="/profile"
                   element={
-                    <Suspense fallback="Loading...">
+                    <Suspense fallback={<Loading />}>
                       <Profile />
                     </Suspense>
                   }
@@ -216,7 +217,7 @@ function App() {
                   exact
                   path="/profile/my-posts"
                   element={
-                    <Suspense fallback="Loading...">
+                    <Suspense fallback={<Loading />}>
                       <MyPosts />
                     </Suspense>
                   }
@@ -225,7 +226,7 @@ function App() {
                   exact
                   path="/profile/my-posts/:id"
                   element={
-                    <Suspense fallback="Loading...">
+                    <Suspense fallback={<Loading />}>
                       <MyPostsEdit />
                     </Suspense>
                   }
@@ -234,7 +235,7 @@ function App() {
                   exact
                   path="/profile/confirmed-posts"
                   element={
-                    <Suspense fallback="Loading...">
+                    <Suspense fallback={<Loading />}>
                       <ConfirmedPosts />
                     </Suspense>
                   }
@@ -243,7 +244,7 @@ function App() {
                   exact
                   path="/profile/favorites"
                   element={
-                    <Suspense fallback="Loading...">
+                    <Suspense fallback={<Loading />}>
                       <FavoritePosts />
                     </Suspense>
                   }
@@ -252,7 +253,7 @@ function App() {
                   exact
                   path="/profile/security"
                   element={
-                    <Suspense fallback="Loading...">
+                    <Suspense fallback={<Loading />}>
                       <Security />
                     </Suspense>
                   }
@@ -262,7 +263,7 @@ function App() {
                     exact
                     path="/profile/pending-posts"
                     element={
-                      <Suspense fallback="Loading...">
+                      <Suspense fallback={<Loading />}>
                         <PendingPosts />
                       </Suspense>
                     }
@@ -271,7 +272,7 @@ function App() {
                     exact
                     path="/profile/faq"
                     element={
-                      <Suspense fallback="Loading...">
+                      <Suspense fallback={<Loading />}>
                         <AdminFAQ />
                       </Suspense>
                     }
@@ -280,7 +281,7 @@ function App() {
                     exact
                     path="/profile/faq/create"
                     element={
-                      <Suspense fallback="Loading...">
+                      <Suspense fallback={<Loading />}>
                         <AdminFAQCreate />
                       </Suspense>
                     }
@@ -289,7 +290,7 @@ function App() {
                     exact
                     path="/profile/faq/:id"
                     element={
-                      <Suspense fallback="Loading...">
+                      <Suspense fallback={<Loading />}>
                         <AdminFAQEdit />
                       </Suspense>
                     }
