@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Box, CardMedia } from "@mui/material"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { FreeMode, Navigation, Thumbs } from "swiper"
-import { IMAGE_BASE_URL } from "../../constants/cloudinary"
+import { CLOUDINARY_BASE_URL } from "../../constants/constants"
 
 export default function Slider({ images }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
@@ -30,7 +30,7 @@ export default function Slider({ images }) {
                   objectFit: "cover",
                   width: "100%",
                 }}
-                image={IMAGE_BASE_URL + image.src}
+                image={CLOUDINARY_BASE_URL + image.src}
                 alt={""}
               />
             </SwiperSlide>
@@ -56,7 +56,7 @@ export default function Slider({ images }) {
                   height: 100,
                   objectFit: "cover",
                 }}
-                image={IMAGE_BASE_URL + image.src}
+                image={CLOUDINARY_BASE_URL + image.src}
                 alt={""}
               />
             </SwiperSlide>

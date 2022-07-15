@@ -16,7 +16,7 @@ import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
 import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
 import emptyImage from "../../assets/adspy_loading_animation.gif"
 import { getUserFullName } from "../../helpers/utils"
-import { IMAGE_BASE_URL } from "../../constants/cloudinary"
+import { CLOUDINARY_BASE_URL } from "../../constants/constants"
 import useStyles from "./styles"
 
 export default function Post({
@@ -31,7 +31,7 @@ export default function Post({
   const { t } = useTranslation()
   const classes = useStyles()
 
-  const img = post.images.length ? `${IMAGE_BASE_URL}${post.images[0].src}` : emptyImage
+  const img = post.images.length ? `${CLOUDINARY_BASE_URL}${post.images[0].src}` : emptyImage
 
   return (
     <Card

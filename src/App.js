@@ -13,8 +13,8 @@ import connectToSocket from "./helpers/connectToSocket"
 import { deleteUserInfo, setUserInfo } from "./redux/userSlice"
 import "./App.css"
 
-const Chat = lazy(() => import("./components/Chat/Chat"))
 const Main = lazy(() => import("./components/Main/Main"))
+const Chat = lazy(() => import("./components/Chat/Chat"))
 const Home = lazy(() => import("./components/Home/Home"))
 const MyPosts = lazy(() => import("./components/MyPosts/MyPosts"))
 const MyPostsEdit = lazy(() => import("./components/MyPostsEdit/MyPostsEdit"))

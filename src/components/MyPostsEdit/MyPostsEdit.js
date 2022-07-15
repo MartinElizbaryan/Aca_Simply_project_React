@@ -15,7 +15,7 @@ import api from "../../api/api"
 import EmailIcon from "@mui/icons-material/Email"
 import { useFormik } from "formik"
 import CardMedia from "@mui/material/CardMedia"
-import { IMAGE_BASE_URL } from "../../constants/cloudinary"
+import { CLOUDINARY_BASE_URL } from "../../constants/constants"
 import { removeCurrentImage, removeImage, updatePost } from "./utilits"
 import validationSchema from "./validationSchema"
 
@@ -240,8 +240,8 @@ export default function MyPostsEdit() {
                       <CardMedia
                         component="img"
                         height="200"
-                        image={IMAGE_BASE_URL + image.src}
-                        alt={IMAGE_BASE_URL + image.src}
+                        image={CLOUDINARY_BASE_URL + image.src}
+                        alt={CLOUDINARY_BASE_URL + image.src}
                         sx={{
                           borderRadius: 5,
                         }}
