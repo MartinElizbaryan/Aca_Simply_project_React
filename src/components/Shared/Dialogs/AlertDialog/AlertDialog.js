@@ -16,7 +16,14 @@ export const AlertDialog = ({ title, message, handleClose, handleOk, ...props })
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleOk}>Ok</Button>
+        <Button
+          onClick={() => {
+            handleOk()
+            handleClose()
+          }}
+        >
+          Ok
+        </Button>
       </DialogActions>
     </Dialog>
   )

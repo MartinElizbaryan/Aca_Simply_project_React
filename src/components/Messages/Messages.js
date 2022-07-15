@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
 import { useTranslation } from "react-i18next"
 import { useNavigate, useParams } from "react-router-dom"
-import { Box, Divider, Grid, IconButton, InputBase, List } from "@mui/material"
+import { Box, Divider, Grid, IconButton, List } from "@mui/material"
 import SendIcon from "@mui/icons-material/Send"
 import Message from "../Message/Message"
 import api from "../../api/api"
@@ -10,6 +10,7 @@ import socket from "../../helpers/socket"
 import { getUserInfo } from "../../redux/userSelectors"
 import { withIdChecking } from "../../hocs/withIdChecking"
 import useStyles from "./styles"
+import ChatInput from "../Shared/Inputs/ChatInput/ChatInput"
 
 function Messages() {
   const [messages, setMessages] = useState([])
@@ -65,6 +66,7 @@ function Messages() {
 
   const sendMessage = async () => {
     try {
+      if (!message) return
       const res = await api.post(`/messages/${id}`, {
         text: message,
       })
@@ -98,18 +100,16 @@ function Messages() {
 
       <Divider />
       <Box display="flex" alignItems="center">
-        <InputBase
-          sx={{ ml: 1, flex: 1 }}
+        <ChatInput
           placeholder={t("Type_placeholder")}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyUp={(e) => {
             e.key === "Enter" && sendMessage()
           }}
-          fullWidth
         />
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <IconButton color="primary" sx={{ p: "10px" }} onClick={sendMessage}>
+        <IconButton color="primary" onClick={sendMessage}>
           <SendIcon />
         </IconButton>
       </Box>
