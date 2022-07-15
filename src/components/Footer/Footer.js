@@ -89,7 +89,7 @@ export default function Footer() {
           <Link url="/faq" color={colors.white} variant="caption">
             {t("FAQ")}
           </Link>
-          <Link url="/terms-conditions" color={colors.white} variant="caption">
+          <Link url="/terms" color={colors.white} variant="caption">
             {t("terms")}
           </Link>
           <Link url="/privacy" color={colors.white} variant="caption">

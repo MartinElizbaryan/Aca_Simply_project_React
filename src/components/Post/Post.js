@@ -76,7 +76,7 @@ export default function Post({
           {t("Category")}: {t(post.category.name)}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {post.description.slice(0, 120) + "..."}
+          {post.description.length > 30 ? post.description.slice(0, 30) + "..." : post.description}
         </Typography>
       </CardContent>
       <CardActions
