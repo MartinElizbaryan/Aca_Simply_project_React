@@ -60,12 +60,19 @@ export default function Profile() {
           </ListItemButton>
           <Divider />
           <form onSubmit={formik.handleSubmit} id="editForm" className={classes.form}>
-            <Stack spacing={4} p={4}>
+            <Stack
+              spacing={4}
+              p={4}
+              sx={{
+                maxWidth: 320,
+              }}
+            >
               <Stack
                 direction={{
                   xs: "column",
                   sm: "row",
                 }}
+                justifyContent={"space-between"}
               >
                 <Grid item xs={5} className={classes.label}>
                   <Typography variant="caption">{t("Name")}</Typography>
@@ -75,6 +82,7 @@ export default function Profile() {
                     value={formik.values.name}
                     onChange={formik.handleChange}
                     name="name"
+                    fullWidth
                     error={formik.touched.name && Boolean(formik.errors.name)}
                     helperText={formik.touched.name && formik.errors.name}
                   />
@@ -85,6 +93,7 @@ export default function Profile() {
                   xs: "column",
                   sm: "row",
                 }}
+                justifyContent={"space-between"}
               >
                 <Grid item xs={5} className={classes.label}>
                   <Typography variant="caption">{t("Surname")}</Typography>
@@ -94,6 +103,7 @@ export default function Profile() {
                     value={formik.values.surname}
                     onChange={formik.handleChange}
                     name="surname"
+                    fullWidth
                     error={formik.touched.surname && Boolean(formik.errors.surname)}
                     helperText={formik.touched.surname && formik.errors.surname}
                   />
@@ -116,12 +126,13 @@ export default function Profile() {
                   xs: "column",
                   sm: "row",
                 }}
+                justifyContent={"space-between"}
               >
                 <Grid item xs={5} className={classes.label}>
                   <Typography variant="caption">{t("Email")}</Typography>
                 </Grid>
                 <Grid item>
-                  <UnlabeledInput value={user.email || ""} disabled />
+                  <UnlabeledInput value={user.email || ""} disabled fullWidth />
                 </Grid>
               </Stack>
               <Stack
@@ -129,6 +140,7 @@ export default function Profile() {
                   xs: "column",
                   sm: "row",
                 }}
+                justifyContent={"space-between"}
               >
                 <Grid item xs={5} className={classes.label}>
                   <Typography variant="caption">{t("Phone")}</Typography>
@@ -138,6 +150,7 @@ export default function Profile() {
                     value={formik.values.phone}
                     onChange={formik.handleChange}
                     name="phone"
+                    fullWidth
                     error={formik.touched.phone && Boolean(formik.errors.phone)}
                     helperText={formik.touched.phone && formik.errors.phone}
                   />
