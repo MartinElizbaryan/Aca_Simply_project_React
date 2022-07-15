@@ -19,6 +19,7 @@ import { AlertDialog } from "../Shared/Dialogs/AlertDialog/AlertDialog"
 import PasswordInput from "../Shared/Inputs/PasswordInput/PasswordInput"
 import { SuccessDialog } from "../Shared/Dialogs/SuccessDialog/SuccessDialog"
 import { validationSchema } from "./vaildation"
+import socket from "../../helpers/socket"
 import { changePassword, signOutFromOtherDevices } from "./utils"
 import useStyles from "./styles"
 
@@ -30,6 +31,8 @@ export default function Security() {
   const [openPasswordChange, setOpenPasswordChange] = useState(true)
 
   const classes = useStyles()
+
+  const socketId = socket.id
 
   const formik = useFormik({
     initialValues: {
@@ -152,7 +155,7 @@ export default function Security() {
         message={
           "This will sign you out from every other device that you are currently signed in on. Are you sure you want to continue?"
         }
-        handleOk={signOutFromOtherDevices}
+        handleOk={() => signOutFromOtherDevices({ data: { socketId } })}
         handleClose={onAlertDialogClose}
       />
       <SuccessDialog

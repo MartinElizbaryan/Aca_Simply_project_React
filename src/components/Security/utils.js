@@ -6,8 +6,8 @@ export const changePassword = async (body) => {
   return res.data
 }
 
-export const signOutFromOtherDevices = async () => {
-  const res = await api.delete("/auth/sign-out-other-devices")
+export const signOutFromOtherDevices = async (body = {}) => {
+  const res = await api.delete("/auth/sign-out-other-devices", body)
   console.log(res)
   return res.data
 }

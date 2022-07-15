@@ -2,6 +2,7 @@ import FindPost from "../FindPost/FindPost"
 import PostsList from "../PostsList/PostsList"
 import Box from "@mui/material/Box"
 import Counter from "../Counter/Counter"
+import Steps from "../Steps/Steps"
 import { useEffect, useState } from "react"
 import PostsSceleton from "../PostsSceleton/PostsSceleton"
 import Typography from "@mui/material/Typography"
@@ -33,6 +34,9 @@ export default function Home() {
       </Box>
       <Box mt={5} mb={5}>
         <Counter />
+      </Box>
+      <Box mt={5}>
+        <Steps />
       </Box>
     </>
   )
