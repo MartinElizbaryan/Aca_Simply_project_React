@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
+import useSound from "use-sound"
 import { Badge, Box, ListItemIcon, Menu, MenuItem, Typography } from "@mui/material"
 import MailIcon from "@mui/icons-material/Mail"
 import LogoutIcon from "@mui/icons-material/Logout"
@@ -18,9 +19,7 @@ import socket from "../../helpers/socket"
 import { signOut } from "../Header/utils"
 import { deleteUserInfo } from "../../redux/userSlice"
 import { getUserInfo } from "../../redux/userSelectors"
-import useSound from "use-sound"
 import notificationSound from "../../assets/sounds/notification.mp3"
-// import useSound from "../../hooks/useSound"
 
 export default function UserControlBlock() {
   const [openCreatePost, setOpenCreatePost] = useState(false)
@@ -29,8 +28,7 @@ export default function UserControlBlock() {
   const [profileAnchorEl, setProfileAnchorEl] = useState(null)
   const [notificationAnchorEl, setNotificationAnchorEl] = useState(null)
   const [play] = useSound(notificationSound, { volume: 1 })
-  // const play = useSound("../../assets/sounds/notification.mp3")
-  // const [playing, startPlay] = useSound("../../assets/sounds/notification.mp3")
+  const clickElement = useRef()
 
   const { t } = useTranslation()
   const navigate = useNavigate()
@@ -48,7 +46,7 @@ export default function UserControlBlock() {
 
   useEffect(() => {
     socket.on("receive", () => {
-      play()
+      clickElement.current.click()
     })
     socket.on("messageCountUpdate", async () => {
       const messagesInfo = await api.get("/messages/unread")
@@ -61,7 +59,7 @@ export default function UserControlBlock() {
     })
     socket.on("receiveNotification", ({ count }) => {
       setNotificationsCount(count)
-      play()
+      clickElement.current.click()
     })
   }, [])
 
@@ -148,6 +146,7 @@ export default function UserControlBlock() {
             {t("Sign_Out")}
           </MenuItem>
         </Menu>
+        <Box sx={{ display: "none" }} ref={clickElement} onClick={play}></Box>
       </Box>
     </>
   )
