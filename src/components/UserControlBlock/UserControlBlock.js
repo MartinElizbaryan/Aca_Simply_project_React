@@ -18,18 +18,24 @@ import socket from "../../helpers/socket"
 import { signOut } from "../Header/utils"
 import { deleteUserInfo } from "../../redux/userSlice"
 import { getUserInfo } from "../../redux/userSelectors"
+import useSound from "use-sound"
+import notificationSound from "../../assets/sounds/notification.mp3"
+// import useSound from "../../hooks/useSound"
 
 export default function UserControlBlock() {
-  const { t } = useTranslation()
   const [openCreatePost, setOpenCreatePost] = useState(false)
-  const [profileAnchorEl, setProfileAnchorEl] = useState(null)
-  const [notificationAnchorEl, setNotificationAnchorEl] = useState(null)
-  const user = useSelector(getUserInfo)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-
   const [messageCount, setMessageCount] = useState([])
   const [notificationsCount, setNotificationsCount] = useState([])
+  const [profileAnchorEl, setProfileAnchorEl] = useState(null)
+  const [notificationAnchorEl, setNotificationAnchorEl] = useState(null)
+  const [play] = useSound(notificationSound, { volume: 1 })
+  // const play = useSound("../../assets/sounds/notification.mp3")
+  // const [playing, startPlay] = useSound("../../assets/sounds/notification.mp3")
+
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const user = useSelector(getUserInfo)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     ;(async () => {
@@ -41,6 +47,9 @@ export default function UserControlBlock() {
   }, [])
 
   useEffect(() => {
+    socket.on("receive", () => {
+      play()
+    })
     socket.on("messageCountUpdate", async () => {
       const messagesInfo = await api.get("/messages/unread")
       setMessageCount(messagesInfo.data._count.id)
@@ -52,6 +61,7 @@ export default function UserControlBlock() {
     })
     socket.on("receiveNotification", ({ count }) => {
       setNotificationsCount(count)
+      play()
     })
   }, [])
 

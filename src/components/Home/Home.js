@@ -2,7 +2,6 @@ import FindPost from "../FindPost/FindPost"
 import PostsList from "../PostsList/PostsList"
 import Box from "@mui/material/Box"
 import Counter from "../Counter/Counter"
-//import TeamSlider from "../TeamSlider/TeamSlider"
 import Steps from "../Steps/Steps"
 import { useEffect, useState } from "react"
 import PostsSceleton from "../PostsSceleton/PostsSceleton"
@@ -12,9 +11,11 @@ import { useFetch } from "../../hooks/useFetch"
 export default function Home() {
   const { data, error, loading } = useFetch("/posts?take=3")
   const [posts, setPosts] = useState([])
+
   useEffect(() => {
     setPosts(data.posts)
   }, [data])
+
   return (
     <>
       <FindPost />
@@ -35,7 +36,7 @@ export default function Home() {
         <Counter />
       </Box>
       <Box mt={5}>
-        {/* <TeamSlider /> */} <Steps />{" "}
+        <Steps />
       </Box>
     </>
   )
