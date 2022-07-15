@@ -1,12 +1,11 @@
 import { createUseStyles } from "react-jss"
-import { colors } from "../../constants/styles"
 
 const useStyles = createUseStyles({
   form: {
     textAlign: "center",
   },
-  button: {
-    backgroundColor: `${colors.green} !important`,
+  listButton: {
+    minHeight: 56,
   },
   label: {
     textAlign: "end",

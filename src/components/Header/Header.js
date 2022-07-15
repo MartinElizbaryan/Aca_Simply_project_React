@@ -1,22 +1,22 @@
 import React, { lazy, Suspense } from "react"
 import { useSelector } from "react-redux"
+import { useTranslation } from "react-i18next"
 import { AppBar, Box, Stack, Toolbar } from "@mui/material"
+import { Logo } from "../Shared/Logo/Logo"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import NavigationMobile from "../Shared/NavigationMobile/NavigationMobile"
-import { Logo } from "../Shared/Logo/Logo"
-import { navlist } from "./constants"
+import SignInButton from "../Shared/Buttons/SignInButton/SignInButton"
 import { getUserAuth } from "../../redux/userSelectors"
+import { navlist } from "./constants"
 import { colors } from "../../constants/styles.js"
 import useStyles from "./styles"
-import { useTranslation } from "react-i18next"
-import SignInButton from "../Shared/Buttons/SignInButton/SignInButton"
 
 const UserControlBlock = lazy(() => import("../UserControlBlock/UserControlBlock"))
 
 export default function Header() {
   const { t } = useTranslation()
-  const classes = useStyles()
   const auth = useSelector(getUserAuth)
+  const classes = useStyles()
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
@@ -34,7 +34,9 @@ export default function Header() {
         >
           {navlist?.map((link, index) => {
             return (
-              <Link url={link.route} color={colors.white} key={link.name} content={t(link.name)} />
+              <Link url={link.route} color={colors.white} key={link.name}>
+                {t(link.name)}
+              </Link>
             )
           })}
         </Stack>

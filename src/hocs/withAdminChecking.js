@@ -1,10 +1,9 @@
 import { useSelector } from "react-redux"
 import { getUserIsAdmin } from "../redux/userSelectors"
 
-export const adminHOC = (Component) => {
-  // eslint-disable-next-line react/display-name
-  return () => {
+export const withAdminChecking = (Component) => {
+  return (props) => {
     const isAdmin = useSelector(getUserIsAdmin)
-    return isAdmin && <Component />
+    return isAdmin && <Component {...props} />
   }
 }

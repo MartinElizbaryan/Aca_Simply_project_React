@@ -1,45 +1,35 @@
 import { useState } from "react"
 import { Box, Button, SwipeableDrawer } from "@mui/material"
-import AccountCircleIcon from "@mui/icons-material/AccountCircle"
-import SidebarCabinet from "../SidebarCabinet/SidebarCabinet"
+import MenuIcon from "@mui/icons-material/Menu"
+import ProfileSidebar from "../ProfileSidebar/ProfileSidebar"
 
-export default function SidebarMobileCabinet() {
-  const [state, setState] = useState({
-    left: false,
-  })
+export default function ProfileSidebarMobile() {
+  const [open, setOpen] = useState(false)
 
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (event && event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
-      return
-    }
-
-    setState({ ...state, [anchor]: open })
+  const toggleDrawer = (open) => () => {
+    setOpen(open)
   }
-
-  const list = (anchor) => (
-    <Box sx={{ width: 250 }} role="presentation" onKeyDown={toggleDrawer(anchor, false)}>
-      <SidebarCabinet />
-    </Box>
-  )
 
   return (
     <Box>
       <Button
-        onClick={toggleDrawer("left", true)}
-        fullWidth
+        onClick={toggleDrawer(true)}
         sx={{
           padding: 2,
+          borderRadius: 1,
         }}
       >
-        <AccountCircleIcon /> Cabinet
+        <MenuIcon />
       </Button>
       <SwipeableDrawer
-        anchor={"left"}
-        open={state["left"]}
-        onClose={toggleDrawer("left", false)}
-        onOpen={toggleDrawer("left", true)}
+        anchor="left"
+        open={open}
+        onClose={toggleDrawer(false)}
+        onOpen={toggleDrawer(true)}
       >
-        {list("left")}
+        <Box onClick={toggleDrawer(false)}>
+          <ProfileSidebar />
+        </Box>
       </SwipeableDrawer>
     </Box>
   )

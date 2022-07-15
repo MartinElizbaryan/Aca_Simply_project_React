@@ -107,10 +107,11 @@ export default function NavigationMobile() {
                 <Link
                   onClick={toggleDrawer(false)}
                   url={link.route}
-                  content={<ListItemButton sx={{ padding: 2 }}>{link.name}</ListItemButton>}
                   color={colors.dark}
                   key={index}
-                />
+                >
+                  <ListItemButton sx={{ padding: 2 }}>{link.name}</ListItemButton>
+                </Link>
               )
             })}
           </List>

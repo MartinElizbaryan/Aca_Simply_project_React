@@ -1,7 +1,16 @@
 import { useState } from "react"
 import { useFormik } from "formik"
 import { useTranslation } from "react-i18next"
-import { Container, Divider, Grid, ListItemButton, Paper, Stack, Typography } from "@mui/material"
+import {
+  Collapse,
+  Container,
+  Divider,
+  Grid,
+  ListItemButton,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material"
 import VpnKeyIcon from "@mui/icons-material/VpnKey"
 import LogoutIcon from "@mui/icons-material/Logout"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
@@ -18,6 +27,7 @@ export default function Security() {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
   const [openDialog, setOpenDialog] = useState(false)
+  const [openPasswordChange, setOpenPasswordChange] = useState(true)
 
   const classes = useStyles()
 
@@ -33,7 +43,6 @@ export default function Security() {
         const res = await changePassword({ currentPassword, newPassword, confirmPassword })
         if (res.status === 204) setSuccess(true)
       } catch (e) {
-        console.log(e)
         setError(true)
       }
     },
@@ -47,10 +56,6 @@ export default function Security() {
     setError(false)
   }
 
-  const onSignOutClick = () => {
-    setOpenDialog(true)
-  }
-
   const onAlertDialogClose = () => {
     setOpenDialog(false)
   }
@@ -58,85 +63,89 @@ export default function Security() {
   return (
     <Container sx={{ paddingTop: 1, marginBottom: 1 }}>
       <Paper>
-        <ListItemButton sx={{ minHeight: "56px" }}>
+        <ListItemButton
+          className={classes.listButton}
+          onClick={() => setOpenPasswordChange(!openPasswordChange)}
+        >
           <VpnKeyIcon sx={{ marginRight: 2 }} />
           <Typography>Change password</Typography>
         </ListItemButton>
+        <Collapse in={openPasswordChange}>
+          <Divider />
+          <Typography variant="body2" p={3}>
+            {t("enter_your_pass")}
+          </Typography>
+          <form onSubmit={formik.handleSubmit} id="editForm" className={classes.form}>
+            <Stack spacing={4} p={4}>
+              <Stack
+                direction={{
+                  xs: "column",
+                  sm: "row",
+                }}
+              >
+                <Grid item xs={5} className={classes.label}>
+                  <Typography variant="caption">{t("Current_Password")}</Typography>
+                </Grid>
+                <Grid item>
+                  <PasswordInput
+                    value={formik.values.currentPassword}
+                    onChange={formik.handleChange}
+                    name="currentPassword"
+                    error={formik.touched.currentPassword && Boolean(formik.errors.currentPassword)}
+                    helperText={formik.touched.currentPassword && formik.errors.currentPassword}
+                  />
+                </Grid>
+              </Stack>
+              <Stack
+                direction={{
+                  xs: "column",
+                  sm: "row",
+                }}
+              >
+                <Grid item xs={5} className={classes.label}>
+                  <Typography variant="caption">{t("New_Password")}</Typography>
+                </Grid>
+                <Grid item>
+                  <PasswordInput
+                    value={formik.values.newPassword}
+                    onChange={formik.handleChange}
+                    name="newPassword"
+                    error={formik.touched.newPassword && Boolean(formik.errors.newPassword)}
+                    helperText={formik.touched.newPassword && formik.errors.newPassword}
+                  />
+                </Grid>
+              </Stack>
+              <Stack
+                direction={{
+                  xs: "column",
+                  sm: "row",
+                }}
+              >
+                <Grid item xs={5} className={classes.label}>
+                  <Typography variant="caption">{t("Confirm_Password")}</Typography>
+                </Grid>
+                <Grid item>
+                  <PasswordInput
+                    value={formik.values.confirmPassword}
+                    onChange={formik.handleChange}
+                    name="confirmPassword"
+                    error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+                    helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+                  />
+                </Grid>
+              </Stack>
+              <Grid item xs={12} sx={{ textAlign: "start" }}>
+                <BlueButton type="submit">{t("Change Password")}</BlueButton>
+              </Grid>
+            </Stack>
+          </form>
+        </Collapse>
         <Divider />
-        <Typography variant="body2" p={3}>
-          {t("enter_your_pass")}
-        </Typography>
-        <form onSubmit={formik.handleSubmit} id="editForm" className={classes.form}>
-          <Stack spacing={4} p={4}>
-            <Stack
-              direction={{
-                xs: "column",
-                sm: "row",
-              }}
-            >
-              <Grid item xs={5} className={classes.label}>
-                <Typography variant="caption">{t("Current_Password")}</Typography>
-              </Grid>
-              <Grid item>
-                <PasswordInput
-                  value={formik.values.currentPassword}
-                  onChange={formik.handleChange}
-                  name="currentPassword"
-                  error={formik.touched.currentPassword && Boolean(formik.errors.currentPassword)}
-                  helperText={formik.touched.currentPassword && formik.errors.currentPassword}
-                />
-              </Grid>
-            </Stack>
-            <Stack
-              direction={{
-                xs: "column",
-                sm: "row",
-              }}
-            >
-              <Grid item xs={5} className={classes.label}>
-                <Typography variant="caption">{t("New_Password")}</Typography>
-              </Grid>
-              <Grid item>
-                <PasswordInput
-                  value={formik.values.newPassword}
-                  onChange={formik.handleChange}
-                  name="newPassword"
-                  error={formik.touched.newPassword && Boolean(formik.errors.newPassword)}
-                  helperText={formik.touched.newPassword && formik.errors.newPassword}
-                />
-              </Grid>
-            </Stack>
-            <Stack
-              direction={{
-                xs: "column",
-                sm: "row",
-              }}
-            >
-              <Grid item xs={5} className={classes.label}>
-                <Typography variant="caption">{t("Confirm_Password")}</Typography>
-              </Grid>
-              <Grid item>
-                <PasswordInput
-                  value={formik.values.confirmPassword}
-                  onChange={formik.handleChange}
-                  name="confirmPassword"
-                  error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-                  helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
-                />
-              </Grid>
-            </Stack>
-            <Grid item xs={12} sx={{ textAlign: "start" }}>
-              <BlueButton type="submit">{t("Change Password")}</BlueButton>
-            </Grid>
-          </Stack>
-        </form>
-        <Divider />
-        <ListItemButton onClick={onSignOutClick}>
+        <ListItemButton onClick={() => setOpenDialog(true)} className={classes.listButton}>
           <LogoutIcon />
           <Typography ml={2}>Sign out from other devices</Typography>
         </ListItemButton>
       </Paper>
-
       <AlertDialog
         open={openDialog}
         title={"Are you sure?"}

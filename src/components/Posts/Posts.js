@@ -1,18 +1,18 @@
 import { useEffect, useMemo, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 import { Box, Container, Grid } from "@mui/material"
-import DefaultPagination from "../Shared/Pagination/DefaultPagination/DefaultPagination"
-import PostsSceleton from "../PostsSceleton/PostsSceleton"
+import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined"
 import PostsList from "../PostsList/PostsList"
+import PostsSceleton from "../PostsSceleton/PostsSceleton"
+import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
+import PostsSidebar from "../PostsSidebar/PostsSidebar"
+import DefaultPagination from "../Shared/Pagination/DefaultPagination/DefaultPagination"
 import { useFetch } from "../../hooks/useFetch"
 import { getParamsFromFiltering } from "./utils"
 import { scrollToTop } from "../../helpers/utils"
 import { POST_PER_PAGE } from "./constants"
 import { colors } from "../../constants/styles"
 import useStyles from "./styles"
-import SidebarMobile from "../Shared/Sidebars/SidebarMobile/SidebarMobile"
-import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined"
-import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 
 export default function Posts() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -66,13 +66,12 @@ export default function Posts() {
 
   return (
     <Container className={classes.container} maxWidth={false}>
-      <Grid
-        item
-        xs={12}
-        md={9}
-        sx={{ backgroundColor: colors.grey, width: "100%", height: "100%" }}
-      >
-        <SidebarMobile open={open} toggleDrawer={toggleDrawer} />
+      <Grid item sx={{ backgroundColor: colors.grey, width: "100%", height: "100%" }}>
+        <PostsSidebar
+          open={open}
+          toggleDrawer={toggleDrawer}
+          handleCategoryChange={handleCategoryChange}
+        />
         <Box
           mb={5}
           sx={{

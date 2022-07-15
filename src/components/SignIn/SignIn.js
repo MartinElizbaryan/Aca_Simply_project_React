@@ -84,7 +84,7 @@ export default function SignIn() {
         </Box>
       </form>
       <Box className={classes.finalBox}>
-        <Link url="/forgot-password" content={t("Forgot_pass")} />
+        <Link url="/forgot-password">{t("Forgot_pass")}</Link>
       </Box>
       <Box className={classes.central2}>
         <Button variant="contained" color="success" type="submit" form="myForm">

@@ -74,7 +74,7 @@ function App() {
               <Route exact path="/about" element={<AboutUs />} />
               <Route exact path="/faq" element={<FAQ />} />
               <Route exact path="/privacy" element={<Privacy />} />
-              <Route exact path="/terms-conditions" element={<Terms />} />
+              <Route exact path="/terms" element={<Terms />} />
               <Route path="*" element={<PageNotFound />} />
 
               <Route path="/" element={<UnauthorizedUserPrivateRoute />}>

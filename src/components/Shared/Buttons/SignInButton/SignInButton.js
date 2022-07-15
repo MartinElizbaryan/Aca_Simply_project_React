@@ -8,16 +8,12 @@ const SignInButton = () => {
   const { t } = useTranslation()
 
   return (
-    <Link
-      url="/signin"
-      content={
-        <TransparentButton>
-          <LoginIcon />
-          <Typography ml={2}>{t("Sign_In")}</Typography>
-        </TransparentButton>
-      }
-      color="white"
-    />
+    <Link url="/signin" color="white">
+      <TransparentButton>
+        <LoginIcon />
+        <Typography ml={2}>{t("Sign_In")}</Typography>
+      </TransparentButton>
+    </Link>
   )
 }
 

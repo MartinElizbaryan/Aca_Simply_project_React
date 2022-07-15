@@ -2,15 +2,14 @@ import { useState } from "react"
 import { useFormik } from "formik"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-import { Container, Divider, Grid, ListItem, Paper, Stack, Typography } from "@mui/material"
-import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
+import { Container, Divider, Grid, ListItemButton, Paper, Stack, Typography } from "@mui/material"
+import { UserInfo } from "../Shared/UserInfo/UserInfo"
 import { ErrorDialog } from "../Shared/Dialogs/ErrorDialog/ErrorDialog"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import UnlabeledInput from "../Shared/Inputs/UnlabeledInput/UnlabeledInput"
 import { SuccessDialog } from "../Shared/Dialogs/SuccessDialog/SuccessDialog"
 import { editUserInfo } from "./utils"
 import { validationSchema } from "./vaildation"
-import { getUserFullName } from "../../helpers/utils"
 import { setUserInfo } from "../../redux/userSlice"
 import { getUserInfo } from "../../redux/userSelectors"
 import useStyles from "./styles"
@@ -56,13 +55,12 @@ export default function Profile() {
     <>
       <Container sx={{ paddingTop: 1, marginBottom: 1 }}>
         <Paper>
-          <ListItem>
-            <UserAvatar user={user} sx={{ marginRight: 2 }} />
-            <Typography variant="body1">{getUserFullName(user)}</Typography>
-          </ListItem>
+          <ListItemButton>
+            <UserInfo user={user} />
+          </ListItemButton>
           <Divider />
           <form onSubmit={formik.handleSubmit} id="editForm" className={classes.form}>
-            <Stack sx={{ margin: "auto", marginTop: 5 }} spacing={4}>
+            <Stack spacing={4} p={4}>
               <Stack
                 direction={{
                   xs: "column",

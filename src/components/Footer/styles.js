@@ -19,6 +19,7 @@ const useStyles = createUseStyles({
   languagesBox: {
     display: "flex",
     alignItems: "center",
+    padding: "5px",
   },
 })
 export default useStyles

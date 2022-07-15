@@ -1,8 +1,9 @@
 import { Box, Container, Grid } from "@mui/material"
-import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
+import ProfileSidebar from "../Shared/Sidebars/ProfileSidebar/ProfileSidebar"
 import { Outlet } from "react-router-dom"
 import useStyles from "./styles"
 import { colors } from "../../constants/styles"
+import ProfileSidebarMobileIcons from "../Shared/Sidebars/ProfileSidebarMobileIcons/ProfileSidebarMobileIcons"
 
 export default function Account() {
   const classes = useStyles()
@@ -19,14 +20,32 @@ export default function Account() {
           sx={{
             display: {
               xs: "none",
-              md: "block",
+              sm: "block",
             },
           }}
-          className={classes.sidebar}
         >
-          <SidebarCabinet />
+          <ProfileSidebar />
         </Box>
-        <Grid sx={{ marginLeft: "250px" }}>
+        <Box
+          sx={{
+            display: {
+              xs: "block",
+              sm: "none",
+            },
+          }}
+        >
+          {/*<ProfileSidebarMobile />*/}
+          <ProfileSidebarMobileIcons />
+        </Box>
+
+        <Grid
+          sx={{
+            marginLeft: {
+              xs: 0,
+              sm: "250px",
+            },
+          }}
+        >
           <Outlet />
         </Grid>
       </Grid>

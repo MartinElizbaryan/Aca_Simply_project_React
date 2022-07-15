@@ -21,7 +21,7 @@ export function Question({ question, answer, editable, deleteFAQ, id }) {
 
         {editable && (
           <div>
-            <Link url={`/profile/faq/${id}`} content="edit" />
+            <Link url={`/profile/faq/${id}`}>edit</Link>
           </div>
         )}
 

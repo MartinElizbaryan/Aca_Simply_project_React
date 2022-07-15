@@ -103,18 +103,13 @@ export default function UserControlBlock() {
         handleNotificationClose={handleNotificationClose}
         changeNotificationsCount={setNotificationsCount}
       />
-      <Link
-        url="/chat"
-        content={
-          <TransparentButton>
-            <Badge badgeContent={messageCount} color="primary">
-              <MailIcon />
-            </Badge>
-          </TransparentButton>
-        }
-        color="inherit"
-        sx={{ display: "flex" }}
-      />
+      <Link url="/chat" color="inherit" sx={{ display: "flex" }}>
+        <TransparentButton>
+          <Badge badgeContent={messageCount} color="primary">
+            <MailIcon />
+          </Badge>
+        </TransparentButton>
+      </Link>
       <Box sx={{ display: { xs: "none", sm: "flex" } }}>
         <TransparentButton onClick={handleProfileMenu}>
           <AccountCircle />

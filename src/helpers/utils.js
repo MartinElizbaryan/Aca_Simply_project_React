@@ -12,3 +12,7 @@ export const getFirstLetters = (user) => {
 export const getUserFullName = (user) => {
   if (user && user.name) return `${user.name} ${user.surname}`
 }
+
+export const findUser = (users, id) => {
+  return users.find((user) => user.id === +id)
+}

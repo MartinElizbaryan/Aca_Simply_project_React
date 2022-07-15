@@ -29,9 +29,9 @@ export default function AdminFAQ() {
         <Typography variant="h4" className={classes.header}>
           FAQs
         </Typography>
-
-        <Link url="/profile/faq/create" content={<BlueButton>{t("Create")}</BlueButton>} />
-
+        <Link url="/profile/faq/create">
+          <BlueButton>{t("Create")}</BlueButton>
+        </Link>
         <Stack p={4} spacing={2}>
           {faqs?.map((faq) => (
             <Question

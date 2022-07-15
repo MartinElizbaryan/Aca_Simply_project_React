@@ -9,12 +9,21 @@ import { ListItemWithIcon } from "../../ListItems/ListItemWithIcon/ListItemWithI
 import AdminSidebar from "../AdminSidebar/AdminSidebar"
 import useStyles from "./styles"
 
-export default function SidebarCabinet() {
+export default function ProfileSidebar() {
   const { t } = useTranslation()
   const classes = useStyles()
 
   return (
-    <List className={classes.list} component="nav">
+    <List
+      className={classes.list}
+      component="nav"
+      sx={{
+        width: {
+          xs: "200px",
+          sm: "250px",
+        },
+      }}
+    >
       <ListItemWithIcon url="/profile" icon={<AccountCircleIcon />} title={t("Profile")} />
       <ListItemWithIcon url="/profile/my-posts" icon={<ArticleIcon />} title={t("My_Posts")} />
       <ListItemWithIcon

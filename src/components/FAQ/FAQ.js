@@ -32,7 +32,9 @@ export default function FAQ() {
         </Stack>
         <Typography variant="caption">
           {t("still_have_questions")}
-          <Link url="/contact" color={colors.darkBlue} content={t("Contact_us")} />
+          <Link url="/contact" color={colors.darkBlue}>
+            {t("Contact_us")}
+          </Link>
           {t("let_us_know")}
         </Typography>
       </Container>

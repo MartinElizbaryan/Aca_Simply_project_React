@@ -1,36 +1,34 @@
 import { useEffect, useRef, useState } from "react"
+import { useSelector } from "react-redux"
+import { useTranslation } from "react-i18next"
+import { useNavigate, useParams } from "react-router-dom"
 import { Box, Divider, Grid, IconButton, InputBase, List } from "@mui/material"
 import SendIcon from "@mui/icons-material/Send"
 import Message from "../Message/Message"
 import api from "../../api/api"
 import socket from "../../helpers/socket"
-import useStyles from "./styles"
-import { useNavigate, useParams } from "react-router-dom"
-import { useTranslation } from "react-i18next"
-
-import { useSelector } from "react-redux"
 import { getUserInfo } from "../../redux/userSelectors"
+import { withIdChecking } from "../../hocs/withIdChecking"
+import useStyles from "./styles"
 
 function Messages() {
-  const { t } = useTranslation()
-  const { id } = useParams()
   const [messages, setMessages] = useState([])
   const [message, setMessage] = useState("")
-  const [error, setError] = useState("")
   const list = useRef(null)
-  const classes = useStyles()
-
-  const authInfo = useSelector(getUserInfo)
+  const user = useSelector(getUserInfo)
+  const { id } = useParams()
+  const { t } = useTranslation()
   const navigate = useNavigate()
 
+  const classes = useStyles()
+
   useEffect(() => {
-    if (+id === authInfo.id) {
+    if (+id === user.id) {
       navigate("/profile")
     }
 
     ;(async () => {
       const res = await api.get(`/messages/${id}`)
-      console.log(res.data.messages)
       setMessages(res.data.messages)
     })()
     ;(async () => {
@@ -76,10 +74,9 @@ function Messages() {
       })
 
       setMessages((messages) => [...messages, data])
-      setError("")
       setMessage("")
     } catch (e) {
-      setError(e.response.data.details[0].message)
+      console.log(e)
     }
   }
 
@@ -100,10 +97,6 @@ function Messages() {
       </List>
 
       <Divider />
-      {/* <Paper
-            component="form"
-            sx={{ display: "flex", alignItems: "center", width: "100%" }}
-          > */}
       <Box display="flex" alignItems="center">
         <InputBase
           sx={{ ml: 1, flex: 1 }}
@@ -113,23 +106,15 @@ function Messages() {
           onKeyUp={(e) => {
             e.key === "Enter" && sendMessage()
           }}
-          // inputProps={{ "aria-label": "search google maps" }}
           fullWidth
         />
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <IconButton
-          color="primary"
-          sx={{ p: "10px" }}
-          // aria-label="directions"
-          onClick={sendMessage}
-        >
+        <IconButton color="primary" sx={{ p: "10px" }} onClick={sendMessage}>
           <SendIcon />
         </IconButton>
       </Box>
-      {/* </Paper> */}
-      {error && <p>{error}</p>}
     </Grid>
   )
 }
 
-export default Messages
+export default withIdChecking(Messages)

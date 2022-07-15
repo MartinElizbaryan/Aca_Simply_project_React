@@ -31,7 +31,9 @@ export default function Contact() {
         <Stack>
           <Typography variant="body1">
             {t("have_questions")}
-            <Link url="/faq" color={colors.darkBlue} content=" FAQs " />
+            <Link url="/faq" color={colors.darkBlue}>
+              {" FAQs "}
+            </Link>
             {t("describe_question")}
           </Typography>
           <Grid container spacing={2} p={3}>

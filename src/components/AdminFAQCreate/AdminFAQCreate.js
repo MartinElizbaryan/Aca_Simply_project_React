@@ -5,7 +5,7 @@ import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import api from "../../api/api"
-import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
+import ProfileSidebar from "../Shared/Sidebars/ProfileSidebar/ProfileSidebar"
 import { useFormik } from "formik"
 import { faqValidationSchema } from "../../validatorsSchema/faqValidationSchema"
 
@@ -36,7 +36,7 @@ export default function AdminFAQCreate() {
   return (
     <>
       <Grid container spacing={0} mt={10}>
-        <SidebarCabinet />
+        <ProfileSidebar />
         <Grid item xs={12} md={9}>
           <Container className={classes.container} maxWidth={false}>
             <Typography variant="h4" className={classes.header}>

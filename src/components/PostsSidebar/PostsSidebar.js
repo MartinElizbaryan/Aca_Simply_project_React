@@ -4,22 +4,22 @@ import { useSearchParams } from "react-router-dom"
 import {
   Box,
   Collapse,
-  Drawer,
   IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
   RadioGroup,
+  SwipeableDrawer,
 } from "@mui/material"
 import { ExpandMore } from "@mui/icons-material"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined"
-import SearchInput from "../../Inputs/SearchInput/SearchInput"
-import { ListItemWithRadio } from "../../ListItems/ListItemWithRadio/ListItemWithRadio"
-import { ListItemWithCheckbox } from "../../ListItems/ListItemWithCheckbox/ListItemWithCheckbox"
-import { useFetch } from "../../../../hooks/useFetch"
-import { useDebounce } from "../../../../hooks/useDebounce"
+import SearchInput from "../Shared/Inputs/SearchInput/SearchInput"
+import { ListItemWithRadio } from "../Shared/ListItems/ListItemWithRadio/ListItemWithRadio"
+import { ListItemWithCheckbox } from "../Shared/ListItems/ListItemWithCheckbox/ListItemWithCheckbox"
+import { useFetch } from "../../hooks/useFetch"
+import { useDebounce } from "../../hooks/useDebounce"
 import useStyles from "./styles"
 
 export default function PostsSidebar({ open, toggleDrawer, handleCategoryChange }) {
@@ -63,12 +63,13 @@ export default function PostsSidebar({ open, toggleDrawer, handleCategoryChange 
   }, [searchParams])
 
   return (
-    <Drawer
+    <SwipeableDrawer
       variant="persistent"
       anchor="left"
       open={open}
       sx={{ width: 250 }}
       onClose={toggleDrawer(false)}
+      onOpen={toggleDrawer(true)}
     >
       <Box sx={{ textAlign: "end" }}>
         <Box sx={{ width: 250 }} role="presentation">
@@ -130,6 +131,6 @@ export default function PostsSidebar({ open, toggleDrawer, handleCategoryChange 
           </List>
         </Box>
       </Box>
-    </Drawer>
+    </SwipeableDrawer>
   )
 }

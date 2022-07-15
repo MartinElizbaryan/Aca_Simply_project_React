@@ -43,7 +43,7 @@ export default function Footer() {
               &copy; 2022 JE&JE, {t("rights")}
             </Typography>
           </Stack>
-          <Stack spacing={1} m={1} alignItems="center">
+          <Stack spacing={1} m={1} pt={1} alignItems="center">
             <Typography variant="body2" color={colors.white}>
               {t("Follow_us")}
             </Typography>
@@ -86,14 +86,15 @@ export default function Footer() {
           textAlign="center"
           alignItems="center"
         >
-          <Link url="/faq" content={t("FAQ")} color={colors.white} variant="caption" />
-          <Link
-            url="/terms-conditions"
-            content={t("terms")}
-            color={colors.white}
-            variant="caption"
-          />
-          <Link url="/privacy" content={t("privacy")} color={colors.white} variant="caption" />
+          <Link url="/faq" color={colors.white} variant="caption">
+            {t("FAQ")}
+          </Link>
+          <Link url="/terms-conditions" color={colors.white} variant="caption">
+            {t("terms")}
+          </Link>
+          <Link url="/privacy" color={colors.white} variant="caption">
+            {t("privacy")}
+          </Link>
         </Stack>
       </Container>
     </footer>

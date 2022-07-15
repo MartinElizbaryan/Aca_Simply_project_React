@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next"
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark"
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined"
 import { ListItemWithIcon } from "../../ListItems/ListItemWithIcon/ListItemWithIcon"
-import { adminHOC } from "../../../../hocs/adminHOC"
+import { withAdminChecking } from "../../../../hocs/withAdminChecking"
 
 const AdminSidebar = () => {
   const { t } = useTranslation()
@@ -18,4 +18,4 @@ const AdminSidebar = () => {
   )
 }
 
-export default adminHOC(AdminSidebar)
+export default withAdminChecking(AdminSidebar)

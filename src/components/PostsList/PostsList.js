@@ -14,7 +14,7 @@ export default function PostsList({
   return (
     <Container sx={{ marginBottom: "40px" }}>
       <Grid container spacing={2} sx={{ marginTop: 0 }} alignItems="center">
-        {data?.map((post, index) => {
+        {data?.map((post) => {
           return (
             <Grid item lg={4} key={post.id}>
               <Post

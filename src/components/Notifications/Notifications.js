@@ -33,7 +33,7 @@ export const Notifications = ({ handleNotificationClose, changeNotificationsCoun
             horizontal: "center",
           }}
           PaperProps={{
-            style: { maxWidth: "400px", maxHeight: "400px" },
+            style: { maxWidth: "300px", maxHeight: "400px" },
           }}
         >
           {notifications.map((notification) => (
