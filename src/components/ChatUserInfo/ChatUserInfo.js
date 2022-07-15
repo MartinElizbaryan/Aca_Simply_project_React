@@ -1,10 +1,13 @@
+import { useParams } from "react-router-dom"
 import { Badge, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord"
 import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
 import { getUserFullName } from "../../helpers/utils"
 import useStyles from "./styles"
 
-function ChatUserInfo({ user, id, isActive }) {
+function ChatUserInfo({ user, isActive }) {
+  const { id } = useParams()
+
   const classes = useStyles()
   return (
     <ListItemButton className={+id === user.id ? classes.clickedBlock : ""}>

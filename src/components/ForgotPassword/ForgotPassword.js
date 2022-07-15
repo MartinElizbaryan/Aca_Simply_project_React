@@ -1,4 +1,6 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { useFormik } from "formik"
 import {
   Box,
   Button,
@@ -9,13 +11,11 @@ import {
   DialogTitle,
   Typography,
 } from "@mui/material"
-import useStyles from "./styles"
-import { useNavigate } from "react-router-dom"
 import { InputField } from "../Shared/Inputs/InputField/InputField"
+import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import { changePassword, forgotPasswordRequest, sixDigitRequest } from "./utils"
-import { useFormik } from "formik"
 import { validationSchema, validationSchemaCode, validationSchemaNewPassword } from "./validation"
-import { CustomLink } from "../Shared/CustomLink/CustomLink"
+import useStyles from "./styles"
 
 export default function ForgotPassword() {
   const [open, setOpen] = useState(false)
@@ -126,7 +126,7 @@ export default function ForgotPassword() {
             <Box className={classes.central3}>
               <Typography className={classes.text1}>
                 Back to
-                <CustomLink url="/signin" content=" Sign In" />
+                <Link url="/signin">{" Sign In"}</Link>
               </Typography>
             </Box>
           </Box>

@@ -7,7 +7,7 @@ import {
 } from "@mui/material"
 import { ExpandMore, FormatQuote, QuestionMark } from "@mui/icons-material"
 import useStyles from "./styles"
-import { CustomLink as Link } from "../../CustomLink/CustomLink"
+import { CustomLink as Link } from "../../Links/CustomLink/CustomLink"
 import DeleteIcon from "@mui/icons-material/Delete"
 
 export function Question({ question, answer, editable, deleteFAQ, id }) {
@@ -21,7 +21,7 @@ export function Question({ question, answer, editable, deleteFAQ, id }) {
 
         {editable && (
           <div>
-            <Link url={`/profile/faq/${id}`} content="edit" />
+            <Link url={`/profile/faq/${id}`}>edit</Link>
           </div>
         )}
 

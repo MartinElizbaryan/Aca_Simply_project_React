@@ -1,20 +1,23 @@
-import Card from "@mui/material/Card"
-import CardHeader from "@mui/material/CardHeader"
-import CardMedia from "@mui/material/CardMedia"
-import CardContent from "@mui/material/CardContent"
-import CardActions from "@mui/material/CardActions"
-import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
-import Avatar from "@mui/material/Avatar"
-import Typography from "@mui/material/Typography"
-import emptyImage from "../../assets/adspy_loading_animation.gif"
-import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
-import useStyles from "./style"
-import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
-import DeleteIcon from "@mui/icons-material/Delete"
-import { IconButton } from "@mui/material"
-import BeenhereIcon from "@mui/icons-material/Beenhere"
-import { IMAGE_BASE_URL } from "../../constants/cloudinery"
 import { useTranslation } from "react-i18next"
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  IconButton,
+  Typography,
+} from "@mui/material"
+import DeleteIcon from "@mui/icons-material/Delete"
+import BeenhereIcon from "@mui/icons-material/Beenhere"
+import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
+import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
+import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
+import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
+import emptyImage from "../../assets/adspy_loading_animation.gif"
+import { getUserFullName } from "../../helpers/utils"
+import { CLOUDINARY_BASE_URL } from "../../constants/constants"
+import useStyles from "./styles"
 
 export default function Post({
   post,
@@ -28,8 +31,7 @@ export default function Post({
   const { t } = useTranslation()
   const classes = useStyles()
 
-  const img = post.images.length ? `${IMAGE_BASE_URL}${post.images[0].src}` : emptyImage
-  const avatarInitials = post.user.name[0] + post.user.surname[0]
+  const img = post.images.length ? `${CLOUDINARY_BASE_URL}${post.images[0].src}` : emptyImage
 
   return (
     <Card
@@ -37,25 +39,22 @@ export default function Post({
         display: "flex",
         flexDirection: "column",
         height: "100%",
+        minWidth: "300px",
       }}
     >
       <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {avatarInitials}
-          </Avatar>
-        }
-        title={`${post.user.name} ${post.user.surname}`}
+        avatar={<UserAvatar user={post.user} />}
+        title={getUserFullName(post.user)}
         subheader={post.user.date}
       />
       {changeable && (
-        <IconButton aria-label="delete" color="error" onClick={(e) => deletePost(post.id)}>
+        <IconButton aria-label="delete" color="error" onClick={() => deletePost(post.id)}>
           <DeleteIcon />
         </IconButton>
       )}
 
       {admin && (
-        <IconButton onClick={(e) => trustPost(post.id)} aria-label="delete" color="primary">
+        <IconButton onClick={() => trustPost(post.id)} aria-label="delete" color="primary">
           <BeenhereIcon />
         </IconButton>
       )}
@@ -77,7 +76,7 @@ export default function Post({
           {t("Category")}: {t(post.category.name)}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {post.description.slice(0, 120) + "..."}
+          {post.description.length > 30 ? post.description.slice(0, 30) + "..." : post.description}
         </Typography>
       </CardContent>
       <CardActions
@@ -89,13 +88,14 @@ export default function Post({
       >
         <HeartButton post={post} deleteFromMyFavorites={deleteFromMyFavorites} />
         {editable && (
-          <Link
-            url={`/profile/my-posts/${post.id}`}
-            content={<BlueButton>{t("Edit")}</BlueButton>}
-          />
+          <Link url={`/profile/my-posts/${post.id}`}>
+            <BlueButton>{t("Edit")}</BlueButton>
+          </Link>
         )}
 
-        <Link url={`/posts/${post.id}`} content={<BlueButton>{t("See_details")}</BlueButton>} />
+        <Link url={`/posts/${post.id}`}>
+          <BlueButton>{t("See_details")}</BlueButton>
+        </Link>
       </CardActions>
     </Card>
   )

@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from "react"
 import { useSearchParams } from "react-router-dom"
-import { Box, Container, Grid, Stack } from "@mui/material"
-import DefaultPagination from "../Shared/Pagination/DefaultPagination/DefaultPagination"
-import PostsSceleton from "../PostsSceleton/PostsSceleton"
-import Sidebar from "../Shared/Sidebars/Sidebar/Sidebar"
+import { Box, Container, Grid } from "@mui/material"
+import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined"
 import PostsList from "../PostsList/PostsList"
+import PostsSceleton from "../PostsSceleton/PostsSceleton"
+import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
+import PostsSidebar from "../PostsSidebar/PostsSidebar"
+import DefaultPagination from "../Shared/Pagination/DefaultPagination/DefaultPagination"
 import { useFetch } from "../../hooks/useFetch"
 import { getParamsFromFiltering } from "./utils"
 import { scrollToTop } from "../../helpers/utils"
@@ -26,6 +28,7 @@ export default function Posts() {
     }),
     [searchParams, categories]
   )
+
   const { data, error, loading } = useFetch("/posts", "get", config)
   const [page, setPage] = useState(1)
   const [posts, setPosts] = useState([])
@@ -55,40 +58,44 @@ export default function Posts() {
       [id]: e.target.checked,
     })
   }
+  const [open, setOpen] = useState(false)
+
+  const toggleDrawer = (open) => () => {
+    setOpen(open)
+  }
 
   return (
     <Container className={classes.container} maxWidth={false}>
-      <Stack direction="row">
+      <Grid item sx={{ backgroundColor: colors.grey, width: "100%", height: "100%" }}>
+        <PostsSidebar
+          open={open}
+          toggleDrawer={toggleDrawer}
+          handleCategoryChange={handleCategoryChange}
+        />
         <Box
+          mb={5}
           sx={{
-            display: {
-              xs: "none",
-              md: "block",
+            marginLeft: {
+              sm: open ? "250px" : 0,
             },
-          }}
-          className={classes.sidebar}
-        >
-          <Sidebar handleCategoryChange={handleCategoryChange} />
-        </Box>
-        <Box
-          sx={{
-            display: {
-              xs: "block",
-              md: "none",
-            },
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          {/*<SidebarMobile />*/}
-        </Box>
-        <Grid item xs={12} md={9} sx={{ backgroundColor: colors.grey, width: "100%" }}>
-          <Box mt={5} mb={5}>
-            {loading ? <PostsSceleton /> : <PostsList title="Posts" data={posts} />}
-          </Box>
+          <BlueButton
+            onClick={toggleDrawer(!open)}
+            sx={{ alignSelf: "end", margin: 2, textTransform: "none" }}
+          >
+            <FilterListOutlinedIcon sx={{ paddingRight: 1 }} /> Search and Filter
+          </BlueButton>
+          {loading ? <PostsSceleton /> : <PostsList data={posts} />}
           {!!pageCount && (
             <DefaultPagination onChange={handlePageClick} page={page} count={pageCount} />
           )}
-        </Grid>
-      </Stack>
+        </Box>
+      </Grid>
     </Container>
   )
 }

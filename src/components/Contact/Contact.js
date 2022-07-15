@@ -6,7 +6,7 @@ import CallIcon from "@mui/icons-material/Call"
 import SendIcon from "@mui/icons-material/Send"
 import { OutlinedInput } from "../Shared/Inputs/OutlinedInput/OutlinedInput"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
-import { CustomLink as Link } from "../Shared/CustomLink/CustomLink"
+import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import { sendMessage } from "./utils"
 import { colors } from "../../constants/styles"
 import useStyles from "./styles"
@@ -31,7 +31,9 @@ export default function Contact() {
         <Stack>
           <Typography variant="body1">
             {t("have_questions")}
-            <Link url="/faq" color={colors.darkBlue} content=" FAQs " />
+            <Link url="/faq" color={colors.darkBlue}>
+              {" FAQs "}
+            </Link>
             {t("describe_question")}
           </Typography>
           <Grid container spacing={2} p={3}>

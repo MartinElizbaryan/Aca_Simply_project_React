@@ -1,12 +1,12 @@
 import { useLocation } from "react-router-dom"
-import { Box, Link, Typography } from "@mui/material"
-import ForgotPassword from "../ForgotPassword/ForgotPassword"
-import { CustomLink } from "../Shared/CustomLink/CustomLink"
+import { useTranslation } from "react-i18next"
+import { Box, Typography } from "@mui/material"
 import { Logo } from "../Shared/Logo/Logo"
+import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
+import ForgotPassword from "../ForgotPassword/ForgotPassword"
 import SignIn from "../SignIn/SignIn"
 import SignUp from "../SignUp/SignUp"
 import useStyles from "./styles"
-import { useTranslation } from "react-i18next"
 
 export default function RegistrationLogin() {
   const { t } = useTranslation()
@@ -24,18 +24,20 @@ export default function RegistrationLogin() {
       <Box className={classes.totalBox}>
         {!(pathname === "/forgot-password") && (
           <Box className={classes.spacing}>
-            <CustomLink
+            <Link
               url="/signup"
-              content={<Box className={classes.button}>{t("Sign_Up")}</Box>}
               bgcolor={pathname === "/signup" ? "white" : "#F3F7F7"}
               className={`${classes.linkBox} ${classes.borderRadius1}`}
-            />
-            <CustomLink
+            >
+              <Box className={classes.button}>{t("Sign_Up")}</Box>
+            </Link>
+            <Link
               url="/signin"
-              content={<Box className={classes.button}>{t("Sign_In")}</Box>}
               bgcolor={pathname === "/signin" ? "white" : "#F3F7F7"}
               className={`${classes.linkBox} ${classes.borderRadius2}`}
-            />
+            >
+              <Box className={classes.button}>{t("Sign_In")}</Box>
+            </Link>
           </Box>
         )}
         <Box className={classes.otherBoxes}>
@@ -47,13 +49,8 @@ export default function RegistrationLogin() {
 
       <Typography className={classes.policyText}>
         {t("By_signing")}
-        <Link href="terms-conditions" underline="none" target="_blank">
-          {t("terms")}
-        </Link>{" "}
-        {t("and")}
-        <Link href="privacy" underline="none" target="_blank">
-          {t("privacy")}
-        </Link>
+        <Link url="/terms">{t("withTerms")}</Link> {t("and")}
+        <Link url="/privacy">{t("withPrivacy")}</Link>
       </Typography>
     </Box>
   )

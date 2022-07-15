@@ -7,7 +7,6 @@ import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import api from "../../api/api"
-import SidebarCabinet from "../Shared/Sidebars/SidebarCabinet/SidebarCabinet"
 import { useFormik } from "formik"
 import { faqValidationSchema } from "../../validatorsSchema/faqValidationSchema"
 
@@ -51,64 +50,59 @@ export default function AdminFAQEdit() {
   })
   return (
     <>
-      <Grid container spacing={0} mt={10}>
-        <SidebarCabinet />
-        <Grid item xs={12} md={9}>
-          <Container className={classes.container} maxWidth={false}>
-            <Typography variant="h4" className={classes.header}>
-              FAQs
-            </Typography>
+      <Container className={classes.container} maxWidth={false}>
+        <Typography variant="h4" className={classes.header}>
+          FAQs
+        </Typography>
 
-            <Grid item xs={12} md={9} mt={6}>
-              <form onSubmit={formik.handleSubmit}>
-                <Box mt={5} mb={5}>
-                  <Grid container spacing={2} p={2}>
-                    <Grid item xs={12}>
-                      <TextField
-                        className={classes.input}
-                        fullWidth
-                        label="Question"
-                        variant="outlined"
-                        size="normal"
-                        onChange={formik.handleChange}
-                        value={formik.values.question}
-                        name="question"
-                        error={formik.touched.question && Boolean(formik.errors.question)}
-                        helperText={formik.touched.question && formik.errors.question}
-                      />
-                    </Grid>
+        <Grid item xs={12} md={9} mt={6}>
+          <form onSubmit={formik.handleSubmit}>
+            <Box mt={5} mb={5}>
+              <Grid container spacing={2} p={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    className={classes.input}
+                    fullWidth
+                    label="Question"
+                    variant="outlined"
+                    size="normal"
+                    onChange={formik.handleChange}
+                    value={formik.values.question}
+                    name="question"
+                    error={formik.touched.question && Boolean(formik.errors.question)}
+                    helperText={formik.touched.question && formik.errors.question}
+                  />
+                </Grid>
 
-                    <Grid item xs={12}>
-                      <TextField
-                        className={classes.input}
-                        fullWidth
-                        label="Answer"
-                        variant="outlined"
-                        size="normal"
-                        multiline
-                        minRows={5}
-                        maxRows={10}
-                        onChange={formik.handleChange}
-                        value={formik.values.answer}
-                        name="answer"
-                        error={formik.touched.answer && Boolean(formik.errors.answer)}
-                        helperText={formik.touched.answer && formik.errors.answer}
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={2} p={2}>
-                    <Grid item xs={8} sm={6} md={4}>
-                      <GreenButton className={classes.button} type="submit">
-                        Save Changes
-                      </GreenButton>
-                    </Grid>
-                  </Grid>
-                </Box>
-              </form>
-            </Grid>
-          </Container>
+                <Grid item xs={12}>
+                  <TextField
+                    className={classes.input}
+                    fullWidth
+                    label="Answer"
+                    variant="outlined"
+                    size="normal"
+                    multiline
+                    minRows={5}
+                    maxRows={10}
+                    onChange={formik.handleChange}
+                    value={formik.values.answer}
+                    name="answer"
+                    error={formik.touched.answer && Boolean(formik.errors.answer)}
+                    helperText={formik.touched.answer && formik.errors.answer}
+                  />
+                </Grid>
+              </Grid>
+              <Grid container spacing={2} p={2}>
+                <Grid item xs={8} sm={6} md={4}>
+                  <GreenButton className={classes.button} type="submit">
+                    Save Changes
+                  </GreenButton>
+                </Grid>
+              </Grid>
+            </Box>
+          </form>
         </Grid>
-      </Grid>
+      </Container>
     </>
   )
 }

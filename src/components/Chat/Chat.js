@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { Box, Divider, Grid, IconButton, Paper, SwipeableDrawer, Typography } from "@mui/material"
-import ChatUserInfoBlock from "../ChatUserInfoBlock/ChatUserInfoBlock"
-import Messages from "../Messages/Messages"
-import useStyles from "./styles"
+import { Box, Divider, Grid, IconButton, Stack, SwipeableDrawer } from "@mui/material"
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt"
+import Messages from "../Messages/Messages"
+import UserInfo from "../Shared/UserInfo/UserInfo"
+import ChatUserInfoBlock from "../ChatUserInfoBlock/ChatUserInfoBlock"
 import api from "../../api/api"
-import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
-import { getUserFullName } from "../../helpers/utils"
-import { findUser } from "./utils"
 import socket from "../../helpers/socket"
+import { findUser } from "../../helpers/utils"
+import useStyles from "./styles"
 
 const Chat = () => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
   const [onlineUsers, setOnlineUsers] = useState([])
   const [users, setUsers] = useState([])
   const { id } = useParams()
@@ -44,43 +43,32 @@ const Chat = () => {
   }
 
   return (
-    <Box
-      mt={10}
-      sx={{
-        height: "calc(100% - 80px)",
-      }}
-    >
-      <Grid container component={Paper} className={classes.chatSection}>
+    <Box mt={9} className={classes.container}>
+      <Grid container className={classes.chatSection}>
         <Grid
           item
           md={3}
           className={classes.borderRight}
           sx={{ display: { xs: "none", md: "block" } }}
         >
-          <ChatUserInfoBlock onlineUsers={onlineUsers} id={id} users={users} />
+          <ChatUserInfoBlock onlineUsers={onlineUsers} users={users} />
         </Grid>
         <Grid
           item
           p={1}
           xs={12}
-          gap={1}
-          flexDirection="row"
-          alignItems="center"
           className={classes.borderBottom}
           sx={{ display: { xs: "flex", md: "none" } }}
         >
-          <IconButton color="primary" onClick={toggleDrawer(true)}>
-            <PeopleAltIcon />
-          </IconButton>
-          <Divider orientation="vertical" flexItem />
-          {id && (
-            <>
-              <UserAvatar user={findUser(users, id)} />
-              <Typography variant="body1">{getUserFullName(findUser(users, id))}</Typography>
-            </>
-          )}
+          <Stack direction="row" spacing={1} alignItems="center">
+            <IconButton color="primary" onClick={toggleDrawer(true)}>
+              <PeopleAltIcon />
+            </IconButton>
+            <Divider orientation="vertical" flexItem />
+            <UserInfo user={findUser(users, id)} />
+          </Stack>
           <SwipeableDrawer
-            anchor="top"
+            anchor="left"
             open={open}
             onClose={toggleDrawer(false)}
             onOpen={toggleDrawer(true)}
@@ -89,12 +77,10 @@ const Chat = () => {
               onClick={toggleDrawer(false)}
               users={users}
               onlineUsers={onlineUsers}
-              id={id}
             />
           </SwipeableDrawer>
         </Grid>
-
-        {!!id && <Messages id={id} />}
+        <Messages />
       </Grid>
     </Box>
   )
