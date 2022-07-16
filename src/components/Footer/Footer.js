@@ -4,12 +4,16 @@ import {
   Box,
   Container,
   Divider,
+  FormControlLabel,
+  FormGroup,
   Grid,
   IconButton,
   MenuItem,
   Select,
   Stack,
+  Switch,
   Typography,
+  useTheme,
 } from "@mui/material"
 import { AM, GB, RU } from "country-flag-icons/react/3x2"
 import TwitterIcon from "@mui/icons-material/Twitter"
@@ -21,21 +25,48 @@ import logo from "../../assets/logo-white.svg"
 import i18n from "../../i18n/languages/translations/translations"
 import useStyles from "./styles"
 import { colors } from "../../constants/styles"
+import { setThemeMode } from "../../redux/themeSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { getThemeMode } from "../../redux/themeSelectors"
 
 export default function Footer() {
   const { t } = useTranslation()
+  const themeMode = useSelector(getThemeMode)
   const classes = useStyles()
   const [language, setLanguage] = useState(localStorage.getItem("language") || "en")
-
+  const dispatch = useDispatch()
+  const theme = useTheme()
   const handleChange = (event) => {
     setLanguage(event.target.value)
     i18n.changeLanguage(event.target.value)
     localStorage.setItem("language", event.target.value)
   }
-
+  const [defaultChecked, setDefaultChecked] = useState((initialState) => {
+    if (localStorage.getItem("theme") === "light") {
+      return (initialState = false)
+    }
+    return (initialState = true)
+  })
+  const changeThemeMode = () => {
+    if (themeMode === "light") {
+      dispatch(setThemeMode("dark"))
+      localStorage.setItem("theme", "dark")
+      setDefaultChecked(true)
+    } else {
+      dispatch(setThemeMode("light"))
+      localStorage.setItem("theme", "light")
+      setDefaultChecked(false)
+    }
+  }
   return (
     <footer>
-      <Container maxWidth={false} className={classes.container}>
+      <Container
+        maxWidth={false}
+        className={classes.container}
+        sx={{
+          backgroundColor: theme.palette.blurBlue.main,
+        }}
+      >
         <Grid container justifyContent="space-around">
           <Stack spacing={1} justifyContent="center" alignItems="center" textAlign="center">
             <img src={logo} alt="logo" width={150} />
@@ -64,17 +95,36 @@ export default function Footer() {
             </Grid>
           </Stack>
           <Box className={classes.languagesBox}>
-            <Select value={language} onChange={handleChange} className={classes.languagesSelect}>
-              <MenuItem value={"am"}>
-                <AM />
-              </MenuItem>
-              <MenuItem value={"ru"}>
-                <RU />
-              </MenuItem>
-              <MenuItem value={"en"}>
-                <GB />
-              </MenuItem>
-            </Select>
+            <Grid container>
+              <Grid item xs={12}>
+                <Select
+                  value={language}
+                  onChange={handleChange}
+                  className={classes.languagesSelect}
+                >
+                  <MenuItem value={"am"}>
+                    <AM />
+                  </MenuItem>
+                  <MenuItem value={"ru"}>
+                    <RU />
+                  </MenuItem>
+                  <MenuItem value={"en"}>
+                    <GB />
+                  </MenuItem>
+                </Select>
+              </Grid>
+              <Grid item xs={12}>
+                <FormGroup>
+                  <FormControlLabel
+                    control={<Switch defaultChecked={defaultChecked} onClick={changeThemeMode} />}
+                    label="Dark Mode"
+                    sx={{
+                      color: "#ffffff",
+                    }}
+                  />
+                </FormGroup>
+              </Grid>
+            </Grid>
           </Box>
         </Grid>
         <Divider />

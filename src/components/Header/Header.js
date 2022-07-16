@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from "react"
 import { useSelector } from "react-redux"
 import { useTranslation } from "react-i18next"
-import { AppBar, Box, Stack, Toolbar } from "@mui/material"
+import { AppBar, Box, Stack, Toolbar, useTheme } from "@mui/material"
 import { Logo } from "../Shared/Logo/Logo"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import NavigationMobile from "../Shared/NavigationMobile/NavigationMobile"
@@ -17,9 +17,16 @@ export default function Header() {
   const { t } = useTranslation()
   const auth = useSelector(getUserAuth)
   const classes = useStyles()
-
+  const theme = useTheme()
+  console.log()
   return (
-    <AppBar position="fixed" className={classes.appBar}>
+    <AppBar
+      position="fixed"
+      className={classes.appBar}
+      sx={{
+        backgroundColor: theme.palette.blurBlue.blur,
+      }}
+    >
       <Toolbar className={classes.toolBar}>
         <Logo />
         <Stack
