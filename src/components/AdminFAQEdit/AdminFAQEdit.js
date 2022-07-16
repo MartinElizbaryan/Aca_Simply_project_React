@@ -8,7 +8,7 @@ import Grid from "@mui/material/Grid"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import api from "../../api/api"
 import { useFormik } from "formik"
-import { faqValidationSchema } from "../../validatorsSchema/faqValidationSchema"
+import { validation } from "./validation"
 
 export default function AdminFAQEdit() {
   const classes = useStyles()
@@ -42,7 +42,7 @@ export default function AdminFAQEdit() {
       answer: "",
       question: "",
     },
-    validationSchema: faqValidationSchema,
+    validationSchema: validation,
     onSubmit: (values) => {
       console.log(values)
       updateFAQ(values)

@@ -7,7 +7,7 @@ import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import api from "../../api/api"
 import ProfileSidebar from "../Shared/Sidebars/ProfileSidebar/ProfileSidebar"
 import { useFormik } from "formik"
-import { faqValidationSchema } from "../../validatorsSchema/faqValidationSchema"
+import { validation } from "../AdminFAQEdit/validation"
 
 export default function AdminFAQCreate() {
   const classes = useStyles()
@@ -27,7 +27,7 @@ export default function AdminFAQCreate() {
       answer: "",
       question: "",
     },
-    validationSchema: faqValidationSchema,
+    validationSchema: validation,
     onSubmit: (values) => {
       console.log(values)
       updateFAQ(values)

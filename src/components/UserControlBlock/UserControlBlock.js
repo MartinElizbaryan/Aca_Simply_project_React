@@ -45,7 +45,7 @@ export default function UserControlBlock() {
   }, [])
 
   useEffect(() => {
-    socket.on("receive", () => {
+    socket.on("playNotificationSound", () => {
       clickElement.current.click()
     })
     socket.on("messageCountUpdate", async () => {
@@ -146,8 +146,8 @@ export default function UserControlBlock() {
             {t("Sign_Out")}
           </MenuItem>
         </Menu>
-        <Box sx={{ display: "none" }} ref={clickElement} onClick={play}></Box>
       </Box>
+      <Box sx={{ display: "none" }} ref={clickElement} onClick={play}></Box>
     </>
   )
 }
