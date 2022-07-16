@@ -45,6 +45,8 @@ function Messages() {
   useEffect(() => {
     socket.on("receive", async (data) => {
       if (+id === data.from_id) {
+        console.log(data)
+
         setMessages((messages) => [...messages, data])
 
         await api.patch(`/messages/${id}`)
@@ -58,6 +60,7 @@ function Messages() {
     })
 
     return () => {
+      console.log("render off")
       socket.off("receive")
       socket.off("seenMessages")
     }
