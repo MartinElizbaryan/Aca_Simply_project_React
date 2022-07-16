@@ -99,7 +99,7 @@ export default function CreatePost({ open, toggleOpen, ...props }) {
     <Dialog open={open} onClose={handlePopupClose}>
       <DialogTitle>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Typography variant="h6">Create Post</Typography>
+          <Typography variant="h6">{t("Create_Post")}</Typography>
           <IconButton size="medium" onClick={handlePopupClose}>
             <CloseIcon color="action" />
           </IconButton>
@@ -211,8 +211,8 @@ export default function CreatePost({ open, toggleOpen, ...props }) {
         </form>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handlePopupClose}>Cancel</Button>
-        <Button onClick={formik.handleSubmit}>Create</Button>
+        <Button onClick={handlePopupClose}>{t("Cancel")}</Button>
+        <Button onClick={formik.handleSubmit}>{t("Create")}</Button>
       </DialogActions>
     </Dialog>
   )
