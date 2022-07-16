@@ -67,17 +67,15 @@ export default function Profile() {
                 maxWidth: 320,
               }}
             >
-              <Stack
-                direction={{
-                  xs: "column",
-                  sm: "row",
-                }}
+              <Grid
+                container
+                sx={{ display: "flex", flexDirection: "row" }}
                 justifyContent={"space-between"}
               >
                 <Grid item xs={5} className={classes.label}>
                   <Typography variant="caption">{t("Name")}</Typography>
                 </Grid>
-                <Grid item>
+                <Grid item xs={7}>
                   <UnlabeledInput
                     value={formik.values.name}
                     onChange={formik.handleChange}
@@ -87,18 +85,16 @@ export default function Profile() {
                     helperText={formik.touched.name && formik.errors.name}
                   />
                 </Grid>
-              </Stack>
-              <Stack
-                direction={{
-                  xs: "column",
-                  sm: "row",
-                }}
+              </Grid>
+              <Grid
+                container
+                sx={{ display: "flex", flexDirection: "row" }}
                 justifyContent={"space-between"}
               >
                 <Grid item xs={5} className={classes.label}>
                   <Typography variant="caption">{t("Surname")}</Typography>
                 </Grid>
-                <Grid item>
+                <Grid item xs={7}>
                   <UnlabeledInput
                     value={formik.values.surname}
                     onChange={formik.handleChange}
@@ -108,7 +104,7 @@ export default function Profile() {
                     helperText={formik.touched.surname && formik.errors.surname}
                   />
                 </Grid>
-              </Stack>
+              </Grid>
               {/*<Grid item>*/}
               {/*  <Typography variant="caption" fontWeight="bold">*/}
               {/*    Personal Information*/}
@@ -121,31 +117,27 @@ export default function Profile() {
               {/*    </Typography>*/}
               {/*  </Grid>*/}
               {/*</Grid>*/}
-              <Stack
-                direction={{
-                  xs: "column",
-                  sm: "row",
-                }}
+              <Grid
+                container
+                sx={{ display: "flex", flexDirection: "row" }}
                 justifyContent={"space-between"}
               >
                 <Grid item xs={5} className={classes.label}>
                   <Typography variant="caption">{t("Email")}</Typography>
                 </Grid>
-                <Grid item>
+                <Grid item xs={7}>
                   <UnlabeledInput value={user.email || ""} disabled fullWidth />
                 </Grid>
-              </Stack>
-              <Stack
-                direction={{
-                  xs: "column",
-                  sm: "row",
-                }}
+              </Grid>
+              <Grid
+                container
+                sx={{ display: "flex", flexDirection: "row" }}
                 justifyContent={"space-between"}
               >
                 <Grid item xs={5} className={classes.label}>
                   <Typography variant="caption">{t("Phone")}</Typography>
                 </Grid>
-                <Grid item>
+                <Grid item xs={7}>
                   <UnlabeledInput
                     value={formik.values.phone}
                     onChange={formik.handleChange}
@@ -155,7 +147,7 @@ export default function Profile() {
                     helperText={formik.touched.phone && formik.errors.phone}
                   />
                 </Grid>
-              </Stack>
+              </Grid>
               <Grid item xs={12} sx={{ textAlign: "start" }}>
                 <GreenButton type="submit" size="small">
                   {t("Save_Changes")}
