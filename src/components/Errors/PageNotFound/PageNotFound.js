@@ -7,8 +7,9 @@ import { Link as RouterLink } from "react-router-dom"
 import Link from "@mui/material/Link"
 import HomeIcon from "@mui/icons-material/Home"
 import useStyles from "./style"
+import { withSuspenseAdding } from "../../../hocs/withSuspenseAdding"
 
-export default function PageNotFound() {
+const PageNotFound = () => {
   const classes = useStyles()
   return (
     <Box mt={15}>
@@ -25,3 +26,5 @@ export default function PageNotFound() {
     </Box>
   )
 }
+
+export default withSuspenseAdding(PageNotFound)

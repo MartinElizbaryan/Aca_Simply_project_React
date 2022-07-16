@@ -4,8 +4,9 @@ import { useFetch } from "../../hooks/useFetch"
 import { useEffect, useState } from "react"
 import PostsSceleton from "../PostsSceleton/PostsSceleton"
 import api from "../../api/api"
+import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
-export default function Lost() {
+const MyPost = () => {
   const { data, error, loading, reFetch: reFetchMyPosts } = useFetch("/posts/my-posts")
   const [posts, setPosts] = useState([])
 
@@ -28,3 +29,5 @@ export default function Lost() {
     </Box>
   )
 }
+
+export default withSuspenseAdding(MyPost)

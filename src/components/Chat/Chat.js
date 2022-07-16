@@ -9,6 +9,7 @@ import api from "../../api/api"
 import socket from "../../helpers/socket"
 import { findUser } from "../../helpers/utils"
 import useStyles from "./styles"
+import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const Chat = () => {
   const [open, setOpen] = useState(true)
@@ -87,4 +88,4 @@ const Chat = () => {
   )
 }
 
-export default Chat
+export default withSuspenseAdding(Chat)

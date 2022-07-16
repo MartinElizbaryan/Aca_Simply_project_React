@@ -18,8 +18,9 @@ import CardMedia from "@mui/material/CardMedia"
 import { CLOUDINARY_BASE_URL } from "../../constants/constants"
 import { removeCurrentImage, removeImage, updatePost } from "./utilits"
 import validationSchema from "./validationSchema"
+import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
-export default function MyPostsEdit() {
+const MyPostsEdit = () => {
   const classes = useStyles()
   const { id } = useParams()
   const navigate = useNavigate()
@@ -302,3 +303,5 @@ export default function MyPostsEdit() {
     </Box>
   )
 }
+
+export default withSuspenseAdding(MyPostsEdit)

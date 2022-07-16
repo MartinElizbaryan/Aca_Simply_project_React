@@ -4,8 +4,9 @@ import { Outlet } from "react-router-dom"
 import useStyles from "./styles"
 import { colors } from "../../constants/styles"
 import ProfileSidebarMobile from "../Shared/Sidebars/ProfileSidebarMobile/ProfileSidebarMobile"
+import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
-export default function Account() {
+const Account = () => {
   const classes = useStyles()
 
   return (
@@ -51,3 +52,5 @@ export default function Account() {
     </Container>
   )
 }
+
+export default withSuspenseAdding(Account)

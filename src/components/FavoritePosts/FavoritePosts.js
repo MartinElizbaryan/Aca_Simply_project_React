@@ -4,8 +4,9 @@ import { useFetch } from "../../hooks/useFetch"
 import { useEffect, useState } from "react"
 import PostsSceleton from "../PostsSceleton/PostsSceleton"
 import api from "../../api/api"
+import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
-export default function FavoritePosts() {
+const FavoritePosts = () => {
   const { data, error, loading, reFetch: reFetchFavorites } = useFetch("/posts/favorites")
   const [posts, setPosts] = useState([])
 
@@ -37,3 +38,5 @@ export default function FavoritePosts() {
     </Box>
   )
 }
+
+export default withSuspenseAdding(FavoritePosts)

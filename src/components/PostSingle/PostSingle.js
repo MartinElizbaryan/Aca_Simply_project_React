@@ -35,8 +35,9 @@ import emptyImage from "../../assets/adspy_loading_animation.gif"
 import useStyles from "./styles"
 import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
 import { getUserFullName } from "../../helpers/utils"
+import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
-export default function PostSingle() {
+const PostSingle = () => {
   const [post, setPost] = useState({})
   const [questions, setQuestions] = useState({})
   const { id } = useParams()
@@ -197,3 +198,5 @@ export default function PostSingle() {
       </Container>
     )
 }
+
+export default withSuspenseAdding(PostSingle)
