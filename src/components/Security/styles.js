@@ -8,7 +8,7 @@ const useStyles = createUseStyles({
     minHeight: 56,
   },
   label: {
-    textAlign: "end",
+    textAlign: "start",
     paddingRight: 25,
     "& span": {
       fontWeight: "bold !important",

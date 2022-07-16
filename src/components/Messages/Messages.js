@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
+import InputEmoji from "react-input-emoji"
 import { useTranslation } from "react-i18next"
 import { useNavigate, useParams } from "react-router-dom"
-import { Box, Divider, Grid, IconButton, InputBase, List } from "@mui/material"
-import SendIcon from "@mui/icons-material/Send"
+import { Box, Divider, Grid, List } from "@mui/material"
 import Message from "../Message/Message"
 import api from "../../api/api"
 import socket from "../../helpers/socket"
@@ -66,6 +66,7 @@ function Messages() {
 
   const sendMessage = async () => {
     try {
+      if (!message) return
       const res = await api.post(`/messages/${id}`, {
         text: message,
       })
@@ -98,21 +99,14 @@ function Messages() {
       </List>
 
       <Divider />
-      <Box display="flex" alignItems="center">
-        <InputBase
-          sx={{ ml: 1, flex: 1 }}
-          placeholder={t("Type_placeholder")}
+      <Box display="flex" alignItems="center" sx={{ paddingRight: 2 }}>
+        <InputEmoji
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyUp={(e) => {
-            e.key === "Enter" && sendMessage()
-          }}
-          fullWidth
+          onChange={setMessage}
+          cleanOnEnter
+          onEnter={sendMessage}
+          placeholder={t("Type_placeholder")}
         />
-        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <IconButton color="primary" sx={{ p: "10px" }} onClick={sendMessage}>
-          <SendIcon />
-        </IconButton>
       </Box>
     </Grid>
   )
