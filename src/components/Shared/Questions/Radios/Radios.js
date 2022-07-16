@@ -17,7 +17,7 @@ export default function Radios({ answer, answerIndex, questionIndex, formik }) {
     )
   }
   return (
-    <Grid item xs={12} md={6} lg={3} display="flex" align="center">
+    <Grid item xs={12} display="flex" align="center" justifyContent={"space-between"}>
       <FormGroup>
         <FormControlLabel
           value={variantInputValue}

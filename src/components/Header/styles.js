@@ -5,7 +5,6 @@ const useStyles = createUseStyles({
   appBar: {
     height: 71,
     justifyContent: "center",
-    backgroundColor: `${colors.blueBlur} !important`,
     backdropFilter: "saturate(180%) blur(5px)",
   },
   toolBar: {
