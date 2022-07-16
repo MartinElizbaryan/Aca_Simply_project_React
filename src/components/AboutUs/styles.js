@@ -7,8 +7,6 @@ const useStyles = createUseStyles({
     marginTop: "100px !important",
     marginBottom: "30px !important",
     color: colors.fontColor,
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
   },
   header: {
     borderBottom: "1px solid gray",
@@ -34,6 +32,11 @@ const useStyles = createUseStyles({
     position: "relative",
   },
   box: {
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
+  box2: {
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "row",

@@ -1,14 +1,4 @@
-import { useState } from "react"
-import {
-  Container,
-  Grid,
-  Stack,
-  Typography,
-  Box,
-  Image,
-  ImageList,
-  ImageListItem,
-} from "@mui/material"
+import { Container, Grid, Typography, Box, ImageList, ImageListItem } from "@mui/material"
 import useStyles from "./styles"
 import { useTranslation } from "react-i18next"
 import Artyom from "../../assets/AboutUsPhotos/Artyom.jpg"
@@ -28,36 +18,53 @@ export default function AboutUs() {
   return (
     <Container className={classes.container} maxWidth={false}>
       <Box className={classes.box}>
-        <Typography variant="h4" className={classes.header}>
-          App MonsterZ
-        </Typography>
+        <Box mr={3}>
+          <Typography variant="h4" className={classes.header}>
+            App MonsterZ
+          </Typography>
+        </Box>
         <Box>
           <Typography className={classes.contant}>{t("inspire_Header")}</Typography>
           <Typography className={classes.miniText2}>&quot; {t("inspire_Text1")} &quot;</Typography>
         </Box>
       </Box>
-      <Typography className={classes.contant}>{t("who_we_are")}</Typography>
-      <Typography className={classes.miniText}>
-        {t("meet_us")}
-        <br></br>
-        <br></br>
-        {t("last_line")}
-      </Typography>
+      <Grid
+        container
+        rirection="row"
+        justifyContent="center"
+        spacing={3}
+        sx={{
+          flexDirection: {
+            xs: "column",
+            sm: "row",
+          },
+        }}
+      >
+        <Grid item xs={12} sm={4}>
+          <Typography className={classes.contant}>{t("who_we_are")}</Typography>
+          <Typography className={classes.miniText}>
+            {t("meet_us")}
+            <br></br>
+            <br></br>
+            {t("last_line")}
+          </Typography>
+        </Grid>
 
-      <Box sx={{ width: "100%", height: "100%" }}>
-        <ImageList variant="masonry" cols={3} gap={8}>
-          {itemData.map((item) => (
-            <ImageListItem key={item.img}>
-              <img
-                src={`${item.img}?w=248&fit=crop&auto=format`}
-                srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                alt={item.title}
-                loading="lazy"
-              />
-            </ImageListItem>
-          ))}
-        </ImageList>
-      </Box>
+        <Grid item sx={{ height: "100%" }} xs={12} sm={8}>
+          <ImageList variant="masonry" cols={3} gap={8}>
+            {itemData.map((item) => (
+              <ImageListItem key={item.img}>
+                <img
+                  src={`${item.img}?w=248&fit=crop&auto=format`}
+                  srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                  alt={item.title}
+                  loading="lazy"
+                />
+              </ImageListItem>
+            ))}
+          </ImageList>
+        </Grid>
+      </Grid>
     </Container>
   )
 }
