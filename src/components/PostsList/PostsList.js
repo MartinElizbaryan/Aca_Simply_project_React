@@ -16,7 +16,7 @@ export default function PostsList({
       <Grid container spacing={2} sx={{ marginTop: 0 }} alignItems="center">
         {data?.map((post) => {
           return (
-            <Grid item lg={4} key={post.id}>
+            <Grid item xs={12} md={6} lg={4} key={post.id}>
               <Post
                 post={post}
                 changeable={changeable}

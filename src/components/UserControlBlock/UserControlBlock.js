@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
+import useSound from "use-sound"
 import { Badge, Box, ListItemIcon, Menu, MenuItem, Typography } from "@mui/material"
 import MailIcon from "@mui/icons-material/Mail"
 import LogoutIcon from "@mui/icons-material/Logout"
@@ -18,18 +19,21 @@ import socket from "../../helpers/socket"
 import { signOut } from "../Header/utils"
 import { deleteUserInfo } from "../../redux/userSlice"
 import { getUserInfo } from "../../redux/userSelectors"
+import notificationSound from "../../assets/sounds/notification.mp3"
 
 export default function UserControlBlock() {
-  const { t } = useTranslation()
   const [openCreatePost, setOpenCreatePost] = useState(false)
-  const [profileAnchorEl, setProfileAnchorEl] = useState(null)
-  const [notificationAnchorEl, setNotificationAnchorEl] = useState(null)
-  const user = useSelector(getUserInfo)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-
   const [messageCount, setMessageCount] = useState([])
   const [notificationsCount, setNotificationsCount] = useState([])
+  const [profileAnchorEl, setProfileAnchorEl] = useState(null)
+  const [notificationAnchorEl, setNotificationAnchorEl] = useState(null)
+  const [play] = useSound(notificationSound, { volume: 1 })
+  const clickElement = useRef()
+
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const user = useSelector(getUserInfo)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     ;(async () => {
@@ -41,12 +45,21 @@ export default function UserControlBlock() {
   }, [])
 
   useEffect(() => {
+    socket.on("receive", () => {
+      clickElement.current.click()
+    })
     socket.on("messageCountUpdate", async () => {
       const messagesInfo = await api.get("/messages/unread")
       setMessageCount(messagesInfo.data._count.id)
     })
+    socket.on("signOut", () => {
+      dispatch(deleteUserInfo())
+      navigate("/signin")
+      localStorage.removeItem("accessToken")
+    })
     socket.on("receiveNotification", ({ count }) => {
       setNotificationsCount(count)
+      clickElement.current.click()
     })
   }, [])
 
@@ -133,6 +146,7 @@ export default function UserControlBlock() {
             {t("Sign_Out")}
           </MenuItem>
         </Menu>
+        <Box sx={{ display: "none" }} ref={clickElement} onClick={play}></Box>
       </Box>
     </>
   )

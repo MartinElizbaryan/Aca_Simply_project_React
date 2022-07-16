@@ -19,6 +19,7 @@ import { AlertDialog } from "../Shared/Dialogs/AlertDialog/AlertDialog"
 import PasswordInput from "../Shared/Inputs/PasswordInput/PasswordInput"
 import { SuccessDialog } from "../Shared/Dialogs/SuccessDialog/SuccessDialog"
 import { validationSchema } from "./vaildation"
+import socket from "../../helpers/socket"
 import { changePassword, signOutFromOtherDevices } from "./utils"
 import useStyles from "./styles"
 
@@ -30,6 +31,8 @@ export default function Security() {
   const [openPasswordChange, setOpenPasswordChange] = useState(true)
 
   const classes = useStyles()
+
+  const socketId = socket.id
 
   const formik = useFormik({
     initialValues: {
@@ -76,12 +79,19 @@ export default function Security() {
             {t("enter_your_pass")}
           </Typography>
           <form onSubmit={formik.handleSubmit} id="editForm" className={classes.form}>
-            <Stack spacing={4} p={4}>
+            <Stack
+              spacing={4}
+              p={4}
+              sx={{
+                maxWidth: 420,
+              }}
+            >
               <Stack
                 direction={{
                   xs: "column",
                   sm: "row",
                 }}
+                justifyContent={"space-between"}
               >
                 <Grid item xs={5} className={classes.label}>
                   <Typography variant="caption">{t("Current_Password")}</Typography>
@@ -91,6 +101,7 @@ export default function Security() {
                     value={formik.values.currentPassword}
                     onChange={formik.handleChange}
                     name="currentPassword"
+                    fullWidth
                     error={formik.touched.currentPassword && Boolean(formik.errors.currentPassword)}
                     helperText={formik.touched.currentPassword && formik.errors.currentPassword}
                   />
@@ -101,6 +112,7 @@ export default function Security() {
                   xs: "column",
                   sm: "row",
                 }}
+                justifyContent={"space-between"}
               >
                 <Grid item xs={5} className={classes.label}>
                   <Typography variant="caption">{t("New_Password")}</Typography>
@@ -109,6 +121,7 @@ export default function Security() {
                   <PasswordInput
                     value={formik.values.newPassword}
                     onChange={formik.handleChange}
+                    fullWidth
                     name="newPassword"
                     error={formik.touched.newPassword && Boolean(formik.errors.newPassword)}
                     helperText={formik.touched.newPassword && formik.errors.newPassword}
@@ -120,6 +133,7 @@ export default function Security() {
                   xs: "column",
                   sm: "row",
                 }}
+                justifyContent={"space-between"}
               >
                 <Grid item xs={5} className={classes.label}>
                   <Typography variant="caption">{t("Confirm_Password")}</Typography>
@@ -129,6 +143,7 @@ export default function Security() {
                     value={formik.values.confirmPassword}
                     onChange={formik.handleChange}
                     name="confirmPassword"
+                    fullWidth
                     error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
                     helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
                   />
@@ -152,7 +167,7 @@ export default function Security() {
         message={
           "This will sign you out from every other device that you are currently signed in on. Are you sure you want to continue?"
         }
-        handleOk={signOutFromOtherDevices}
+        handleOk={() => signOutFromOtherDevices({ data: { socketId } })}
         handleClose={onAlertDialogClose}
       />
       <SuccessDialog

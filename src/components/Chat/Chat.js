@@ -72,6 +72,7 @@ const Chat = () => {
             open={open}
             onClose={toggleDrawer(false)}
             onOpen={toggleDrawer(true)}
+            sx={{ display: { xs: "flex", md: "none" } }}
           >
             <ChatUserInfoBlock
               onClick={toggleDrawer(false)}

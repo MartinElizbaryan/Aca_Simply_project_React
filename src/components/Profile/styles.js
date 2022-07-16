@@ -9,7 +9,7 @@ const useStyles = createUseStyles({
     backgroundColor: `${colors.green} !important`,
   },
   label: {
-    textAlign: "end",
+    textAlign: "start",
     paddingRight: 25,
     "& span": {
       fontWeight: "bold !important",
