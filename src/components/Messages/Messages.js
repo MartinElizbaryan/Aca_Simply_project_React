@@ -29,6 +29,7 @@ function Messages() {
 
     ;(async () => {
       const res = await api.get(`/messages/${id}`)
+      if (res.data.messages.length === 0) navigate("/chat")
       setMessages(res.data.messages)
     })()
     ;(async () => {
