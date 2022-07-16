@@ -34,7 +34,7 @@ Open http://localhost:3000 in your browser.
 Have any questions ?
 
 Email us at lost.list.found@gmail.com
-or contact us at github. Here are our accounts:
+or contact us at Github. Here are our accounts:
 
 [Ani Avetisyan](https://github.com/avetisyan66)
 
