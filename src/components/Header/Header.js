@@ -47,7 +47,6 @@ export default function Header() {
             )
           })}
         </Stack>
-
         <Box display="flex" alignItems="center">
           <Box
             sx={{
