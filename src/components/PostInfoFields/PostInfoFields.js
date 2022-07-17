@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Grid, MenuItem } from "@mui/material"
 import { OutlinedInput } from "../Shared/Inputs/OutlinedInput/OutlinedInput"
@@ -6,7 +6,7 @@ import UploadInput from "../Shared/Inputs/UploadInput/UploadInput"
 import { ImageCard } from "../Shared/Cards/ImageCard/ImageCard"
 import { useFetch } from "../../hooks/useFetch"
 
-export default function PostInfoFields({ formik, previewSource, setPreviewSource }) {
+export default function PostInfoFields({ formik, images, previewSource, setPreviewSource }) {
   const { t } = useTranslation()
   const { data } = useFetch("/categories")
   const [categories, setCategories] = useState([])
@@ -124,6 +124,10 @@ export default function PostInfoFields({ formik, previewSource, setPreviewSource
 
       <Grid item xs={12}>
         <Grid container spacing={2}>
+          {images &&
+            images.map((image, index) => (
+              <ImageCard key={index} index={index} image={image} removeImage={removeImage} />
+            ))}
           {previewSource.map((image, index) => (
             <ImageCard key={index} index={index} image={image} removeImage={removeImage} />
           ))}

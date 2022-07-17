@@ -1,42 +1,39 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { useFormik } from "formik"
 import { Button, Grid, IconButton, ListItemIcon } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EmailIcon from "@mui/icons-material/Email"
-import CardMedia from "@mui/material/CardMedia"
 import DoneIcon from "@mui/icons-material/Done"
 import api from "../../api/api"
-import { useFetch } from "../../hooks/useFetch"
-import { removeCurrentImage, updatePost } from "./utils"
-import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
+import { updatePost } from "./utils"
 import validationSchema from "./validationSchema"
-import { CLOUDINARY_BASE_URL } from "../../constants/constants"
 import useStyles from "./styles"
 import PostInfoFields from "../PostInfoFields/PostInfoFields"
 import { useTranslation } from "react-i18next"
 import { PostPopup } from "../Shared/Dialogs/PostPopup/PostPopup"
 
-const PostEdit = ({ open, toggleOpen }) => {
+const EditPost = ({ open, toggleOpen, post }) => {
   const { id } = useParams()
   const navigate = useNavigate()
   const { t } = useTranslation()
 
-  const [post, setPost] = useState({})
-  const [images, setImages] = useState([])
-  const [confirmerUser, setConfirmerUser] = useState(null)
+  // const [post, setPost] = useState({})
+  const [images, setImages] = useState(post.images)
+  const [confirmerUser, setConfirmerUser] = useState(post.confirmerUser)
   const [deletedImages, setDeletedImages] = useState([])
   const [previewSource, setPreviewSource] = useState([])
-  const { data: postResponse, reFetch: reFetchPost } = useFetch(`/posts/${id}`)
+  // const { data: postResponse, reFetch: reFetchPost } = useFetch(`/posts/${id}`)
 
   const classes = useStyles()
+
   const formik = useFormik({
     initialValues: {
-      name: "",
-      description: "",
-      address: "",
-      category_id: "",
-      type: "",
+      name: post.name,
+      description: post.description,
+      address: post.address,
+      category_id: post.category_id,
+      type: post.type,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -50,25 +47,25 @@ const PostEdit = ({ open, toggleOpen }) => {
     toggleOpen(false)
   }
 
-  useEffect(() => {
-    setPost(postResponse.post)
-    formik.setFieldValue("name", postResponse.post?.name)
-    formik.setFieldValue("type", postResponse.post?.type)
-    formik.setFieldValue("category_id", postResponse.post?.category_id)
-    formik.setFieldValue("description", postResponse.post?.description)
-    formik.setFieldValue("address", postResponse.post?.address)
-    setImages(postResponse.post?.images)
-    setConfirmerUser(postResponse.post?.confirmer)
-  }, [postResponse])
+  // useEffect(() => {
+  //   // setPost(postResponse.post)
+  //   formik.setFieldValue("name", post.name)
+  //   formik.setFieldValue("type", post.type)
+  //   formik.setFieldValue("category_id", post.category_id)
+  //   formik.setFieldValue("description", post.description)
+  //   formik.setFieldValue("address", post.address)
+  //   // setImages(post.images)
+  //   setConfirmerUser(post.confirmer)
+  // }, [post])
 
   const deleteConfirmer = async () => {
     const res = await api.delete(`/posts/delete-confirmed/${id}`)
-    reFetchPost()
+    // reFetchPost()
   }
 
   const done = async () => {
     const res = await api.patch(`/posts/completed/${id}`)
-    reFetchPost()
+    // reFetchPost()
     navigate("/profile/my-posts")
   }
 
@@ -106,40 +103,14 @@ const PostEdit = ({ open, toggleOpen }) => {
             setPreviewSource={setPreviewSource}
             previewSource={previewSource}
           />
-          <Grid item xs={12}>
-            <Grid container spacing={2}>
-              {images &&
-                images.map((image, index) => {
-                  return (
-                    <Grid item xs={6} sm={3} key={index} textAlign={"center"}>
-                      <CardMedia
-                        component="img"
-                        height="200"
-                        image={CLOUDINARY_BASE_URL + image.src}
-                        alt={CLOUDINARY_BASE_URL + image.src}
-                        sx={{
-                          borderRadius: 5,
-                        }}
-                      />
-                      <IconButton size="large">
-                        <DeleteIcon
-                          fontSize="inherit"
-                          color="error"
-                          onClick={(e) => {
-                            removeCurrentImage({
-                              setDeletedImages,
-                              setImages,
-                              image_index: index,
-                              id: image.id,
-                            })
-                          }}
-                        />
-                      </IconButton>
-                    </Grid>
-                  )
-                })}
-            </Grid>
-          </Grid>
+          {/*<Grid item xs={12}>*/}
+          {/*  <Grid container spacing={2}>*/}
+          {/*    {images &&*/}
+          {/*      images.map((image, index) => (*/}
+          {/*        <ImageCard key={index} index={index} image={image} removeImage={removeImage} />*/}
+          {/*      ))}*/}
+          {/*  </Grid>*/}
+          {/*</Grid>*/}
         </Grid>
         <Button sx={{ display: "none" }} type="submit"></Button>
       </form>
@@ -147,4 +118,4 @@ const PostEdit = ({ open, toggleOpen }) => {
   )
 }
 
-export default withSuspenseAdding(PostEdit)
+export default EditPost
