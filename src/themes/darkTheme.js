@@ -13,7 +13,7 @@ export default createTheme({
       hover: "#505050",
     },
     greenButton: {
-      main: "#000",
+      main: "#747474",
       hover: "#505050",
     },
     mainColor: "#fff",

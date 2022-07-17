@@ -1,20 +1,25 @@
-import { Box, Typography } from "@mui/material"
+import { Box, Typography, useTheme } from "@mui/material"
 import useStyles from "./styles"
 import { useTranslation } from "react-i18next"
 import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const Terms = () => {
   const { t } = useTranslation()
-
+  const theme = useTheme()
   const classes = useStyles()
 
   return (
     <Box className={classes.flexible}>
-      <Typography variant="h4" className={classes.header}>
+      <Typography
+        variant="h4"
+        className={classes.header}
+        component={"h1"}
+        color={theme.palette.mainColor}
+      >
         {t("terms")}
       </Typography>
 
-      <Typography className={classes.policyText}>
+      <Typography className={classes.policyText} color={theme.palette.mainColor}>
         TERMS LOSTANDFOUNDNETWORK.COM Termsof Use & Service This website (the “Site”) is published
         and maintained by Greenitco Technologies Private Limited (“lostandfoundnetworks.com”), a
         company incorporated and existing in accordance with the laws. When you access,browse or use

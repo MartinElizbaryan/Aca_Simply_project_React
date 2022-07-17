@@ -1,4 +1,4 @@
-import { Box, Container, Grid, ImageList, ImageListItem, Typography } from "@mui/material"
+import { Box, Container, Grid, ImageList, ImageListItem, Typography, useTheme } from "@mui/material"
 import useStyles from "./styles"
 import { useTranslation } from "react-i18next"
 import Artyom from "../../assets/AboutUsPhotos/Artyom.jpg"
@@ -15,18 +15,27 @@ const AboutUs = () => {
   const { t } = useTranslation()
 
   const classes = useStyles()
-
+  const theme = useTheme()
   return (
     <Container className={classes.container} maxWidth={false}>
       <Box className={classes.box}>
         <Box mr={3}>
-          <Typography variant="h4" className={classes.header}>
+          <Typography
+            variant="h4"
+            component="h2"
+            textAlign="center"
+            color={theme.palette.mainColor}
+          >
             App MonsterZ
           </Typography>
         </Box>
         <Box>
-          <Typography className={classes.contant}>{t("inspire_Header")}</Typography>
-          <Typography className={classes.miniText2}>&quot; {t("inspire_Text1")} &quot;</Typography>
+          <Typography className={classes.contant} color={theme.palette.mainColor}>
+            {t("inspire_Header")}
+          </Typography>
+          <Typography className={classes.miniText2} color={theme.palette.mainColor}>
+            &quot; {t("inspire_Text1")} &quot;
+          </Typography>
         </Box>
       </Box>
       <Grid
@@ -42,8 +51,10 @@ const AboutUs = () => {
         }}
       >
         <Grid item xs={12} sm={4}>
-          <Typography className={classes.contant}>{t("who_we_are")}</Typography>
-          <Typography className={classes.miniText}>
+          <Typography className={classes.contant} color={theme.palette.mainColor}>
+            {t("who_we_are")}
+          </Typography>
+          <Typography className={classes.miniText} color={theme.palette.mainColor}>
             {t("meet_us")}
             <br></br>
             <br></br>

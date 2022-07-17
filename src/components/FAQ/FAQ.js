@@ -1,4 +1,4 @@
-import { Container, Stack, Typography } from "@mui/material"
+import { Container, Stack, Typography, useTheme } from "@mui/material"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import { Question } from "../Shared/Accordions/Question/Question"
 import useStyles from "./styles"
@@ -12,7 +12,7 @@ const FAQ = () => {
   const { t } = useTranslation()
   const [faqs, setFAQs] = useState([])
   const { data, error, loading } = useFetch("/faq")
-
+  const theme = useTheme()
   const classes = useStyles()
 
   useEffect(() => {
@@ -22,16 +22,23 @@ const FAQ = () => {
   return (
     <>
       <Container className={classes.container} maxWidth={false}>
-        <Typography variant="h4" className={classes.header}>
+        <Typography
+          variant="h4"
+          className={classes.header}
+          component={"h1"}
+          color={theme.palette.mainColor}
+        >
           {t("FAQ")}
         </Typography>
-        <Typography variant="body2">{t("find_answers")}</Typography>
+        <Typography variant="body2" color={theme.palette.mainColor}>
+          {t("find_answers")}
+        </Typography>
         <Stack p={4} spacing={2}>
           {faqs?.map((faq) => (
             <Question key={faq.id} id={faq.id} question={faq.question} answer={faq.answer} />
           ))}
         </Stack>
-        <Typography variant="caption">
+        <Typography variant="caption" color={theme.palette.mainColor}>
           {t("still_have_questions")}
           <Link url="/contact" color={colors.darkBlue}>
             {t("Contact_us")}

@@ -21,6 +21,7 @@ import {
   Radio,
   RadioGroup,
   Typography,
+  useTheme,
 } from "@mui/material"
 import Slider from "../Slider/Slider"
 import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
@@ -46,7 +47,7 @@ const PostSingle = () => {
   const user = useSelector(getUserInfo)
   const { data, error, loading } = useFetch(`/posts/${id}/with-questions`)
   const classes = useStyles()
-
+  const theme = useTheme()
   const date = moment(post?.created_at).format("LLLL")
 
   useEffect(() => {
@@ -171,7 +172,13 @@ const PostSingle = () => {
           {questions?.map((question, questionIndex) => {
             return (
               <div key={question.id}>
-                <p>{question.title}</p>
+                <p
+                  style={{
+                    color: theme.palette.mainColor,
+                  }}
+                >
+                  {question.title}
+                </p>
 
                 <FormControl>
                   <RadioGroup name="radio-buttons-group">
@@ -184,6 +191,9 @@ const PostSingle = () => {
                           label={answer.title}
                           onChange={(e) => {
                             handelAnswer(e, questionIndex, answerIndex)
+                          }}
+                          sx={{
+                            color: theme.palette.mainColor,
                           }}
                         />
                       )

@@ -1,20 +1,25 @@
-import { Box, Typography } from "@mui/material"
+import { Box, Typography, useTheme } from "@mui/material"
 import useStyles from "./styles"
 import { useTranslation } from "react-i18next"
 import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const Privacy = () => {
   const { t } = useTranslation()
-
+  const theme = useTheme()
   const classes = useStyles()
 
   return (
     <Box className={classes.flexible}>
-      <Typography variant="h4" className={classes.header}>
+      <Typography
+        variant="h4"
+        className={classes.header}
+        component={"h1"}
+        color={theme.palette.mainColor}
+      >
         {t("privacy")}
       </Typography>
 
-      <Typography className={classes.policyText}>
+      <Typography className={classes.policyText} color={theme.palette.mainColor}>
         THIS PRIVACY POLICY (“PRIVACY POLICY “) IS AN ELECTRONIC RECORD IN THE FORM OF AN ELECTRONIC
         CONTRACT FORMED UNDER INFORMATION TECHNOLOGY ACT, 2000 AND RULES MADE THERE UNDER AND THE
         AMENDED PROVISIONS PERTAINING TO ELECTRONIC DOCUMENTS / RECORDS IN VARIOUS STATUTES AS
