@@ -74,7 +74,6 @@ const PostSingle = () => {
       user_id: +post.user_id,
       questions,
     })
-    console.log("good")
     navigate(`/chat/${post.user_id}`)
   }
 

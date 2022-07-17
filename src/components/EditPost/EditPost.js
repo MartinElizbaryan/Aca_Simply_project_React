@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { useFormik } from "formik"
-import { Box, Grid, IconButton, ListItemIcon } from "@mui/material"
+import { Button, Grid, IconButton, ListItemIcon } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EmailIcon from "@mui/icons-material/Email"
 import CardMedia from "@mui/material/CardMedia"
 import DoneIcon from "@mui/icons-material/Done"
-import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import api from "../../api/api"
 import { useFetch } from "../../hooks/useFetch"
 import { removeCurrentImage, updatePost } from "./utils"
@@ -14,10 +13,15 @@ import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 import validationSchema from "./validationSchema"
 import { CLOUDINARY_BASE_URL } from "../../constants/constants"
 import useStyles from "./styles"
+import PostInfoFields from "../PostInfoFields/PostInfoFields"
+import { useTranslation } from "react-i18next"
+import { PostPopup } from "../Shared/Dialogs/PostPopup/PostPopup"
 
-const PostEdit = () => {
+const PostEdit = ({ toggleOpen }) => {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { t } = useTranslation()
+
   const [post, setPost] = useState({})
   const [images, setImages] = useState([])
   const [confirmerUser, setConfirmerUser] = useState(null)
@@ -35,10 +39,16 @@ const PostEdit = () => {
       type: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      updatePost(post.id, navigate, values, deletedImages, previewSource)
+    onSubmit: async (values) => {
+      await updatePost(post.id, navigate, values, deletedImages, previewSource)
     },
   })
+
+  const handlePopupClose = () => {
+    setPreviewSource([])
+    formik.resetForm()
+    toggleOpen(false)
+  }
 
   useEffect(() => {
     setPost(postResponse.post)
@@ -63,30 +73,38 @@ const PostEdit = () => {
   }
 
   return (
-    <Box>
+    <PostPopup
+      handleClose={handlePopupClose}
+      handleSubmit={formik.handleSubmit}
+      title={t("Edit_Post")}
+    >
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={2} p={2}>
           {confirmerUser && (
             <Grid item xs={6} mb={5}>
               Confirmed By {confirmerUser.name} {confirmerUser.surname}
-              <IconButton aria-label="delete" color="error" onClick={deleteConfirmer}>
+              <IconButton color="error" onClick={deleteConfirmer}>
                 <DeleteIcon />
               </IconButton>
               <Link to={`/chat/${confirmerUser.id}`}>
                 <ListItemIcon>
-                  <IconButton aria-label="delete" color="primary">
+                  <IconButton color="primary">
                     <EmailIcon />
                   </IconButton>
                 </ListItemIcon>
               </Link>
               {!post?.completed && (
-                <IconButton aria-label="delete" color="success" onClick={done}>
+                <IconButton color="success" onClick={done}>
                   <DoneIcon />
                 </IconButton>
               )}
             </Grid>
           )}
-
+          <PostInfoFields
+            formik={formik}
+            setPreviewSource={setPreviewSource}
+            previewSource={previewSource}
+          />
           <Grid item xs={12}>
             <Grid container spacing={2}>
               {images &&
@@ -102,7 +120,7 @@ const PostEdit = () => {
                           borderRadius: 5,
                         }}
                       />
-                      <IconButton aria-label="delete" size="large">
+                      <IconButton size="large">
                         <DeleteIcon
                           fontSize="inherit"
                           color="error"
@@ -122,15 +140,9 @@ const PostEdit = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid container spacing={2} p={2}>
-          <Grid item xs={8} sm={6} md={4}>
-            <GreenButton className={classes.button} type="submit">
-              Save Changes
-            </GreenButton>
-          </Grid>
-        </Grid>
+        <Button sx={{ display: "none" }} type="submit"></Button>
       </form>
-    </Box>
+    </PostPopup>
   )
 }
 

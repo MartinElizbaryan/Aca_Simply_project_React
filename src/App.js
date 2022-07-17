@@ -22,7 +22,7 @@ const Main = lazy(() => import("./components/Main/Main"))
 const Chat = lazy(() => import("./components/Chat/Chat"))
 const Home = lazy(() => import("./components/Home/Home"))
 const MyPosts = lazy(() => import("./components/MyPosts/MyPosts"))
-const MyPostsEdit = lazy(() => import("./components/PostEdit/PostEdit"))
+const MyPostsEdit = lazy(() => import("./components/EditPost/EditPost.js"))
 const ConfirmedPosts = lazy(() => import("./components/ConfirmedPosts/ConfirmedPosts"))
 const FavoritePosts = lazy(() => import("./components/FavoritePosts/FavoritePosts"))
 const PageNotFound = lazy(() => import("./components/Errors/PageNotFound/PageNotFound"))
@@ -94,7 +94,6 @@ function App() {
                 <Route path="/" element={<Account />}>
                   <Route exact path="/profile" element={<Profile />} />
                   <Route exact path="/profile/my-posts" element={<MyPosts />} />
-                  <Route exact path="/profile/my-posts/:id" element={<MyPostsEdit />} />
                   <Route exact path="/profile/confirmed-posts" element={<ConfirmedPosts />} />
                   <Route exact path="/profile/favorites" element={<FavoritePosts />} />
                   <Route exact path="/profile/security" element={<Security />} />

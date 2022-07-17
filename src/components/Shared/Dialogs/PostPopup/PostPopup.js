@@ -1,0 +1,34 @@
+import { useTranslation } from "react-i18next"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material"
+import CloseIcon from "@mui/icons-material/Close"
+
+export const PostPopup = ({ children, title, handleClose, handleSubmit }) => {
+  const { t } = useTranslation()
+
+  return (
+    <Dialog open onClose={handleClose}>
+      <DialogTitle>
+        <Stack direction="row" alignItems="center" justifyContent="space-between">
+          <Typography variant="h6">{title}</Typography>
+          <IconButton size="medium" onClick={handleClose}>
+            <CloseIcon color="action" />
+          </IconButton>
+        </Stack>
+      </DialogTitle>
+      <DialogContent dividers={true}>{children}</DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>{t("Cancel")}</Button>
+        <Button onClick={handleSubmit}>{t("Create")}</Button>
+      </DialogActions>
+    </Dialog>
+  )
+}
