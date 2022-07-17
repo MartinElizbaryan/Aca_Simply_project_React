@@ -17,7 +17,7 @@ import PostInfoFields from "../PostInfoFields/PostInfoFields"
 import { useTranslation } from "react-i18next"
 import { PostPopup } from "../Shared/Dialogs/PostPopup/PostPopup"
 
-const PostEdit = ({ toggleOpen }) => {
+const PostEdit = ({ open, toggleOpen }) => {
   const { id } = useParams()
   const navigate = useNavigate()
   const { t } = useTranslation()
@@ -74,6 +74,7 @@ const PostEdit = ({ toggleOpen }) => {
 
   return (
     <PostPopup
+      open={open}
       handleClose={handlePopupClose}
       handleSubmit={formik.handleSubmit}
       title={t("Edit_Post")}

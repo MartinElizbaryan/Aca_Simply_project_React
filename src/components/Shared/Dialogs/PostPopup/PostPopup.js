@@ -11,11 +11,11 @@ import {
 } from "@mui/material"
 import CloseIcon from "@mui/icons-material/Close"
 
-export const PostPopup = ({ children, title, handleClose, handleSubmit }) => {
+export const PostPopup = ({ open, children, title, handleClose, handleSubmit }) => {
   const { t } = useTranslation()
 
   return (
-    <Dialog open onClose={handleClose}>
+    <Dialog open={open} onClose={handleClose}>
       <DialogTitle>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
           <Typography variant="h6">{title}</Typography>

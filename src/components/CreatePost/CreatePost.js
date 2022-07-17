@@ -11,7 +11,7 @@ import { validation } from "./validation"
 import { sendToServerHendler } from "./utils"
 import useStyles from "./styles"
 
-export default function CreatePost({ toggleOpen }) {
+export default function CreatePost({ open, toggleOpen }) {
   const [previewSource, setPreviewSource] = useState([])
   const navigate = useNavigate()
   const { t } = useTranslation()
@@ -47,6 +47,7 @@ export default function CreatePost({ toggleOpen }) {
 
   return (
     <PostPopup
+      open={open}
       handleClose={handlePopupClose}
       handleSubmit={formik.handleSubmit}
       title={t("Create_Post")}

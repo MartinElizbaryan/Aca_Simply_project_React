@@ -18,6 +18,8 @@ import emptyImage from "../../assets/adspy_loading_animation.gif"
 import { getUserFullName } from "../../helpers/utils"
 import { CLOUDINARY_BASE_URL } from "../../constants/constants"
 import useStyles from "./styles"
+import { useState } from "react"
+import EditPost from "../EditPost/EditPost"
 
 export default function Post({
   post,
@@ -28,10 +30,15 @@ export default function Post({
   admin,
   deleteFromMyFavorites,
 }) {
+  const [openEditPost, setOpenEditPost] = useState(false)
   const { t } = useTranslation()
   const classes = useStyles()
 
   const img = post.images.length ? `${CLOUDINARY_BASE_URL}${post.images[0].src}` : emptyImage
+
+  const toggleOpenEditPost = (open) => {
+    setOpenEditPost(open)
+  }
 
   return (
     <Card
@@ -87,8 +94,8 @@ export default function Post({
         }}
       >
         <HeartButton post={post} deleteFromMyFavorites={deleteFromMyFavorites} />
-        {editable && <BlueButton>{t("Edit")}</BlueButton>}
-
+        {editable && <BlueButton onClick={toggleOpenEditPost(true)}>{t("Edit")}</BlueButton>}
+        <EditPost open={openEditPost} toggleOpen={toggleOpenEditPost} />
         <Link url={`/posts/${post.id}`}>
           <BlueButton>{t("See_details")}</BlueButton>
         </Link>
