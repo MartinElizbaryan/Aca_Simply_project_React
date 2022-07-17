@@ -14,6 +14,7 @@ import useStyles from "./styles"
 function Messages() {
   const [messages, setMessages] = useState([])
   const [message, setMessage] = useState("")
+  const input = useRef()
   const list = useRef(null)
   const user = useSelector(getUserInfo)
   const { id } = useParams()
@@ -86,7 +87,7 @@ function Messages() {
   }
 
   return (
-    <Grid item xs={12} md={9}>
+    <Grid item xs={12} md={9} sx={{ marginTop: "60px" }}>
       <List className={classes.messageArea} ref={list}>
         {messages.map((message) => {
           return (
@@ -102,12 +103,17 @@ function Messages() {
       </List>
 
       <Divider />
-      <Box display="flex" alignItems="center" sx={{ paddingRight: 2 }}>
+      <Box display="flex" alignItems="center" sx={{ paddingRight: 2 }} ref={input}>
         <InputEmoji
           value={message}
           onChange={setMessage}
+          keepOpened
+          disableRecent
           cleanOnEnter
-          onEnter={sendMessage}
+          onEnter={() => {
+            input.current.click()
+            sendMessage()
+          }}
           placeholder={t("Type_placeholder")}
         />
       </Box>

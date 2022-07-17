@@ -10,7 +10,6 @@ export const GreenButton = ({ children, ...props }) => {
       variant="contained"
       className={classes.button}
       {...props}
-      s
       sx={{
         backgroundColor: theme.palette.greenButton.main,
         "&:hover": {

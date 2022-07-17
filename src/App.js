@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from "react"
-import i18n from "./i18n/languages/translations/translations.js"
 import { useDispatch, useSelector } from "react-redux"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import { ThemeProvider } from "@mui/material/styles"
 import {
   AdminPrivateRoute,
   AuthorizedUserPrivateRoute,
@@ -12,17 +12,17 @@ import api from "./api/api"
 import history from "./helpers/history"
 import connectToSocket from "./helpers/connectToSocket"
 import { deleteUserInfo, setUserInfo } from "./redux/userSlice"
-import "./App.css"
-import { ThemeProvider } from "@mui/material/styles"
 import { getThemeMode } from "./redux/themeSelectors"
+import i18n from "./i18n/languages/translations/translations.js"
 import darkTheme from "./themes/darkTheme"
 import lightTheme from "./themes/lightTheme"
+import "./App.css"
 
 const Main = lazy(() => import("./components/Main/Main"))
 const Chat = lazy(() => import("./components/Chat/Chat"))
 const Home = lazy(() => import("./components/Home/Home"))
 const MyPosts = lazy(() => import("./components/MyPosts/MyPosts"))
-const MyPostsEdit = lazy(() => import("./components/MyPostsEdit/MyPostsEdit"))
+const MyPostsEdit = lazy(() => import("./components/PostEdit/PostEdit"))
 const ConfirmedPosts = lazy(() => import("./components/ConfirmedPosts/ConfirmedPosts"))
 const FavoritePosts = lazy(() => import("./components/FavoritePosts/FavoritePosts"))
 const PageNotFound = lazy(() => import("./components/Errors/PageNotFound/PageNotFound"))
@@ -43,7 +43,6 @@ const Account = lazy(() => import("./components/Account/Account"))
 const Terms = lazy(() => import("./components/Terms/Terms"))
 
 function App() {
-  localStorage.getItem("theme") === null ? localStorage.setItem("theme", "light") : null
   const [loading, setLoading] = useState(true)
   const themeMode = useSelector(getThemeMode)
   const dispatch = useDispatch()
