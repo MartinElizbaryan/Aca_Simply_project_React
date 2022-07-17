@@ -54,7 +54,8 @@ export default function UserControlBlock() {
     })
     socket.on("signOut", () => {
       dispatch(deleteUserInfo())
-      console.log("sign out socket")
+      socket.removeAllListeners()
+      socket.disconnect()
       localStorage.removeItem("accessToken")
       navigate("/signin")
     })

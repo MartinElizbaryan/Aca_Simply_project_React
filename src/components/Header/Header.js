@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next"
 import { AppBar, Box, Stack, Toolbar, useTheme } from "@mui/material"
 import { Logo } from "../Shared/Logo/Logo"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
-import NavigationMobile from "../Shared/NavigationMobile/NavigationMobile"
 import SignInButton from "../Shared/Buttons/SignInButton/SignInButton"
 import { getUserAuth } from "../../redux/userSelectors"
 import { navlist } from "./constants"
@@ -12,6 +11,7 @@ import { colors } from "../../constants/styles.js"
 import useStyles from "./styles"
 
 const UserControlBlock = lazy(() => import("../UserControlBlock/UserControlBlock"))
+const NavigationMobile = lazy(() => import("../Shared/NavigationMobile/NavigationMobile"))
 
 export default function Header() {
   const { t } = useTranslation()
@@ -56,7 +56,9 @@ export default function Header() {
               },
             }}
           >
-            <NavigationMobile />
+            <Suspense fallback={<div></div>}>
+              <NavigationMobile />
+            </Suspense>
           </Box>
           {!auth ? (
             <SignInButton />
