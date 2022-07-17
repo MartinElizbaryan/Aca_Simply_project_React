@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { Box, Divider, Grid, IconButton, Stack, SwipeableDrawer } from "@mui/material"
+import { Box, Divider, Grid, IconButton, Stack, SwipeableDrawer, useTheme } from "@mui/material"
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt"
 import Messages from "../Messages/Messages"
 import UserInfo from "../Shared/UserInfo/UserInfo"
@@ -16,7 +16,7 @@ const Chat = () => {
   const [open, setOpen] = useState(!id && true)
   const [onlineUsers, setOnlineUsers] = useState([])
   const [users, setUsers] = useState([])
-
+  const theme = useTheme()
   const classes = useStyles()
 
   useEffect(() => {
@@ -59,7 +59,13 @@ const Chat = () => {
           p={1}
           xs={12}
           className={classes.borderBottom}
-          sx={{ display: { xs: "flex", md: "none" }, position: "fixed" }}
+          sx={{
+            display: { xs: "flex", md: "none" },
+            position: "fixed",
+            zIndex: 15,
+            backgroundColor: theme.palette.body,
+            color: theme.palette.mainColor,
+          }}
         >
           <Stack direction="row" spacing={1} alignItems="center">
             <IconButton color="primary" onClick={toggleDrawer(true)}>
