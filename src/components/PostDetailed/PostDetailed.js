@@ -21,19 +21,20 @@ import {
 import Slider from "../Slider/Slider"
 import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
-import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
-import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
+import { Questions } from "../Shared/Dialogs/Questions/Questions"
+import { PostPopup } from "../Shared/Dialogs/PostPopup/PostPopup"
+import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
 import PostsSceletonSingle from "../PostsSceletonSingle/PostsSceletonSingle"
 import api from "../../api/api"
 import { useFetch } from "../../hooks/useFetch"
 import { getUserInfo } from "../../redux/userSelectors"
+import { getUserFullName } from "../../helpers/utils"
 import emptyImage from "../../assets/adspy_loading_animation.gif"
 import useStyles from "./styles"
-import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
-import { getUserFullName } from "../../helpers/utils"
 
 const PostDetailed = () => {
   const [post, setPost] = useState({})
+  const [open, setOpen] = useState(false)
   const [questions, setQuestions] = useState({})
   const { id } = useParams()
   const { t } = useTranslation()
@@ -84,12 +85,22 @@ const PostDetailed = () => {
     }
   }
 
-  const handelAnswer = (e, questionIndex, answerIndex) => {
+  const handleAnswer = (e, questionIndex, answerIndex) => {
     questions[questionIndex].answers.forEach((answer) => {
       answer.checked = false
     })
     questions[questionIndex].answers[answerIndex].checked = e.target.checked
     setQuestions([...questions])
+  }
+
+  const handlePopupClose = () => {
+    setOpen(false)
+  }
+
+  const handleStartChatButtonClick = () => {
+    console.log(questions.length)
+    if (!questions.length) return
+    setOpen(true)
   }
 
   return (
@@ -144,10 +155,7 @@ const PostDetailed = () => {
                 {post?.user_id !== user.id && (
                   <>
                     {showConfirmer()}
-
-                    <Link url={`/chat/${post?.user_id}`}>
-                      <BlueButton>{t("Start_chat")}</BlueButton>
-                    </Link>
+                    <BlueButton onClick={handleStartChatButtonClick}>{t("Start_chat")}</BlueButton>
                   </>
                 )}
               </CardActions>
@@ -155,8 +163,14 @@ const PostDetailed = () => {
           </>
         )}
       </Box>
-      {/*<QuestionsPopup />*/}
-      <GreenButton onClick={sendAnswers}>{t("Send_Answers")}</GreenButton>
+      <PostPopup
+        open={open}
+        handleClose={handlePopupClose}
+        title={"Answer the questions"}
+        handleSubmit={sendAnswers}
+      >
+        <Questions questions={questions} handleAnswer={handleAnswer} />
+      </PostPopup>
     </Container>
   )
 }

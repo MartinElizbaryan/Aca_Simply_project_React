@@ -1,13 +1,12 @@
-import { FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material"
+import { FormControl, FormControlLabel, Grid, Radio, RadioGroup, Typography } from "@mui/material"
 
-export const QuestionsPopup = ({ questions, handleAnswer }) => {
+export const Questions = ({ questions, handleAnswer }) => {
   return (
     <div>
       {questions?.map((question, questionIndex) => {
         return (
-          <div key={question.id}>
-            <p>{question.title}</p>
-
+          <Grid item xs={12} key={question.id}>
+            <Typography>{question.title}</Typography>
             <FormControl>
               <RadioGroup name="radio-buttons-group">
                 {question.answers.map((answer, answerIndex) => {
@@ -25,7 +24,7 @@ export const QuestionsPopup = ({ questions, handleAnswer }) => {
                 })}
               </RadioGroup>
             </FormControl>
-          </div>
+          </Grid>
         )
       })}
     </div>
