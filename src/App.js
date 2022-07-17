@@ -26,7 +26,7 @@ const ConfirmedPosts = lazy(() => import("./components/ConfirmedPosts/ConfirmedP
 const FavoritePosts = lazy(() => import("./components/FavoritePosts/FavoritePosts"))
 const PageNotFound = lazy(() => import("./components/Errors/PageNotFound/PageNotFound"))
 const Profile = lazy(() => import("./components/Profile/Profile"))
-const PostSingle = lazy(() => import("./components/PostSingle/PostSingle"))
+const PostSingle = lazy(() => import("./components/PostDetailed/PostDetailed"))
 const Posts = lazy(() => import("./components/Posts/Posts"))
 const RegistrationLogin = lazy(() => import("./components/RegistrationLogin/RegistrationLogin"))
 const Security = lazy(() => import("./components/Security/Security"))
