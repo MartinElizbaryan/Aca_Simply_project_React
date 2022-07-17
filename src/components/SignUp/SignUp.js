@@ -7,6 +7,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  useTheme,
 } from "@mui/material"
 import { signUp } from "./utils"
 import useStyles from "./styles"
@@ -22,7 +23,7 @@ export default function SignUp() {
   const [errMessage, setErrMessage] = useState("")
   const [isVisible, setIsVisible] = useState(false)
   const [isVisible2, setIsVisible2] = useState(false)
-
+  const theme = useTheme()
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -55,7 +56,12 @@ export default function SignUp() {
   const navigate = useNavigate()
 
   return (
-    <Box className={classes.totalBox}>
+    <Box
+      className={classes.totalBox}
+      sx={{
+        backgroundColor: theme.palette.greyBg,
+      }}
+    >
       <form onSubmit={formik.handleSubmit} id="signinButton">
         <Box className={classes.central}>
           <InputField
