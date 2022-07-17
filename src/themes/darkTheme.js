@@ -4,8 +4,8 @@ export default createTheme({
   palette: {
     mode: "dark",
     blurBlue: {
-      main: "rgba(0,0,0,1)",
-      blur: "rgba(0,0,0,0.8)",
+      main: "rgba(50,50,50,1)",
+      blur: "rgba(30,30,30,0.8)",
     },
     body: "#000",
     blueButton: {

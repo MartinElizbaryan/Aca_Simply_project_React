@@ -30,12 +30,20 @@ export default function TeamSlider() {
             <Box
               className={classes.circle}
               sx={{
-                backgroundColor: theme.palette.blurBlue.blue,
+                backgroundColor: theme.palette.blurBlue.main,
               }}
             >
               <PersonAdd fontSize="large" style={{ color: "white" }} />
             </Box>
-            <Typography className={classes.bigText2}>{t("Step1")}</Typography>
+            <Typography
+              variant="h6"
+              component="h2"
+              textAlign="center"
+              color={theme.palette.mainColor}
+              mb={5}
+            >
+              {t("Step1")}
+            </Typography>
             <Typography className={classes.lightGreyText}>{t("Step1_text")}</Typography>
           </Box>
         </Grid>
@@ -44,12 +52,20 @@ export default function TeamSlider() {
             <Box
               className={classes.circle}
               sx={{
-                backgroundColor: theme.palette.blurBlue.blue,
+                backgroundColor: theme.palette.blurBlue.main,
               }}
             >
               <Check fontSize="large" style={{ color: "white" }} />
             </Box>
-            <Typography className={classes.bigText2}>{t("Step2")}</Typography>
+            <Typography
+              variant="h6"
+              component="h2"
+              textAlign="center"
+              color={theme.palette.mainColor}
+              mb={5}
+            >
+              {t("Step2")}
+            </Typography>
             <Typography className={classes.lightGreyText}>{t("Step2_text")}</Typography>
           </Box>
         </Grid>
@@ -58,12 +74,20 @@ export default function TeamSlider() {
             <Box
               className={classes.circle}
               sx={{
-                backgroundColor: theme.palette.blurBlue.blue,
+                backgroundColor: theme.palette.blurBlue.main,
               }}
             >
               <PostAdd fontSize="large" style={{ color: "white" }} />
             </Box>
-            <Typography className={classes.bigText2}>{t("Step3")}</Typography>
+            <Typography
+              variant="h6"
+              component="h2"
+              textAlign="center"
+              color={theme.palette.mainColor}
+              mb={5}
+            >
+              {t("Step3")}
+            </Typography>
             <Typography className={classes.lightGreyText}>{t("Step3_text")}</Typography>
           </Box>
         </Grid>
