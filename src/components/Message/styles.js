@@ -8,7 +8,7 @@ const useStyles = createUseStyles({
     borderRadius: 25,
     cursor: "default",
     color: colors.fontColor,
-    backgroundColor: "rgba(0, 0, 0, 0.08)",
+    backgroundColor: "rgb(204 204 204)",
   },
   text: {
     wordBreak: "break-word",
