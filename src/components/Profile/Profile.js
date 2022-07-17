@@ -13,8 +13,9 @@ import { validationSchema } from "./vaildation"
 import { setUserInfo } from "../../redux/userSlice"
 import { getUserInfo } from "../../redux/userSelectors"
 import useStyles from "./styles"
+import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
-export default function Profile() {
+const Profile = () => {
   const { t } = useTranslation()
   const user = useSelector(getUserInfo)
   const [success, setSuccess] = useState(false)
@@ -170,3 +171,5 @@ export default function Profile() {
     </>
   )
 }
+
+export default withSuspenseAdding(Profile)

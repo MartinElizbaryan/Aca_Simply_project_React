@@ -12,8 +12,9 @@ import { useTranslation } from "react-i18next"
 import { useFormik } from "formik"
 import { validationSchema } from "./validationSchema"
 import { sendMessage } from "./utils"
+import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
-export default function Contact() {
+const Contact = () => {
   const { t } = useTranslation()
   const classes = useStyles()
   const formik = useFormik({
@@ -143,3 +144,5 @@ export default function Contact() {
     </Container>
   )
 }
+
+export default withSuspenseAdding(Contact)

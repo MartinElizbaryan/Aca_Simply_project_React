@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { useSearchParams } from "react-router-dom"
-import { Box, Container, Grid } from "@mui/material"
+import { Box, Container, Grid, useTheme } from "@mui/material"
 import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined"
 import PostsList from "../PostsList/PostsList"
 import PostsSceleton from "../PostsSceleton/PostsSceleton"
@@ -11,10 +11,10 @@ import { useFetch } from "../../hooks/useFetch"
 import { getParamsFromFiltering } from "./utils"
 import { scrollToTop } from "../../helpers/utils"
 import { POST_PER_PAGE } from "./constants"
-import { colors } from "../../constants/styles"
 import useStyles from "./styles"
+import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
-export default function Posts() {
+const Posts = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const [categories, setCategories] = useState({})
 
@@ -63,10 +63,10 @@ export default function Posts() {
   const toggleDrawer = (open) => () => {
     setOpen(open)
   }
-
+  const theme = useTheme()
   return (
     <Container className={classes.container} maxWidth={false}>
-      <Grid item sx={{ backgroundColor: colors.grey, width: "100%", height: "100%" }}>
+      <Grid item sx={{ backgroundColor: theme.palette.body, width: "100%", height: "100%" }}>
         <PostsSidebar
           open={open}
           toggleDrawer={toggleDrawer}
@@ -99,3 +99,5 @@ export default function Posts() {
     </Container>
   )
 }
+
+export default withSuspenseAdding(Posts)

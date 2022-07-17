@@ -7,8 +7,9 @@ import ForgotPassword from "../ForgotPassword/ForgotPassword"
 import SignIn from "../SignIn/SignIn"
 import SignUp from "../SignUp/SignUp"
 import useStyles from "./styles"
+import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
-export default function RegistrationLogin() {
+const RegistrationLogin = () => {
   const { t } = useTranslation()
   const { pathname } = useLocation()
 
@@ -55,3 +56,5 @@ export default function RegistrationLogin() {
     </Box>
   )
 }
+
+export default withSuspenseAdding(RegistrationLogin)

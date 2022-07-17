@@ -12,7 +12,6 @@ const useStyles = createUseStyles({
   },
   circle: {
     borderRadius: "50%",
-    backgroundColor: "#6d88a8",
     width: 120,
     height: 120,
     display: "flex",

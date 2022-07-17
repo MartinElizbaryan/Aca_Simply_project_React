@@ -4,10 +4,13 @@ import Header from "../Header/Header"
 import Footer from "../Footer/Footer"
 import { ScrollTopButton } from "../Shared/Buttons/ScrollTopButton/ScrollTopButton"
 import { scrollToTop } from "../../helpers/utils"
+import { useTheme } from "@mui/material"
+import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
-export default function Main({ component: Component, ...rest }) {
+const Main = ({ component: Component, ...rest }) => {
   const [visible, setVisible] = useState(false)
   const main = useRef(null)
+  const theme = useTheme()
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 300 && window.innerWidth > 300) {
@@ -21,7 +24,12 @@ export default function Main({ component: Component, ...rest }) {
   return (
     <>
       <Header />
-      <main ref={main}>
+      <main
+        ref={main}
+        style={{
+          backgroundColor: theme.palette.body,
+        }}
+      >
         <Outlet />
       </main>
       <Footer />
@@ -29,3 +37,5 @@ export default function Main({ component: Component, ...rest }) {
     </>
   )
 }
+
+export default withSuspenseAdding(Main)

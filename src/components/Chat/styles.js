@@ -12,6 +12,7 @@ const useStyles = createUseStyles({
     borderRight: "1px solid #e0e0e0",
   },
   borderBottom: {
+    width: "100%",
     borderBottom: "1px solid #e0e0e0",
     flexDirection: "column !important",
     justifyContent: "center",

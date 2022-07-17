@@ -21,6 +21,7 @@
     "moment": "^2.29.3",
     "npm": "^8.12.1",
     "react": "^18.1.0",
+    "react-cookie": "^4.1.1",
     "react-countup": "^6.2.0",
     "react-dom": "^18.1.0",
     "react-i18next": "^11.17.4",

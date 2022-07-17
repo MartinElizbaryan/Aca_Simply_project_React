@@ -22,8 +22,9 @@ import { validationSchema } from "./vaildation"
 import socket from "../../helpers/socket"
 import { changePassword, signOutFromOtherDevices } from "./utils"
 import useStyles from "./styles"
+import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
-export default function Security() {
+const Security = () => {
   const { t } = useTranslation()
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
@@ -179,3 +180,5 @@ export default function Security() {
     </Container>
   )
 }
+
+export default withSuspenseAdding(Security)

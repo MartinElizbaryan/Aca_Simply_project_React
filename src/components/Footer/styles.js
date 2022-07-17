@@ -1,10 +1,8 @@
 import { createUseStyles } from "react-jss"
-import { colors } from "../../constants/styles"
 
 const useStyles = createUseStyles({
   container: {
     position: "sticky",
-    backgroundColor: colors.blue,
     paddingBottom: "2px",
   },
   languagesSelect: {
@@ -16,9 +14,12 @@ const useStyles = createUseStyles({
       right: 0,
     },
   },
-  languagesBox: {
+  inputsBox: {
     display: "flex",
     alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 20,
     padding: "5px",
   },
 })

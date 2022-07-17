@@ -9,12 +9,13 @@ import api from "../../api/api"
 import socket from "../../helpers/socket"
 import { findUser } from "../../helpers/utils"
 import useStyles from "./styles"
+import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const Chat = () => {
-  const [open, setOpen] = useState(true)
+  const { id } = useParams()
+  const [open, setOpen] = useState(!id && true)
   const [onlineUsers, setOnlineUsers] = useState([])
   const [users, setUsers] = useState([])
-  const { id } = useParams()
 
   const classes = useStyles()
 
@@ -58,7 +59,7 @@ const Chat = () => {
           p={1}
           xs={12}
           className={classes.borderBottom}
-          sx={{ display: { xs: "flex", md: "none" } }}
+          sx={{ display: { xs: "flex", md: "none" }, position: "fixed" }}
         >
           <Stack direction="row" spacing={1} alignItems="center">
             <IconButton color="primary" onClick={toggleDrawer(true)}>
@@ -87,4 +88,4 @@ const Chat = () => {
   )
 }
 
-export default Chat
+export default withSuspenseAdding(Chat)

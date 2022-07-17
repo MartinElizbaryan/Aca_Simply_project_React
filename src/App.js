@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from "react"
-import i18n from "./i18n/languages/translations/translations.js"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import { ThemeProvider } from "@mui/material/styles"
 import {
   AdminPrivateRoute,
   AuthorizedUserPrivateRoute,
@@ -12,13 +12,17 @@ import api from "./api/api"
 import history from "./helpers/history"
 import connectToSocket from "./helpers/connectToSocket"
 import { deleteUserInfo, setUserInfo } from "./redux/userSlice"
+import { getThemeMode } from "./redux/themeSelectors"
+import i18n from "./i18n/languages/translations/translations.js"
+import darkTheme from "./themes/darkTheme"
+import lightTheme from "./themes/lightTheme"
 import "./App.css"
 
 const Main = lazy(() => import("./components/Main/Main"))
 const Chat = lazy(() => import("./components/Chat/Chat"))
 const Home = lazy(() => import("./components/Home/Home"))
 const MyPosts = lazy(() => import("./components/MyPosts/MyPosts"))
-const MyPostsEdit = lazy(() => import("./components/MyPostsEdit/MyPostsEdit"))
+const MyPostsEdit = lazy(() => import("./components/PostEdit/PostEdit"))
 const ConfirmedPosts = lazy(() => import("./components/ConfirmedPosts/ConfirmedPosts"))
 const FavoritePosts = lazy(() => import("./components/FavoritePosts/FavoritePosts"))
 const PageNotFound = lazy(() => import("./components/Errors/PageNotFound/PageNotFound"))
@@ -40,6 +44,7 @@ const Terms = lazy(() => import("./components/Terms/Terms"))
 
 function App() {
   const [loading, setLoading] = useState(true)
+  const themeMode = useSelector(getThemeMode)
   const dispatch = useDispatch()
   useEffect(() => {
     const language = localStorage.getItem("language")
@@ -61,247 +66,51 @@ function App() {
     }
     getMe()
   }, [])
-
   return (
-    <Router history={history}>
-      <Suspense fallback={<Loading />}>
-        <Routes>
-          <Route path="/" element={<Main />}>
-            <Route
-              index
-              element={
-                <Suspense fallback={<Loading />}>
-                  <Home />
-                </Suspense>
-              }
-            />
-            <Route
-              exact
-              path="/posts"
-              element={
-                <Suspense fallback={<Loading />}>
-                  <Posts />
-                </Suspense>
-              }
-            />
-            <Route
-              exact
-              path="/posts/:id"
-              element={
-                <Suspense fallback={<Loading />}>
-                  <PostSingle />
-                </Suspense>
-              }
-            />
-            <Route
-              exact
-              path="/contact"
-              element={
-                <Suspense fallback={<Loading />}>
-                  <Contact />
-                </Suspense>
-              }
-            />
-            <Route
-              exact
-              path="/about"
-              element={
-                <Suspense fallback={<Loading />}>
-                  <AboutUs />
-                </Suspense>
-              }
-            />
-            <Route
-              exact
-              path="/faq"
-              element={
-                <Suspense fallback={<Loading />}>
-                  <FAQ />
-                </Suspense>
-              }
-            />
-            <Route
-              exact
-              path="/privacy"
-              element={
-                <Suspense fallback={<Loading />}>
-                  <Privacy />
-                </Suspense>
-              }
-            />
-            <Route
-              exact
-              path="/terms"
-              element={
-                <Suspense fallback={<Loading />}>
-                  <Terms />
-                </Suspense>
-              }
-            />
-            <Route
-              path="*"
-              element={
-                <Suspense fallback={<Loading />}>
-                  <PageNotFound />
-                </Suspense>
-              }
-            />
+    <ThemeProvider theme={themeMode === "dark" ? darkTheme : lightTheme}>
+      <Router history={history}>
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            <Route path="/" element={<Main />}>
+              <Route index element={<Home />} />
+              <Route exact path="/posts" element={<Posts />} />
+              <Route exact path="/posts/:id" element={<PostSingle />} />
+              <Route exact path="/contact" element={<Contact />} />
+              <Route exact path="/about" element={<AboutUs />} />
+              <Route exact path="/faq" element={<FAQ />} />
+              <Route exact path="/privacy" element={<Privacy />} />
+              <Route exact path="/terms" element={<Terms />} />
+              <Route path="*" element={<PageNotFound />} />
 
-            <Route path="/" element={<UnauthorizedUserPrivateRoute />}>
-              <Route
-                exact
-                path="/signin"
-                element={
-                  <Suspense fallback={<Loading />}>
-                    <RegistrationLogin />
-                  </Suspense>
-                }
-              />
-              <Route
-                exact
-                path="/signup"
-                element={
-                  <Suspense fallback={<Loading />}>
-                    <RegistrationLogin />
-                  </Suspense>
-                }
-              />
-              <Route
-                exact
-                path="/forgot-password"
-                element={
-                  <Suspense fallback={<Loading />}>
-                    <RegistrationLogin />
-                  </Suspense>
-                }
-              />
-            </Route>
+              <Route path="/" element={<UnauthorizedUserPrivateRoute />}>
+                <Route exact path="/signin" element={<RegistrationLogin />} />
+                <Route exact path="/signup" element={<RegistrationLogin />} />
+                <Route exact path="/forgot-password" element={<RegistrationLogin />} />
+              </Route>
 
-            <Route path="/" element={<AuthorizedUserPrivateRoute />}>
-              <Route
-                exact
-                path="/chat"
-                element={
-                  <Suspense fallback={<Loading />}>
-                    <Chat />
-                  </Suspense>
-                }
-              />
-              <Route
-                exact
-                path="/chat/:id"
-                element={
-                  <Suspense fallback={<Loading />}>
-                    <Chat />
-                  </Suspense>
-                }
-              />
-              <Route
-                path="/"
-                element={
-                  <Suspense fallback={<Loading />}>
-                    <Account />
-                  </Suspense>
-                }
-              >
-                <Route
-                  exact
-                  path="/profile"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <Profile />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  exact
-                  path="/profile/my-posts"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <MyPosts />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  exact
-                  path="/profile/my-posts/:id"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <MyPostsEdit />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  exact
-                  path="/profile/confirmed-posts"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <ConfirmedPosts />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  exact
-                  path="/profile/favorites"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <FavoritePosts />
-                    </Suspense>
-                  }
-                />
-                <Route
-                  exact
-                  path="/profile/security"
-                  element={
-                    <Suspense fallback={<Loading />}>
-                      <Security />
-                    </Suspense>
-                  }
-                />
-                <Route path="/" element={<AdminPrivateRoute />}>
-                  <Route
-                    exact
-                    path="/profile/pending-posts"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <PendingPosts />
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    exact
-                    path="/profile/faq"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <AdminFAQ />
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    exact
-                    path="/profile/faq/create"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <AdminFAQCreate />
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    exact
-                    path="/profile/faq/:id"
-                    element={
-                      <Suspense fallback={<Loading />}>
-                        <AdminFAQEdit />
-                      </Suspense>
-                    }
-                  />
+              <Route path="/" element={<AuthorizedUserPrivateRoute />}>
+                <Route exact path="/chat" element={<Chat />} />
+                <Route exact path="/chat/:id" element={<Chat />} />
+                <Route path="/" element={<Account />}>
+                  <Route exact path="/profile" element={<Profile />} />
+                  <Route exact path="/profile/my-posts" element={<MyPosts />} />
+                  <Route exact path="/profile/my-posts/:id" element={<MyPostsEdit />} />
+                  <Route exact path="/profile/confirmed-posts" element={<ConfirmedPosts />} />
+                  <Route exact path="/profile/favorites" element={<FavoritePosts />} />
+                  <Route exact path="/profile/security" element={<Security />} />
+                  <Route path="/" element={<AdminPrivateRoute />}>
+                    <Route exact path="/profile/pending-posts" element={<PendingPosts />} />
+                    <Route exact path="/profile/faq" element={<AdminFAQ />} />
+                    <Route exact path="/profile/faq/create" element={<AdminFAQCreate />} />
+                    <Route exact path="/profile/faq/:id" element={<AdminFAQEdit />} />
+                  </Route>
                 </Route>
               </Route>
             </Route>
-          </Route>
-        </Routes>
-      </Suspense>
-    </Router>
+          </Routes>
+        </Suspense>
+      </Router>
+    </ThemeProvider>
   )
 }
 
