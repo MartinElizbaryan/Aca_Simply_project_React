@@ -49,20 +49,20 @@ export default function Header() {
         </Stack>
 
         <Box display="flex" alignItems="center">
+          <Box
+            sx={{
+              display: {
+                xs: "block",
+                sm: "none",
+              },
+            }}
+          >
+            <NavigationMobile />
+          </Box>
           {!auth ? (
             <SignInButton />
           ) : (
             <>
-              <Box
-                sx={{
-                  display: {
-                    xs: "block",
-                    sm: "none",
-                  },
-                }}
-              >
-                <NavigationMobile />
-              </Box>
               <Suspense fallback={<div></div>}>
                 <UserControlBlock />
               </Suspense>
