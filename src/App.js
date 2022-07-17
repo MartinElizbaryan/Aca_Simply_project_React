@@ -17,8 +17,8 @@ import i18n from "./i18n/languages/translations/translations.js"
 import darkTheme from "./themes/darkTheme"
 import lightTheme from "./themes/lightTheme"
 import "./App.css"
-
-const Main = lazy(() => import("./components/Main/Main"))
+import Main from "./components/Main/Main"
+// const Main = lazy(() => import("./components/Main/Main"))
 const Chat = lazy(() => import("./components/Chat/Chat"))
 const Home = lazy(() => import("./components/Home/Home"))
 const MyPosts = lazy(() => import("./components/MyPosts/MyPosts"))

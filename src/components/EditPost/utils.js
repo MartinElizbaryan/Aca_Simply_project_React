@@ -14,25 +14,3 @@ export const updatePost = async (id, navigate, values, deletedImages, base64Enco
   console.log(res)
   navigate("/profile/my-posts")
 }
-export const removeImage = ({ setPreviewSource, image_index }) => {
-  setPreviewSource((prevState) => {
-    return [
-      ...prevState.filter((item, index) => {
-        return index !== image_index
-      }),
-    ]
-  })
-}
-export const removeCurrentImage = ({ setDeletedImages, setImages, image_index, id }) => {
-  setDeletedImages((prevState) => {
-    return [...prevState, { id: id }]
-  })
-
-  setImages((prevState) => {
-    return [
-      ...prevState.filter((item, index) => {
-        return index !== image_index
-      }),
-    ]
-  })
-}

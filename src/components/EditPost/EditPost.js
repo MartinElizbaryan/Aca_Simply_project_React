@@ -18,12 +18,10 @@ const EditPost = ({ open, toggleOpen, post }) => {
   const navigate = useNavigate()
   const { t } = useTranslation()
 
-  // const [post, setPost] = useState({})
   const [images, setImages] = useState(post.images)
   const [confirmerUser, setConfirmerUser] = useState(post.confirmerUser)
   const [deletedImages, setDeletedImages] = useState([])
   const [previewSource, setPreviewSource] = useState([])
-  // const { data: postResponse, reFetch: reFetchPost } = useFetch(`/posts/${id}`)
 
   const classes = useStyles()
 
@@ -47,25 +45,25 @@ const EditPost = ({ open, toggleOpen, post }) => {
     toggleOpen(false)
   }
 
-  // useEffect(() => {
-  //   // setPost(postResponse.post)
-  //   formik.setFieldValue("name", post.name)
-  //   formik.setFieldValue("type", post.type)
-  //   formik.setFieldValue("category_id", post.category_id)
-  //   formik.setFieldValue("description", post.description)
-  //   formik.setFieldValue("address", post.address)
-  //   // setImages(post.images)
-  //   setConfirmerUser(post.confirmer)
-  // }, [post])
+  const removeCurrentImage = (imageIndex) => {
+    setDeletedImages((prevState) => {
+      return [...prevState, { id: images[imageIndex].id }]
+    })
+    setImages((prevState) => {
+      return [
+        ...prevState.filter((item, index) => {
+          return index !== imageIndex
+        }),
+      ]
+    })
+  }
 
   const deleteConfirmer = async () => {
     const res = await api.delete(`/posts/delete-confirmed/${id}`)
-    // reFetchPost()
   }
 
   const done = async () => {
     const res = await api.patch(`/posts/completed/${id}`)
-    // reFetchPost()
     navigate("/profile/my-posts")
   }
 
@@ -102,15 +100,9 @@ const EditPost = ({ open, toggleOpen, post }) => {
             formik={formik}
             setPreviewSource={setPreviewSource}
             previewSource={previewSource}
+            removeCurrentImage={removeCurrentImage}
+            images={images}
           />
-          {/*<Grid item xs={12}>*/}
-          {/*  <Grid container spacing={2}>*/}
-          {/*    {images &&*/}
-          {/*      images.map((image, index) => (*/}
-          {/*        <ImageCard key={index} index={index} image={image} removeImage={removeImage} />*/}
-          {/*      ))}*/}
-          {/*  </Grid>*/}
-          {/*</Grid>*/}
         </Grid>
         <Button sx={{ display: "none" }} type="submit"></Button>
       </form>

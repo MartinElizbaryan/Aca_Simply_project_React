@@ -5,7 +5,6 @@ import Footer from "../Footer/Footer"
 import { ScrollTopButton } from "../Shared/Buttons/ScrollTopButton/ScrollTopButton"
 import { scrollToTop } from "../../helpers/utils"
 import { useTheme } from "@mui/material"
-import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const Main = ({ component: Component, ...rest }) => {
   const [visible, setVisible] = useState(false)
@@ -13,7 +12,7 @@ const Main = ({ component: Component, ...rest }) => {
   const theme = useTheme()
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 300 && window.innerWidth > 300) {
+      if (window.scrollY > 300 && window.innerWidth > 600) {
         setVisible(true)
       } else {
         setVisible(false)
@@ -38,4 +37,4 @@ const Main = ({ component: Component, ...rest }) => {
   )
 }
 
-export default withSuspenseAdding(Main)
+export default Main
