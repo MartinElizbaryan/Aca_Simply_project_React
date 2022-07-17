@@ -11,10 +11,12 @@ export default createTheme({
     blueButton: {
       main: "#000",
       hover: "#505050",
+      textColor: "#fff",
     },
     greenButton: {
       main: "#747474",
       hover: "#505050",
+      textColor: "#fff",
     },
     mainColor: "#fff",
   },
