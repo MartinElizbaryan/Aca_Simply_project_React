@@ -1,6 +1,6 @@
-import { Container, Grid, Typography, Box, useTheme } from "@mui/material"
+import { Box, Container, Grid, Typography, useTheme } from "@mui/material"
 import useStyles from "./styles"
-import { PersonAdd, Check, PostAdd } from "@mui/icons-material"
+import { Check, PersonAdd, PostAdd } from "@mui/icons-material"
 import { useTranslation } from "react-i18next"
 
 export default function TeamSlider() {
@@ -9,15 +9,14 @@ export default function TeamSlider() {
   const theme = useTheme()
   return (
     <Container size="md">
-      <Typography variant="h4" component="h2" textAlign="center" color={theme.palette.mainColor}>
+      <Typography variant="h4" textAlign="center" color={theme.palette.mainColor}>
         {t("How_to_post")}
       </Typography>
       <Grid
         container
-        rirection="row"
         justifyContent="center"
-        spacing={3}
-        mb={2}
+        mb={8}
+        mt={2}
         sx={{
           flexDirection: {
             xs: "column",
@@ -37,10 +36,10 @@ export default function TeamSlider() {
             </Box>
             <Typography
               variant="h6"
-              component="h2"
               textAlign="center"
               color={theme.palette.mainColor}
               mb={5}
+              mt={2}
             >
               {t("Step1")}
             </Typography>
@@ -59,10 +58,10 @@ export default function TeamSlider() {
             </Box>
             <Typography
               variant="h6"
-              component="h2"
               textAlign="center"
               color={theme.palette.mainColor}
               mb={5}
+              mt={2}
             >
               {t("Step2")}
             </Typography>
@@ -81,10 +80,10 @@ export default function TeamSlider() {
             </Box>
             <Typography
               variant="h6"
-              component="h2"
               textAlign="center"
               color={theme.palette.mainColor}
               mb={5}
+              mt={2}
             >
               {t("Step3")}
             </Typography>

@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   Card,
@@ -14,12 +15,11 @@ import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
 import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
+import EditPost from "../EditPost/EditPost"
 import emptyImage from "../../assets/adspy_loading_animation.gif"
 import { getUserFullName } from "../../helpers/utils"
 import { CLOUDINARY_BASE_URL } from "../../constants/constants"
 import useStyles from "./styles"
-import EditPost from "../EditPost/EditPost"
-import { useState } from "react"
 
 export default function Post({
   post,

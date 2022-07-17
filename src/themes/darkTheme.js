@@ -20,5 +20,13 @@ export default createTheme({
     },
     mainColor: "#fff",
     greyBg: "#212121",
+    typography: {
+      fontFamily: "'Montserrat', sans-serif",
+      textTransform: "none",
+
+      button: {
+        textTransform: "none",
+      },
+    },
   },
 })
