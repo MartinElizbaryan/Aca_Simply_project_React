@@ -171,13 +171,7 @@ const PostSingle = () => {
           {questions?.map((question, questionIndex) => {
             return (
               <div key={question.id}>
-                <p
-                  style={{
-                    color: theme.palette.mainColor,
-                  }}
-                >
-                  {question.title}
-                </p>
+                <p>{question.title}</p>
 
                 <FormControl>
                   <RadioGroup name="radio-buttons-group">
@@ -190,9 +184,6 @@ const PostSingle = () => {
                           label={answer.title}
                           onChange={(e) => {
                             handelAnswer(e, questionIndex, answerIndex)
-                          }}
-                          sx={{
-                            color: theme.palette.mainColor,
                           }}
                         />
                       )

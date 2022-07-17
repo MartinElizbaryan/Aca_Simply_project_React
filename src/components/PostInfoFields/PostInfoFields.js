@@ -131,7 +131,7 @@ export default function PostInfoFields({
 
       <Grid item xs={12}>
         <Grid container spacing={2}>
-          {images.length &&
+          {images &&
             images.map((image, index) => {
               const url = `${CLOUDINARY_BASE_URL}${image.src}`
               return (
