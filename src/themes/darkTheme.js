@@ -19,5 +19,6 @@ export default createTheme({
       textColor: "#fff",
     },
     mainColor: "#fff",
+    greyBg: "#212121",
   },
 })

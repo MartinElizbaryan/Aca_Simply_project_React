@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom"
 import { useTranslation } from "react-i18next"
-import { Box, Typography } from "@mui/material"
+import { Box, Typography, useTheme } from "@mui/material"
 import { Logo } from "../Shared/Logo/Logo"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import ForgotPassword from "../ForgotPassword/ForgotPassword"
@@ -14,15 +14,22 @@ const RegistrationLogin = () => {
   const { pathname } = useLocation()
 
   const classes = useStyles()
-
+  const theme = useTheme()
   return (
     <Box className={classes.flexible}>
       <Box className={classes.bgColor}>
         <Logo black={true} />
       </Box>
-      <Typography className={classes.text1}>{t("sign_in_header")}</Typography>
+      <Typography className={classes.text1} color={theme.palette.mainColor}>
+        {t("sign_in_header")}
+      </Typography>
 
-      <Box className={classes.totalBox}>
+      <Box
+        className={classes.totalBox}
+        sx={{
+          backgroundColor: theme.palette.greyBg,
+        }}
+      >
         {!(pathname === "/forgot-password") && (
           <Box className={classes.spacing}>
             <Link
@@ -48,7 +55,7 @@ const RegistrationLogin = () => {
         </Box>
       </Box>
 
-      <Typography className={classes.policyText}>
+      <Typography className={classes.policyText} color={theme.palette.mainColor}>
         {t("By_signing")}
         <Link url="/terms">{t("withTerms")}</Link> {t("and")}
         <Link url="/privacy">{t("withPrivacy")}</Link>

@@ -3,7 +3,6 @@ import { colors } from "../../constants/styles"
 
 const useStyles = createUseStyles({
   totalBox: {
-    backgroundColor: colors.white,
     width: "100%",
     borderRadius: 12,
   },
