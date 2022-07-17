@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { sendToServerHendler } from "./utils"
-// MUI Components
+import { useTranslation } from "react-i18next"
+import { useFormik } from "formik"
 import {
   Button,
   Dialog,
@@ -14,20 +14,16 @@ import {
   Stack,
   Typography,
 } from "@mui/material"
-//Custom Components
+import CloseIcon from "@mui/icons-material/Close"
 import Question from "../Shared/Questions/Question/Question"
 import AddButton from "../Shared/Buttons/AddButton/AddButton"
-// Styles
-import useStyles from "./styles"
-//Form Validation
-import { useFormik } from "formik"
-import { validation } from "./validation"
-import { useFetch } from "../../hooks/useFetch"
-import CloseIcon from "@mui/icons-material/Close"
-import { useTranslation } from "react-i18next"
 import UploadInput from "../Shared/Inputs/UploadInput/UploadInput"
 import { ImageCard } from "../Shared/Cards/ImageCard/ImageCard"
 import { OutlinedInput } from "../Shared/Inputs/OutlinedInput/OutlinedInput"
+import { validation } from "./validation"
+import { useFetch } from "../../hooks/useFetch"
+import { sendToServerHendler } from "./utils"
+import useStyles from "./styles"
 
 export default function CreatePost({ open, toggleOpen, ...props }) {
   const { t } = useTranslation()
@@ -50,6 +46,7 @@ export default function CreatePost({ open, toggleOpen, ...props }) {
     validationSchema: validation,
     onSubmit: async (values) => {
       await sendToServerHendler(values, previewSource)
+      toggleOpen(false)
       navigate("/profile/my-posts")
     },
   })

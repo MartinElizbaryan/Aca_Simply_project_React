@@ -16,8 +16,7 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => {
     const accessToken = cookies.get("accessToken")
-    // console.log(document.cookie)
-    cookies.remove("accessToken")
+    cookies.remove("accessToken", { path: "/", domain: "localhost" })
     // console.log(accessToken)
     if (!accessToken) return response
     localStorage.setItem("accessToken", accessToken)

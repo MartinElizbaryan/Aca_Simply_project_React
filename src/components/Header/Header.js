@@ -47,23 +47,26 @@ export default function Header() {
             )
           })}
         </Stack>
-        <Box
-          sx={{
-            display: {
-              xs: "block",
-              sm: "none",
-            },
-          }}
-        >
-          <NavigationMobile />
-        </Box>
+
         <Box display="flex" alignItems="center">
           {!auth ? (
             <SignInButton />
           ) : (
-            <Suspense fallback={<div></div>}>
-              <UserControlBlock />
-            </Suspense>
+            <>
+              <Box
+                sx={{
+                  display: {
+                    xs: "block",
+                    sm: "none",
+                  },
+                }}
+              >
+                <NavigationMobile />
+              </Box>
+              <Suspense fallback={<div></div>}>
+                <UserControlBlock />
+              </Suspense>
+            </>
           )}
         </Box>
       </Toolbar>
