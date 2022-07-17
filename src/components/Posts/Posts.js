@@ -11,10 +11,10 @@ import { useFetch } from "../../hooks/useFetch"
 import { getParamsFromFiltering } from "./utils"
 import { scrollToTop } from "../../helpers/utils"
 import { POST_PER_PAGE } from "./constants"
-import { colors } from "../../constants/styles"
 import useStyles from "./styles"
+import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
-export default function Posts() {
+const Posts = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const [categories, setCategories] = useState({})
 
@@ -99,3 +99,5 @@ export default function Posts() {
     </Container>
   )
 }
+
+export default withSuspenseAdding(Posts)

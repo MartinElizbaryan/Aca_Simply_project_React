@@ -8,8 +8,9 @@ import api from "../../api/api"
 import ProfileSidebar from "../Shared/Sidebars/ProfileSidebar/ProfileSidebar"
 import { useFormik } from "formik"
 import { validation } from "../AdminFAQEdit/validation"
+import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
-export default function AdminFAQCreate() {
+const AdminFAQCreate = () => {
   const classes = useStyles()
   const { id } = useParams()
   const navigate = useNavigate()
@@ -96,3 +97,5 @@ export default function AdminFAQCreate() {
     </>
   )
 }
+
+export default withSuspenseAdding(AdminFAQCreate)

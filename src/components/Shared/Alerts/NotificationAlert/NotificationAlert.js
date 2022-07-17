@@ -29,6 +29,8 @@ export const NotificationAlert = ({
       changeNotificationsCount(res.data.count)
     }
     handleNotificationClose()
+
+    if (!notification.post_id) return
     navigate(`posts/${notification.post_id}`)
   }
 
@@ -40,6 +42,7 @@ export const NotificationAlert = ({
     changeNotifications(res.data.notifications)
     changeNotificationsCount(res.data.count)
     handleNotificationClose()
+
     navigate(`posts/${notification.post_id}`)
   }
 

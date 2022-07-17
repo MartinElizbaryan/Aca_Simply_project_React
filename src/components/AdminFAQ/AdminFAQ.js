@@ -7,8 +7,9 @@ import { Question } from "../Shared/Accordions/Question/Question"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import { useTranslation } from "react-i18next"
+import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
-export default function AdminFAQ() {
+const AdminFAQ = () => {
   const { t } = useTranslation()
   const classes = useStyles()
   const { data, error, loading, reFetch: reFetchFAQs } = useFetch("/faq")
@@ -48,3 +49,5 @@ export default function AdminFAQ() {
     </>
   )
 }
+
+export default withSuspenseAdding(AdminFAQ)

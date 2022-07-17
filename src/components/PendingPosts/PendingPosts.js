@@ -4,8 +4,9 @@ import api from "../../api/api"
 import Box from "@mui/material/Box"
 import PostsSceleton from "../PostsSceleton/PostsSceleton"
 import PostsList from "../PostsList/PostsList"
+import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
-export default function PendingPosts() {
+const PendingPosts = () => {
   const { data, error, loading, reFetch: reFetchMyPosts } = useFetch("/admin/posts/not-trusted")
   const [posts, setPosts] = useState([])
 
@@ -40,3 +41,4 @@ export default function PendingPosts() {
     </Box>
   )
 }
+export default withSuspenseAdding(PendingPosts)

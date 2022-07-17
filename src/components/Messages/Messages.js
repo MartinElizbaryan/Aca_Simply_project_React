@@ -29,6 +29,7 @@ function Messages() {
 
     ;(async () => {
       const res = await api.get(`/messages/${id}`)
+      if (res.data.messages.length === 0) navigate("/chat")
       setMessages(res.data.messages)
     })()
     ;(async () => {
@@ -45,6 +46,8 @@ function Messages() {
   useEffect(() => {
     socket.on("receive", async (data) => {
       if (+id === data.from_id) {
+        console.log(data)
+
         setMessages((messages) => [...messages, data])
 
         await api.patch(`/messages/${id}`)
@@ -58,6 +61,7 @@ function Messages() {
     })
 
     return () => {
+      console.log("render off")
       socket.off("receive")
       socket.off("seenMessages")
     }

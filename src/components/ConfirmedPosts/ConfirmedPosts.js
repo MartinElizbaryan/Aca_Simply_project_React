@@ -3,8 +3,9 @@ import Box from "@mui/material/Box"
 import { useFetch } from "../../hooks/useFetch"
 import { useEffect, useState } from "react"
 import PostsSceleton from "../PostsSceleton/PostsSceleton"
+import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
-export default function ConfirmedPosts() {
+const ConfirmedPosts = () => {
   const { data, error, loading } = useFetch("/posts/confirmed-posts")
   const [posts, setPosts] = useState([])
 
@@ -14,3 +15,5 @@ export default function ConfirmedPosts() {
 
   return <Box>{loading ? <PostsSceleton /> : <PostsList title="My posts" data={posts} />}</Box>
 }
+
+export default withSuspenseAdding(ConfirmedPosts)
