@@ -23,7 +23,8 @@ import { navlist } from "../../Header/constants"
 import { signOut } from "../../Header/utils"
 import { getUserAuth, getUserInfo } from "../../../redux/userSelectors"
 import { deleteUserInfo } from "../../../redux/userSlice"
-import { colors } from "../../../constants/styles.js"
+
+// console.log("awdawd")
 
 export default function NavigationMobile() {
   const [open, setOpen] = useState(false)
