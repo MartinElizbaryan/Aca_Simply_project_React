@@ -48,6 +48,9 @@ const PostDetailed = () => {
 
   useEffect(() => {
     setPost(data.post)
+    data.post?.questions.forEach((question) => {
+      question.answers[0].checked = true
+    })
     setQuestions(data.post?.questions)
   }, [data])
 

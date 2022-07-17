@@ -8,6 +8,8 @@ import SignIn from "../SignIn/SignIn"
 import SignUp from "../SignUp/SignUp"
 import useStyles from "./styles"
 import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
+import { getThemeMode } from "../../redux/themeSelectors"
+import { useSelector } from "react-redux"
 
 const RegistrationLogin = () => {
   const { t } = useTranslation()
@@ -15,10 +17,11 @@ const RegistrationLogin = () => {
 
   const classes = useStyles()
   const theme = useTheme()
+  const themeMode = useSelector(getThemeMode)
   return (
     <Box className={classes.flexible}>
       <Box className={classes.bgColor}>
-        <Logo black={true} />
+        <Logo black={themeMode === "dark" ? false : true} />
       </Box>
       <Typography className={classes.text1} color={theme.palette.mainColor}>
         {t("sign_in_header")}

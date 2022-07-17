@@ -1,6 +1,8 @@
 import { FormControl, FormControlLabel, Grid, Radio, RadioGroup, Typography } from "@mui/material"
+import { useState } from "react"
 
 export const Questions = ({ questions, handleAnswer }) => {
+  console.log(questions)
   return (
     <div>
       {questions?.map((question, questionIndex) => {
@@ -12,9 +14,10 @@ export const Questions = ({ questions, handleAnswer }) => {
                 {question.answers.map((answer, answerIndex) => {
                   return (
                     <FormControlLabel
+                      checked={answer.checked}
                       key={answer.id}
                       value={answer.title}
-                      control={<Radio />}
+                      control={<Radio required={true} />}
                       label={answer.title}
                       onChange={(e) => {
                         handleAnswer(e, questionIndex, answerIndex)

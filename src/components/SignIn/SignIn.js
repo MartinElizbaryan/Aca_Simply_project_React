@@ -20,6 +20,8 @@ import { setUserInfo } from "../../redux/userSlice"
 import connectToSocket from "../../helpers/connectToSocket"
 import { validationSchema } from "./validation"
 import useStyles from "./styles"
+import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
+import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 
 export default function SignIn() {
   const { t } = useTranslation()
@@ -93,9 +95,9 @@ export default function SignIn() {
         <Link url="/forgot-password">{t("Forgot_pass")}</Link>
       </Box>
       <Box className={classes.central2}>
-        <Button variant="contained" color="success" type="submit" form="myForm">
+        <GreenButton variant="contained" type="submit" form="myForm">
           {t("Sign_In")}
-        </Button>
+        </GreenButton>
       </Box>
       {open && (
         <Box>

@@ -16,6 +16,7 @@ import { InputField } from "../Shared/Inputs/InputField/InputField"
 import { useFormik } from "formik"
 import { validationSchema } from "./validation"
 import { useTranslation } from "react-i18next"
+import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 
 export default function SignUp() {
   const { t } = useTranslation()
@@ -121,9 +122,9 @@ export default function SignUp() {
         </Box>
       </form>
       <Box className={classes.central2}>
-        <Button variant="contained" color="success" type="submit" form="signinButton">
+        <GreenButton variant="contained" type="submit" form="signinButton">
           {t("Create_An_Account")}
-        </Button>
+        </GreenButton>
       </Box>
       {open && (
         <Box>
