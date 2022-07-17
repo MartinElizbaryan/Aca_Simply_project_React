@@ -16,5 +16,6 @@ export default createTheme({
       main: "#1f8d42",
       hover: "#177234",
     },
+    mainColor: "#000",
   },
 })
