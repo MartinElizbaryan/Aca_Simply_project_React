@@ -1,12 +1,12 @@
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { Box, Container, Grid, MenuItem, Typography } from "@mui/material"
 import SearchIcon from "@mui/icons-material/Search"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
-import { WhiteInput } from "../Shared/Inputs/Input"
-import { colors } from "../../constants/styles"
 import useStyles from "./styles"
-import { useTranslation } from "react-i18next"
+import { colors } from "../../constants/styles"
+import WhiteInput from "../Shared/Inputs/WhiteInput/WhiteInput"
 
 export default function FindPost() {
   const { t } = useTranslation()

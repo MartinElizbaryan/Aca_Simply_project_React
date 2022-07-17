@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
+import { useDispatch, useSelector } from "react-redux"
 import {
   Box,
   Container,
@@ -18,15 +19,14 @@ import TwitterIcon from "@mui/icons-material/Twitter"
 import LinkedInIcon from "@mui/icons-material/LinkedIn"
 import FacebookIcon from "@mui/icons-material/Facebook"
 import InstagramIcon from "@mui/icons-material/Instagram"
+import ThemeSwitch from "../Shared/Inputs/ThemeSwitch/ThemeSwitch"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import logo from "../../assets/logo-white.svg"
 import i18n from "../../i18n/languages/translations/translations"
-import useStyles from "./styles"
-import { colors } from "../../constants/styles"
 import { setThemeMode } from "../../redux/themeSlice"
-import { useDispatch, useSelector } from "react-redux"
 import { getThemeMode } from "../../redux/themeSelectors"
-import ThemeSwitch from "../Shared/Inputs/ThemeSwitch/ThemeSwitch"
+import { colors } from "../../constants/styles"
+import useStyles from "./styles"
 
 export default function Footer() {
   const themeMode = useSelector(getThemeMode)
