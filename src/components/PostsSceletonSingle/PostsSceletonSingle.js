@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid"
 import Stack from "@mui/material/Stack"
 import Skeleton from "@mui/material/Skeleton"
 
-export default function PostsSceletonSingle({ ColsCount = 4 }) {
+export default function PostsSceletonSingle() {
   return (
     <Container size="md">
       <Grid container spacing={2} mt={3}>

@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { useSelector } from "react-redux"
 import { useTranslation } from "react-i18next"
 import {
   Box,
@@ -16,7 +15,6 @@ import {
 } from "@mui/material"
 import VisibilityIcon from "@mui/icons-material/Visibility"
 import BeenhereIcon from "@mui/icons-material/Beenhere"
-import DeleteIcon from "@mui/icons-material/Delete"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
@@ -25,30 +23,18 @@ import BlurBox from "../Shared/BlurBox/BlurBox"
 import EditPost from "../EditPost/EditPost"
 import { getUserFullName } from "../../helpers/utils"
 import { CLOUDINARY_BASE_URL } from "../../constants/constants"
-import { getUserIsAdmin } from "../../redux/userSelectors"
 import emptyImage from "../../assets/adspy_loading_animation.gif"
-import useStyles from "./styles"
 
-export default function Post({
-  post,
-  deletePost,
-  trustPost,
-  editable,
-  changeable,
-  deleteFromMyFavorites,
-}) {
+export default function Post({ post, trustPost, admin, editable, deleteFromMyFavorites }) {
   const [openEditPost, setOpenEditPost] = useState(false)
-  const isAdmin = useSelector(getUserIsAdmin)
+  const [trusted, setTrusted] = useState(post.trusted)
   const { t } = useTranslation()
-  const classes = useStyles()
 
   const img = post.images.length ? `${CLOUDINARY_BASE_URL}${post.images[0].src}` : emptyImage
 
   const toggleOpenEditPost = (open) => {
     setOpenEditPost(open)
   }
-
-  // console.log(post)
 
   return (
     <Card>
@@ -58,22 +44,20 @@ export default function Post({
         subheader={post.user.date}
         action={
           <>
-            <Stack
-              direction="row"
-              spacing={2}
-              sx={{ marginRight: "10px", alignItems: "center", height: "50px" }}
-            >
-              <VisibilityIcon />
-              <Typography fontWeight="bold">{post.views}</Typography>
+            <Stack direction="row" spacing={2} sx={{ alignItems: "center", height: "50px" }}>
+              {trusted && (
+                <>
+                  <VisibilityIcon color="action" />
+                  <Typography fontWeight="bold">{post.views}</Typography>
+                </>
+              )}
               <Box>
-                {changeable && (
-                  <IconButton onClick={() => deletePost(post.id)}>
-                    <DeleteIcon />
-                  </IconButton>
-                )}
-                {isAdmin && !post.trusted && (
+                {admin && (
                   <IconButton
-                    onClick={() => trustPost(post.id)}
+                    onClick={() => {
+                      trustPost(post.id)
+                      setTrusted(true)
+                    }}
                     color="primary"
                     sx={{ marginLeft: 0 }}
                   >

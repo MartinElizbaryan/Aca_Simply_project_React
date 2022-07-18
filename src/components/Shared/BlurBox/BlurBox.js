@@ -13,7 +13,7 @@ export default function BlurBox({ children }) {
         transform: "translate(-50%, -50%)",
       }}
     >
-      <Typography variant="h4" fontWeight="bold">
+      <Typography variant="h4" fontWeight="bold" sx={{ color: "#4c4c4c" }}>
         {children}
       </Typography>
     </Box>

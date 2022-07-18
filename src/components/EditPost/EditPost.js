@@ -1,25 +1,23 @@
 import React, { useState } from "react"
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useFormik } from "formik"
-import { Button, Grid, IconButton, ListItemIcon } from "@mui/material"
-import DeleteIcon from "@mui/icons-material/Delete"
-import EmailIcon from "@mui/icons-material/Email"
-import DoneIcon from "@mui/icons-material/Done"
+import { Button, Chip, Grid } from "@mui/material"
 import api from "../../api/api"
 import { updatePost } from "./utils"
 import validationSchema from "./validationSchema"
 import useStyles from "./styles"
 import PostInfoFields from "../PostInfoFields/PostInfoFields"
 import { useTranslation } from "react-i18next"
+import TaskAltIcon from "@mui/icons-material/TaskAlt"
 import { PostPopup } from "../Shared/Dialogs/PostPopup/PostPopup"
+import { getUserFullName } from "../../helpers/utils"
 
 const EditPost = ({ open, toggleOpen, post }) => {
-  const { id } = useParams()
   const navigate = useNavigate()
   const { t } = useTranslation()
 
   const [images, setImages] = useState(post.images)
-  const [confirmerUser, setConfirmerUser] = useState(post.confirmerUser)
+  const [confirmer, setConfirmer] = useState(post.confirmer)
   const [deletedImages, setDeletedImages] = useState([])
   const [previewSource, setPreviewSource] = useState([])
 
@@ -38,7 +36,7 @@ const EditPost = ({ open, toggleOpen, post }) => {
       await updatePost(post.id, navigate, values, deletedImages, previewSource)
     },
   })
-
+  console.log(post)
   const handlePopupClose = () => {
     setPreviewSource([])
     formik.resetForm()
@@ -59,11 +57,17 @@ const EditPost = ({ open, toggleOpen, post }) => {
   }
 
   const deleteConfirmer = async () => {
-    const res = await api.delete(`/posts/delete-confirmed/${id}`)
+    const res = await api.delete(`/posts/delete-confirmed/${post.id}`)
+    setConfirmer(null)
   }
 
-  const done = async () => {
-    const res = await api.patch(`/posts/completed/${id}`)
+  const changeCompleted = async () => {
+    const res = await api.patch(`/posts/completed/${post.id}`)
+    navigate("/profile/my-posts")
+  }
+
+  const deletePost = async () => {
+    await api.delete(`/posts/${post.id}`)
     navigate("/profile/my-posts")
   }
 
@@ -72,27 +76,24 @@ const EditPost = ({ open, toggleOpen, post }) => {
       open={open}
       handleClose={handlePopupClose}
       handleSubmit={formik.handleSubmit}
-      title={t("Edit_Post")}
+      title={t("Edit")}
     >
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={2} p={2}>
-          {confirmerUser && (
-            <Grid item xs={6} mb={5}>
-              Confirmed By {confirmerUser.name} {confirmerUser.surname}
-              <IconButton color="error" onClick={deleteConfirmer}>
-                <DeleteIcon />
-              </IconButton>
-              <Link to={`/chat/${confirmerUser.id}`}>
-                <ListItemIcon>
-                  <IconButton color="primary">
-                    <EmailIcon />
-                  </IconButton>
-                </ListItemIcon>
-              </Link>
-              {!post?.completed && (
-                <IconButton color="success" onClick={done}>
-                  <DoneIcon />
-                </IconButton>
+          {confirmer && (
+            <Grid item xs={12} mb={3} sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Chip
+                label={`Confirmed By ${getUserFullName(confirmer)}`}
+                variant="outlined"
+                onDelete={deleteConfirmer}
+              />
+              {!post.completed && (
+                <Chip
+                  label={"Complete"}
+                  variant="outlined"
+                  icon={<TaskAltIcon />}
+                  onClick={changeCompleted}
+                />
               )}
             </Grid>
           )}
