@@ -72,23 +72,6 @@ const useStyles = createUseStyles({
     //   height: 214,
     // },
   },
-  central6: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "space-between",
-    // height: 142,
-    // width: "100%",
-    // ["@media (max-width:505px)"]: {
-    //   height: 163,
-    // },
-    // ["@media (max-width:427px)"]: {
-    //   height: 200,
-    // },
-    // ["@media (max-width:340px)"]: {
-    //   height: 200,
-    // },
-  },
   bigText: {
     fontSize: [[22], "!important"],
     fontWeight: [["700"], "!important"],

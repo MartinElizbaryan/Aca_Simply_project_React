@@ -16,6 +16,9 @@ import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import { changePassword, forgotPasswordRequest, sixDigitRequest } from "./utils"
 import { validationSchema, validationSchemaCode, validationSchemaNewPassword } from "./validation"
 import useStyles from "./styles"
+import { colors } from "../../constants/styles"
+import { color } from "@mui/system"
+import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 
 export default function ForgotPassword() {
   const [open, setOpen] = useState(false)
@@ -120,9 +123,9 @@ export default function ForgotPassword() {
             </form>
           </Box>
           <Box className={classes.central2}>
-            <Button variant="contained" color="success" type="submit" form="forgotPass">
+            <BlueButton variant="contained" type="submit" form="forgotPass">
               Send Code
-            </Button>
+            </BlueButton>
             <Box className={classes.central3}>
               <Typography className={classes.text1}>
                 Back to
@@ -170,19 +173,15 @@ export default function ForgotPassword() {
             />
           </form>
           <Box className={`${classes.central2} ${classes.margin}`}>
-            <Button variant="contained" color="success" type="submit" form="codeScreen">
+            <BlueButton variant="contained" type="submit" form="codeScreen">
               One More Step
-            </Button>
+            </BlueButton>
           </Box>
         </Box>
       )}
       {openNewPasswordInput && (
         <Box className={classes.central}>
-          <form
-            onSubmit={formikNewPassword.handleSubmit}
-            id="newPassword"
-            className={classes.central6}
-          >
+          <form onSubmit={formikNewPassword.handleSubmit} id="newPassword">
             <Typography className={classes.text1}>{"Now you can write new password"}</Typography>
             <InputField
               password
@@ -218,9 +217,9 @@ export default function ForgotPassword() {
             />
           </form>
           <Box className={`${classes.central2} ${classes.margin}`}>
-            <Button variant="contained" color="success" type="submit" form="newPassword">
+            <BlueButton variant="contained" type="submit" form="newPassword">
               Done
-            </Button>
+            </BlueButton>
           </Box>
         </Box>
       )}

@@ -31,7 +31,6 @@ export default function HeartButton({ post, deleteFromMyFavorites }) {
     try {
       await api.post(`/favorites/${post.id}`)
       setIsFavorite(true)
-      // dispatch(addUserFavorite(post))
     } catch (error) {
       console.log(error)
     }
