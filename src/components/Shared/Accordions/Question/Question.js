@@ -5,7 +5,7 @@ import {
   IconButton,
   Typography,
 } from "@mui/material"
-import { ExpandMore, FormatQuote, QuestionMark } from "@mui/icons-material"
+import { ExpandMore, FormatQuote, QuestionMark, Edit } from "@mui/icons-material"
 import useStyles from "./styles"
 import { CustomLink as Link } from "../../Links/CustomLink/CustomLink"
 import DeleteIcon from "@mui/icons-material/Delete"
@@ -20,9 +20,11 @@ export function Question({ question, answer, editable, deleteFAQ, id }) {
         <Typography>{question}</Typography>
 
         {editable && (
-          <div>
-            <Link url={`/profile/faq/${id}`}>edit</Link>
-          </div>
+          <Link url={`/profile/faq/${id}`}>
+            <IconButton aria-label="edit" color="error">
+              <Edit />
+            </IconButton>
+          </Link>
         )}
 
         {editable && (

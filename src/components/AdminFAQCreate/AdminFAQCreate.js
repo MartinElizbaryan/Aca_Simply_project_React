@@ -9,8 +9,10 @@ import ProfileSidebar from "../Shared/Sidebars/ProfileSidebar/ProfileSidebar"
 import { useFormik } from "formik"
 import { validation } from "../AdminFAQEdit/validation"
 import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
+import { useTranslation } from "react-i18next"
 
 const AdminFAQCreate = () => {
+  const { t } = useTranslation()
   const classes = useStyles()
   const { id } = useParams()
   const navigate = useNavigate()
@@ -41,7 +43,7 @@ const AdminFAQCreate = () => {
         <Grid item xs={12} md={9}>
           <Container className={classes.container} maxWidth={false}>
             <Typography variant="h4" className={classes.header}>
-              FAQs
+              {t("FAQ")}
             </Typography>
 
             <Grid item xs={12} md={9} mt={6}>

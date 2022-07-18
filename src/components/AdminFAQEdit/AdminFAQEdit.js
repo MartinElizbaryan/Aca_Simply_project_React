@@ -10,9 +10,11 @@ import api from "../../api/api"
 import { useFormik } from "formik"
 import { validation } from "./validation"
 import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
+import { useTranslation } from "react-i18next"
 
 const AdminFAQEdit = () => {
   const classes = useStyles()
+  const { t } = useTranslation()
   const { id } = useParams()
   const navigate = useNavigate()
   const { data, error, loading, reFetch: reFetchFAQs } = useFetch(`/admin/faq/${id}`)
@@ -53,7 +55,7 @@ const AdminFAQEdit = () => {
     <>
       <Container className={classes.container} maxWidth={false}>
         <Typography variant="h4" className={classes.header}>
-          FAQs
+          {t("FAQ")}
         </Typography>
 
         <Grid item xs={12} md={9} mt={6}>
