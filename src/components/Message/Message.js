@@ -11,13 +11,13 @@ export function Message({ type, message, isSeen, createdAt }) {
 
   return (
     <ListItem className={classes[type]}>
-      <Tooltip title={date} placement={type === "from" ? "left" : "right"} enterTouchDelay={0}>
+      <Tooltip title={date} placement="bottom" enterTouchDelay={0} arrow>
         <Grid className={classes.box}>
           <ListItemText
             primaryTypographyProps={{ fontSize: "0.8125rem" }}
             secondaryTypographyProps={{ fontSize: "0.6rem" }}
             primary={message}
-            secondary={(timeFromNow, isSeen ? "seen" : "sent")}
+            secondary={isSeen ? "seen" : "sent"}
             className={classes.text}
           />
         </Grid>

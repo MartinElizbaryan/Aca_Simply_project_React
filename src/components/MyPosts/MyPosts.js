@@ -1,10 +1,9 @@
-import PostsList from "../PostsList/PostsList"
-import Box from "@mui/material/Box"
-import { useFetch } from "../../hooks/useFetch"
 import { useEffect, useState } from "react"
+import Box from "@mui/material/Box"
+import PostsList from "../PostsList/PostsList"
+import { useFetch } from "../../hooks/useFetch"
 import PostsSceleton from "../PostsSceleton/PostsSceleton"
 import api from "../../api/api"
-import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const MyPost = () => {
   const { data, error, loading, reFetch: reFetchMyPosts } = useFetch("/posts/my-posts")
@@ -24,10 +23,10 @@ const MyPost = () => {
       {loading ? (
         <PostsSceleton />
       ) : (
-        <PostsList title="My posts" data={posts} changeable editable deletePost={deletePost} />
+        <PostsList data={posts} changeable editable deletePost={deletePost} />
       )}
     </Box>
   )
 }
 
-export default withSuspenseAdding(MyPost)
+export default MyPost

@@ -20,5 +20,14 @@ export default createTheme({
     },
     mainColor: "#fff",
     greyBg: "#212121",
+    notificationHover: "#565656",
+    typography: {
+      fontFamily: "'Montserrat', sans-serif",
+      textTransform: "none",
+
+      button: {
+        textTransform: "none",
+      },
+    },
   },
 })

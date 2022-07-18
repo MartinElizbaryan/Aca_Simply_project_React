@@ -10,7 +10,7 @@ function UserAvatar({ user, ...props }) {
       className={classes.avatar}
       sx={{
         backgroundColor: theme.palette.blurBlue.main,
-        color: theme.palette.mainColor,
+        color: "white",
       }}
       {...props}
     >

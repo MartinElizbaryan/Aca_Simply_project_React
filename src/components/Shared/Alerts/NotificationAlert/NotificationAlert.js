@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import moment from "moment"
-import { Alert, Box, Button, Typography } from "@mui/material"
+import { Alert, Box, Button, Typography, useTheme } from "@mui/material"
 import api from "../../../../api/api"
 import { colors } from "../../../../constants/styles"
 import useStyles from "./styles"
@@ -12,8 +12,9 @@ export const NotificationAlert = ({
   changeNotificationsCount,
   ...props
 }) => {
-  const classes = useStyles()
+  const theme = useTheme()
   const navigate = useNavigate()
+  const classes = useStyles()
 
   const deleteNotification = async (e) => {
     e.stopPropagation()
@@ -53,6 +54,11 @@ export const NotificationAlert = ({
       onClick={handleNotificationClick}
       onClose={deleteNotification}
       className={`${classes.button} ${notification.is_seen ? classes.seen : classes.new}`}
+      sx={{
+        "&:hover": {
+          backgroundColor: theme.palette.notificationHover,
+        },
+      }}
     >
       <Typography variant="caption">{notification.text}</Typography>
       {notification.type === "beforePostDeletion" && (
