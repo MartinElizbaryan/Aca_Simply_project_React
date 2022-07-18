@@ -85,7 +85,7 @@ const Posts = () => {
         >
           <BlueButton
             onClick={toggleDrawer(!open)}
-            sx={{ alignSelf: "end", margin: 2, textTransform: "none" }}
+            sx={{ margin: 2, textTransform: "none", alignSelf: "end" }}
           >
             <FilterListOutlinedIcon sx={{ paddingRight: 1 }} /> Search and Filter
           </BlueButton>

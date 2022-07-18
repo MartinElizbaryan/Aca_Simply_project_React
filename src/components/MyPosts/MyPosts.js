@@ -14,17 +14,13 @@ const MyPost = () => {
   }, [data])
 
   const deletePost = async (id) => {
-    const res = await api.delete(`/posts/${id}`)
+    await api.delete(`/posts/${id}`)
     reFetchMyPosts()
   }
 
   return (
     <Box>
-      {loading ? (
-        <PostsSceleton />
-      ) : (
-        <PostsList data={posts} changeable editable deletePost={deletePost} />
-      )}
+      {loading ? <PostsSceleton /> : <PostsList data={posts} editable deletePost={deletePost} />}
     </Box>
   )
 }

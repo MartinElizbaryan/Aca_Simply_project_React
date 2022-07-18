@@ -5,7 +5,6 @@ import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import api from "../../api/api"
-import ProfileSidebar from "../Shared/Sidebars/ProfileSidebar/ProfileSidebar"
 import { useFormik } from "formik"
 import { validation } from "../AdminFAQEdit/validation"
 
@@ -36,7 +35,6 @@ const AdminFAQCreate = () => {
   return (
     <>
       <Grid container spacing={0} mt={10}>
-        <ProfileSidebar />
         <Grid item xs={12} md={9}>
           <Container className={classes.container} maxWidth={false}>
             <Typography variant="h4" className={classes.header}>
