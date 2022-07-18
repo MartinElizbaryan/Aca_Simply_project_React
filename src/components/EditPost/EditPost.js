@@ -16,7 +16,7 @@ const EditPost = ({ open, toggleOpen, post }) => {
   const navigate = useNavigate()
   const { t } = useTranslation()
 
-  const [images, setImages] = useState(post.images)
+  const [images, setImages] = useState(post?.images)
   const [confirmer, setConfirmer] = useState(post.confirmer)
   const [deletedImages, setDeletedImages] = useState([])
   const [previewSource, setPreviewSource] = useState([])
@@ -25,18 +25,18 @@ const EditPost = ({ open, toggleOpen, post }) => {
 
   const formik = useFormik({
     initialValues: {
-      name: post.name,
+      name: post.name || "aaaaaa",
       description: post.description,
       address: post.address,
       category_id: post.category_id,
       type: post.type,
     },
+    enableReinitialize: true,
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       await updatePost(post.id, navigate, values, deletedImages, previewSource)
     },
   })
-  console.log(post)
   const handlePopupClose = () => {
     setPreviewSource([])
     formik.resetForm()
