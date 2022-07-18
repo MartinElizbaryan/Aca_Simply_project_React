@@ -21,12 +21,7 @@ const FAQ = () => {
   return (
     <>
       <Container className={classes.container} maxWidth={false}>
-        <Typography
-          variant="h4"
-          className={classes.header}
-          component={"h1"}
-          color={theme.palette.mainColor}
-        >
+        <Typography variant="h4" className={classes.header} color={theme.palette.mainColor}>
           {t("FAQ")}
         </Typography>
         <Typography variant="body2" color={theme.palette.mainColor}>

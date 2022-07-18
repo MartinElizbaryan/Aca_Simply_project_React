@@ -4,7 +4,7 @@ import { SuccessAlert } from "../../Alerts/SuccessAlert/SuccessAlert"
 export const SuccessDialog = ({ message, handleClose, ...props }) => {
   return (
     <Dialog onClose={handleClose} {...props}>
-      <SuccessAlert handleClose={handleClose} message={message} />
+      <SuccessAlert onClose={handleClose} message={message} />
     </Dialog>
   )
 }

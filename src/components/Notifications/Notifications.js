@@ -1,8 +1,7 @@
-import { Box, Popover, Typography } from "@mui/material"
+import { Box, ListItem, Popover, Typography } from "@mui/material"
 import { NotificationAlert } from "../Shared/Alerts/NotificationAlert/NotificationAlert"
 import { useEffect, useState } from "react"
 import socket from "../../helpers/socket"
-import DoneAllIcon from "@mui/icons-material/DoneAll"
 import { useFetch } from "../../hooks/useFetch"
 import useStyles from "./styles"
 import api from "../../api/api"
@@ -45,12 +44,19 @@ export const Notifications = ({ handleNotificationClose, changeNotificationsCoun
           style: { maxWidth: "300px", maxHeight: "400px" },
         }}
       >
-        <Box className={classes.markBox}>
-          <Box className={classes.markButton} onClick={handleMarkButtonClick}>
-            <DoneAllIcon />
-            <Typography sx={{ paddingLeft: 1 }}>Mark all as read</Typography>
+        {notifications.length ? (
+          <Box className={classes.markBox}>
+            <Box className={classes.markButton} onClick={handleMarkButtonClick}>
+              <Typography sx={{ paddingLeft: 1, fontSize: "0.8rem" }}>Mark all as read</Typography>
+            </Box>
           </Box>
-        </Box>
+        ) : (
+          <>
+            <ListItem>
+              <Typography>You have no alerts.</Typography>
+            </ListItem>
+          </>
+        )}
         {notifications.map((notification) => (
           <NotificationAlert
             notification={notification}

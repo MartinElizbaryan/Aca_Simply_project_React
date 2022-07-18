@@ -51,18 +51,6 @@ const Security = () => {
     },
   })
 
-  const onSuccessDialogClose = () => {
-    setSuccess(false)
-  }
-
-  const onErrorDialogClose = () => {
-    setError(false)
-  }
-
-  const onAlertDialogClose = () => {
-    setOpenDialog(false)
-  }
-
   return (
     <Container sx={{ paddingTop: 1, marginBottom: 1 }}>
       <Paper>
@@ -168,14 +156,14 @@ const Security = () => {
           "This will sign you out from every other device that you are currently signed in on. Are you sure you want to continue?"
         }
         handleOk={() => signOutFromOtherDevices({ data: { socketId } })}
-        handleClose={onAlertDialogClose}
+        handleClose={() => setOpenDialog(false)}
       />
       <SuccessDialog
         open={success}
-        onClose={onSuccessDialogClose}
+        onClose={() => setSuccess(false)}
         message={t("Your_password_changed")}
       />
-      <ErrorDialog open={error} onClose={onErrorDialogClose} message={t("oops_went_wrong")} />
+      <ErrorDialog open={error} onClose={() => setError(false)} message={t("oops_went_wrong")} />
     </Container>
   )
 }

@@ -131,6 +131,9 @@ const en = {
   Step3_text:
     "You can start creating the post for the lost or found items now to claim the item to the rightful owner. Then we will post the post on the large community where everybody can potentially take action in searching for what you have lost.",
   Cancel: "Cancel",
+  Your_message_sent: "Your message has been sent!",
+  Question: "Question",
+  Answer: "Answer",
 }
 
 export default en

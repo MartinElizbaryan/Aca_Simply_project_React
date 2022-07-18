@@ -20,7 +20,11 @@ const MyPost = () => {
 
   return (
     <Box>
-      {loading ? <PostsSceleton /> : <PostsList data={posts} editable deletePost={deletePost} />}
+      {loading ? (
+        <PostsSceleton />
+      ) : (
+        <PostsList data={posts} editable changeable deletePost={deletePost} />
+      )}
     </Box>
   )
 }
