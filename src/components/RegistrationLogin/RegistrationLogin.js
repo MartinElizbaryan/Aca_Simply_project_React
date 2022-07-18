@@ -7,7 +7,6 @@ import ForgotPassword from "../ForgotPassword/ForgotPassword"
 import SignIn from "../SignIn/SignIn"
 import SignUp from "../SignUp/SignUp"
 import useStyles from "./styles"
-import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 import { getThemeMode } from "../../redux/themeSelectors"
 import { useSelector } from "react-redux"
 
@@ -67,4 +66,4 @@ const RegistrationLogin = () => {
   )
 }
 
-export default withSuspenseAdding(RegistrationLogin)
+export default RegistrationLogin

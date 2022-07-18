@@ -6,7 +6,6 @@ import { colors } from "../../constants/styles"
 import { useFetch } from "../../hooks/useFetch"
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const FAQ = () => {
   const { t } = useTranslation()
@@ -50,4 +49,4 @@ const FAQ = () => {
   )
 }
 
-export default withSuspenseAdding(FAQ)
+export default FAQ

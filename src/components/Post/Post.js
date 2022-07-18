@@ -98,8 +98,8 @@ export default function Post({
             filter: "blur(7px)",
           }}
         />
-        {post.trusted && <BlurBox>Pending...</BlurBox>}
-        {!post.completed && <BlurBox>Completed!</BlurBox>}
+        {!post.trusted && <BlurBox>Pending...</BlurBox>}
+        {post.completed && <BlurBox>Completed!</BlurBox>}
       </Box>
       <Divider />
       <CardContent

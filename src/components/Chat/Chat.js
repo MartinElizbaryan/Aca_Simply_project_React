@@ -9,7 +9,6 @@ import api from "../../api/api"
 import socket from "../../helpers/socket"
 import { findUser } from "../../helpers/utils"
 import useStyles from "./styles"
-import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const Chat = () => {
   const { id } = useParams()
@@ -94,4 +93,4 @@ const Chat = () => {
   )
 }
 
-export default withSuspenseAdding(Chat)
+export default Chat

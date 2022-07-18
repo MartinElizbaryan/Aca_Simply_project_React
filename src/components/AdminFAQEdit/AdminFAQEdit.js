@@ -66,7 +66,7 @@ const AdminFAQEdit = () => {
                   <TextField
                     className={classes.input}
                     fullWidth
-                    label="Question"
+                    label={t("Question")}
                     variant="outlined"
                     size="normal"
                     onChange={formik.handleChange}
@@ -81,7 +81,7 @@ const AdminFAQEdit = () => {
                   <TextField
                     className={classes.input}
                     fullWidth
-                    label="Answer"
+                    label={t("Answer")}
                     variant="outlined"
                     size="normal"
                     multiline
@@ -98,7 +98,7 @@ const AdminFAQEdit = () => {
               <Grid container spacing={2} p={2}>
                 <Grid item xs={8} sm={6} md={4}>
                   <GreenButton className={classes.button} type="submit">
-                    Save Changes
+                    {t("Save_Changes")}
                   </GreenButton>
                 </Grid>
               </Grid>
@@ -110,4 +110,4 @@ const AdminFAQEdit = () => {
   )
 }
 
-export default withSuspenseAdding(AdminFAQEdit)
+export default AdminFAQEdit

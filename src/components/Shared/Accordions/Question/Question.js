@@ -4,6 +4,7 @@ import {
   AccordionSummary,
   IconButton,
   Typography,
+  Box,
 } from "@mui/material"
 import { ExpandMore, FormatQuote, QuestionMark, Edit } from "@mui/icons-material"
 import useStyles from "./styles"
@@ -15,23 +16,31 @@ export function Question({ question, answer, editable, deleteFAQ, id }) {
 
   return (
     <Accordion>
-      <AccordionSummary expandIcon={<ExpandMore />} aria-controls="panel-content" id="panel-header">
-        <QuestionMark className={classes.icon} />
-        <Typography>{question}</Typography>
+      <AccordionSummary
+        expandIcon={<ExpandMore />}
+        aria-controls="panel-content"
+        id="panel-header"
+        classes={{ content: classes.content2 }}
+      >
+        <Box className={classes.content}>
+          <QuestionMark className={classes.icon} />
+          <Typography>{question}</Typography>
+        </Box>
+        <Box className={classes.flexEnd}>
+          {editable && (
+            <Link url={`/profile/faq/${id}`}>
+              <IconButton aria-label="edit" color="error">
+                <Edit />
+              </IconButton>
+            </Link>
+          )}
 
-        {editable && (
-          <Link url={`/profile/faq/${id}`}>
-            <IconButton aria-label="edit" color="error">
-              <Edit />
+          {editable && (
+            <IconButton aria-label="delete" color="error" onClick={(e) => deleteFAQ(e, id)}>
+              <DeleteIcon />
             </IconButton>
-          </Link>
-        )}
-
-        {editable && (
-          <IconButton aria-label="delete" color="error" onClick={(e) => deleteFAQ(e, id)}>
-            <DeleteIcon />
-          </IconButton>
-        )}
+          )}
+        </Box>
       </AccordionSummary>
       <AccordionDetails className={classes.details}>
         <FormatQuote className={classes.icon} />

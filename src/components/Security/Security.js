@@ -22,7 +22,6 @@ import { validationSchema } from "./vaildation"
 import socket from "../../helpers/socket"
 import { changePassword, signOutFromOtherDevices } from "./utils"
 import useStyles from "./styles"
-import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const Security = () => {
   const { t } = useTranslation()
@@ -181,4 +180,4 @@ const Security = () => {
   )
 }
 
-export default withSuspenseAdding(Security)
+export default Security

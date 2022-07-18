@@ -1,7 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material"
 import useStyles from "./styles"
 import { useTranslation } from "react-i18next"
-import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const Privacy = () => {
   const { t } = useTranslation()
@@ -84,4 +83,4 @@ const Privacy = () => {
   )
 }
 
-export default withSuspenseAdding(Privacy)
+export default Privacy
