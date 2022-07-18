@@ -24,7 +24,20 @@ export default function TeamSlider() {
           },
         }}
       >
-        <Grid item xs={12} sm={4} className={classes.gridStyle}>
+        <Grid
+          item
+          xs={12}
+          sm={4}
+          className={classes.gridStyle}
+          sx={{
+            "&:hover": {
+              backgroundColor: theme.palette.greyBg,
+              boxShadow: "0px 5px 25px 0px rgb(204 204 204 / 55%)",
+              cursor: "pointer",
+              transition: "all ease 0.5s 0s",
+            },
+          }}
+        >
           <Box className={classes.center}>
             <Box
               className={classes.circle}
@@ -46,7 +59,20 @@ export default function TeamSlider() {
             <Typography className={classes.lightGreyText}>{t("Step1_text")}</Typography>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={4} className={classes.gridStyle}>
+        <Grid
+          item
+          xs={12}
+          sm={4}
+          className={classes.gridStyle}
+          sx={{
+            "&:hover": {
+              backgroundColor: theme.palette.greyBg,
+              boxShadow: "0px 5px 25px 0px rgb(204 204 204 / 55%)",
+              cursor: "pointer",
+              transition: "all ease 0.5s 0s",
+            },
+          }}
+        >
           <Box className={classes.center}>
             <Box
               className={classes.circle}
@@ -68,7 +94,20 @@ export default function TeamSlider() {
             <Typography className={classes.lightGreyText}>{t("Step2_text")}</Typography>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={4} className={classes.gridStyle}>
+        <Grid
+          item
+          xs={12}
+          sm={4}
+          className={classes.gridStyle}
+          sx={{
+            "&:hover": {
+              backgroundColor: theme.palette.greyBg,
+              boxShadow: "0px 5px 25px 0px rgb(204 204 204 / 55%)",
+              cursor: "pointer",
+              transition: "all ease 0.5s 0s",
+            },
+          }}
+        >
           <Box className={classes.center}>
             <Box
               className={classes.circle}
