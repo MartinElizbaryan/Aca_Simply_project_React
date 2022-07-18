@@ -1,10 +1,11 @@
 import { createUseStyles } from "react-jss"
-import { colors } from "../../constants/styles"
 
 const useStyles = createUseStyles({
-  avatar: {
-    backgroundColor: `${colors.blue} !important`,
-    fontSize: "1rem !important",
+  wrapper: {
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
+    minWidth: "300px",
   },
 })
 export default useStyles

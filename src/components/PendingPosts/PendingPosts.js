@@ -4,7 +4,6 @@ import api from "../../api/api"
 import Box from "@mui/material/Box"
 import PostsSceleton from "../PostsSceleton/PostsSceleton"
 import PostsList from "../PostsList/PostsList"
-import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const PendingPosts = () => {
   const { data, error, loading, reFetch: reFetchMyPosts } = useFetch("/admin/posts/not-trusted")
@@ -29,16 +28,9 @@ const PendingPosts = () => {
       {loading ? (
         <PostsSceleton />
       ) : (
-        <PostsList
-          title="My posts"
-          data={posts}
-          changeable
-          admin
-          deletePost={deletePost}
-          trustPost={trustPost}
-        />
+        <PostsList title="My posts" data={posts} deletePost={deletePost} trustPost={trustPost} />
       )}
     </Box>
   )
 }
-export default withSuspenseAdding(PendingPosts)
+export default PendingPosts
