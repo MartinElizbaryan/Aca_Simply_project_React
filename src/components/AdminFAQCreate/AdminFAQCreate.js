@@ -3,7 +3,7 @@ import useStyles from "./styles"
 import { useNavigate, useParams } from "react-router-dom"
 import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid"
-import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
+import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import api from "../../api/api"
 import { useFormik } from "formik"
 import { validation } from "../AdminFAQEdit/validation"
@@ -81,9 +81,9 @@ const AdminFAQCreate = () => {
               </Grid>
               <Grid container spacing={2} p={2}>
                 <Grid item xs={8} sm={6} md={4}>
-                  <GreenButton className={classes.button} type="submit">
+                  <BlueButton className={classes.button} type="submit">
                     {t("Save_Changes")}
-                  </GreenButton>
+                  </BlueButton>
                 </Grid>
               </Grid>
             </Box>

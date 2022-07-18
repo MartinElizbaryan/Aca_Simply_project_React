@@ -15,9 +15,13 @@ import {
   CardContent,
   CardHeader,
   CardMedia,
+  Chip,
   Container,
+  Divider,
+  IconButton,
   Typography,
 } from "@mui/material"
+import DeleteIcon from "@mui/icons-material/Delete"
 import Slider from "../Slider/Slider"
 import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
@@ -36,6 +40,8 @@ const PostDetailed = () => {
   const [post, setPost] = useState({})
   const [open, setOpen] = useState(false)
   const [questions, setQuestions] = useState({})
+  const [openEditPost, setOpenEditPost] = useState(false)
+
   const { id } = useParams()
   const { t } = useTranslation()
   const navigate = useNavigate()
@@ -65,8 +71,8 @@ const PostDetailed = () => {
 
   const showConfirmer = () => {
     const version = {
-      [post?.confirmer_id]: <div>{t("already_confirmed")}</div>,
-      [user.id]: <div>{t("confirmed_by_yourself")}</div>,
+      [post?.confirmer_id]: <Chip label={t("already_confirmed")} variant="outlined" />,
+      [user?.id]: <Chip label={t("confirmed_by_yourself")} variant="outlined" />,
       null: (
         <BlueButton onClick={toConfirm}>
           {post?.type === "FOUND" ? t("It_is_mine") : t("I_found")}
@@ -77,18 +83,15 @@ const PostDetailed = () => {
     return version[post?.confirmer_id]
   }
 
-  const sendAnswers = async () => {
-    await api.post("messages/send-answers", {
-      post_title: post.name,
-      user_id: +post.user_id,
-      questions,
-    })
+  const sendAnswers = async (data) => {
+    await api.post("messages/send-answers", data)
     navigate(`/chat/${post.user_id}`)
   }
 
   const toConfirm = async () => {
     try {
       const response = await api.patch(`/posts/confirmed/${id}`)
+      console.log(response)
       if (response.status === 200) {
         setPost({ ...post, confirmer_id: user.id })
       }
@@ -109,10 +112,23 @@ const PostDetailed = () => {
     setOpen(false)
   }
 
-  const handleStartChatButtonClick = () => {
-    console.log(questions.length)
-    if (!questions.length) return
+  const handleStartChatButtonClick = async () => {
+    if (!questions.length)
+      await sendAnswers({
+        post_title: post.name,
+        user_id: +post.user_id,
+        questions: [],
+      })
     setOpen(true)
+  }
+
+  const toggleOpenEditPost = (open) => {
+    setOpenEditPost(open)
+  }
+
+  const deletePost = async (id) => {
+    await api.delete(`/posts/${id}`)
+    navigate("/profile/my-posts")
   }
 
   return (
@@ -132,14 +148,25 @@ const PostDetailed = () => {
                 avatar={<UserAvatar user={post?.user} />}
                 title={getUserFullName(post?.user)}
                 subheader={date}
+                action={
+                  <>
+                    {post?.id === user?.id && (
+                      <IconButton onClick={() => deletePost(post.id)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    )}
+                  </>
+                }
               />
+              <Divider />
+
               {post?.images.length > 0 ? (
                 <Slider images={post?.images} />
               ) : (
                 <CardMedia
                   component="img"
                   sx={{
-                    maxHeight: 500,
+                    maxHeight: 400,
                     minHeight: 250,
                     objectFit: "contain",
                     width: "100%",
@@ -148,14 +175,17 @@ const PostDetailed = () => {
                   alt="image"
                 />
               )}
+              <Divider />
               <CardContent>
-                <Typography variant="h5" color="text.dark" mb={3}>
+                <Typography variant="h6" color="text.dark" mb={3} fontWeight="bold">
                   {post?.name}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" mb={3}>
                   {post?.description}
                 </Typography>
+                <Chip label={t(post?.category?.name)} variant="outlined" onClick={() => {}} />
               </CardContent>
+              <Divider />
               <CardActions
                 disableSpacing
                 sx={{
@@ -164,10 +194,15 @@ const PostDetailed = () => {
                 }}
               >
                 <HeartButton post={post} />
-                {post?.user_id !== user.id && (
+                {post?.user_id !== user?.id ? (
                   <>
                     {showConfirmer()}
                     <BlueButton onClick={handleStartChatButtonClick}>{t("Start_chat")}</BlueButton>
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    <BlueButton onClick={() => toggleOpenEditPost(true)}>{t("Edit")}</BlueButton>
                   </>
                 )}
               </CardActions>
@@ -179,7 +214,13 @@ const PostDetailed = () => {
         open={open}
         handleClose={handlePopupClose}
         title={"Answer the questions"}
-        handleSubmit={sendAnswers}
+        handleSubmit={() =>
+          sendAnswers({
+            post_title: post.name,
+            user_id: +post.user_id,
+            questions,
+          })
+        }
       >
         <Questions questions={questions} handleAnswer={handleAnswer} />
       </PostPopup>

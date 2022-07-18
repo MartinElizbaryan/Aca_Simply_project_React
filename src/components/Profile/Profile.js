@@ -14,7 +14,7 @@ import {
 } from "@mui/material"
 import { UserInfo } from "../Shared/UserInfo/UserInfo"
 import { ErrorDialog } from "../Shared/Dialogs/ErrorDialog/ErrorDialog"
-import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
+import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import UnlabeledInput from "../Shared/Inputs/UnlabeledInput/UnlabeledInput"
 import { SuccessDialog } from "../Shared/Dialogs/SuccessDialog/SuccessDialog"
 import { editUserInfo } from "./utils"
@@ -147,9 +147,9 @@ const Profile = () => {
                 </Grid>
               </Grid>
               <Grid item xs={12} sx={{ textAlign: "start" }}>
-                <GreenButton type="submit" size="small">
+                <BlueButton type="submit" size="small">
                   {t("Save_Changes")}
-                </GreenButton>
+                </BlueButton>
               </Grid>
               <SuccessDialog
                 open={success}

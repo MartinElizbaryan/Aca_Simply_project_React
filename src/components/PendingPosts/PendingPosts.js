@@ -28,7 +28,13 @@ const PendingPosts = () => {
       {loading ? (
         <PostsSceleton />
       ) : (
-        <PostsList title="My posts" data={posts} deletePost={deletePost} trustPost={trustPost} />
+        <PostsList
+          title="My posts"
+          data={posts}
+          deletePost={deletePost}
+          trustPost={trustPost}
+          admin={true}
+        />
       )}
     </Box>
   )

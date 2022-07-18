@@ -4,6 +4,9 @@ import { colors } from "../../constants/styles"
 const useStyles = createUseStyles({
   clickedBlock: {
     backgroundColor: `${colors.clickedGrey} !important`,
+    "& span": {
+      color: "#000 !important",
+    },
   },
   badge: {
     "& .MuiBadge-badge": {
