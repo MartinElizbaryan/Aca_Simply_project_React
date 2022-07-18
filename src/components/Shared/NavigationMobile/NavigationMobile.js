@@ -6,7 +6,7 @@ import WidgetsIcon from "@mui/icons-material/Widgets"
 import { CustomLink as Link } from "../Links/CustomLink/CustomLink"
 import { TransparentButton } from "../Buttons/TransparentButton/TransparentButton"
 import { navlist } from "../../Header/constants"
-import { getUserAuth, getUserInfo } from "../../../redux/userSelectors"
+import { getUserAuth, getUserInfo } from "../../../redux/user/userSelectors"
 
 const NavigationMobileProfile = lazy(() => import("./NavigationMobileProfile"))
 

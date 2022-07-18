@@ -17,8 +17,8 @@ import { Notifications } from "../Notifications/Notifications"
 import api from "../../api/api"
 import socket from "../../helpers/socket"
 import { signOut } from "../Header/utils"
-import { deleteUserInfo } from "../../redux/userSlice"
-import { getUserInfo } from "../../redux/userSelectors"
+import { deleteUserInfo } from "../../redux/user/userSlice"
+import { getUserInfo } from "../../redux/user/userSelectors"
 import notificationSound from "../../assets/sounds/notification.mp3"
 
 export default function UserControlBlock() {

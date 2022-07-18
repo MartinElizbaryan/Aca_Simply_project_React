@@ -4,12 +4,17 @@ import Header from "../Header/Header"
 import Footer from "../Footer/Footer"
 import { ScrollTopButton } from "../Shared/Buttons/ScrollTopButton/ScrollTopButton"
 import { scrollToTop } from "../../helpers/utils"
-import { useTheme } from "@mui/material"
+import { Backdrop, useTheme } from "@mui/material"
+import CircularProgress from "@mui/material/CircularProgress"
+import { useSelector } from "react-redux"
+import { getIsLoading } from "../../redux/loading/loadingSelectors"
 
 const Main = ({ component: Component, ...rest }) => {
   const [visible, setVisible] = useState(false)
   const main = useRef(null)
   const theme = useTheme()
+  const isLoading = useSelector(getIsLoading)
+
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 300 && window.innerWidth > 600) {
@@ -32,6 +37,13 @@ const Main = ({ component: Component, ...rest }) => {
         <Outlet />
       </main>
       <Footer />
+
+      {isLoading && (
+        <Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={true}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      )}
+
       {visible && <ScrollTopButton onClick={scrollToTop} />}
     </>
   )

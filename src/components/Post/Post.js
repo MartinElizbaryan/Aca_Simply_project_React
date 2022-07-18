@@ -25,7 +25,7 @@ import BlurBox from "../Shared/BlurBox/BlurBox"
 import EditPost from "../EditPost/EditPost"
 import { getUserFullName } from "../../helpers/utils"
 import { CLOUDINARY_BASE_URL } from "../../constants/constants"
-import { getUserIsAdmin } from "../../redux/userSelectors"
+import { getUserIsAdmin } from "../../redux/user/userSelectors"
 import emptyImage from "../../assets/adspy_loading_animation.gif"
 import useStyles from "./styles"
 

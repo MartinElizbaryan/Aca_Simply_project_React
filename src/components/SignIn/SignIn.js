@@ -16,11 +16,10 @@ import {
 import { InputField } from "../Shared/Inputs/InputField/InputField"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import { signIn } from "./utils"
-import { setUserInfo } from "../../redux/userSlice"
+import { setUserInfo } from "../../redux/user/userSlice"
 import connectToSocket from "../../helpers/connectToSocket"
 import { validationSchema } from "./validation"
 import useStyles from "./styles"
-import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 
 export default function SignIn() {
