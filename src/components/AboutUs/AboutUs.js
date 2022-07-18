@@ -9,7 +9,6 @@ import us1 from "../../assets/AboutUsPhotos/us1.jpg"
 import us2 from "../../assets/AboutUsPhotos/us2.jpg"
 import us3 from "../../assets/AboutUsPhotos/us3.jpg"
 import us4 from "../../assets/AboutUsPhotos/us4.jpg"
-import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const AboutUs = () => {
   const { t } = useTranslation()
@@ -116,4 +115,4 @@ const itemData = [
   },
 ]
 
-export default withSuspenseAdding(AboutUs)
+export default AboutUs

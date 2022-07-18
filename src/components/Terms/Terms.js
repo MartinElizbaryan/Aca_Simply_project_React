@@ -1,7 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material"
 import useStyles from "./styles"
 import { useTranslation } from "react-i18next"
-import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const Terms = () => {
   const { t } = useTranslation()
@@ -259,4 +258,4 @@ const Terms = () => {
   )
 }
 
-export default withSuspenseAdding(Terms)
+export default Terms

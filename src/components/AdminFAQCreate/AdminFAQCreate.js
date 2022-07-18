@@ -7,7 +7,6 @@ import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 import api from "../../api/api"
 import { useFormik } from "formik"
 import { validation } from "../AdminFAQEdit/validation"
-import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const AdminFAQCreate = () => {
   const classes = useStyles()
@@ -92,4 +91,4 @@ const AdminFAQCreate = () => {
   )
 }
 
-export default withSuspenseAdding(AdminFAQCreate)
+export default AdminFAQCreate

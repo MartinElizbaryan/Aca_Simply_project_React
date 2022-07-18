@@ -12,7 +12,6 @@ import { getParamsFromFiltering } from "./utils"
 import { scrollToTop } from "../../helpers/utils"
 import { POST_PER_PAGE } from "./constants"
 import useStyles from "./styles"
-import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const Posts = () => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -100,4 +99,4 @@ const Posts = () => {
   )
 }
 
-export default withSuspenseAdding(Posts)
+export default Posts
