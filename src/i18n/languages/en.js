@@ -120,7 +120,7 @@ const en = {
   still_have_questions: "Still have questions? ",
   let_us_know: " and let us know how we can help you.",
   Security: "Security",
-  How_to_post: "How to post the Ad ?",
+  How_to_post: "How to add the Post?",
   Step1: "Step 1: Register with us",
   Step1_text:
     "Don't know how to deal with lost or found items near you? Register with your name and email address. If you have registered already, you can use the same account for posting unlimited ads.",

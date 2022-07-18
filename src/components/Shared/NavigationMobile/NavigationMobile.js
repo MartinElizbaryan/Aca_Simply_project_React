@@ -10,6 +10,7 @@ import {
   ListItemIcon,
   SwipeableDrawer,
   Typography,
+  useTheme,
 } from "@mui/material"
 import LogoutIcon from "@mui/icons-material/Logout"
 import PersonIcon from "@mui/icons-material/Person"
@@ -22,7 +23,8 @@ import { navlist } from "../../Header/constants"
 import { signOut } from "../../Header/utils"
 import { getUserAuth, getUserInfo } from "../../../redux/userSelectors"
 import { deleteUserInfo } from "../../../redux/userSlice"
-import { colors } from "../../../constants/styles.js"
+
+// console.log("awdawd")
 
 export default function NavigationMobile() {
   const [open, setOpen] = useState(false)
@@ -32,7 +34,7 @@ export default function NavigationMobile() {
   const dispatch = useDispatch()
   const user = useSelector(getUserInfo)
   const auth = useSelector(getUserAuth)
-
+  const theme = useTheme()
   const toggleDrawer = (open) => () => {
     setOpen(open)
   }
@@ -107,7 +109,7 @@ export default function NavigationMobile() {
                 <Link
                   onClick={toggleDrawer(false)}
                   url={link.route}
-                  color={colors.dark}
+                  color={theme.palette.mainColor}
                   key={index}
                 >
                   <ListItemButton sx={{ padding: 2 }}>{link.name}</ListItemButton>

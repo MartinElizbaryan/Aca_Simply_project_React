@@ -11,11 +11,23 @@ export default createTheme({
     blueButton: {
       main: "#000",
       hover: "#505050",
+      textColor: "#fff",
     },
     greenButton: {
-      main: "#000",
+      main: "#747474",
       hover: "#505050",
+      textColor: "#fff",
     },
     mainColor: "#fff",
+    greyBg: "#212121",
+    notificationHover: "#565656",
+    typography: {
+      fontFamily: "'Montserrat', sans-serif",
+      textTransform: "none",
+
+      button: {
+        textTransform: "none",
+      },
+    },
   },
 })

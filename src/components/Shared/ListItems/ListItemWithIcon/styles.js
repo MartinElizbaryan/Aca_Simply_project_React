@@ -7,7 +7,6 @@ const useStyles = createUseStyles({
     flex: "1 1 auto",
     alignItems: "center",
     textDecoration: "none",
-    color: "#000",
   },
   clicked: {
     backgroundColor: `${colors.clickedGrey} !important`,

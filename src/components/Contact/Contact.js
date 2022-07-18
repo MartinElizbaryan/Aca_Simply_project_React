@@ -1,4 +1,4 @@
-import { Container, Grid, Stack, Typography } from "@mui/material"
+import { Container, Grid, Stack, Typography, useTheme } from "@mui/material"
 import HomeIcon from "@mui/icons-material/Home"
 import EmailIcon from "@mui/icons-material/Email"
 import CallIcon from "@mui/icons-material/Call"
@@ -17,6 +17,7 @@ import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 const Contact = () => {
   const { t } = useTranslation()
   const classes = useStyles()
+  const theme = useTheme()
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -33,12 +34,12 @@ const Contact = () => {
   })
   return (
     <Container className={classes.container} maxWidth={false}>
-      <Typography variant="h4" className={classes.header}>
+      <Typography variant="h4" component={"h1"} color={theme.palette.mainColor}>
         {t("Contact_us")}
       </Typography>
       <Stack spacing={{ xs: 3, sm: 10, md: 20 }} direction={{ xs: "column", sm: "row" }}>
         <Stack>
-          <Typography variant="body1">
+          <Typography variant="body1" color={theme.palette.mainColor}>
             {t("have_questions")}
             <Link url="/faq" color={colors.darkBlue}>
               {" FAQs "}
@@ -115,28 +116,54 @@ const Contact = () => {
           </form>
         </Stack>
         <Stack>
-          <Typography variant="subtitle1">{t("Other_ways")}</Typography>
+          <Typography variant="subtitle1" color={theme.palette.mainColor}>
+            {t("Other_ways")}
+          </Typography>
           <Grid container spacing={4} p={3}>
             <Grid item xs={12}>
               <Stack direction="row" spacing={2} className={classes.info}>
-                <HomeIcon />
-                <Typography variant="body1">{t("Visit_us")}</Typography>
+                <HomeIcon
+                  sx={{
+                    color: theme.palette.mainColor,
+                  }}
+                />
+                <Typography variant="body1" color={theme.palette.mainColor}>
+                  {t("Visit_us")}
+                </Typography>
               </Stack>
-              <Typography variant="caption">{t("fake_address")}</Typography>
+              <Typography variant="caption" color={theme.palette.mainColor}>
+                {t("fake_address")}
+              </Typography>
             </Grid>
             <Grid item xs={12}>
               <Stack direction="row" spacing={2} className={classes.info}>
-                <CallIcon />
-                <Typography variant="body1">{t("Call_us")}</Typography>
+                <CallIcon
+                  sx={{
+                    color: theme.palette.mainColor,
+                  }}
+                />
+                <Typography variant="body1" color={theme.palette.mainColor}>
+                  {t("Call_us")}
+                </Typography>
               </Stack>
-              <Typography variant="caption">+374-33-613-003</Typography>
+              <Typography variant="caption" color={theme.palette.mainColor}>
+                +374-33-613-003
+              </Typography>
             </Grid>
             <Grid item xs={12}>
               <Stack direction="row" spacing={2} className={classes.info}>
-                <EmailIcon />
-                <Typography variant="body1">{t("Email_us")}</Typography>
+                <EmailIcon
+                  sx={{
+                    color: theme.palette.mainColor,
+                  }}
+                />
+                <Typography variant="body1" color={theme.palette.mainColor}>
+                  {t("Email_us")}
+                </Typography>
               </Stack>
-              <Typography variant="caption">lost.list.found@gmail.com</Typography>
+              <Typography variant="caption" color={theme.palette.mainColor}>
+                lost.list.found@gmail.com
+              </Typography>
             </Grid>
           </Grid>
         </Stack>

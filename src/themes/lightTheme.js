@@ -7,7 +7,7 @@ export default createTheme({
       main: "rgba(55,105,150,1)",
       blur: "rgba(55,105,150,0.8)",
     },
-    body: "#fff",
+    body: "#f8f8f8",
     blueButton: {
       main: "#376996",
       hover: "#5fb2fc",
@@ -17,5 +17,13 @@ export default createTheme({
       hover: "#177234",
     },
     mainColor: "#000",
+  },
+  typography: {
+    fontFamily: "'Montserrat', sans-serif",
+    textTransform: "none",
+
+    button: {
+      textTransform: "none",
+    },
   },
 })

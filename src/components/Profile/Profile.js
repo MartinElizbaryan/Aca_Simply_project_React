@@ -2,7 +2,16 @@ import { useState } from "react"
 import { useFormik } from "formik"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-import { Container, Divider, Grid, ListItemButton, Paper, Stack, Typography } from "@mui/material"
+import {
+  Container,
+  Divider,
+  Grid,
+  ListItemButton,
+  Paper,
+  Stack,
+  Typography,
+  useTheme,
+} from "@mui/material"
 import { UserInfo } from "../Shared/UserInfo/UserInfo"
 import { ErrorDialog } from "../Shared/Dialogs/ErrorDialog/ErrorDialog"
 import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
@@ -29,7 +38,7 @@ const Profile = () => {
   const onErrorDialogClose = () => {
     setError(false)
   }
-
+  const theme = useTheme()
   const formik = useFormik({
     initialValues: {
       name: user.name || "",
@@ -54,7 +63,7 @@ const Profile = () => {
 
   return (
     <>
-      <Container sx={{ paddingTop: 1, marginBottom: 1 }}>
+      <Container sx={{ paddingTop: 1, marginBottom: 1, backgroundColor: theme.palette.body }}>
         <Paper>
           <ListItemButton>
             <UserInfo user={user} />

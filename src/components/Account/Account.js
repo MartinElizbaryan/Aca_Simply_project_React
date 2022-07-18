@@ -1,4 +1,4 @@
-import { Box, Container, Grid } from "@mui/material"
+import { Box, Container, Grid, useTheme } from "@mui/material"
 import ProfileSidebar from "../Shared/Sidebars/ProfileSidebar/ProfileSidebar"
 import { Outlet } from "react-router-dom"
 import useStyles from "./styles"
@@ -8,14 +8,14 @@ import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const Account = () => {
   const classes = useStyles()
-
+  const theme = useTheme()
   return (
     <Container className={classes.container} maxWidth={false}>
       <Grid
         item
         xs={12}
         md={9}
-        sx={{ backgroundColor: colors.grey, width: "100%", height: "100%" }}
+        sx={{ backgroundColor: theme.palette.body, width: "100%", height: "100%" }}
       >
         <Box
           sx={{

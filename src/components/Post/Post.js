@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   Card,
@@ -14,6 +15,7 @@ import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
 import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
+import EditPost from "../EditPost/EditPost"
 import emptyImage from "../../assets/adspy_loading_animation.gif"
 import { getUserFullName } from "../../helpers/utils"
 import { CLOUDINARY_BASE_URL } from "../../constants/constants"
@@ -28,10 +30,15 @@ export default function Post({
   admin,
   deleteFromMyFavorites,
 }) {
+  const [openEditPost, setOpenEditPost] = useState(false)
   const { t } = useTranslation()
   const classes = useStyles()
 
   const img = post.images.length ? `${CLOUDINARY_BASE_URL}${post.images[0].src}` : emptyImage
+  //
+  const toggleOpenEditPost = (open) => {
+    setOpenEditPost(open)
+  }
 
   return (
     <Card
@@ -87,12 +94,8 @@ export default function Post({
         }}
       >
         <HeartButton post={post} deleteFromMyFavorites={deleteFromMyFavorites} />
-        {editable && (
-          <Link url={`/profile/my-posts/${post.id}`}>
-            <BlueButton>{t("Edit")}</BlueButton>
-          </Link>
-        )}
-
+        {editable && <BlueButton onClick={() => toggleOpenEditPost(true)}>{t("Edit")}</BlueButton>}
+        <EditPost post={post} open={openEditPost} toggleOpen={toggleOpenEditPost} />
         <Link url={`/posts/${post.id}`}>
           <BlueButton>{t("See_details")}</BlueButton>
         </Link>

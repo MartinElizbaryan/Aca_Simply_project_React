@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next"
-import { List } from "@mui/material"
+import { List, useTheme } from "@mui/material"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import ArticleIcon from "@mui/icons-material/Article"
 import FactCheckIcon from "@mui/icons-material/FactCheck"
@@ -12,7 +12,7 @@ import useStyles from "./styles"
 export default function ProfileSidebar() {
   const { t } = useTranslation()
   const classes = useStyles()
-
+  const theme = useTheme()
   return (
     <List
       className={classes.list}
@@ -22,6 +22,7 @@ export default function ProfileSidebar() {
           xs: "200px",
           sm: "250px",
         },
+        backgroundColor: theme.palette.body,
       }}
     >
       <ListItemWithIcon url="/profile" icon={<AccountCircleIcon />} title={t("Profile")} />

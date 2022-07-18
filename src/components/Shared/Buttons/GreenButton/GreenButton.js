@@ -12,6 +12,7 @@ export const GreenButton = ({ children, ...props }) => {
       {...props}
       sx={{
         backgroundColor: theme.palette.greenButton.main,
+        color: theme.palette.greenButton.textColor,
         "&:hover": {
           backgroundColor: theme.palette.greenButton.hover,
         },

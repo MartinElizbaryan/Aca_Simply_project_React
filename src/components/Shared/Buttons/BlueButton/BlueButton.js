@@ -12,6 +12,7 @@ export const BlueButton = ({ children, ...props }) => {
       className={classes.button}
       {...props}
       sx={{
+        color: theme.palette.blueButton.textColor,
         backgroundColor: theme.palette.blueButton.main,
         "&:hover": {
           backgroundColor: theme.palette.blueButton.hover,

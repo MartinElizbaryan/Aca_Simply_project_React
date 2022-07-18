@@ -5,8 +5,15 @@ import { OutlinedInput } from "../Shared/Inputs/OutlinedInput/OutlinedInput"
 import UploadInput from "../Shared/Inputs/UploadInput/UploadInput"
 import { ImageCard } from "../Shared/Cards/ImageCard/ImageCard"
 import { useFetch } from "../../hooks/useFetch"
+import { CLOUDINARY_BASE_URL } from "../../constants/constants"
 
-export default function PostInfoFields({ formik, previewSource, setPreviewSource }) {
+export default function PostInfoFields({
+  formik,
+  images,
+  previewSource,
+  setPreviewSource,
+  removeCurrentImage,
+}) {
   const { t } = useTranslation()
   const { data } = useFetch("/categories")
   const [categories, setCategories] = useState([])
@@ -15,7 +22,7 @@ export default function PostInfoFields({ formik, previewSource, setPreviewSource
     setCategories(data.categories)
   }, [data])
 
-  const removeImage = (imageIndex) => {
+  const removePreviewImage = (imageIndex) => {
     setPreviewSource((prevState) => {
       return prevState.filter((item, index) => {
         return index !== imageIndex
@@ -124,8 +131,20 @@ export default function PostInfoFields({ formik, previewSource, setPreviewSource
 
       <Grid item xs={12}>
         <Grid container spacing={2}>
+          {images &&
+            images.map((image, index) => {
+              const url = `${CLOUDINARY_BASE_URL}${image.src}`
+              return (
+                <ImageCard
+                  key={image.id}
+                  index={index}
+                  image={url}
+                  removeImage={removeCurrentImage}
+                />
+              )
+            })}
           {previewSource.map((image, index) => (
-            <ImageCard key={index} index={index} image={image} removeImage={removeImage} />
+            <ImageCard key={index} index={index} image={image} removeImage={removePreviewImage} />
           ))}
         </Grid>
       </Grid>

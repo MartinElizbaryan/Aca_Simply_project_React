@@ -7,6 +7,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  useTheme,
 } from "@mui/material"
 import { signUp } from "./utils"
 import useStyles from "./styles"
@@ -15,6 +16,7 @@ import { InputField } from "../Shared/Inputs/InputField/InputField"
 import { useFormik } from "formik"
 import { validationSchema } from "./validation"
 import { useTranslation } from "react-i18next"
+import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
 
 export default function SignUp() {
   const { t } = useTranslation()
@@ -22,7 +24,7 @@ export default function SignUp() {
   const [errMessage, setErrMessage] = useState("")
   const [isVisible, setIsVisible] = useState(false)
   const [isVisible2, setIsVisible2] = useState(false)
-
+  const theme = useTheme()
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -55,7 +57,12 @@ export default function SignUp() {
   const navigate = useNavigate()
 
   return (
-    <Box className={classes.totalBox}>
+    <Box
+      className={classes.totalBox}
+      sx={{
+        backgroundColor: theme.palette.greyBg,
+      }}
+    >
       <form onSubmit={formik.handleSubmit} id="signinButton">
         <Box className={classes.central}>
           <InputField
@@ -115,9 +122,9 @@ export default function SignUp() {
         </Box>
       </form>
       <Box className={classes.central2}>
-        <Button variant="contained" color="success" type="submit" form="signinButton">
+        <GreenButton variant="contained" type="submit" form="signinButton">
           {t("Create_An_Account")}
-        </Button>
+        </GreenButton>
       </Box>
       {open && (
         <Box>
