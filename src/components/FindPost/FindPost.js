@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 import { Box, Container, Grid, MenuItem, Typography } from "@mui/material"
 import SearchIcon from "@mui/icons-material/Search"
-import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
+import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import useStyles from "./styles"
 import { colors } from "../../constants/styles"
 import WhiteInput from "../Shared/Inputs/WhiteInput/WhiteInput"
@@ -54,10 +54,10 @@ export default function FindPost() {
                 </WhiteInput>
               </Grid>
               <Grid item xs={12} sm={12} md={2}>
-                <GreenButton size="large" onClick={findPost}>
+                <BlueButton size="large" onClick={findPost}>
                   <SearchIcon sx={{ paddingRight: 1 }} />
                   {t("Find_post")}
-                </GreenButton>
+                </BlueButton>
               </Grid>
             </Grid>
           </Box>

@@ -48,7 +48,7 @@ export default function NavigationMobile() {
                   color={theme.palette.mainColor}
                   key={index}
                 >
-                  <ListItemButton sx={{ padding: 2 }}>{link.name}</ListItemButton>
+                  <ListItemButton sx={{ padding: 2 }}>{t(link.name)}</ListItemButton>
                 </Link>
               )
             })}
