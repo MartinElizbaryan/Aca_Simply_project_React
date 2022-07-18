@@ -15,12 +15,12 @@ import {
 } from "@mui/material"
 import { InputField } from "../Shared/Inputs/InputField/InputField"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
-import { setUserInfo } from "../../redux/user/userSlice"
-import connectToSocket from "../../helpers/connectToSocket"
 import { validationSchema } from "./validation"
 import useStyles from "./styles"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import useLazyFetch from "../../hooks/useLazyFetch"
+import { setUserInfo } from "../../redux/user/userSlice"
+import connectToSocket from "../../helpers/connectToSocket"
 
 export default function SignIn() {
   const { t } = useTranslation()
@@ -39,6 +39,7 @@ export default function SignIn() {
   }
 
   useEffect(() => {
+    console.log("useEffect")
     if (data.auth) {
       localStorage.setItem("accessToken", data.accessToken)
       dispatch(setUserInfo(data.user))
@@ -59,6 +60,7 @@ export default function SignIn() {
     validationSchema: validationSchema,
     onSubmit: async ({ email, password }) => {
       const res = await apiRequest("/auth/sign-in", "post", { email, password })
+      console.log("response")
     },
   })
   console.log(data)
