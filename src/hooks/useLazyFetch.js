@@ -7,11 +7,12 @@ export default function useLazyFetch() {
   const [data, setData] = useState([])
   const [error, setError] = useState(null)
   const dispatch = useDispatch()
-
+  console.log("fetchd", data)
   const apiRequest = useCallback(async (url, method = "get", config) => {
     try {
       dispatch(setIsLoading())
       const response = await api[method](url, config || {})
+      console.log(response)
       setData(response.data)
     } catch (err) {
       setError(err)
@@ -23,6 +24,6 @@ export default function useLazyFetch() {
   return {
     data,
     error,
-    request: apiRequest,
+    apiRequest,
   }
 }

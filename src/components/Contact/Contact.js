@@ -19,7 +19,7 @@ import useLazyFetch from "../../hooks/useLazyFetch"
 const Contact = () => {
   const [success, setSuccess] = useState(false)
   const [openError, setOpenError] = useState(false)
-  const { request, data, error } = useLazyFetch()
+  const { data, error, apiRequest } = useLazyFetch()
   const { t } = useTranslation()
   const classes = useStyles()
   const theme = useTheme()
@@ -33,9 +33,8 @@ const Contact = () => {
     },
     validationSchema: validation,
     onSubmit: async (values) => {
-      await request("/contact/send", "post", values)
+      await apiRequest("/contact/send", "post", values)
       formik.resetForm()
-      console.log(data, error)
       if (data.status === 204) setSuccess(true)
       else if (error) setOpenError(true)
     },
