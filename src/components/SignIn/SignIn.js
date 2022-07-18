@@ -14,10 +14,10 @@ import {
   useTheme,
 } from "@mui/material"
 import { InputField } from "../Shared/Inputs/InputField/InputField"
+import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import { validationSchema } from "./validation"
 import useStyles from "./styles"
-import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import useLazyFetch from "../../hooks/useLazyFetch"
 import { setUserInfo } from "../../redux/user/userSlice"
 import connectToSocket from "../../helpers/connectToSocket"
@@ -30,7 +30,7 @@ export default function SignIn() {
   const [errMessage, setErrMessage] = useState("")
   const [isVisible, setIsVisible] = useState(false)
   const { data, error, apiRequest } = useLazyFetch()
-  // const [auth, setAuth] = useState(false)
+
   const theme = useTheme()
   const navigate = useNavigate()
 
@@ -47,10 +47,9 @@ export default function SignIn() {
       navigate("/profile")
     } else if (error) {
       setOpen(true)
-      console.log(error)
       setErrMessage(t(error.response.data.details))
     }
-  }, [data])
+  }, [data, error])
 
   const formik = useFormik({
     initialValues: {

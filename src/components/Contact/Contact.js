@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { useFormik } from "formik"
 import { Container, Grid, Stack, Typography, useTheme } from "@mui/material"
 import HomeIcon from "@mui/icons-material/Home"
 import EmailIcon from "@mui/icons-material/Email"
@@ -6,23 +9,22 @@ import SendIcon from "@mui/icons-material/Send"
 import { OutlinedInput } from "../Shared/Inputs/OutlinedInput/OutlinedInput"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
-import { colors } from "../../constants/styles"
-import useStyles from "./styles"
-import { useTranslation } from "react-i18next"
-import { useFormik } from "formik"
-import { validation } from "./validation"
 import { SuccessDialog } from "../Shared/Dialogs/SuccessDialog/SuccessDialog"
 import { ErrorDialog } from "../Shared/Dialogs/ErrorDialog/ErrorDialog"
-import { useState } from "react"
+import { validation } from "./validation"
 import useLazyFetch from "../../hooks/useLazyFetch"
+import { colors } from "../../constants/styles"
+import useStyles from "./styles"
 
 const Contact = () => {
   const [success, setSuccess] = useState(false)
   const [openError, setOpenError] = useState(false)
   const { data, error, apiRequest } = useLazyFetch()
+
   const { t } = useTranslation()
-  const classes = useStyles()
   const theme = useTheme()
+  const classes = useStyles()
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -34,11 +36,14 @@ const Contact = () => {
     validationSchema: validation,
     onSubmit: async (values) => {
       await apiRequest("/contact/send", "post", values)
-      formik.resetForm()
-      if (data.status === 204) setSuccess(true)
-      else if (error) setOpenError(true)
     },
   })
+
+  useEffect(() => {
+    formik.resetForm()
+    if (data.status === 204) setSuccess(true)
+    else if (error) setOpenError(true)
+  }, [data])
 
   return (
     <Container className={classes.container} maxWidth={false}>
