@@ -1,6 +1,7 @@
 import Post from "../Post/Post"
 import Container from "@mui/material/Container"
 import Grid from "@mui/material/Grid"
+import PostNotFound from "../PostNotFound/PostNotFound"
 
 export default function PostsList({
   data,
@@ -14,6 +15,7 @@ export default function PostsList({
   return (
     <Container sx={{ marginBottom: "40px" }}>
       <Grid container spacing={2} sx={{ marginTop: 0 }} alignItems="center">
+        {data?.length === 0 && <PostNotFound />}
         {data?.map((post) => {
           return (
             <Grid item xs={12} md={6} lg={4} key={post.id}>

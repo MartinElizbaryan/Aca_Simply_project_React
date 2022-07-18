@@ -1,6 +1,6 @@
 import axios from "axios"
 import { store } from "../redux/store"
-import { deleteUserInfo } from "../redux/userSlice"
+import { deleteUserInfo } from "../redux/user/userSlice"
 import { cookies } from "../helpers/cookies"
 
 const api = axios.create({

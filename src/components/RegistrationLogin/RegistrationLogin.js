@@ -7,7 +7,7 @@ import ForgotPassword from "../ForgotPassword/ForgotPassword"
 import SignIn from "../SignIn/SignIn"
 import SignUp from "../SignUp/SignUp"
 import useStyles from "./styles"
-import { getThemeMode } from "../../redux/themeSelectors"
+import { getThemeMode } from "../../redux/theme/themeSelectors"
 import { useSelector } from "react-redux"
 
 const RegistrationLogin = () => {

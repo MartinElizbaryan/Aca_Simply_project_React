@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import { getUserId } from "../redux/userSelectors"
+import { getUserId } from "../redux/user/userSelectors"
 import { useParams } from "react-router-dom"
 
 export const withIdChecking = (Component) => {

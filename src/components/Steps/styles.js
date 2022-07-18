@@ -36,12 +36,6 @@ const useStyles = createUseStyles({
   },
   gridStyle: {
     padding: "10px !important",
-    "&:hover": {
-      backgroundColor: "#fff",
-      boxShadow: "0px 5px 25px 0px rgb(204 204 204 / 55%)",
-      cursor: "pointer",
-      transition: "all ease 0.5s 0s",
-    },
   },
 })
 export default useStyles

@@ -4,7 +4,7 @@ import EmailIcon from "@mui/icons-material/Email"
 import CallIcon from "@mui/icons-material/Call"
 import SendIcon from "@mui/icons-material/Send"
 import { OutlinedInput } from "../Shared/Inputs/OutlinedInput/OutlinedInput"
-import { GreenButton } from "../Shared/Buttons/GreenButton/GreenButton"
+import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import { colors } from "../../constants/styles"
 import useStyles from "./styles"
@@ -118,10 +118,10 @@ const Contact = () => {
                 ></OutlinedInput>
               </Grid>
               <Grid item xs={12}>
-                <GreenButton size="large" type="submit">
+                <BlueButton size="large" type="submit">
                   <SendIcon sx={{ paddingRight: 2 }} />
                   {t("Send")}
-                </GreenButton>
+                </BlueButton>
               </Grid>
             </Grid>
           </form>

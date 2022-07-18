@@ -7,7 +7,7 @@ import { Box, Divider, Grid, List } from "@mui/material"
 import Message from "../Message/Message"
 import api from "../../api/api"
 import socket from "../../helpers/socket"
-import { getUserInfo } from "../../redux/userSelectors"
+import { getUserInfo } from "../../redux/user/userSelectors"
 import { withIdChecking } from "../../hocs/withIdChecking"
 import useStyles from "./styles"
 
