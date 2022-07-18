@@ -18,12 +18,11 @@ import useLazyFetch from "../../hooks/useLazyFetch"
 
 const Contact = () => {
   const [success, setSuccess] = useState(false)
-  const [error, setError] = useState(false)
-  const request = useLazyFetch()
+  const [openError, setOpenError] = useState(false)
+  const { request, data, error } = useLazyFetch()
   const { t } = useTranslation()
   const classes = useStyles()
   const theme = useTheme()
-
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -34,11 +33,11 @@ const Contact = () => {
     },
     validationSchema: validation,
     onSubmit: async (values) => {
-      const res = await request("/contact/send", "post", values)
-      console.log("onSubmit", res)
+      await request("/contact/send", "post", values)
       formik.resetForm()
-      if (res.data.status === 204) setSuccess(true)
-      if (res.error) setError(true)
+      console.log(data, error)
+      if (data.status === 204) setSuccess(true)
+      else if (error) setOpenError(true)
     },
   })
 
@@ -183,7 +182,11 @@ const Contact = () => {
         onClose={() => setSuccess(false)}
         message={t("Your_message_sent")}
       />
-      <ErrorDialog open={error} onClose={() => setError(false)} message={t("oops_went_wrong")} />
+      <ErrorDialog
+        open={openError}
+        onClose={() => setOpenError(false)}
+        message={t("oops_went_wrong")}
+      />
     </Container>
   )
 }
