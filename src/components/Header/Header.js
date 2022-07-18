@@ -3,6 +3,7 @@ import { useSelector } from "react-redux"
 import { useTranslation } from "react-i18next"
 import { AppBar, Box, Stack, Toolbar, useTheme } from "@mui/material"
 import { Logo } from "../Shared/Logo/Logo"
+import NavigationMobile from "../Shared/NavigationMobile/NavigationMobile"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import SignInButton from "../Shared/Buttons/SignInButton/SignInButton"
 import { getUserAuth } from "../../redux/userSelectors"
@@ -11,14 +12,13 @@ import { colors } from "../../constants/styles.js"
 import useStyles from "./styles"
 
 const UserControlBlock = lazy(() => import("../UserControlBlock/UserControlBlock"))
-const NavigationMobile = lazy(() => import("../Shared/NavigationMobile/NavigationMobile"))
 
 export default function Header() {
   const { t } = useTranslation()
   const auth = useSelector(getUserAuth)
   const classes = useStyles()
   const theme = useTheme()
-  console.log()
+
   return (
     <AppBar
       position="fixed"
@@ -56,9 +56,7 @@ export default function Header() {
               },
             }}
           >
-            <Suspense fallback={<div></div>}>
-              <NavigationMobile />
-            </Suspense>
+            <NavigationMobile />
           </Box>
           {!auth ? (
             <SignInButton />
