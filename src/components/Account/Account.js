@@ -2,9 +2,7 @@ import { Box, Container, Grid, useTheme } from "@mui/material"
 import ProfileSidebar from "../Shared/Sidebars/ProfileSidebar/ProfileSidebar"
 import { Outlet } from "react-router-dom"
 import useStyles from "./styles"
-import { colors } from "../../constants/styles"
 import ProfileSidebarMobile from "../Shared/Sidebars/ProfileSidebarMobile/ProfileSidebarMobile"
-import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const Account = () => {
   const classes = useStyles()
@@ -53,4 +51,4 @@ const Account = () => {
   )
 }
 
-export default withSuspenseAdding(Account)
+export default Account

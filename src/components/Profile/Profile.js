@@ -22,7 +22,6 @@ import { validationSchema } from "./vaildation"
 import { setUserInfo } from "../../redux/userSlice"
 import { getUserInfo } from "../../redux/userSelectors"
 import useStyles from "./styles"
-import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const Profile = () => {
   const { t } = useTranslation()
@@ -115,18 +114,7 @@ const Profile = () => {
                   />
                 </Grid>
               </Grid>
-              {/*<Grid item>*/}
-              {/*  <Typography variant="caption" fontWeight="bold">*/}
-              {/*    Personal Information*/}
-              {/*  </Typography>*/}
-              {/*  <Grid item>*/}
-              {/*    <Typography variant="caption">*/}
-              {/*      {*/}
-              {/*        "Provide your personal information. This won't be a part of your public profile."*/}
-              {/*      }*/}
-              {/*    </Typography>*/}
-              {/*  </Grid>*/}
-              {/*</Grid>*/}
+
               <Grid
                 container
                 sx={{ display: "flex", flexDirection: "row" }}
@@ -181,4 +169,4 @@ const Profile = () => {
   )
 }
 
-export default withSuspenseAdding(Profile)
+export default Profile

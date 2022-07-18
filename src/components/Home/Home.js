@@ -7,7 +7,6 @@ import { useEffect, useState } from "react"
 import PostsSceleton from "../PostsSceleton/PostsSceleton"
 import Typography from "@mui/material/Typography"
 import { useFetch } from "../../hooks/useFetch"
-import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const Home = () => {
   const { data, error, loading } = useFetch("/posts?take=3")
@@ -43,4 +42,4 @@ const Home = () => {
   )
 }
 
-export default withSuspenseAdding(Home)
+export default Home

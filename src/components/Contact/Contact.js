@@ -12,7 +12,6 @@ import { useTranslation } from "react-i18next"
 import { useFormik } from "formik"
 import { validationSchema } from "./validationSchema"
 import { sendMessage } from "./utils"
-import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const Contact = () => {
   const { t } = useTranslation()
@@ -172,4 +171,4 @@ const Contact = () => {
   )
 }
 
-export default withSuspenseAdding(Contact)
+export default Contact

@@ -7,7 +7,6 @@ import { Question } from "../Shared/Accordions/Question/Question"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import { useTranslation } from "react-i18next"
-import { withSuspenseAdding } from "../../hocs/withSuspenseAdding"
 
 const AdminFAQ = () => {
   const { t } = useTranslation()
@@ -50,4 +49,4 @@ const AdminFAQ = () => {
   )
 }
 
-export default withSuspenseAdding(AdminFAQ)
+export default AdminFAQ
