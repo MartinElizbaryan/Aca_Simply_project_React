@@ -7,9 +7,8 @@ export default function PostNotFound() {
   return (
     <Container sx={{ marginBottom: "40px" }}>
       <Box className={classes.text_div}>
-        <Typography className={classes.number}>404</Typography>
+        <Typography className={classes.number}>Post does not exist.</Typography>
       </Box>
-      <Typography className={classes.miniText}>Post not exist.</Typography>
     </Container>
   )
 }
