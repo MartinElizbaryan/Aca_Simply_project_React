@@ -14,14 +14,16 @@ import { validation } from "./validation"
 import { SuccessDialog } from "../Shared/Dialogs/SuccessDialog/SuccessDialog"
 import { ErrorDialog } from "../Shared/Dialogs/ErrorDialog/ErrorDialog"
 import { useState } from "react"
-import { sendMessage } from "./utils"
+import useLazyFetch from "../../hooks/useLazyFetch"
 
 const Contact = () => {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
+  const request = useLazyFetch()
   const { t } = useTranslation()
   const classes = useStyles()
   const theme = useTheme()
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -32,14 +34,11 @@ const Contact = () => {
     },
     validationSchema: validation,
     onSubmit: async (values) => {
-      try {
-        const res = await sendMessage(values)
-        formik.resetForm()
-        if (res.status === 204) setSuccess(true)
-        if (res.error) setError(true)
-      } catch (e) {
-        setError(true)
-      }
+      const res = await request("/contact/send", "post", values)
+      console.log("onSubmit", res)
+      formik.resetForm()
+      if (res.data.status === 204) setSuccess(true)
+      if (res.error) setError(true)
     },
   })
 

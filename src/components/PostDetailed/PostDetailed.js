@@ -27,7 +27,7 @@ import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
 import PostsSceletonSingle from "../PostsSceletonSingle/PostsSceletonSingle"
 import api from "../../api/api"
 import { useFetch } from "../../hooks/useFetch"
-import { getUserInfo } from "../../redux/user/userSelectors"
+import { getUserInfo, getUserIsAdmin } from "../../redux/user/userSelectors"
 import { getUserFullName } from "../../helpers/utils"
 import emptyImage from "../../assets/adspy_loading_animation.gif"
 import useStyles from "./styles"
@@ -40,6 +40,7 @@ const PostDetailed = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const user = useSelector(getUserInfo)
+  const is_admin = useSelector(getUserIsAdmin)
   const { data, error, loading } = useFetch(`/posts/${id}/with-questions`)
 
   const classes = useStyles()
@@ -47,6 +48,14 @@ const PostDetailed = () => {
   const date = moment(post?.created_at).format("LLLL")
 
   useEffect(() => {
+    console.log(data?.post?.trusted, "trusted")
+    console.log(is_admin, "is_admin")
+
+    if (data?.post?.trusted === false && !is_admin) {
+      if (data.post.user_id !== user.id) {
+        navigate("/profile/my-posts")
+      }
+    }
     setPost(data.post)
     data.post?.questions.forEach((question) => {
       question.answers[0].checked = true

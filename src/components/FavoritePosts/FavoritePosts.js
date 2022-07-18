@@ -3,23 +3,19 @@ import Box from "@mui/material/Box"
 import { useFetch } from "../../hooks/useFetch"
 import { useEffect, useState } from "react"
 import PostsSceleton from "../PostsSceleton/PostsSceleton"
-import api from "../../api/api"
-import { useDispatch } from "react-redux"
-import { setIsLoading } from "../../redux/loading/loadingSlice"
+import useLazyFetch from "../../hooks/useLazyFetch"
 
 const FavoritePosts = () => {
-  const dispatch = useDispatch()
   const { data, error, loading, reFetch: reFetchFavorites } = useFetch("/posts/favorites")
   const [posts, setPosts] = useState([])
+  const request = useLazyFetch()
 
   useEffect(() => {
     setPosts(data.posts)
   }, [data])
 
   const deleteFavorite = async (id) => {
-    dispatch(setIsLoading())
-    await api.delete(`/favorites/${id}`)
-    dispatch(setIsLoading())
+    const res = await request(`/favorites/${id}`, "delete")
     reFetchFavorites()
   }
 
