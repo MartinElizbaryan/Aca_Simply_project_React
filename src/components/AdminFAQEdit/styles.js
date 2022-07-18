@@ -3,7 +3,7 @@ import { colors } from "../../constants/styles"
 
 const useStyles = createUseStyles({
   container: {
-    paddingTop: "100px !important",
+    paddingTop: "20px !important",
     paddingBottom: "30px !important",
     color: colors.fontColor,
   },

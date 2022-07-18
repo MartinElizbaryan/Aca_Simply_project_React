@@ -27,7 +27,7 @@ const AdminFAQ = () => {
     <>
       <Container className={classes.container} maxWidth={false}>
         <Typography variant="h4" className={classes.header}>
-          FAQs
+          {t("FAQ")}
         </Typography>
         <Link url="/profile/faq/create">
           <BlueButton>{t("Create")}</BlueButton>
