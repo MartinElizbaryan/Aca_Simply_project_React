@@ -10,10 +10,15 @@ import { colors } from "../../constants/styles"
 import useStyles from "./styles"
 import { useTranslation } from "react-i18next"
 import { useFormik } from "formik"
-import { validationSchema } from "./validationSchema"
+import { validation } from "./validation"
+import { SuccessDialog } from "../Shared/Dialogs/SuccessDialog/SuccessDialog"
+import { ErrorDialog } from "../Shared/Dialogs/ErrorDialog/ErrorDialog"
+import { useState } from "react"
 import { sendMessage } from "./utils"
 
 const Contact = () => {
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(false)
   const { t } = useTranslation()
   const classes = useStyles()
   const theme = useTheme()
@@ -25,15 +30,22 @@ const Contact = () => {
       subject: "",
       message: "",
     },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log(values)
-      sendMessage(values)
+    validationSchema: validation,
+    onSubmit: async (values) => {
+      try {
+        const res = await sendMessage(values)
+        formik.resetForm()
+        if (res.status === 204) setSuccess(true)
+        if (res.error) setError(true)
+      } catch (e) {
+        setError(true)
+      }
     },
   })
+
   return (
     <Container className={classes.container} maxWidth={false}>
-      <Typography variant="h4" component={"h1"} color={theme.palette.mainColor}>
+      <Typography variant="h4" className={classes.header} color={theme.palette.mainColor}>
         {t("Contact_us")}
       </Typography>
       <Stack spacing={{ xs: 3, sm: 10, md: 20 }} direction={{ xs: "column", sm: "row" }}>
@@ -167,6 +179,12 @@ const Contact = () => {
           </Grid>
         </Stack>
       </Stack>
+      <SuccessDialog
+        open={success}
+        onClose={() => setSuccess(false)}
+        message={t("Your_message_sent")}
+      />
+      <ErrorDialog open={error} onClose={() => setError(false)} message={t("oops_went_wrong")} />
     </Container>
   )
 }
