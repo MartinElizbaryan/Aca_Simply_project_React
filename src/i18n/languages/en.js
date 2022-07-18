@@ -129,7 +129,7 @@ const en = {
     "Confirm your registration through the verification link which has sent to the given email address and then you can manage the account details now. Use email address for login to your account.",
   Step3: "Step 3: Start reporting",
   Step3_text:
-    "You can start creating the ad for the lost or found items now to claim the item to the rightful owner. Then we will post the ad on the large community where everybody can potentially take action in searching for what you have lost.",
+    "You can start creating the post for the lost or found items now to claim the item to the rightful owner. Then we will post the post on the large community where everybody can potentially take action in searching for what you have lost.",
   Cancel: "Cancel",
 }
 
