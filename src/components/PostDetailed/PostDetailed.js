@@ -54,9 +54,6 @@ const PostDetailed = () => {
   const date = moment(post?.created_at).format("LLLL")
 
   useEffect(() => {
-    console.log(data?.post?.trusted, "trusted")
-    console.log(is_admin, "is_admin")
-
     if (data?.post?.trusted === false && !is_admin) {
       if (data.post.user_id !== user.id) {
         navigate("/profile/my-posts")
@@ -194,6 +191,7 @@ const PostDetailed = () => {
                 }}
               >
                 <HeartButton post={post} />
+
                 {post?.user_id !== user?.id ? (
                   <>
                     {showConfirmer()}
