@@ -11,13 +11,7 @@ export function Message({ type, message, isSeen, createdAt }) {
 
   return (
     <ListItem className={classes[type]}>
-      <Tooltip
-        title={date}
-        // placement={type === "from" ? "left" : "right"}
-        placement="button"
-        enterTouchDelay={0}
-        PopperProps={{ disablePortal: true }}
-      >
+      <Tooltip title={date} placement="bottom" enterTouchDelay={0} arrow>
         <Grid className={classes.box}>
           <ListItemText
             primaryTypographyProps={{ fontSize: "0.8125rem" }}
