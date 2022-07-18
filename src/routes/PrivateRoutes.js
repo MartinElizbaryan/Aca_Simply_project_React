@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom"
 import { useSelector } from "react-redux"
-import { getUserAuth, getUserIsAdmin } from "../redux/userSelectors"
+import { getUserAuth, getUserIsAdmin } from "../redux/user/userSelectors"
 
 export const AuthorizedUserPrivateRoute = () => {
   const auth = useSelector(getUserAuth)

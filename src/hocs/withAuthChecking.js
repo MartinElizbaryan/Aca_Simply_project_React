@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import { getUserAuth } from "../redux/userSelectors"
+import { getUserAuth } from "../redux/user/userSelectors"
 
 export const withAuthChecking = (Component) => {
   return (props) => {

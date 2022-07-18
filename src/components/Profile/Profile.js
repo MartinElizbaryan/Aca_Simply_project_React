@@ -19,8 +19,8 @@ import UnlabeledInput from "../Shared/Inputs/UnlabeledInput/UnlabeledInput"
 import { SuccessDialog } from "../Shared/Dialogs/SuccessDialog/SuccessDialog"
 import { editUserInfo } from "./utils"
 import { validationSchema } from "./vaildation"
-import { setUserInfo } from "../../redux/userSlice"
-import { getUserInfo } from "../../redux/userSelectors"
+import { setUserInfo } from "../../redux/user/userSlice"
+import { getUserInfo } from "../../redux/user/userSelectors"
 import useStyles from "./styles"
 
 const Profile = () => {

@@ -10,6 +10,7 @@ const useStyles = createUseStyles({
     display: "flex",
     alignItems: "center",
     cursor: "pointer",
+    padding: "5px 5px 0 0",
     "&:hover": {
       color: "rgb(184, 231, 251)",
     },

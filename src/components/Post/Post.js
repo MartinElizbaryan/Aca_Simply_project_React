@@ -25,7 +25,7 @@ import BlurBox from "../Shared/BlurBox/BlurBox"
 import EditPost from "../EditPost/EditPost"
 import { getUserFullName } from "../../helpers/utils"
 import { CLOUDINARY_BASE_URL } from "../../constants/constants"
-import { getUserIsAdmin } from "../../redux/userSelectors"
+import { getUserIsAdmin } from "../../redux/user/userSelectors"
 import emptyImage from "../../assets/adspy_loading_animation.gif"
 import useStyles from "./styles"
 
@@ -34,8 +34,7 @@ export default function Post({
   deletePost,
   trustPost,
   editable,
-  // changeable,
-  // pending,
+  changeable,
   deleteFromMyFavorites,
 }) {
   const [openEditPost, setOpenEditPost] = useState(false)
@@ -67,7 +66,7 @@ export default function Post({
               <VisibilityIcon />
               <Typography fontWeight="bold">{post.views}</Typography>
               <Box>
-                {(editable || isAdmin) && (
+                {changeable && (
                   <IconButton onClick={() => deletePost(post.id)}>
                     <DeleteIcon />
                   </IconButton>
@@ -87,7 +86,6 @@ export default function Post({
         }
       />
       <Divider />
-      {/*{changeable && <div>{post.completed ? "is Closed" : "is Opened"}</div>}*/}
       <Box sx={{ position: "relative", textAlign: "center" }}>
         <CardMedia
           component="img"
@@ -95,7 +93,7 @@ export default function Post({
           image={img}
           alt={img}
           sx={{
-            filter: "blur(7px)",
+            filter: (!post.trusted || post.completed) && "blur(7px)",
           }}
         />
         {!post.trusted && <BlurBox>Pending...</BlurBox>}
@@ -124,11 +122,15 @@ export default function Post({
         }}
       >
         <HeartButton post={post} deleteFromMyFavorites={deleteFromMyFavorites} />
-        {editable && <BlueButton onClick={() => toggleOpenEditPost(true)}>{t("Edit")}</BlueButton>}
-        <EditPost post={post} open={openEditPost} toggleOpen={toggleOpenEditPost} />
-        <Link url={`/posts/${post.id}`}>
-          <BlueButton>{t("See_details")}</BlueButton>
-        </Link>
+        <Box sx={{ display: "flex", gap: 1 }}>
+          {editable && (
+            <BlueButton onClick={() => toggleOpenEditPost(true)}>{t("Edit")}</BlueButton>
+          )}
+          <EditPost post={post} open={openEditPost} toggleOpen={toggleOpenEditPost} />
+          <Link url={`/posts/${post.id}`}>
+            <BlueButton>{t("See_details")}</BlueButton>
+          </Link>
+        </Box>
       </CardActions>
     </Card>
   )
