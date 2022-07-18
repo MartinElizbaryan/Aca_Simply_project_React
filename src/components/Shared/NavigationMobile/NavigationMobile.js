@@ -1,62 +1,23 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { lazy, Suspense, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useDispatch, useSelector } from "react-redux"
-import {
-  Box,
-  Collapse,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  SwipeableDrawer,
-  Typography,
-  useTheme,
-} from "@mui/material"
-import LogoutIcon from "@mui/icons-material/Logout"
-import PersonIcon from "@mui/icons-material/Person"
+import { useSelector } from "react-redux"
+import { Box, List, ListItemButton, SwipeableDrawer, useTheme } from "@mui/material"
 import WidgetsIcon from "@mui/icons-material/Widgets"
-import AccountCircle from "@mui/icons-material/AccountCircle"
 import { CustomLink as Link } from "../Links/CustomLink/CustomLink"
 import { TransparentButton } from "../Buttons/TransparentButton/TransparentButton"
 import { navlist } from "../../Header/constants"
-// import socket from "../../../helpers/socket"
-import { signOut } from "../../Header/utils"
 import { getUserAuth, getUserInfo } from "../../../redux/userSelectors"
-import { deleteUserInfo } from "../../../redux/userSlice"
 
-// console.log("awdawd")
+const NavigationMobileProfile = lazy(() => import("./NavigationMobileProfile"))
 
 export default function NavigationMobile() {
   const [open, setOpen] = useState(false)
-  const [openProfile, setOpenProfile] = useState(false)
   const { t } = useTranslation()
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
   const user = useSelector(getUserInfo)
   const auth = useSelector(getUserAuth)
   const theme = useTheme()
   const toggleDrawer = (open) => () => {
     setOpen(open)
-  }
-
-  const toggleOpenProfile = () => {
-    setOpenProfile(!openProfile)
-  }
-
-  const handleSignOutClick = async () => {
-    const status = await signOut()
-    if (status === 204) {
-      dispatch(deleteUserInfo())
-      // socket.removeAllListeners()
-      // socket.disconnect()
-      toggleDrawer(false)()
-      navigate("/signin")
-    }
-  }
-
-  const handleMyProfileClick = () => {
-    toggleDrawer(false)()
-    navigate("/profile")
   }
 
   return (
@@ -74,34 +35,9 @@ export default function NavigationMobile() {
         <Box sx={{ width: 200 }} role="presentation">
           <List component="div" disablePadding>
             {auth && (
-              <>
-                <ListItemButton sx={{ padding: 2 }} onClick={toggleOpenProfile}>
-                  <AccountCircle />
-                  <Typography ml={2}>{user.name}</Typography>
-                </ListItemButton>
-                <Collapse in={openProfile} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    <ListItemButton
-                      sx={{ padding: 2, paddingLeft: 4 }}
-                      onClick={handleMyProfileClick}
-                    >
-                      <ListItemIcon>
-                        <PersonIcon fontSize="small" />
-                      </ListItemIcon>
-                      {t("My_Profile")}
-                    </ListItemButton>
-                    <ListItemButton
-                      sx={{ padding: 2, paddingLeft: 4 }}
-                      onClick={handleSignOutClick}
-                    >
-                      <ListItemIcon>
-                        <LogoutIcon fontSize="small" />
-                      </ListItemIcon>
-                      {t("Sign_Out")}
-                    </ListItemButton>
-                  </List>
-                </Collapse>
-              </>
+              <Suspense fallback={<div></div>}>
+                <NavigationMobileProfile user={user} toggleDrawer={toggleDrawer} />
+              </Suspense>
             )}
 
             {navlist?.map((link, index) => {
