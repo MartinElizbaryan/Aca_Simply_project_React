@@ -9,6 +9,7 @@ import api from "../../api/api"
 import { updatePost } from "./utils"
 import validationSchema from "./validationSchema"
 import { getUserFullName } from "../../helpers/utils"
+import { AlertDialog } from "../Shared/Dialogs/AlertDialog/AlertDialog"
 
 const EditPost = ({ open, toggleOpen, post }) => {
   const navigate = useNavigate()
@@ -18,6 +19,7 @@ const EditPost = ({ open, toggleOpen, post }) => {
   const [confirmer, setConfirmer] = useState(post.confirmer)
   const [deletedImages, setDeletedImages] = useState([])
   const [previewSource, setPreviewSource] = useState([])
+  const [openConfirmAlert, setOpenConfirmAlert] = useState(false)
 
   const formik = useFormik({
     initialValues: {
@@ -86,6 +88,15 @@ const EditPost = ({ open, toggleOpen, post }) => {
         </Grid>
         <Button sx={{ display: "none" }} type="submit"></Button>
       </form>
+      <AlertDialog
+        open={openConfirmAlert}
+        title={t("Are_you_sure")}
+        message={t("Complete_message")}
+        handleClose={() => {
+          setOpenConfirmAlert(false)
+        }}
+        handleOk={deleteConfirmer}
+      />
     </PostPopup>
   )
 }
