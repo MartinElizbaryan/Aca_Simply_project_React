@@ -28,7 +28,7 @@ export default function Radios({ answer, answerIndex, questionIndex, formik }) {
           }}
         />
       </FormGroup>
-      <IconButton aria-label="delete" color="error">
+      <IconButton color="error">
         <DeleteIcon />
       </IconButton>
     </Grid>

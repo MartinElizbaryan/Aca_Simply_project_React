@@ -1,15 +1,15 @@
 import React from "react"
+import { useTranslation } from "react-i18next"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
 import { IconButton } from "@mui/material"
 import RadioGroup from "@mui/material/RadioGroup"
-import useStyles from "./style"
 import DeleteIcon from "@mui/icons-material/Delete"
 import TextField from "@mui/material/TextField"
 import Variant from "../Variant/Variant"
-import { useTranslation } from "react-i18next"
+import useStyles from "./style"
 
-export default function Quetion({ questionIndex, question, formik }) {
+export default function Question({ questionIndex, question, formik }) {
   const { t } = useTranslation()
   const classes = useStyles()
   return (
@@ -46,16 +46,12 @@ export default function Quetion({ questionIndex, question, formik }) {
               formik.errors.questions[questionIndex].title
             }
           />
-          <IconButton aria-label="delete" size="large">
+          <IconButton size="large">
             <DeleteIcon fontSize="inherit" color="error" />
           </IconButton>
         </Grid>
       </Grid>
-      <RadioGroup
-        aria-labelledby="demo-radio-buttons-group-label"
-        defaultValue="female"
-        name="radio-buttons-group"
-      >
+      <RadioGroup name="radio-buttons-group">
         <Variant formik={formik} answers={question.answers} questionIndex={questionIndex} />
       </RadioGroup>
     </Box>

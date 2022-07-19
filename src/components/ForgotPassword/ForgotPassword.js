@@ -13,12 +13,10 @@ import {
 } from "@mui/material"
 import { InputField } from "../Shared/Inputs/InputField/InputField"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
+import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import { changePassword, forgotPasswordRequest, sixDigitRequest } from "./utils"
 import { validationSchema, validationSchemaCode, validationSchemaNewPassword } from "./validation"
 import useStyles from "./styles"
-import { colors } from "../../constants/styles"
-import { color } from "@mui/system"
-import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 
 export default function ForgotPassword() {
   const [open, setOpen] = useState(false)

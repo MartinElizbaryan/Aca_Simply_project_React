@@ -19,11 +19,11 @@ export const validation = yup.object().shape({
   type: yup.string("Enter Type").required("Type is required"),
   questions: yup.array().of(
     yup.object().shape({
-      title: yup.string("Enter Question title").required("required-field"),
+      title: yup.string("Enter Question title").required("Required field"),
       answers: yup.array().of(
         yup.object().shape({
           title: yup.string("Enter answer title"),
-          status: yup.boolean("Must be checked").required("required-field"),
+          status: yup.boolean("Must be checked").required("Required field"),
         })
       ),
     })
