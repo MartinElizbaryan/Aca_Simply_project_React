@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useFormik } from "formik"
 import { useTranslation } from "react-i18next"
 import {
@@ -20,8 +20,9 @@ import PasswordInput from "../Shared/Inputs/PasswordInput/PasswordInput"
 import { SuccessDialog } from "../Shared/Dialogs/SuccessDialog/SuccessDialog"
 import { validationSchema } from "./vaildation"
 import socket from "../../helpers/socket"
-import { changePassword, signOutFromOtherDevices } from "./utils"
+import { signOutFromOtherDevices } from "./utils"
 import useStyles from "./styles"
+import useLazyFetch from "../../hooks/useLazyFetch"
 
 const Security = () => {
   const { t } = useTranslation()
@@ -29,6 +30,7 @@ const Security = () => {
   const [error, setError] = useState(false)
   const [openDialog, setOpenDialog] = useState(false)
   const [openPasswordChange, setOpenPasswordChange] = useState(true)
+  const { data, error: errorFromRequest, apiRequest } = useLazyFetch()
 
   const classes = useStyles()
 
@@ -42,14 +44,17 @@ const Security = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async ({ currentPassword, newPassword, confirmPassword }) => {
-      try {
-        const res = await changePassword({ currentPassword, newPassword, confirmPassword })
-        if (res.status === 204) setSuccess(true)
-      } catch (e) {
-        setError(true)
-      }
+      await apiRequest("/users/change-password", "patch", {
+        currentPassword,
+        newPassword,
+        confirmPassword,
+      })
     },
   })
+  useEffect(() => {
+    if (data.status === 204) setSuccess(true)
+    else if (errorFromRequest) setError(true)
+  }, [data])
 
   return (
     <Container sx={{ paddingTop: 1, marginBottom: 1 }}>
