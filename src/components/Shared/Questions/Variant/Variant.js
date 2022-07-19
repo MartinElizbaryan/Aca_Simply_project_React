@@ -29,7 +29,7 @@ export default function Variant({ answers, questionIndex, formik }) {
     <Grid container spacing={2} p={2}>
       <Grid item xs={12} display="flex" alignItems="center">
         <Grid container spacing={2}>
-          <Grid item xs={12} display="flex" alignItems="center">
+          <Grid item xs={12} display="flex" alignItems="center" onClick={addVariantRadio}>
             <TextField
               className={classes.input}
               fullWidth
@@ -45,7 +45,7 @@ export default function Variant({ answers, questionIndex, formik }) {
               // error={error}
               // helperText={error}
             />
-            <AddButton onClick={addVariantRadio} />
+            <AddButton />
           </Grid>
         </Grid>
       </Grid>
