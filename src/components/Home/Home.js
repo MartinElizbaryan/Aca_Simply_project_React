@@ -7,10 +7,15 @@ import { useEffect, useState } from "react"
 import PostsSceleton from "../PostsSceleton/PostsSceleton"
 import Typography from "@mui/material/Typography"
 import { useFetch } from "../../hooks/useFetch"
+import { useTheme } from "@mui/material"
+import { useTranslation } from "react-i18next"
 
 const Home = () => {
-  const { data, error, loading } = useFetch("/posts?take=3")
+  const { data, error, loading } = useFetch("/posts?take=6")
   const [posts, setPosts] = useState([])
+  const { t } = useTranslation()
+
+  const theme = useTheme()
 
   useEffect(() => {
     setPosts(data.posts)
@@ -28,7 +33,7 @@ const Home = () => {
           )
         ) : (
           <Typography variant="h5" textAlign="center">
-            No Content found
+            Sorry! There are no posts to show you.
           </Typography>
         )}
       </Box>
