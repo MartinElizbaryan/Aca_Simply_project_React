@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useFormik } from "formik"
 import {
@@ -14,7 +14,7 @@ import {
 import { InputField } from "../Shared/Inputs/InputField/InputField"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
-import { changePassword, forgotPasswordRequest, sixDigitRequest } from "./utils"
+import useLazyFetch from "../../hooks/useLazyFetch"
 import { validationSchema, validationSchemaCode, validationSchemaNewPassword } from "./validation"
 import useStyles from "./styles"
 
@@ -26,6 +26,17 @@ export default function ForgotPassword() {
   const [isVisible, setIsVisible] = useState(false)
   const [isVisible2, setIsVisible2] = useState(false)
   const [errMessage, setErrMessage] = useState("")
+  const {
+    data: emailRequestData,
+    error: emailRequestError,
+    apiRequest: emailRequest,
+  } = useLazyFetch()
+  const { data: codeRequestData, error: codeRequestError, apiRequest: codeRequest } = useLazyFetch()
+  const {
+    data: passwordRequestData,
+    error: passwordRequestError,
+    apiRequest: passwordRequest,
+  } = useLazyFetch()
 
   const navigate = useNavigate()
 
@@ -33,22 +44,47 @@ export default function ForgotPassword() {
     setOpen(false)
   }
 
+  useEffect(() => {
+    if (emailRequestData.status) {
+      setOpenCodeInput(true)
+      setOpen(false)
+    } else if (emailRequestError) {
+      setOpen(true)
+      setOpenCodeInput(false)
+      setErrMessage(emailRequestError.response.data.details)
+    }
+  }, [emailRequestData, emailRequestError])
+
+  useEffect(() => {
+    if (codeRequestData.status) {
+      setOpenCodeInput(false)
+      setOpenNewPasswordInput(true)
+      setOpenEmailInput(false)
+      setOpen(false)
+    } else if (codeRequestError) {
+      setErrMessage(codeRequestError.response.data.details)
+      setOpenNewPasswordInput(false)
+      setOpen(true)
+    }
+  }, [codeRequestData, codeRequestError])
+
+  useEffect(() => {
+    if (passwordRequestData.status) {
+      navigate("/signin")
+      setOpen(false)
+    } else if (passwordRequestError) {
+      setErrMessage(passwordRequestError.response.data.details)
+      setOpen(true)
+    }
+  }, [passwordRequestData, passwordRequestError])
+
   const formik = useFormik({
     initialValues: {
       email: "",
     },
     validationSchema: validationSchema,
     onSubmit: async ({ email }) => {
-      try {
-        const status = await forgotPasswordRequest({ email })
-        setOpenCodeInput(true)
-        setOpen(false)
-      } catch (e) {
-        setOpen(true)
-        setOpenCodeInput(false)
-        setErrMessage(e.response.data.details)
-        console.log(e)
-      }
+      await emailRequest("/auth/forgot-password", "post", { email })
     },
   })
 
@@ -58,17 +94,7 @@ export default function ForgotPassword() {
     },
     validationSchema: validationSchemaCode,
     onSubmit: async ({ code }) => {
-      try {
-        const data = await sixDigitRequest({ code })
-        setOpenCodeInput(false)
-        setOpenNewPasswordInput(true)
-        setOpenEmailInput(false)
-        setOpen(false)
-      } catch (e) {
-        setErrMessage(e.response.data.details)
-        setOpenNewPasswordInput(false)
-        setOpen(true)
-      }
+      await codeRequest("/auth/verify-code", "post", { code })
     },
   })
 
@@ -79,18 +105,11 @@ export default function ForgotPassword() {
     },
     validationSchema: validationSchemaNewPassword,
     onSubmit: async ({ password, confirmPassword }) => {
-      try {
-        const data = await changePassword({
-          code: formikCode.values.code,
-          password: password,
-          confirmPassword: confirmPassword,
-        })
-        navigate("/signin")
-        setOpen(false)
-      } catch (e) {
-        setErrMessage(e.response.data.details)
-        setOpen(true)
-      }
+      await passwordRequest("/auth/change-password", "post", {
+        code: formikCode.values.code,
+        password: password,
+        confirmPassword: confirmPassword,
+      })
     },
   })
 
