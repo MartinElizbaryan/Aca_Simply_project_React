@@ -1,14 +1,16 @@
 import { lazy, Suspense, useState } from "react"
-import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
+import { useTranslation } from "react-i18next"
 import { Box, List, ListItemButton, SwipeableDrawer, useTheme } from "@mui/material"
 import WidgetsIcon from "@mui/icons-material/Widgets"
-import { CustomLink as Link } from "../Links/CustomLink/CustomLink"
-import { TransparentButton } from "../Buttons/TransparentButton/TransparentButton"
-import { navlist } from "../../Header/constants"
-import { getUserAuth, getUserInfo } from "../../../redux/user/userSelectors"
+import { CustomLink as Link } from "../../Links/CustomLink/CustomLink"
+import { TransparentButton } from "../../Buttons/TransparentButton/TransparentButton"
+import { getUserAuth, getUserInfo } from "../../../../redux/user/userSelectors"
+import { navlist } from "../../../Header/constants"
 
-const NavigationMobileProfile = lazy(() => import("./NavigationMobileProfile"))
+const NavigationMobileProfile = lazy(() =>
+  import("../NavigationMobileProfile/NavigationMobileProfile")
+)
 
 export default function NavigationMobile() {
   const [open, setOpen] = useState(false)
@@ -16,6 +18,7 @@ export default function NavigationMobile() {
   const user = useSelector(getUserInfo)
   const auth = useSelector(getUserAuth)
   const theme = useTheme()
+
   const toggleDrawer = (open) => () => {
     setOpen(open)
   }

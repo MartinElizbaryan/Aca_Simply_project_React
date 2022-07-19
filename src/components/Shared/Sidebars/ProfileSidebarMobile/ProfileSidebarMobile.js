@@ -26,7 +26,6 @@ export default function ProfileSidebarMobile() {
         <MenuIcon />
         <Typography sx={{ marginLeft: 2 }}>{getNameOfPage(location.pathname)}</Typography>
       </Button>
-      {/*<ListItem>{getNameOfPage(location.pathname)}</ListItem>*/}
       <SwipeableDrawer
         anchor="left"
         open={open}

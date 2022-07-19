@@ -23,23 +23,22 @@ import { setUserInfo } from "../../redux/user/userSlice"
 import connectToSocket from "../../helpers/connectToSocket"
 
 export default function SignIn() {
-  const { t } = useTranslation()
-  const dispatch = useDispatch()
-
   const [open, setOpen] = useState(false)
   const [errMessage, setErrMessage] = useState("")
   const [isVisible, setIsVisible] = useState(false)
   const { data, error, apiRequest } = useLazyFetch()
-
-  const theme = useTheme()
+  const { t } = useTranslation()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const theme = useTheme()
+
+  const classes = useStyles()
 
   const handleClose = () => {
     setOpen(false)
   }
 
   useEffect(() => {
-    console.log("useEffect")
     if (data.auth) {
       localStorage.setItem("accessToken", data.accessToken)
       dispatch(setUserInfo(data.user))
@@ -59,11 +58,9 @@ export default function SignIn() {
     validationSchema: validationSchema,
     onSubmit: async ({ email, password }) => {
       const res = await apiRequest("/auth/sign-in", "post", { email, password })
-      console.log("response")
     },
   })
-  console.log(data)
-  const classes = useStyles()
+
   return (
     <Box
       className={classes.totalBox}

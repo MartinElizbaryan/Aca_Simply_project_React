@@ -9,17 +9,17 @@ export const ListItemWithIcon = ({ icon, url, title }) => {
   const classes = useStyles()
 
   return (
-    <ListItemButton className={pathname === url && classes.clicked}>
-      <Link
-        to={url}
-        className={classes.link}
-        style={{
-          color: theme.palette.mainColor,
-        }}
-      >
+    <Link
+      to={url}
+      className={classes.link}
+      style={{
+        color: theme.palette.mainColor,
+      }}
+    >
+      <ListItemButton className={pathname === url && classes.clicked}>
         <ListItemIcon sx={pathname === url ? { color: colors.blue } : {}}>{icon}</ListItemIcon>
         <ListItemText primary={title} />
-      </Link>
-    </ListItemButton>
+      </ListItemButton>
+    </Link>
   )
 }

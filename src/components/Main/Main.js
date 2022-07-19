@@ -1,12 +1,12 @@
-import { Outlet } from "react-router-dom"
 import { useEffect, useRef, useState } from "react"
+import { useSelector } from "react-redux"
+import { Outlet } from "react-router-dom"
+import { useTheme } from "@mui/material"
 import Header from "../Header/Header"
 import Footer from "../Footer/Footer"
+import Loading from "../Shared/Loading/Loading"
 import { ScrollTopButton } from "../Shared/Buttons/ScrollTopButton/ScrollTopButton"
 import { scrollToTop } from "../../helpers/utils"
-import { Backdrop, useTheme } from "@mui/material"
-import CircularProgress from "@mui/material/CircularProgress"
-import { useSelector } from "react-redux"
 import { getIsLoading } from "../../redux/loading/loadingSelectors"
 
 const Main = ({ component: Component, ...rest }) => {
@@ -38,11 +38,7 @@ const Main = ({ component: Component, ...rest }) => {
       </main>
       <Footer />
 
-      {isLoading && (
-        <Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={true}>
-          <CircularProgress color="inherit" />
-        </Backdrop>
-      )}
+      {isLoading && <Loading />}
 
       {visible && <ScrollTopButton onClick={scrollToTop} />}
     </>

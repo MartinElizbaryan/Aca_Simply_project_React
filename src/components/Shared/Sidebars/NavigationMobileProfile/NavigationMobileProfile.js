@@ -1,16 +1,14 @@
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import { Collapse, List, ListItemButton, ListItemIcon, Typography } from "@mui/material"
 import AccountCircle from "@mui/icons-material/AccountCircle"
 import PersonIcon from "@mui/icons-material/Person"
 import LogoutIcon from "@mui/icons-material/Logout"
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { signOut } from "../../Header/utils"
-import { deleteUserInfo } from "../../../redux/user/userSlice"
-import socket from "../../../helpers/socket"
-import { useDispatch } from "react-redux"
-import { useTranslation } from "react-i18next"
-
-console.log("awdawd")
+import { signOut } from "../../../Header/utils"
+import { deleteUserInfo } from "../../../../redux/user/userSlice"
+import socket from "../../../../helpers/socket"
 
 export default function NavigationMobileProfile({ user, toggleDrawer }) {
   const [openProfile, setOpenProfile] = useState(false)

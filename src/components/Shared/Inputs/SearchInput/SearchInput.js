@@ -12,6 +12,13 @@ export default function SearchInput({ ...props }) {
           </InputAdornment>
         ),
       }}
+      sx={{
+        height: "40px",
+        "& div": {
+          borderRadius: 10,
+          height: "40px",
+        },
+      }}
       {...props}
     />
   )
