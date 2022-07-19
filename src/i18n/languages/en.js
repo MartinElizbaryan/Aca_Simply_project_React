@@ -34,7 +34,7 @@ const en = {
   See_details: "See details",
   Edit: "Edit",
   Category: "Category",
-  Trusted: "Trusted",
+  Trust: "Trust",
   Pending: "Pending",
   Lose_Search_Find: "Lose. Search. Find.",
   Anytime_Anyplace_Anywhere: "Anytime. Anyplace.",
@@ -140,6 +140,7 @@ const en = {
   Complete_message:
     "Your post will no longer be visible to other users. You can still find it in the My Posts section. Are you sure you want to continue?",
   Delete_message: "Post will be deleted. Are you sure you want to continue?",
+  Trusted_message: "This post will be visible to all users. Are you sure you want to continue?",
 }
 
 export default en

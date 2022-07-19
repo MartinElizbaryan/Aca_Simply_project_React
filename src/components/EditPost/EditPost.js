@@ -9,7 +9,6 @@ import api from "../../api/api"
 import { updatePost } from "./utils"
 import validationSchema from "./validationSchema"
 import { getUserFullName } from "../../helpers/utils"
-import useStyles from "./styles"
 
 const EditPost = ({ open, toggleOpen, post }) => {
   const navigate = useNavigate()
@@ -19,8 +18,6 @@ const EditPost = ({ open, toggleOpen, post }) => {
   const [confirmer, setConfirmer] = useState(post.confirmer)
   const [deletedImages, setDeletedImages] = useState([])
   const [previewSource, setPreviewSource] = useState([])
-
-  const classes = useStyles()
 
   const formik = useFormik({
     initialValues: {

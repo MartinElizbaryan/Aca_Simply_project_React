@@ -1,93 +1,100 @@
 import { useState } from "react"
+import { useSelector } from "react-redux"
 import { useTranslation } from "react-i18next"
-import { useNavigate } from "react-router-dom"
-import { IconButton, Menu, MenuItem } from "@mui/material"
-import MoreVertIcon from "@mui/icons-material/MoreVert"
+import { useNavigate, useParams } from "react-router-dom"
+import { MenuItem } from "@mui/material"
 import EditPost from "../../../EditPost/EditPost"
 import { AlertDialog } from "../../Dialogs/AlertDialog/AlertDialog"
 import api from "../../../../api/api"
-import { withPostCreatorChecking } from "../../../../hocs/withPostCreatorChecking"
+import { getUserInfo } from "../../../../redux/user/userSelectors"
+import { withAdminChecking } from "../../../../hocs/withAdminChecking"
 
-function PostAdminEditMenu({ post, ...props }) {
-  const [anchorEl, setAnchorEl] = useState(null)
+function PostAdminEditMenu({ post, handleMenuClose, ...props }) {
   const [openCompleteAlert, setOpenCompleteAlert] = useState(false)
-  const [openDeleteAlert, setOpenDeleteAlert] = useState(false)
   const [openEditPost, setOpenEditPost] = useState(false)
+  const [openTrustedAlert, setOpenTrustedAlert] = useState(false)
+  const user = useSelector(getUserInfo)
   const { t } = useTranslation()
+  const { id } = useParams()
   const navigate = useNavigate()
 
   const toggleOpenEditPost = (open) => {
     setOpenEditPost(open)
   }
 
-  const handleMenuClick = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
-
-  const handleMenuClose = () => {
-    setAnchorEl(null)
-  }
-
-  const deletePost = async () => {
-    setOpenDeleteAlert(false)
-    await api.delete(`/posts/${id}`)
-    navigate("/profile/my-posts")
-  }
-
   const changeCompleted = async () => {
-    setOpenDeleteAlert(false)
-    const res = await api.patch(`/posts/completed/${post.id}`)
+    setOpenCompleteAlert(false)
+    await api.patch(`/posts/completed/${post.id}`)
     navigate("/profile/my-posts")
+  }
+
+  const changeTrusted = async () => {
+    setOpenTrustedAlert(false)
+    await api.patch(`/admin/posts/trusted/${id}`)
+    navigate("/profile/pending-posts")
   }
 
   return (
     <>
-      <IconButton onClick={handleMenuClick}>
-        <MoreVertIcon />
-      </IconButton>
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
+      {user.id === post.user_id && (
+        <>
+          <MenuItem
+            onClick={() => {
+              setOpenEditPost(true)
+            }}
+          >
+            {t("Edit")}
+          </MenuItem>
+          {post.trusted && post.confirmer_id && post.completed && (
+            <MenuItem
+              onClick={() => {
+                setOpenCompleteAlert(true)
+              }}
+            >
+              {t("Complete")}
+            </MenuItem>
+          )}
+        </>
+      )}
+      {!post.trusted && (
         <MenuItem
           onClick={() => {
-            setAnchorEl(null)
-            setOpenEditPost(true)
+            setOpenTrustedAlert(true)
           }}
         >
-          {t("Edit")}
+          {t("Trust")}
         </MenuItem>
-        <MenuItem
-          onClick={() => {
-            setAnchorEl(null)
-            setOpenCompleteAlert(true)
-          }}
-        >
-          {t("Complete")}
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            setAnchorEl(null)
-            setOpenDeleteAlert(true)
-          }}
-        >
-          {t("Delete")}
-        </MenuItem>
-      </Menu>
+      )}
+      <EditPost
+        post={post}
+        open={openEditPost}
+        toggleOpen={(open) => {
+          toggleOpenEditPost(open)
+          handleMenuClose()
+        }}
+      />
       <AlertDialog
-        open={openDeleteAlert}
+        open={openTrustedAlert}
         title={t("Are_you_sure")}
-        message={t("Delete_message")}
-        handleClose={() => setOpenDeleteAlert(false)}
-        handleOk={deletePost}
+        message={t("Trusted_message")}
+        handleClose={() => {
+          setOpenTrustedAlert(false)
+          handleMenuClose()
+        }}
+        handleOk={changeTrusted}
       />
       <AlertDialog
         open={openCompleteAlert}
         title={t("Are_you_sure")}
         message={t("Complete_message")}
-        handleClose={() => setOpenDeleteAlert(false)}
+        handleClose={() => {
+          setOpenCompleteAlert(false)
+          handleMenuClose()
+        }}
         handleOk={changeCompleted}
       />
-      <EditPost post={post} open={openEditPost} toggleOpen={toggleOpenEditPost} />
     </>
   )
 }
 
-export default withPostCreatorChecking(PostAdminEditMenu)
+export default withAdminChecking(PostAdminEditMenu)

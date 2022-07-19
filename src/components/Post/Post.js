@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import {
   Box,
@@ -9,12 +8,10 @@ import {
   CardMedia,
   Chip,
   Divider,
-  IconButton,
   Stack,
   Typography,
 } from "@mui/material"
 import VisibilityIcon from "@mui/icons-material/Visibility"
-import BeenhereIcon from "@mui/icons-material/Beenhere"
 import DoneIcon from "@mui/icons-material/Done"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
@@ -25,8 +22,7 @@ import { getUserFullName } from "../../helpers/utils"
 import { CLOUDINARY_BASE_URL } from "../../constants/constants"
 import emptyImage from "../../assets/adspy_loading_animation.gif"
 
-export default function Post({ post, trustPost, admin, deleteFromMyFavorites }) {
-  const [trusted, setTrusted] = useState(post.trusted)
+export default function Post({ post, admin, deleteFromMyFavorites }) {
   const { t } = useTranslation()
 
   const img = post.images.length ? `${CLOUDINARY_BASE_URL}${post.images[0].src}` : emptyImage
@@ -40,25 +36,25 @@ export default function Post({ post, trustPost, admin, deleteFromMyFavorites }) 
         action={
           <>
             <Stack direction="row" spacing={2} sx={{ alignItems: "center", height: "50px" }}>
-              {trusted && (
+              {post.trusted && (
                 <>
                   <VisibilityIcon color="action" />
                   <Typography fontWeight="bold">{post.views}</Typography>
                 </>
               )}
               <Box>
-                {admin && (
-                  <IconButton
-                    onClick={() => {
-                      trustPost(post.id)
-                      setTrusted(true)
-                    }}
-                    color="primary"
-                    sx={{ marginLeft: 0 }}
-                  >
-                    <BeenhereIcon />
-                  </IconButton>
-                )}
+                {/*{admin && (*/}
+                {/*  <IconButton*/}
+                {/*    onClick={() => {*/}
+                {/*      trustPost(post.id)*/}
+                {/*      setTrusted(true)*/}
+                {/*    }}*/}
+                {/*    color="primary"*/}
+                {/*    sx={{ marginLeft: 0 }}*/}
+                {/*  >*/}
+                {/*    <BeenhereIcon />*/}
+                {/*  </IconButton>*/}
+                {/*)}*/}
               </Box>
             </Stack>
           </>

@@ -21,6 +21,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material"
+import LocationOnIcon from "@mui/icons-material/LocationOn"
 import Slider from "../Slider/Slider"
 import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
@@ -30,12 +31,12 @@ import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
 import PostsSceletonSingle from "../PostsSceletonSingle/PostsSceletonSingle"
 import api from "../../api/api"
 import { useFetch } from "../../hooks/useFetch"
-import { getUserInfo, getUserIsAdmin } from "../../redux/user/userSelectors"
+import { getUserId, getUserIsAdmin } from "../../redux/user/userSelectors"
 import { getUserFullName } from "../../helpers/utils"
 import emptyImage from "../../assets/adspy_loading_animation.gif"
 import VisibilityIcon from "@mui/icons-material/Visibility"
-import PostCreatorEditMenu from "../Shared/Menus/PostCreatorEditMenu/PostCreatorEditMenu"
 import DoneIcon from "@mui/icons-material/Done"
+import PostMenu from "../Shared/Menus/PostMenu/PostMenu"
 
 const PostDetailed = () => {
   const { id } = useParams()
@@ -46,14 +47,14 @@ const PostDetailed = () => {
 
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const user = useSelector(getUserInfo)
   const isAdmin = useSelector(getUserIsAdmin)
+  const userId = useSelector(getUserId)
 
   const date = moment(post?.created_at).format("LLLL")
 
   useEffect(() => {
     if (data?.post?.trusted === false && !isAdmin) {
-      if (data.post.user_id !== user.id) {
+      if (data.post.user_id !== userId) {
         navigate("/profile/my-posts")
       }
     }
@@ -67,7 +68,7 @@ const PostDetailed = () => {
   const showConfirmer = () => {
     const version = {
       [post?.confirmer_id]: <Chip label={t("already_confirmed")} variant="outlined" />,
-      [user?.id]: <Chip label={t("confirmed_by_yourself")} variant="outlined" />,
+      [userId]: <Chip label={t("confirmed_by_yourself")} variant="outlined" />,
       null: (
         <BlueButton onClick={toConfirm}>
           {post?.type === "FOUND" ? t("It_is_mine") : t("I_found")}
@@ -87,7 +88,7 @@ const PostDetailed = () => {
     try {
       const response = await api.patch(`/posts/confirmed/${id}`)
       if (response.status === 200) {
-        setPost({ ...post, confirmer_id: user.id })
+        setPost({ ...post, confirmer_id: userId })
       }
     } catch (err) {
       console.log(err)
@@ -115,7 +116,7 @@ const PostDetailed = () => {
       })
     setOpenQuestions(true)
   }
-  console.log(post)
+
   return (
     <Container size="md">
       <Box
@@ -143,11 +144,15 @@ const PostDetailed = () => {
                       spacing={2}
                       sx={{ alignItems: "center", height: "50px" }}
                     >
-                      <VisibilityIcon color="action" />
-                      <Typography fontWeight="bold" sx={{ marginRight: 2 }}>
-                        {post.views}
-                      </Typography>
-                      <PostCreatorEditMenu post={post} />
+                      {post.trusted && (
+                        <>
+                          <VisibilityIcon color="action" />
+                          <Typography fontWeight="bold" sx={{ marginRight: 2 }}>
+                            {post.views}
+                          </Typography>
+                        </>
+                      )}
+                      {(userId === post.user_id || isAdmin) && <PostMenu post={post} />}
                     </Stack>
                   </>
                 }
@@ -171,9 +176,12 @@ const PostDetailed = () => {
               )}
               <Divider />
               <CardContent>
-                <Typography variant="h6" color="text.dark" mb={3} fontWeight="bold">
-                  {post?.name}
-                </Typography>
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                  <Typography variant="h6" color="text.dark" mb={3} fontWeight="bold">
+                    {post?.name}
+                  </Typography>
+                  {post.address && <Chip icon={<LocationOnIcon />} label={post.address} />}
+                </Box>
                 <Typography variant="body2" color="text.secondary" mb={3}>
                   {post?.description}
                 </Typography>
@@ -181,15 +189,9 @@ const PostDetailed = () => {
                   icon={<DoneIcon />}
                   label={t(post.type)}
                   variant="outlined"
-                  onClick={() => {}}
                   sx={{ marginRight: 2 }}
                 />
-                <Chip
-                  icon={<DoneIcon />}
-                  label={t(post?.category?.name)}
-                  variant="outlined"
-                  onClick={() => {}}
-                />
+                <Chip icon={<DoneIcon />} label={t(post?.category?.name)} variant="outlined" />
               </CardContent>
               <Divider />
               <CardActions
@@ -201,7 +203,7 @@ const PostDetailed = () => {
               >
                 <HeartButton post={post} />
 
-                {post?.user_id !== user?.id && (
+                {post?.user_id !== userId && (
                   <>
                     {showConfirmer()}
                     <BlueButton onClick={handleStartChatButtonClick}>{t("Start_chat")}</BlueButton>
