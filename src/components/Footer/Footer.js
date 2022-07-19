@@ -21,7 +21,8 @@ import FacebookIcon from "@mui/icons-material/Facebook"
 import InstagramIcon from "@mui/icons-material/Instagram"
 import ThemeSwitch from "../Shared/Inputs/ThemeSwitch/ThemeSwitch"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
-import logo from "../../assets/logo-white.svg"
+//import logo from "../../assets/logo-white.svg"
+import WhiteLogo from "../../assets/WhiteLogo.png"
 import i18n from "../../i18n/languages/translations/translations"
 import { setThemeMode } from "../../redux/theme/themeSlice"
 import { getThemeMode } from "../../redux/theme/themeSelectors"
@@ -67,7 +68,7 @@ export default function Footer() {
       >
         <Grid container justifyContent="space-around">
           <Stack spacing={1} justifyContent="center" alignItems="center" textAlign="center">
-            <img src={logo} alt="logo" width={150} />
+            <img src={WhiteLogo} alt="logo" width={150} />
             <Typography variant="caption" color={colors.white}>
               &copy; 2022 JE&JE, {t("rights")}
             </Typography>
