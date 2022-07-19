@@ -17,6 +17,8 @@ import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import useLazyFetch from "../../hooks/useLazyFetch"
 import { validationSchema, validationSchemaCode, validationSchemaNewPassword } from "./validation"
 import useStyles from "./styles"
+import { useDispatch } from "react-redux"
+import { useTranslation } from "react-i18next"
 
 export default function ForgotPassword() {
   const [open, setOpen] = useState(false)
@@ -37,6 +39,7 @@ export default function ForgotPassword() {
     error: passwordRequestError,
     apiRequest: passwordRequest,
   } = useLazyFetch()
+  const { t } = useTranslation()
 
   const navigate = useNavigate()
 
@@ -117,19 +120,16 @@ export default function ForgotPassword() {
   return (
     <Box className={classes.totalBox}>
       <Box className={classes.central}>
-        <Typography className={classes.bigText}>Forgot Password</Typography>
+        <Typography className={classes.bigText}>{t("Forgot_Password")}</Typography>
       </Box>
       {!openCodeInput && openEmailInput && (
         <Box>
           <Box className={classes.central}>
             <form onSubmit={formik.handleSubmit} id="forgotPass">
-              <Typography className={classes.text1}>
-                No Problem! Enter your email below and we will send you an email with instruction to
-                reset your password.
-              </Typography>
+              <Typography className={classes.text1}>{t("No_problem")}</Typography>
               <InputField
                 account
-                placeholder={"Your email"}
+                placeholder={t("Your_email")}
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 name="email"
@@ -141,11 +141,11 @@ export default function ForgotPassword() {
           </Box>
           <Box className={classes.central2}>
             <BlueButton variant="contained" type="submit" form="forgotPass">
-              Send Code
+              {t("Send_Code")}
             </BlueButton>
             <Box className={classes.central3}>
               <Typography className={classes.text1}>
-                Back to
+                {t("Back_to")}
                 <Link url="/signin">{" Sign In"}</Link>
               </Typography>
             </Box>
@@ -160,13 +160,13 @@ export default function ForgotPassword() {
             </DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description" style={{ textAlign: "center" }}>
-                Your {errMessage}. <br />
-                Please try again.
+                {t("Your")} {errMessage}. <br />
+                {t("Pls_Try_Again")}
               </DialogContentText>
             </DialogContent>
             <DialogActions style={{ display: "flex", justifyContent: "center" }}>
               <Button onClick={handleClose} autoFocus>
-                Okay
+                {t("Okay")}
               </Button>
             </DialogActions>
           </Dialog>

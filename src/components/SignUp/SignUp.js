@@ -171,11 +171,11 @@ export default function SignUp() {
             }}
           >
             <DialogTitle id="alert-dialog-title" style={{ textAlign: "center" }}>
-              Success
+              {t("Success")}
             </DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description" style={{ textAlign: "center" }}>
-                Please go to your email and verify the registration
+                {t("Please_verify")}
               </DialogContentText>
             </DialogContent>
             <DialogActions style={{ display: "flex", justifyContent: "center" }}>

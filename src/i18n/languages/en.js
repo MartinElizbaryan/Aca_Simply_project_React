@@ -143,6 +143,13 @@ const en = {
   Trusted_message: "This post will be visible to all users. Are you sure you want to continue?",
   seen: "seen",
   sent: "sent",
+  Success: "Success",
+  Please_verify: "Please go to your email and verify the registration",
+  Forgot_Password: "Forgot Password",
+  No_problem:
+    "No Problem! Enter your email below and we will send you an email with instruction to reset your password.",
+  Send_Code: "Send Code",
+  Back_to: "Back to",
 }
 
 export default en
