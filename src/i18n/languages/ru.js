@@ -35,6 +35,7 @@ const ru = {
   Edit: "Редактировать",
   Category: "Категория",
   Trusted: "Подтвердить",
+  Trust: "Подтвердить",
   Pending: "В ожидании",
   Lose_Search_Find: "Потерял? Ищи. Найди.",
   Anytime_Anyplace_Anywhere: "В любое время. В любом месте.",

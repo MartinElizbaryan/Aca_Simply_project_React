@@ -35,6 +35,7 @@ const am = {
   Edit: "Խմբագրել",
   Category: "Կատեգորիա",
   Trusted: "Հաստատել",
+  Trust: "Հաստատել",
   Pending: "Ուղարկված է հաստատման",
   Lose_Search_Find: "Կորցրեցի՞ր: Որոնիր։ Գտիր:",
   Anytime_Anyplace_Anywhere: "Ցանկացած ժամանակ։ Ցանկացած վայրում։",
