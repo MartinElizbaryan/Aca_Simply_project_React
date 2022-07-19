@@ -22,7 +22,7 @@ export default function Variant({ answers, questionIndex, formik }) {
       // setError(t("Variant_empty"))
     }
 
-    // setVariant("")
+    setVariant("")
   }
   const classes = useStyles()
   return (
