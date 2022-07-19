@@ -34,7 +34,8 @@ import { getUserInfo, getUserIsAdmin } from "../../redux/user/userSelectors"
 import { getUserFullName } from "../../helpers/utils"
 import emptyImage from "../../assets/adspy_loading_animation.gif"
 import VisibilityIcon from "@mui/icons-material/Visibility"
-import PostEditMenu from "../Shared/Menus/PostCreatorEditMenu/PostCreatorEditMenu"
+import PostCreatorEditMenu from "../Shared/Menus/PostCreatorEditMenu/PostCreatorEditMenu"
+import DoneIcon from "@mui/icons-material/Done"
 
 const PostDetailed = () => {
   const { id } = useParams()
@@ -114,13 +115,16 @@ const PostDetailed = () => {
       })
     setOpenQuestions(true)
   }
-
+  console.log(post)
   return (
     <Container size="md">
       <Box
         sx={{
           marginTop: 10,
           marginBottom: 10,
+          margin: {
+            md: 10,
+          },
         }}
       >
         {loading ? (
@@ -137,11 +141,13 @@ const PostDetailed = () => {
                     <Stack
                       direction="row"
                       spacing={2}
-                      sx={{ alignItems: "center", height: "50px", marginRight: 2 }}
+                      sx={{ alignItems: "center", height: "50px" }}
                     >
                       <VisibilityIcon color="action" />
-                      <Typography fontWeight="bold">{post.views}</Typography>
-                      <PostEditMenu userId={post.user_id} />
+                      <Typography fontWeight="bold" sx={{ marginRight: 2 }}>
+                        {post.views}
+                      </Typography>
+                      <PostCreatorEditMenu post={post} />
                     </Stack>
                   </>
                 }
@@ -171,7 +177,19 @@ const PostDetailed = () => {
                 <Typography variant="body2" color="text.secondary" mb={3}>
                   {post?.description}
                 </Typography>
-                <Chip label={t(post?.category?.name)} variant="outlined" onClick={() => {}} />
+                <Chip
+                  icon={<DoneIcon />}
+                  label={t(post.type)}
+                  variant="outlined"
+                  onClick={() => {}}
+                  sx={{ marginRight: 2 }}
+                />
+                <Chip
+                  icon={<DoneIcon />}
+                  label={t(post?.category?.name)}
+                  variant="outlined"
+                  onClick={() => {}}
+                />
               </CardContent>
               <Divider />
               <CardActions

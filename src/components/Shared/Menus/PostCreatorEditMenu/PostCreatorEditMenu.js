@@ -83,7 +83,7 @@ function PostCreatorEditMenu({ post, ...props }) {
         open={openCompleteAlert}
         title={t("Are_you_sure")}
         message={t("Complete_message")}
-        handleClose={() => setOpenDeleteAlert(false)}
+        handleClose={() => setOpenCompleteAlert(false)}
         handleOk={changeCompleted}
       />
       <EditPost post={post} open={openEditPost} toggleOpen={toggleOpenEditPost} />
