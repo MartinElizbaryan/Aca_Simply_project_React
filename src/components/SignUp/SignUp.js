@@ -21,6 +21,7 @@ import useLazyFetch from "../../hooks/useLazyFetch"
 export default function SignUp() {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
+  const [openSuccessPopup, setOpenSuccessPopup] = useState(false)
   const [errMessage, setErrMessage] = useState("")
   const [isVisible, setIsVisible] = useState(false)
   const [isVisible2, setIsVisible2] = useState(false)
@@ -28,7 +29,8 @@ export default function SignUp() {
 
   useEffect(() => {
     if (data.status === 200) {
-      navigate("/signin")
+      setOpenSuccessPopup(true)
+
       setOpen(false)
     } else if (error) {
       setOpen(true)
@@ -151,6 +153,36 @@ export default function SignUp() {
               <Button
                 onClick={() => {
                   setOpen(false)
+                }}
+                autoFocus
+              >
+                {t("Okay")}
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </Box>
+      )}
+      {openSuccessPopup && (
+        <Box>
+          <Dialog
+            open={openSuccessPopup}
+            onClose={() => {
+              setOpenSuccessPopup(false)
+            }}
+          >
+            <DialogTitle id="alert-dialog-title" style={{ textAlign: "center" }}>
+              Success
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description" style={{ textAlign: "center" }}>
+                Please go to your email and verify the registration
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions style={{ display: "flex", justifyContent: "center" }}>
+              <Button
+                onClick={() => {
+                  setOpenSuccessPopup(false)
+                  navigate("/signin")
                 }}
                 autoFocus
               >
