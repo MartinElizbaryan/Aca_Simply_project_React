@@ -1,9 +1,9 @@
 import Grid from "@mui/material/Grid"
 import FormGroup from "@mui/material/FormGroup"
 import FormControlLabel from "@mui/material/FormControlLabel"
+import CancelIcon from "@mui/icons-material/Cancel"
 import Radio from "@mui/material/Radio"
 import { IconButton } from "@mui/material"
-import DeleteIcon from "@mui/icons-material/Delete"
 
 export default function Radios({ answer, answerIndex, questionIndex, formik }) {
   const handelDeleteAnswer = (questionIndex, answerIndex) => {
@@ -37,8 +37,8 @@ export default function Radios({ answer, answerIndex, questionIndex, formik }) {
           }}
         />
       </FormGroup>
-      <IconButton color="error" onClick={() => handelDeleteAnswer(questionIndex, answerIndex)}>
-        <DeleteIcon />
+      <IconButton onClick={() => handelDeleteAnswer(questionIndex, answerIndex)}>
+        <CancelIcon />
       </IconButton>
     </Grid>
   )

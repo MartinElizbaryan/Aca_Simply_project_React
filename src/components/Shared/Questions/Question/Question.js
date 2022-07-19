@@ -4,10 +4,10 @@ import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
 import { IconButton } from "@mui/material"
 import RadioGroup from "@mui/material/RadioGroup"
-import DeleteIcon from "@mui/icons-material/Delete"
 import TextField from "@mui/material/TextField"
 import Variant from "../Variant/Variant"
 import useStyles from "./style"
+import { Cancel } from "@mui/icons-material"
 
 export default function Question({ questionIndex, question, formik }) {
   const { t } = useTranslation()
@@ -56,8 +56,8 @@ export default function Question({ questionIndex, question, formik }) {
               formik.errors.questions[questionIndex].title
             }
           />
-          <IconButton size="large" onClick={() => handelDeleteQuestion(questionIndex)}>
-            <DeleteIcon fontSize="inherit" color="error" />
+          <IconButton onClick={() => handelDeleteQuestion(questionIndex)}>
+            <Cancel fontSize="inherit" />
           </IconButton>
         </Grid>
       </Grid>
