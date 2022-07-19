@@ -141,6 +141,8 @@ const en = {
     "Your post will no longer be visible to other users. You can still find it in the My Posts section. Are you sure you want to continue?",
   Delete_message: "Post will be deleted. Are you sure you want to continue?",
   Trusted_message: "This post will be visible to all users. Are you sure you want to continue?",
+  seen: "seen",
+  sent: "sent",
 }
 
 export default en
