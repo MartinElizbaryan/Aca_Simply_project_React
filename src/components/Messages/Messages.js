@@ -62,7 +62,6 @@ function Messages() {
     })
 
     return () => {
-      console.log("render off")
       socket.off("receive")
       socket.off("seenMessages")
     }

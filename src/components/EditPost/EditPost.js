@@ -1,16 +1,15 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import { useFormik } from "formik"
 import { Button, Chip, Grid } from "@mui/material"
+import PostInfoFields from "../PostInfoFields/PostInfoFields"
+import { PostPopup } from "../Shared/Dialogs/PostPopup/PostPopup"
 import api from "../../api/api"
 import { updatePost } from "./utils"
 import validationSchema from "./validationSchema"
-import useStyles from "./styles"
-import PostInfoFields from "../PostInfoFields/PostInfoFields"
-import { useTranslation } from "react-i18next"
-import TaskAltIcon from "@mui/icons-material/TaskAlt"
-import { PostPopup } from "../Shared/Dialogs/PostPopup/PostPopup"
 import { getUserFullName } from "../../helpers/utils"
+import useStyles from "./styles"
 
 const EditPost = ({ open, toggleOpen, post }) => {
   const navigate = useNavigate()
@@ -37,6 +36,7 @@ const EditPost = ({ open, toggleOpen, post }) => {
       await updatePost(post.id, navigate, values, deletedImages, previewSource)
     },
   })
+
   const handlePopupClose = () => {
     setPreviewSource([])
     formik.resetForm()
@@ -61,16 +61,6 @@ const EditPost = ({ open, toggleOpen, post }) => {
     setConfirmer(null)
   }
 
-  const changeCompleted = async () => {
-    const res = await api.patch(`/posts/completed/${post.id}`)
-    navigate("/profile/my-posts")
-  }
-
-  const deletePost = async () => {
-    await api.delete(`/posts/${post.id}`)
-    navigate("/profile/my-posts")
-  }
-
   return (
     <PostPopup
       open={open}
@@ -87,14 +77,6 @@ const EditPost = ({ open, toggleOpen, post }) => {
                 variant="outlined"
                 onDelete={deleteConfirmer}
               />
-              {!post.completed && (
-                <Chip
-                  label={"Complete"}
-                  variant="outlined"
-                  icon={<TaskAltIcon />}
-                  onClick={changeCompleted}
-                />
-              )}
             </Grid>
           )}
           <PostInfoFields

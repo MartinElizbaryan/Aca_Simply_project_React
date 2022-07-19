@@ -10,7 +10,6 @@ import "swiper/css/navigation"
 import "swiper/css/thumbs"
 import {
   Box,
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -19,6 +18,7 @@ import {
   Chip,
   Container,
   Divider,
+  Stack,
   Typography,
 } from "@mui/material"
 import Slider from "../Slider/Slider"
@@ -33,30 +33,25 @@ import { useFetch } from "../../hooks/useFetch"
 import { getUserInfo, getUserIsAdmin } from "../../redux/user/userSelectors"
 import { getUserFullName } from "../../helpers/utils"
 import emptyImage from "../../assets/adspy_loading_animation.gif"
-import useStyles from "./styles"
-import { AlertDialog } from "../Shared/Dialogs/AlertDialog/AlertDialog"
-import EditPost from "../EditPost/EditPost"
+import VisibilityIcon from "@mui/icons-material/Visibility"
+import PostEditMenu from "../Shared/Menus/PostCreatorEditMenu/PostCreatorEditMenu"
 
 const PostDetailed = () => {
+  const { id } = useParams()
   const [post, setPost] = useState({})
   const [openQuestions, setOpenQuestions] = useState(false)
   const [questions, setQuestions] = useState({})
-  const [openEditPost, setOpenEditPost] = useState(false)
-  const [openAlert, setOpenAlert] = useState(false)
+  const { data, error, loading } = useFetch(`/posts/${id}/with-questions`)
 
-  const { id } = useParams()
   const { t } = useTranslation()
   const navigate = useNavigate()
   const user = useSelector(getUserInfo)
-  const is_admin = useSelector(getUserIsAdmin)
-  const { data, error, loading } = useFetch(`/posts/${id}/with-questions`)
-
-  const classes = useStyles()
+  const isAdmin = useSelector(getUserIsAdmin)
 
   const date = moment(post?.created_at).format("LLLL")
 
   useEffect(() => {
-    if (data?.post?.trusted === false && !is_admin) {
+    if (data?.post?.trusted === false && !isAdmin) {
       if (data.post.user_id !== user.id) {
         navigate("/profile/my-posts")
       }
@@ -120,15 +115,6 @@ const PostDetailed = () => {
     setOpenQuestions(true)
   }
 
-  const toggleOpenEditPost = (open) => {
-    setOpenEditPost(open)
-  }
-
-  const deletePost = async () => {
-    await api.delete(`/posts/${id}`)
-    navigate("/profile/my-posts")
-  }
-
   return (
     <Container size="md">
       <Box
@@ -146,15 +132,19 @@ const PostDetailed = () => {
                 avatar={<UserAvatar user={post?.user} />}
                 title={getUserFullName(post?.user)}
                 subheader={date}
-                // action={
-                //   <>
-                //     {post?.id === user?.id && (
-                //       <IconButton onClick={() => deletePost(post.id)}>
-                //         <DeleteIcon />
-                //       </IconButton>
-                //     )}
-                //   </>
-                // }
+                action={
+                  <>
+                    <Stack
+                      direction="row"
+                      spacing={2}
+                      sx={{ alignItems: "center", height: "50px", marginRight: 2 }}
+                    >
+                      <VisibilityIcon color="action" />
+                      <Typography fontWeight="bold">{post.views}</Typography>
+                      <PostEditMenu userId={post.user_id} />
+                    </Stack>
+                  </>
+                }
               />
               <Divider />
 
@@ -193,15 +183,10 @@ const PostDetailed = () => {
               >
                 <HeartButton post={post} />
 
-                {post?.user_id !== user?.id ? (
+                {post?.user_id !== user?.id && (
                   <>
                     {showConfirmer()}
                     <BlueButton onClick={handleStartChatButtonClick}>{t("Start_chat")}</BlueButton>
-                  </>
-                ) : (
-                  <>
-                    <BlueButton onClick={() => toggleOpenEditPost(true)}>{t("Edit")}</BlueButton>
-                    <Button onClick={() => setOpenAlert(true)}>{t("Delete")}</Button>
                   </>
                 )}
               </CardActions>
@@ -209,14 +194,7 @@ const PostDetailed = () => {
           </>
         )}
       </Box>
-      <EditPost post={post} open={openEditPost} toggleOpen={toggleOpenEditPost} />
-      <AlertDialog
-        open={openAlert}
-        title="Are you sure?"
-        message="Your post will be delated. Are you sure you want to continue?"
-        handleClose={() => setOpenAlert(false)}
-        handleOk={deletePost}
-      />
+
       <PostPopup
         open={openQuestions}
         handleClose={handleQuestionsPopupClose}

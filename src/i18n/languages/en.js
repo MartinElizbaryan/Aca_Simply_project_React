@@ -134,6 +134,12 @@ const en = {
   Your_message_sent: "Your message has been sent!",
   Question: "Question",
   Answer: "Answer",
+  Delete: "Delete",
+  Complete: "Complete",
+  Are_you_sure: "Are you sure?",
+  Complete_message:
+    "Your post will no longer be visible to other users. You can still find it in the My Posts section. Are you sure you want to continue?",
+  Delete_message: "Post will be deleted. Are you sure you want to continue?",
 }
 
 export default en

@@ -15,26 +15,21 @@ import {
 } from "@mui/material"
 import VisibilityIcon from "@mui/icons-material/Visibility"
 import BeenhereIcon from "@mui/icons-material/Beenhere"
+import DoneIcon from "@mui/icons-material/Done"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
 import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
 import BlurBox from "../Shared/BlurBox/BlurBox"
-import EditPost from "../EditPost/EditPost"
 import { getUserFullName } from "../../helpers/utils"
 import { CLOUDINARY_BASE_URL } from "../../constants/constants"
 import emptyImage from "../../assets/adspy_loading_animation.gif"
 
-export default function Post({ post, trustPost, admin, editable, deleteFromMyFavorites }) {
-  const [openEditPost, setOpenEditPost] = useState(false)
+export default function Post({ post, trustPost, admin, deleteFromMyFavorites }) {
   const [trusted, setTrusted] = useState(post.trusted)
   const { t } = useTranslation()
 
   const img = post.images.length ? `${CLOUDINARY_BASE_URL}${post.images[0].src}` : emptyImage
-
-  const toggleOpenEditPost = (open) => {
-    setOpenEditPost(open)
-  }
 
   return (
     <Card>
@@ -95,7 +90,21 @@ export default function Post({ post, trustPost, admin, editable, deleteFromMyFav
         <Typography variant="body2" color="text.secondary" mb={3}>
           {post.description.length > 30 ? post.description.slice(0, 30) + "..." : post.description}
         </Typography>
-        <Chip label={t(post.category.name)} variant="outlined" onClick={() => {}} />
+        <Box>
+          <Chip
+            icon={<DoneIcon />}
+            label={t(post.type)}
+            variant="outlined"
+            onClick={() => {}}
+            sx={{ marginRight: 2 }}
+          />
+          <Chip
+            icon={<DoneIcon />}
+            label={t(post.category.name)}
+            variant="outlined"
+            onClick={() => {}}
+          />
+        </Box>
       </CardContent>
       <Divider />
       <CardActions
@@ -106,11 +115,7 @@ export default function Post({ post, trustPost, admin, editable, deleteFromMyFav
         }}
       >
         <HeartButton post={post} deleteFromMyFavorites={deleteFromMyFavorites} />
-        <Box sx={{ display: "flex", gap: 1 }}>
-          {editable && (
-            <BlueButton onClick={() => toggleOpenEditPost(true)}>{t("Edit")}</BlueButton>
-          )}
-          <EditPost post={post} open={openEditPost} toggleOpen={toggleOpenEditPost} />
+        <Box>
           <Link url={`/posts/${post.id}`}>
             <BlueButton>{t("See_details")}</BlueButton>
           </Link>
