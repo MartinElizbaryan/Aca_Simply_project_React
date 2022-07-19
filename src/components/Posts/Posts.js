@@ -1,14 +1,15 @@
 import { useEffect, useMemo, useState } from "react"
 import { useSearchParams } from "react-router-dom"
-import { Box, Container, Grid, useTheme } from "@mui/material"
+import { Box, Button, Container, Grid, useTheme } from "@mui/material"
 import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined"
 import PostsList from "../PostsList/PostsList"
 import PostsSceleton from "../PostsSceleton/PostsSceleton"
-import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
-import PostsSidebar from "../PostsSidebar/PostsSidebar"
+import PostsSidebar from "../Shared/Sidebars/PostsSidebar/PostsSidebar"
 import DefaultPagination from "../Shared/Pagination/DefaultPagination/DefaultPagination"
+import { Search } from "../Shared/Search/Search"
 import { useFetch } from "../../hooks/useFetch"
 import { getParamsFromFiltering } from "./utils"
+
 import { scrollToTop } from "../../helpers/utils"
 import { POST_PER_PAGE } from "./constants"
 import useStyles from "./styles"
@@ -83,12 +84,33 @@ const Posts = () => {
             alignItems: "center",
           }}
         >
-          <BlueButton
-            onClick={toggleDrawer(!open)}
-            sx={{ margin: 2, textTransform: "none", alignSelf: "end" }}
+          <Box
+            sx={{
+              alignSelf: "end",
+              padding: "20px 15px 8px",
+              display: "flex",
+              alignItems: "center",
+              position: "relative",
+            }}
           >
-            <FilterListOutlinedIcon sx={{ paddingRight: 1 }} /> Search and Filter
-          </BlueButton>
+            <Search />
+            <Button
+              onClick={toggleDrawer(!open)}
+              variant="contained"
+              sx={{
+                marginLeft: 3,
+                height: "40px",
+                fontSize: "14px !important",
+                color: theme.palette.blueButton.textColor,
+                backgroundColor: theme.palette.blueButton.main,
+                "&:hover": {
+                  backgroundColor: theme.palette.blueButton.hover,
+                },
+              }}
+            >
+              <FilterListOutlinedIcon sx={{ paddingRight: 1 }} /> Filter
+            </Button>
+          </Box>
           {loading ? <PostsSceleton /> : <PostsList data={posts} />}
           {!!pageCount && (
             <DefaultPagination onChange={handlePageClick} page={page} count={pageCount} />

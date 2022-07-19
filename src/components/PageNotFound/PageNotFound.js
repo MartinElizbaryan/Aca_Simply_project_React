@@ -1,11 +1,7 @@
-import PageNotFoundImage from "../../../assets/404.jpg"
-import CardMedia from "@mui/material/CardMedia"
-import Grid from "@mui/material/Grid"
-import Box from "@mui/material/Box"
-import Typography from "@mui/material/Typography"
 import { Link as RouterLink } from "react-router-dom"
-import Link from "@mui/material/Link"
+import { Box, CardMedia, Grid, Link, Typography } from "@mui/material"
 import HomeIcon from "@mui/icons-material/Home"
+import PageNotFoundImage from "../../assets/404.png"
 import useStyles from "./style"
 
 const PageNotFound = () => {

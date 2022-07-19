@@ -1,22 +1,27 @@
+import { useCallback, useState } from "react"
 import { useDispatch } from "react-redux"
-import api from "../api/api"
-import { useCallback } from "react"
 import { setIsLoading } from "../redux/loading/loadingSlice"
+import api from "../api/api"
 
 export default function useLazyFetch() {
+  const [data, setData] = useState({})
+  const [error, setError] = useState(null)
   const dispatch = useDispatch()
-
-  const reFetch = useCallback(async (url, method = "get", config) => {
+  const apiRequest = useCallback(async (url, method = "get", config) => {
     try {
       dispatch(setIsLoading())
       const response = await api[method](url, config || {})
-      return { data: response.data }
+      setData(response.data)
     } catch (err) {
-      return { error: err }
+      setError(err)
     } finally {
       dispatch(setIsLoading())
     }
   }, [])
 
-  return reFetch
+  return {
+    data,
+    error,
+    apiRequest,
+  }
 }

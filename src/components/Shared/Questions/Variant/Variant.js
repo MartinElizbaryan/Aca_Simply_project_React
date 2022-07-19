@@ -9,21 +9,20 @@ import { useTranslation } from "react-i18next"
 export default function Variant({ answers, questionIndex, formik }) {
   const { t } = useTranslation()
   const [variant, setVariant] = useState("")
-  const [error, setError] = useState("")
-  console.log(formik.errors)
+  // const [error, setError] = useState("")
+
   const addVariantRadio = () => {
     if (variant !== "") {
       formik.setFieldValue(`questions[${questionIndex}].answers`, [
         ...formik.values.questions[questionIndex].answers,
         { title: variant, status: false },
       ])
-      setError("")
+      // setError("")
     } else {
-      setError(t("Variant_empty"))
+      // setError(t("Variant_empty"))
     }
 
-    setVariant("")
-    console.log("dsa")
+    // setVariant("")
   }
   const classes = useStyles()
   return (
@@ -43,8 +42,8 @@ export default function Variant({ answers, questionIndex, formik }) {
               sx={{
                 marginRight: 2,
               }}
-              error={error}
-              helperText={error}
+              // error={error}
+              // helperText={error}
             />
             <AddButton onClick={addVariantRadio} />
           </Grid>

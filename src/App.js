@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from "react"
+import { lazy, Suspense, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { ThemeProvider } from "@mui/material/styles"
@@ -7,6 +7,7 @@ import {
   AuthorizedUserPrivateRoute,
   UnauthorizedUserPrivateRoute,
 } from "./routes/PrivateRoutes"
+import Main from "./components/Main/Main"
 import Loading from "./components/Shared/Loading/Loading"
 import api from "./api/api"
 import history from "./helpers/history"
@@ -17,14 +18,13 @@ import i18n from "./i18n/languages/translations/translations.js"
 import darkTheme from "./themes/darkTheme"
 import lightTheme from "./themes/lightTheme"
 import "./App.css"
-import Main from "./components/Main/Main"
-// const Main = lazy(() => import("./components/Main/Main"))
+
 const Chat = lazy(() => import("./components/Chat/Chat"))
 const Home = lazy(() => import("./components/Home/Home"))
 const MyPosts = lazy(() => import("./components/MyPosts/MyPosts"))
 const ConfirmedPosts = lazy(() => import("./components/ConfirmedPosts/ConfirmedPosts"))
 const FavoritePosts = lazy(() => import("./components/FavoritePosts/FavoritePosts"))
-const PageNotFound = lazy(() => import("./components/Errors/PageNotFound/PageNotFound"))
+const PageNotFound = lazy(() => import("./components/PageNotFound/PageNotFound"))
 const Profile = lazy(() => import("./components/Profile/Profile"))
 const PostSingle = lazy(() => import("./components/PostDetailed/PostDetailed"))
 const Posts = lazy(() => import("./components/Posts/Posts"))
@@ -42,7 +42,6 @@ const Account = lazy(() => import("./components/Account/Account"))
 const Terms = lazy(() => import("./components/Terms/Terms"))
 
 function App() {
-  const [loading, setLoading] = useState(true)
   const themeMode = useSelector(getThemeMode)
   const dispatch = useDispatch()
   useEffect(() => {
@@ -52,12 +51,11 @@ function App() {
     const getMe = async () => {
       try {
         const res = await api.get("/users/me")
+        console.log(res)
         const user = res.data.user
 
         dispatch(setUserInfo(user))
         connectToSocket(user.id)
-
-        setLoading(false)
       } catch (e) {
         console.log(e)
         dispatch(deleteUserInfo())

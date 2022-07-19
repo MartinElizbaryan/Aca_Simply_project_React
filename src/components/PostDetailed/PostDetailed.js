@@ -18,10 +18,10 @@ import {
   Chip,
   Container,
   Divider,
-  IconButton,
+  Stack,
   Typography,
 } from "@mui/material"
-import DeleteIcon from "@mui/icons-material/Delete"
+import LocationOnIcon from "@mui/icons-material/LocationOn"
 import Slider from "../Slider/Slider"
 import HeartButton from "../Shared/Buttons/HeartButton/HeartButton"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
@@ -31,35 +31,34 @@ import UserAvatar from "../Shared/Avatars/UserAvatar/UserAvatar"
 import PostsSceletonSingle from "../PostsSceletonSingle/PostsSceletonSingle"
 import api from "../../api/api"
 import { useFetch } from "../../hooks/useFetch"
-import { getUserInfo, getUserIsAdmin } from "../../redux/user/userSelectors"
+import { getUserId, getUserIsAdmin } from "../../redux/user/userSelectors"
 import { getUserFullName } from "../../helpers/utils"
 import emptyImage from "../../assets/adspy_loading_animation.gif"
-import useStyles from "./styles"
+import VisibilityIcon from "@mui/icons-material/Visibility"
+import DoneIcon from "@mui/icons-material/Done"
+import PostMenu from "../Shared/Menus/PostMenu/PostMenu"
 
 const PostDetailed = () => {
-  const [post, setPost] = useState({})
-  const [open, setOpen] = useState(false)
-  const [questions, setQuestions] = useState({})
-  const [openEditPost, setOpenEditPost] = useState(false)
-
   const { id } = useParams()
-  const { t } = useTranslation()
-  const navigate = useNavigate()
-  const user = useSelector(getUserInfo)
-  const is_admin = useSelector(getUserIsAdmin)
+  const [post, setPost] = useState({})
+  const [openQuestions, setOpenQuestions] = useState(false)
+  const [questions, setQuestions] = useState({})
   const { data, error, loading } = useFetch(`/posts/${id}/with-questions`)
 
-  const classes = useStyles()
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const isAdmin = useSelector(getUserIsAdmin)
+  const userId = useSelector(getUserId)
 
   const date = moment(post?.created_at).format("LLLL")
 
   useEffect(() => {
-    if (data?.post?.trusted === false && !is_admin) {
-      if (data.post.user_id !== user.id) {
+    if (data?.post?.trusted === false && !isAdmin) {
+      if (data.post.user_id !== userId) {
         navigate("/profile/my-posts")
       }
     }
-    setPost(data.post)
+    setPost(data.post || {})
     data.post?.questions.forEach((question) => {
       question.answers[0].checked = true
     })
@@ -69,7 +68,7 @@ const PostDetailed = () => {
   const showConfirmer = () => {
     const version = {
       [post?.confirmer_id]: <Chip label={t("already_confirmed")} variant="outlined" />,
-      [user?.id]: <Chip label={t("confirmed_by_yourself")} variant="outlined" />,
+      [userId]: <Chip label={t("confirmed_by_yourself")} variant="outlined" />,
       null: (
         <BlueButton onClick={toConfirm}>
           {post?.type === "FOUND" ? t("It_is_mine") : t("I_found")}
@@ -88,9 +87,8 @@ const PostDetailed = () => {
   const toConfirm = async () => {
     try {
       const response = await api.patch(`/posts/confirmed/${id}`)
-      console.log(response)
       if (response.status === 200) {
-        setPost({ ...post, confirmer_id: user.id })
+        setPost({ ...post, confirmer_id: userId })
       }
     } catch (err) {
       console.log(err)
@@ -105,8 +103,8 @@ const PostDetailed = () => {
     setQuestions([...questions])
   }
 
-  const handlePopupClose = () => {
-    setOpen(false)
+  const handleQuestionsPopupClose = () => {
+    setOpenQuestions(false)
   }
 
   const handleStartChatButtonClick = async () => {
@@ -116,16 +114,7 @@ const PostDetailed = () => {
         user_id: +post.user_id,
         questions: [],
       })
-    setOpen(true)
-  }
-
-  const toggleOpenEditPost = (open) => {
-    setOpenEditPost(open)
-  }
-
-  const deletePost = async (id) => {
-    await api.delete(`/posts/${id}`)
-    navigate("/profile/my-posts")
+    setOpenQuestions(true)
   }
 
   return (
@@ -134,6 +123,9 @@ const PostDetailed = () => {
         sx={{
           marginTop: 10,
           marginBottom: 10,
+          margin: {
+            md: 10,
+          },
         }}
       >
         {loading ? (
@@ -147,17 +139,27 @@ const PostDetailed = () => {
                 subheader={date}
                 action={
                   <>
-                    {post?.id === user?.id && (
-                      <IconButton onClick={() => deletePost(post.id)}>
-                        <DeleteIcon />
-                      </IconButton>
-                    )}
+                    <Stack
+                      direction="row"
+                      spacing={2}
+                      sx={{ alignItems: "center", height: "50px" }}
+                    >
+                      {post.trusted && (
+                        <>
+                          <VisibilityIcon color="action" />
+                          <Typography fontWeight="bold" sx={{ marginRight: 2 }}>
+                            {post.views}
+                          </Typography>
+                        </>
+                      )}
+                      {(userId === post.user_id || isAdmin) && <PostMenu post={post} />}
+                    </Stack>
                   </>
                 }
               />
               <Divider />
 
-              {post?.images.length > 0 ? (
+              {post?.images?.length > 0 ? (
                 <Slider images={post?.images} />
               ) : (
                 <CardMedia
@@ -174,13 +176,22 @@ const PostDetailed = () => {
               )}
               <Divider />
               <CardContent>
-                <Typography variant="h6" color="text.dark" mb={3} fontWeight="bold">
-                  {post?.name}
-                </Typography>
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                  <Typography variant="h6" color="text.dark" mb={3} fontWeight="bold">
+                    {post?.name}
+                  </Typography>
+                  {post.address && <Chip icon={<LocationOnIcon />} label={post.address} />}
+                </Box>
                 <Typography variant="body2" color="text.secondary" mb={3}>
                   {post?.description}
                 </Typography>
-                <Chip label={t(post?.category?.name)} variant="outlined" onClick={() => {}} />
+                <Chip
+                  icon={<DoneIcon />}
+                  label={t(post.type)}
+                  variant="outlined"
+                  sx={{ marginRight: 2 }}
+                />
+                <Chip icon={<DoneIcon />} label={t(post?.category?.name)} variant="outlined" />
               </CardContent>
               <Divider />
               <CardActions
@@ -192,15 +203,10 @@ const PostDetailed = () => {
               >
                 <HeartButton post={post} />
 
-                {post?.user_id !== user?.id ? (
+                {post?.user_id !== userId && (
                   <>
                     {showConfirmer()}
                     <BlueButton onClick={handleStartChatButtonClick}>{t("Start_chat")}</BlueButton>
-                  </>
-                ) : (
-                  <>
-                    {" "}
-                    <BlueButton onClick={() => toggleOpenEditPost(true)}>{t("Edit")}</BlueButton>
                   </>
                 )}
               </CardActions>
@@ -208,9 +214,10 @@ const PostDetailed = () => {
           </>
         )}
       </Box>
+
       <PostPopup
-        open={open}
-        handleClose={handlePopupClose}
+        open={openQuestions}
+        handleClose={handleQuestionsPopupClose}
         title={"Answer the questions"}
         handleSubmit={() =>
           sendAnswers({

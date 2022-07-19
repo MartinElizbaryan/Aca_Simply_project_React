@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { useFormik } from "formik"
 import { Container, Grid, Stack, Typography, useTheme } from "@mui/material"
 import HomeIcon from "@mui/icons-material/Home"
 import EmailIcon from "@mui/icons-material/Email"
@@ -6,23 +9,21 @@ import SendIcon from "@mui/icons-material/Send"
 import { OutlinedInput } from "../Shared/Inputs/OutlinedInput/OutlinedInput"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
-import { colors } from "../../constants/styles"
-import useStyles from "./styles"
-import { useTranslation } from "react-i18next"
-import { useFormik } from "formik"
-import { validation } from "./validation"
 import { SuccessDialog } from "../Shared/Dialogs/SuccessDialog/SuccessDialog"
 import { ErrorDialog } from "../Shared/Dialogs/ErrorDialog/ErrorDialog"
-import { useState } from "react"
+import { validation } from "./validation"
 import useLazyFetch from "../../hooks/useLazyFetch"
+import { colors } from "../../constants/styles"
+import useStyles from "./styles"
 
 const Contact = () => {
   const [success, setSuccess] = useState(false)
-  const [error, setError] = useState(false)
-  const request = useLazyFetch()
+  const [openError, setOpenError] = useState(false)
+  const { data, error, apiRequest } = useLazyFetch()
+
   const { t } = useTranslation()
-  const classes = useStyles()
   const theme = useTheme()
+  const classes = useStyles()
 
   const formik = useFormik({
     initialValues: {
@@ -34,13 +35,15 @@ const Contact = () => {
     },
     validationSchema: validation,
     onSubmit: async (values) => {
-      const res = await request("/contact/send", "post", values)
-      console.log("onSubmit", res)
-      formik.resetForm()
-      if (res.data.status === 204) setSuccess(true)
-      if (res.error) setError(true)
+      await apiRequest("/contact/send", "post", values)
     },
   })
+
+  useEffect(() => {
+    formik.resetForm()
+    if (data.status === 204) setSuccess(true)
+    else if (error) setOpenError(true)
+  }, [data])
 
   return (
     <Container className={classes.container} maxWidth={false}>
@@ -183,7 +186,11 @@ const Contact = () => {
         onClose={() => setSuccess(false)}
         message={t("Your_message_sent")}
       />
-      <ErrorDialog open={error} onClose={() => setError(false)} message={t("oops_went_wrong")} />
+      <ErrorDialog
+        open={openError}
+        onClose={() => setOpenError(false)}
+        message={t("oops_went_wrong")}
+      />
     </Container>
   )
 }

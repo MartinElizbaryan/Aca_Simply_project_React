@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useFormik } from "formik"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
@@ -17,11 +17,11 @@ import { ErrorDialog } from "../Shared/Dialogs/ErrorDialog/ErrorDialog"
 import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import UnlabeledInput from "../Shared/Inputs/UnlabeledInput/UnlabeledInput"
 import { SuccessDialog } from "../Shared/Dialogs/SuccessDialog/SuccessDialog"
-import { editUserInfo } from "./utils"
 import { validationSchema } from "./vaildation"
 import { setUserInfo } from "../../redux/user/userSlice"
 import { getUserInfo } from "../../redux/user/userSelectors"
 import useStyles from "./styles"
+import useLazyFetch from "../../hooks/useLazyFetch"
 
 const Profile = () => {
   const { t } = useTranslation()
@@ -30,6 +30,7 @@ const Profile = () => {
   const [error, setError] = useState(false)
   const dispatch = useDispatch()
   const classes = useStyles()
+  const { data, error: errorFromRequest, apiRequest } = useLazyFetch()
 
   const onSuccessDialogClose = () => {
     setSuccess(false)
@@ -47,18 +48,16 @@ const Profile = () => {
     enableReinitialize: true,
     validationSchema: validationSchema,
     onSubmit: async ({ name, surname, phone }) => {
-      try {
-        const res = await editUserInfo({ name, surname, phone })
-        if (res.status === 200) {
-          setSuccess(true)
-          dispatch(setUserInfo(res.user))
-        }
-      } catch (e) {
-        console.log(e)
-        setError(true)
-      }
+      await apiRequest("/users", "put", { name, surname, phone })
     },
   })
+
+  useEffect(() => {
+    if (data.status === 200) {
+      setSuccess(true)
+      dispatch(setUserInfo(data.user))
+    } else if (errorFromRequest) setError(true)
+  }, [data])
 
   return (
     <>

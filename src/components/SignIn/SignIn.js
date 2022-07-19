@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useFormik } from "formik"
 import { useDispatch } from "react-redux"
 import { useTranslation } from "react-i18next"
@@ -14,27 +14,41 @@ import {
   useTheme,
 } from "@mui/material"
 import { InputField } from "../Shared/Inputs/InputField/InputField"
+import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
-import { signIn } from "./utils"
-import { setUserInfo } from "../../redux/user/userSlice"
-import connectToSocket from "../../helpers/connectToSocket"
 import { validationSchema } from "./validation"
 import useStyles from "./styles"
-import { BlueButton } from "../Shared/Buttons/BlueButton/BlueButton"
+import useLazyFetch from "../../hooks/useLazyFetch"
+import { setUserInfo } from "../../redux/user/userSlice"
+import connectToSocket from "../../helpers/connectToSocket"
 
 export default function SignIn() {
-  const { t } = useTranslation()
-  const dispatch = useDispatch()
-
   const [open, setOpen] = useState(false)
   const [errMessage, setErrMessage] = useState("")
   const [isVisible, setIsVisible] = useState(false)
-  const theme = useTheme()
+  const { data, error, apiRequest } = useLazyFetch()
+  const { t } = useTranslation()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const theme = useTheme()
+
+  const classes = useStyles()
 
   const handleClose = () => {
     setOpen(false)
   }
+
+  useEffect(() => {
+    if (data.auth) {
+      localStorage.setItem("accessToken", data.accessToken)
+      dispatch(setUserInfo(data.user))
+      connectToSocket(data.user.id)
+      navigate("/profile")
+    } else if (error) {
+      setOpen(true)
+      setErrMessage(t(error.response.data.details))
+    }
+  }, [data, error])
 
   const formik = useFormik({
     initialValues: {
@@ -43,20 +57,10 @@ export default function SignIn() {
     },
     validationSchema: validationSchema,
     onSubmit: async ({ email, password }) => {
-      try {
-        const data = await signIn({ email, password })
-        dispatch(setUserInfo(data.user))
-        connectToSocket(data.user.id)
-        navigate("/profile")
-        setOpen(false)
-      } catch (e) {
-        setOpen(true)
-        setErrMessage(t(e.response.data.details))
-      }
+      const res = await apiRequest("/auth/sign-in", "post", { email, password })
     },
   })
 
-  const classes = useStyles()
   return (
     <Box
       className={classes.totalBox}

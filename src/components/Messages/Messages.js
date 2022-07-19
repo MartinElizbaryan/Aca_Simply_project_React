@@ -10,6 +10,7 @@ import socket from "../../helpers/socket"
 import { getUserInfo } from "../../redux/user/userSelectors"
 import { withIdChecking } from "../../hocs/withIdChecking"
 import useStyles from "./styles"
+import useLazyFetch from "../../hooks/useLazyFetch"
 
 function Messages() {
   const [messages, setMessages] = useState([])
@@ -20,6 +21,7 @@ function Messages() {
   const { id } = useParams()
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const { data, error, apiRequest } = useLazyFetch()
 
   const classes = useStyles()
 
@@ -29,15 +31,17 @@ function Messages() {
     }
 
     ;(async () => {
-      const res = await api.get(`/messages/${id}`)
-      if (res.data.messages.length === 0) navigate("/chat")
-      setMessages(res.data.messages)
+      await apiRequest(`/messages/${id}`, "get")
     })()
     ;(async () => {
       await api.patch(`/messages/${id}`)
       socket.emit("messageIsSeen", { to_id: id })
     })()
   }, [id])
+
+  useEffect(() => {
+    setMessages(data.messages)
+  }, [data])
 
   useEffect(() => {
     const el = list.current
@@ -62,7 +66,6 @@ function Messages() {
     })
 
     return () => {
-      console.log("render off")
       socket.off("receive")
       socket.off("seenMessages")
     }
@@ -89,7 +92,7 @@ function Messages() {
   return (
     <Grid item xs={12} md={9} sx={{ marginTop: "60px" }}>
       <List className={classes.messageArea} ref={list}>
-        {messages.map((message) => {
+        {messages?.map((message) => {
           return (
             <Message
               key={message.id}
