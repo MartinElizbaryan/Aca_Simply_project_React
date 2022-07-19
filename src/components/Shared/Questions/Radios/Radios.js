@@ -6,6 +6,15 @@ import { IconButton } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 
 export default function Radios({ answer, answerIndex, questionIndex, formik }) {
+  const handelDeleteAnswer = (questionIndex, answerIndex) => {
+    formik.setFieldValue(
+      `questions[${questionIndex}].answers`,
+      formik.values.questions[questionIndex].answers.filter((answer, aIndex) => {
+        return aIndex !== answerIndex
+      })
+    )
+  }
+
   const variantInputValue = answer.title.split(" ").join("").toLowerCase()
   const setStatus = (e) => {
     formik.values.questions[questionIndex].answers.map((item) => {
@@ -28,7 +37,7 @@ export default function Radios({ answer, answerIndex, questionIndex, formik }) {
           }}
         />
       </FormGroup>
-      <IconButton color="error">
+      <IconButton color="error" onClick={() => handelDeleteAnswer(questionIndex, answerIndex)}>
         <DeleteIcon />
       </IconButton>
     </Grid>

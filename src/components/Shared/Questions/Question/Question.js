@@ -12,6 +12,16 @@ import useStyles from "./style"
 export default function Question({ questionIndex, question, formik }) {
   const { t } = useTranslation()
   const classes = useStyles()
+
+  const handelDeleteQuestion = (questionIndex) => {
+    formik.setFieldValue(
+      "questions",
+      formik.values.questions.filter((question, qIndex) => {
+        return qIndex !== questionIndex
+      })
+    )
+  }
+
   return (
     <Box>
       <Grid container spacing={2} p={2}>
@@ -46,7 +56,7 @@ export default function Question({ questionIndex, question, formik }) {
               formik.errors.questions[questionIndex].title
             }
           />
-          <IconButton size="large">
+          <IconButton size="large" onClick={() => handelDeleteQuestion(questionIndex)}>
             <DeleteIcon fontSize="inherit" color="error" />
           </IconButton>
         </Grid>

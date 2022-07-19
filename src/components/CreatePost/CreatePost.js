@@ -59,8 +59,8 @@ export default function CreatePost({ open, toggleOpen }) {
             setPreviewSource={setPreviewSource}
             previewSource={previewSource}
           />
-          <Grid item xs={12} md={6} lg={12} alignItems="center">
-            <AddButton onClick={addQuestionList} />
+          <Grid item xs={12} md={6} lg={12} alignItems="center" onClick={addQuestionList}>
+            <AddButton />
             <Typography variant="span" ml={3}>
               {t("Add_Question")}
             </Typography>
