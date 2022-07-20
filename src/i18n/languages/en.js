@@ -150,6 +150,9 @@ const en = {
     "No Problem! Enter your email below and we will send you an email with instruction to reset your password.",
   Send_Code: "Send Code",
   Back_to: "Back to",
+  No_Alert: "You have no alerts.",
+  No_Message: "There is nothing to show. You havn't started the chat yet.",
+  Mark_all: "Mark all as read",
 }
 
 export default en

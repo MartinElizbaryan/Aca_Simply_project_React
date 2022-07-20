@@ -1,4 +1,5 @@
 import React from "react"
+import { useTranslation } from "react-i18next"
 import { List, ListItem, useTheme } from "@mui/material"
 import ChatUserInfo from "../ChatUserInfo/ChatUserInfo"
 import { CustomLink as Link } from "../Shared/Links/CustomLink/CustomLink"
@@ -6,6 +7,7 @@ import { colors } from "../../constants/styles"
 
 function ChatUserInfoBlock({ users, onlineUsers, onClick }) {
   const theme = useTheme()
+  const { t } = useTranslation()
 
   return (
     <List onClick={onClick} sx={{ minWidth: 200 }}>
@@ -21,7 +23,7 @@ function ChatUserInfoBlock({ users, onlineUsers, onClick }) {
       ) : (
         <>
           <ListItem sx={{ marginTop: 5, textAlign: "center", color: theme.palette.mainColor }}>
-            {"There is nothing to show. You havn't started the chat yet."}
+            {t("No_Message")}
           </ListItem>
         </>
       )}

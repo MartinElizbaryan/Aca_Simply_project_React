@@ -5,10 +5,13 @@ import socket from "../../helpers/socket"
 import { useFetch } from "../../hooks/useFetch"
 import useStyles from "./styles"
 import api from "../../api/api"
+import { useTranslation } from "react-i18next"
 
 export const Notifications = ({ handleNotificationClose, changeNotificationsCount, ...props }) => {
   const { data, loading, error, reFetch } = useFetch("/notifications")
   const [notifications, setNotifications] = useState([])
+  const { t } = useTranslation()
+
   const classes = useStyles()
 
   useEffect(() => {
@@ -47,13 +50,13 @@ export const Notifications = ({ handleNotificationClose, changeNotificationsCoun
         {notifications.length ? (
           <Box className={classes.markBox}>
             <Box className={classes.markButton} onClick={handleMarkButtonClick}>
-              <Typography sx={{ paddingLeft: 1, fontSize: "0.8rem" }}>Mark all as read</Typography>
+              <Typography sx={{ paddingLeft: 1, fontSize: "0.8rem" }}>{t("Mark_all")}</Typography>
             </Box>
           </Box>
         ) : (
           <>
             <ListItem>
-              <Typography>You have no alerts.</Typography>
+              <Typography>{t("No_Alert")}</Typography>
             </ListItem>
           </>
         )}
