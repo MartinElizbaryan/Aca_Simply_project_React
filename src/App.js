@@ -26,7 +26,7 @@ const ConfirmedPosts = lazy(() => import("./components/ConfirmedPosts/ConfirmedP
 const FavoritePosts = lazy(() => import("./components/FavoritePosts/FavoritePosts"))
 const PageNotFound = lazy(() => import("./components/PageNotFound/PageNotFound"))
 const Profile = lazy(() => import("./components/Profile/Profile"))
-const PostSingle = lazy(() => import("./components/PostDetailed/PostDetailed"))
+const PostDetailed = lazy(() => import("./components/PostDetailed/PostDetailed"))
 const Posts = lazy(() => import("./components/Posts/Posts"))
 const RegistrationLogin = lazy(() => import("./components/RegistrationLogin/RegistrationLogin"))
 const Security = lazy(() => import("./components/Security/Security"))
@@ -51,9 +51,8 @@ function App() {
     const getMe = async () => {
       try {
         const res = await api.get("/users/me")
-        console.log(res)
+        if (!res) return
         const user = res.data.user
-
         dispatch(setUserInfo(user))
         connectToSocket(user.id)
       } catch (e) {
@@ -83,15 +82,6 @@ function App() {
                 element={
                   <Suspense fallback={<Loading />}>
                     <Posts />
-                  </Suspense>
-                }
-              />
-              <Route
-                exact
-                path="/posts/:id"
-                element={
-                  <Suspense fallback={<Loading />}>
-                    <PostSingle />
                   </Suspense>
                 }
               />
@@ -206,6 +196,15 @@ function App() {
                     </Suspense>
                   }
                 >
+                  <Route
+                    exact
+                    path="/posts/:id"
+                    element={
+                      <Suspense fallback={<Loading />}>
+                        <PostDetailed />
+                      </Suspense>
+                    }
+                  />
                   <Route
                     exact
                     path="/profile"

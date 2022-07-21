@@ -43,12 +43,12 @@ const PostDetailed = () => {
   const [post, setPost] = useState({})
   const [openQuestions, setOpenQuestions] = useState(false)
   const [questions, setQuestions] = useState({})
+  const userId = useSelector(getUserId)
   const { data, error, loading } = useFetch(`/posts/${id}/with-questions`)
 
   const { t } = useTranslation()
   const navigate = useNavigate()
   const isAdmin = useSelector(getUserIsAdmin)
-  const userId = useSelector(getUserId)
 
   const date = moment(post?.created_at).format("LLLL")
 
