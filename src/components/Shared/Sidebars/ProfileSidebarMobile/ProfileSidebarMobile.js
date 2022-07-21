@@ -10,6 +10,9 @@ export default function ProfileSidebarMobile() {
   const [open, setOpen] = useState(false)
   const location = useLocation()
 
+  const iOS = typeof navigator !== "undefined" && /iPad|iPhone|iPod/.test(navigator.userAgent)
+  console.log(iOS)
+
   const toggleDrawer = (open) => () => {
     setOpen(open)
   }
@@ -31,6 +34,8 @@ export default function ProfileSidebarMobile() {
         open={open}
         onClose={toggleDrawer(false)}
         onOpen={toggleDrawer(true)}
+        disableBackdropTransition={!iOS}
+        disableDiscovery={iOS}
       >
         <Box onClick={toggleDrawer(false)}>
           <ProfileSidebar />
